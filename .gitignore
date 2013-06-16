@@ -1,4 +1,5 @@
-*.jar
+jomp16-bot1.jar
 plugins/
 .idea
 out/
+*-sources.jar
