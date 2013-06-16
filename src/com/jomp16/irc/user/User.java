@@ -7,15 +7,19 @@
 
 package com.jomp16.irc.user;
 
-public class User {
-    private final String userName;
-    private final String hostName;
-    private final String hostMask;
+import com.jomp16.irc.event.Level;
 
-    public User(String userName, String hostName, String hostMask) {
+public class User {
+    private String userName;
+    private String hostName;
+    private String hostMask;
+    private Level level;
+
+    public User(String userName, String hostName, String hostMask, Level level) {
         this.userName = userName;
         this.hostName = hostName;
         this.hostMask = hostMask;
+        this.level = level;
     }
 
     public String getUserName() {
@@ -32,5 +36,13 @@ public class User {
 
     public String getCompleteHost() {
         return hostName + "@" + hostMask;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
     }
 }

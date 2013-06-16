@@ -14,6 +14,7 @@ public class Configuration {
     private String server;
     private String prefix;
     private int port;
+    private int commandLock;
     private boolean verbose;
 
     public Configuration(Builder builder) {
@@ -23,6 +24,7 @@ public class Configuration {
         this.hostMask = builder.getHostMask();
         this.prefix = builder.getPrefix();
         this.port = builder.getPort();
+        this.commandLock = builder.getCommandLock();
         this.verbose = builder.isVerbose();
     }
 
@@ -54,6 +56,10 @@ public class Configuration {
         return port;
     }
 
+    public int getCommandLock() {
+        return commandLock;
+    }
+
     public boolean isVerbose() {
         return verbose;
     }
@@ -65,13 +71,8 @@ public class Configuration {
         private String hostMask = "jomp16-bot";
         private String prefix = "!";
         private int port = 6667;
+        private int commandLock = 5;
         private boolean verbose = false;
-
-        public Builder setServer(String server, int port) {
-            this.server = server;
-            this.port = port;
-            return this;
-        }
 
         public Configuration buildConfiguration() {
             return new Configuration(this);
@@ -101,6 +102,21 @@ public class Configuration {
 
         public Builder setServer(String server) {
             this.server = server;
+            return this;
+        }
+
+        public Builder setServer(String server, int port) {
+            this.server = server;
+            this.port = port;
+            return this;
+        }
+
+        public int getCommandLock() {
+            return commandLock;
+        }
+
+        public Builder setCommandLock(int commandLock) {
+            this.commandLock = commandLock;
             return this;
         }
 
