@@ -29,6 +29,7 @@ import java.util.ArrayList;
 
 public class IRCManager {
     private ArrayList<Event> events = new ArrayList<>();
+    private ArrayList<String> owners = new ArrayList<>();
     private ArrayList<String> admins = new ArrayList<>();
     private ArrayList<String> mods = new ArrayList<>();
     private BufferedWriter ircWriter;
@@ -79,6 +80,10 @@ public class IRCManager {
         }
     }
 
+    public void addOwner(String owner) {
+        owners.add(owner);
+    }
+
     public void addAdmin(String admin) {
         admins.add(admin);
     }
@@ -97,6 +102,10 @@ public class IRCManager {
 
     public ArrayList<Event> getEvents() {
         return events;
+    }
+
+    public ArrayList<String> getOwners() {
+        return owners;
     }
 
     public ArrayList<String> getAdmins() {

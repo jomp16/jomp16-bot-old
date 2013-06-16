@@ -10,5 +10,6 @@ package com.jomp16.irc.event;
 public enum Level {
     NORMAL,
     MOD,
-    ADMIN
+    ADMIN,
+    OWNER
 }

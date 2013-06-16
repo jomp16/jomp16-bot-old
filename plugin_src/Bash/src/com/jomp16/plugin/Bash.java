@@ -7,12 +7,12 @@
 
 package com.jomp16.plugin;
 
-import com.jomp16.irc.plugin.help.HelpRegister;
 import com.jomp16.irc.event.CommandFilter;
 import com.jomp16.irc.event.Event;
 import com.jomp16.irc.event.Level;
 import com.jomp16.irc.event.listener.CommandEvent;
 import com.jomp16.irc.event.listener.InitEvent;
+import com.jomp16.irc.plugin.help.HelpRegister;
 import com.jomp16.language.LanguageManager;
 import com.jomp16.language.LanguageNotFoundException;
 import com.jomp16.language.LanguageStringNotFoundException;
@@ -25,7 +25,7 @@ import java.net.URLDecoder;
 public class Bash extends Event {
     private LanguageManager languageManager;
 
-    @CommandFilter(value = "exec", level = Level.ADMIN)
+    @CommandFilter(value = "exec", level = Level.OWNER)
     public void exec(CommandEvent commandEvent) throws LanguageStringNotFoundException {
         Process process = null;
         StringBuilder builder = new StringBuilder();
@@ -107,8 +107,8 @@ public class Bash extends Event {
             }
         }
 
-        initEvent.addHelp(this, new HelpRegister("exec", languageManager.getString("HelpExec"), languageManager.getString("UsageExec"), Level.ADMIN));
-        initEvent.addHelp(this, new HelpRegister("bash", languageManager.getString("HelpBash"), languageManager.getString("UsageBash"), Level.ADMIN));
+        initEvent.addHelp(this, new HelpRegister("exec", languageManager.getString("HelpExec"), languageManager.getString("UsageExec"), Level.OWNER));
+        initEvent.addHelp(this, new HelpRegister("bash", languageManager.getString("HelpBash"), languageManager.getString("UsageBash"), Level.OWNER));
         super.onInit(initEvent);
     }
 }

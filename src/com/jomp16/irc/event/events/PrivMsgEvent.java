@@ -93,18 +93,23 @@ public class PrivMsgEvent extends Event {
                             eventRegister.method.invoke(eventRegister.event, commandEvent);
                             break;
                         case MOD:
-                            if (ircManager.getMods().contains(user.getCompleteHost())) {
+                            if (ircManager.getMods().contains(user.getCompleteHost()) || ircManager.getAdmins().contains(user.getCompleteHost()) || ircManager.getOwners().contains(user.getCompleteHost())) {
                                 eventRegister.method.invoke(eventRegister.event, commandEvent);
                             } else {
-                                System.out.println(user.getCompleteHost());
                                 ircManager.getOutputIRC().sendMessage(channel.getTargetName(), user.getUserName(), "No enough permission to run that command =(");
                             }
                             break;
                         case ADMIN:
-                            if (ircManager.getAdmins().contains(user.getCompleteHost())) {
+                            if (ircManager.getAdmins().contains(user.getCompleteHost()) || ircManager.getOwners().contains(user.getCompleteHost())) {
                                 eventRegister.method.invoke(eventRegister.event, commandEvent);
                             } else {
-                                System.out.println(user.getCompleteHost());
+                                ircManager.getOutputIRC().sendMessage(channel.getTargetName(), user.getUserName(), "No enough permission to run that command =(");
+                            }
+                            break;
+                        case OWNER:
+                            if (ircManager.getOwners().contains(user.getCompleteHost())) {
+                                eventRegister.method.invoke(eventRegister.event, commandEvent);
+                            } else {
                                 ircManager.getOutputIRC().sendMessage(channel.getTargetName(), user.getUserName(), "No enough permission to run that command =(");
                             }
                             break;

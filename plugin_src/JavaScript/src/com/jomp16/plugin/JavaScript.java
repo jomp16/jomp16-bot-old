@@ -7,13 +7,13 @@
 
 package com.jomp16.plugin;
 
-import com.jomp16.irc.plugin.help.HelpRegister;
 import com.jomp16.irc.event.CommandFilter;
 import com.jomp16.irc.event.Event;
 import com.jomp16.irc.event.Level;
 import com.jomp16.irc.event.listener.CommandEvent;
 import com.jomp16.irc.event.listener.DisableEvent;
 import com.jomp16.irc.event.listener.InitEvent;
+import com.jomp16.irc.plugin.help.HelpRegister;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -21,7 +21,7 @@ import javax.script.ScriptEngineManager;
 public class JavaScript extends Event {
     private static ScriptEngine scriptEngine = null;
 
-    @CommandFilter(value = "js", level = Level.ADMIN)
+    @CommandFilter(value = "js", level = Level.OWNER)
     public void js(CommandEvent commandEvent) throws Exception {
         if (commandEvent.getMessage().length() > 4) {
             scriptEngine.put("commandEvent", commandEvent);
@@ -47,7 +47,7 @@ public class JavaScript extends Event {
             getLog().debug("Created new instance of ScriptEngine");
             scriptEngine = new ScriptEngineManager().getEngineByName("JavaScript");
         }
-        initEvent.addHelp(this, new HelpRegister("js", "Run a java/javascript command", "js java/javascript command", Level.ADMIN));
+        initEvent.addHelp(this, new HelpRegister("js", "Run a java/javascript command", "js java/javascript command", Level.OWNER));
     }
 
     @Override

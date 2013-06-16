@@ -10,6 +10,7 @@ package com.jomp16.irc.plugin.help;
 import com.jomp16.irc.event.CommandFilter;
 import com.jomp16.irc.event.Event;
 import com.jomp16.irc.event.listener.CommandEvent;
+import com.jomp16.irc.event.listener.InitEvent;
 import com.jomp16.irc.event.listener.ReloadEvent;
 import org.apache.commons.lang3.StringUtils;
 
@@ -76,8 +77,13 @@ public class Help extends Event {
 
             commandEvent.respond(builder);
         } else {
-            commandEvent.respond("Usage goes here...");
+            commandEvent.showUsage("help");
         }
+    }
+
+    @Override
+    public void onInit(InitEvent initEvent) throws Exception {
+        initEvent.addHelp(this, new HelpRegister("help", "get help of a plugin", "help <all||plugin_name>"));
     }
 
     @Override

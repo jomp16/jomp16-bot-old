@@ -50,8 +50,13 @@ public class CommandEvent {
 
     public int transform(int i) {
         if (i >> 31 != 0) {
-            return i * -1;
+            i = i * -1;
         }
+
+        if (i > 60) {
+            return 60;
+        }
+
         return i;
     }
 
@@ -59,7 +64,8 @@ public class CommandEvent {
         int currentSec = Integer.parseInt(simpleDateFormat.format(date));
         if (spamLock.containsKey(this.user.getUserName())) {
             int timeLock = spamLock.get(this.user.getUserName());
-            if (timeLock > transform(currentSec + ircManager.getConfiguration().getCommandLock()) || timeLock < transform(currentSec - ircManager.getConfiguration().getCommandLock())) {
+            int timeOut = ircManager.getConfiguration().getCommandLock();
+            if (timeLock > transform(currentSec + timeOut) || timeLock < transform(currentSec - timeOut)) {
                 spamLock.replace(this.user.getUserName(), currentSec);
                 return false;
             }
@@ -109,11 +115,9 @@ public class CommandEvent {
     }
 
     public void showUsage(String command) {
-        if (!isLocked()) {
-            for (HelpRegister helpRegister : event.getHelpRegister()) {
-                if (helpRegister.getCommand().equals(command)) {
-                    respond("Usage: " + ircManager.getConfiguration().getPrefix() + helpRegister.getUsage());
-                }
+        for (HelpRegister helpRegister : event.getHelpRegister()) {
+            if (helpRegister.getCommand().equals(command)) {
+                respond("Usage: " + ircManager.getConfiguration().getPrefix() + helpRegister.getUsage());
             }
         }
     }

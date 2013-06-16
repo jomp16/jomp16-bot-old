@@ -22,7 +22,7 @@ import java.util.HashMap;
 public class Plugin extends Event {
     private static HashMap<String, Event> eventHashMap = new HashMap<>();
 
-    @CommandFilter(value = "plugin", level = Level.ADMIN)
+    @CommandFilter(value = "plugin", level = Level.OWNER)
     public void plugin(CommandEvent commandEvent) throws Exception {
         if (eventHashMap.size() == 0) {
             loadPluginInfo(commandEvent.getIrcManager().getEvents());

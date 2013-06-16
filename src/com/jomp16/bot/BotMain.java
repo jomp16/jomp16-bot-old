@@ -45,7 +45,7 @@ public class BotMain {
         ircManager.registerEvent(new TestPlugin());
         ircManager.registerEvent(new GooglePlugin());
 
-        ircManager.addAdmin("~jomp16@unaffiliated/jomp16");
+        ircManager.addOwner("~jomp16@unaffiliated/jomp16");
 
         ircManager.connect();
         ircManager.getOutputIRC().joinChannel("#jomp16-bot");
