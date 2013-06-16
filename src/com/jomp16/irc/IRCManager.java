@@ -7,14 +7,16 @@
 
 package com.jomp16.irc;
 
-import com.jomp16.help.HelpEvent;
 import com.jomp16.irc.configuration.Configuration;
 import com.jomp16.irc.event.Event;
 import com.jomp16.irc.event.listener.InitEvent;
 import com.jomp16.irc.output.OutputIRC;
 import com.jomp16.irc.output.OutputRaw;
 import com.jomp16.irc.parser.Parser;
-import com.jomp16.plugin.PluginLoader;
+import com.jomp16.irc.plugin.PluginLoader;
+import com.jomp16.irc.plugin.about.About;
+import com.jomp16.irc.plugin.help.Help;
+import com.jomp16.irc.plugin.plugin.Plugin;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -34,7 +36,7 @@ public class IRCManager {
     private OutputIRC outputIRC;
     private Configuration configuration;
     private IRCManager ircManager;
-    private Logger log = LogManager.getLogger(getClass().getSimpleName());
+    private Logger log = LogManager.getLogger(this.getClass().getSimpleName());
     private boolean ready = false;
 
     public IRCManager(Configuration configuration) {
@@ -43,7 +45,9 @@ public class IRCManager {
 
         loadPlugin();
 
-        registerEvent(new HelpEvent());
+        registerEvent(new Help());
+        registerEvent(new Plugin());
+        registerEvent(new About());
     }
 
     public synchronized void connect1() throws Exception {

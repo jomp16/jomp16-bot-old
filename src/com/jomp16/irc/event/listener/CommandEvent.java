@@ -7,11 +7,11 @@
 
 package com.jomp16.irc.event.listener;
 
-import com.jomp16.help.Help;
 import com.jomp16.irc.IRCManager;
 import com.jomp16.irc.channel.Channel;
 import com.jomp16.irc.channel.ChannelDAO;
 import com.jomp16.irc.event.Event;
+import com.jomp16.irc.plugin.help.HelpRegister;
 import com.jomp16.irc.user.User;
 import com.jomp16.irc.user.UserDAO;
 import org.apache.logging.log4j.Logger;
@@ -65,9 +65,9 @@ public class CommandEvent {
     }
 
     public void showUsage(String command) {
-        for (Help help : event.getHelp()) {
-            if (help.getCommand().equals(command)) {
-                respond("Usage: " + ircManager.getConfiguration().getPrefix() + help.getUsage());
+        for (HelpRegister helpRegister : event.getHelpRegister()) {
+            if (helpRegister.getCommand().equals(command)) {
+                respond("Usage: " + ircManager.getConfiguration().getPrefix() + helpRegister.getUsage());
             }
         }
     }

@@ -7,9 +7,8 @@
 
 package com.jomp16.bot;
 
-import com.jomp16.bot.event.GoogleEvent;
-import com.jomp16.bot.event.PluginEvent;
-import com.jomp16.bot.event.TestEvent;
+import com.jomp16.bot.plugin.GooglePlugin;
+import com.jomp16.bot.plugin.TestPlugin;
 import com.jomp16.irc.IRCManager;
 import com.jomp16.irc.configuration.Configuration;
 import com.jomp16.language.LanguageManager;
@@ -43,9 +42,8 @@ public class BotMain {
                 .setVerbose(true)
                 .buildConfiguration());
 
-        ircManager.registerEvent(new TestEvent());
-        ircManager.registerEvent(new GoogleEvent());
-        ircManager.registerEvent(new PluginEvent());
+        ircManager.registerEvent(new TestPlugin());
+        ircManager.registerEvent(new GooglePlugin());
 
         ircManager.addAdmin("~jomp16@unaffiliated/jomp16");
 

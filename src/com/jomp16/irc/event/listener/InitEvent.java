@@ -7,9 +7,9 @@
 
 package com.jomp16.irc.event.listener;
 
-import com.jomp16.help.Help;
 import com.jomp16.irc.IRCManager;
 import com.jomp16.irc.event.Event;
+import com.jomp16.irc.plugin.help.HelpRegister;
 import org.apache.logging.log4j.Logger;
 
 public class InitEvent {
@@ -29,7 +29,7 @@ public class InitEvent {
         return log;
     }
 
-    public void addHelp(Event event, Help help) {
-        event.registerHelp(help);
+    public void addHelp(Event event, HelpRegister helpRegister) {
+        event.registerHelp(helpRegister);
     }
 }

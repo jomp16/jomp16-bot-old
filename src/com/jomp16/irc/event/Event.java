@@ -7,15 +7,15 @@
 
 package com.jomp16.irc.event;
 
-import com.jomp16.help.Help;
 import com.jomp16.irc.event.listener.*;
+import com.jomp16.irc.plugin.help.HelpRegister;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 
 public abstract class Event {
-    private ArrayList<Help> help = new ArrayList<>();
+    private ArrayList<HelpRegister> helpRegister = new ArrayList<>();
 
     /**
      * Void to run something when a join is detected, you can put auto-voice, etc here
@@ -36,21 +36,21 @@ public abstract class Event {
     }
 
     /**
-     * Register the help
+     * Register the helpRegister
      *
-     * @param help
+     * @param helpRegister
      */
-    public void registerHelp(Help help) {
-        this.help.add(help);
+    public void registerHelp(HelpRegister helpRegister) {
+        this.helpRegister.add(helpRegister);
     }
 
     /**
-     * Get the help for HelpEvent
+     * Get the helpRegister for HelpEvent
      *
      * @return a array of helpRegister
      */
-    public ArrayList<Help> getHelp() {
-        return help;
+    public ArrayList<HelpRegister> getHelpRegister() {
+        return helpRegister;
     }
 
     public Logger getLog() {
