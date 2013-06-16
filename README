@@ -1,1 +1,4 @@
 I will but something here later....
+
+TODO:   Change hardcoded string value to the language manager (multi language system)
+        Add more classes to handle the rest of the IRC commands

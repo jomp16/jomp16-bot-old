@@ -18,6 +18,7 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Properties;
 
+@SuppressWarnings("ConstantConditions")
 public class PluginLoader {
     private Logger log = LogManager.getLogger(this.getClass().getSimpleName());
 
