@@ -1,4 +1,4 @@
 *.jar
-plugin/
+plugins/
 .idea
 out/
