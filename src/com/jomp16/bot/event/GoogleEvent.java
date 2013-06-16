@@ -11,7 +11,9 @@ import com.google.gson.Gson;
 import com.jomp16.help.Help;
 import com.jomp16.irc.event.CommandFilter;
 import com.jomp16.irc.event.Event;
+import com.jomp16.irc.event.Level;
 import com.jomp16.irc.event.listener.CommandEvent;
+import com.jomp16.irc.event.listener.InitEvent;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.http.client.fluent.Request;
 
@@ -25,7 +27,6 @@ public class GoogleEvent extends Event {
     private static String GOOGLE = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=%s";
 
     @CommandFilter("google")
-    @Help(value = "google", help = "Search on google using term given", usage = "google \"<the term to search>\" N (where N is the number of links to give, current maximum is 4, optional)")
     public void googleSearch(CommandEvent commandEvent) throws Exception {
         if (commandEvent.getArgs().size() >= 1) {
             String url = String.format(GOOGLE, URLEncoder.encode(commandEvent.getArgs().get(0), "UTF-8"));
@@ -57,6 +58,11 @@ public class GoogleEvent extends Event {
                 }
             }
         }
+    }
+
+    @Override
+    public void onInit(InitEvent initEvent) throws Exception {
+        initEvent.addHelp(this, new Help("google", "Search on google using term given", "google \"<the term to search>\" N (where N is the number of links to give, current maximum is 4, optional)", Level.NORMAL));
     }
 
     private class GoogleSearch {

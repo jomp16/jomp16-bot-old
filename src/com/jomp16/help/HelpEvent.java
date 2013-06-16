@@ -17,10 +17,10 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 
 public class HelpEvent extends Event {
-    private static ArrayList<HelpRegister> help = new ArrayList<>();
+    private static ArrayList<Help> help = new ArrayList<>();
 
-    private static ArrayList<HelpRegister> registerHelp(ArrayList<Event> events) {
-        ArrayList<HelpRegister> helpTmp = new ArrayList<>();
+    private static ArrayList<Help> registerHelp(ArrayList<Event> events) {
+        ArrayList<Help> helpTmp = new ArrayList<>();
 
         for (Event event : events) {
             helpTmp.addAll(event.getHelp());
@@ -35,19 +35,19 @@ public class HelpEvent extends Event {
             if (commandEvent.getArgs().get(0).equals("all")) {
 
                 ArrayList<String> helpTmp = new ArrayList<>();
-                for (HelpRegister helpRegister : help) {
-                    switch (helpRegister.getLevel()) {
+                for (Help help : HelpEvent.help) {
+                    switch (help.getLevel()) {
                         case NORMAL:
-                            helpTmp.add(helpRegister.getCommand());
+                            helpTmp.add(help.getCommand());
                             break;
                         case MOD:
                             if (commandEvent.getIrcManager().getMods().contains(commandEvent.getUser().getCompleteHost())) {
-                                helpTmp.add(helpRegister.getCommand());
+                                helpTmp.add(help.getCommand());
                             }
                             break;
                         case ADMIN:
                             if (commandEvent.getIrcManager().getAdmins().contains(commandEvent.getUser().getCompleteHost())) {
-                                helpTmp.add(helpRegister.getCommand());
+                                helpTmp.add(help.getCommand());
                             }
                             break;
                     }
@@ -56,18 +56,18 @@ public class HelpEvent extends Event {
                 builder.append("Available help for that commands: ")
                         .append(StringUtils.join(helpTmp, ", "));
             } else {
-                for (HelpRegister helpRegister : help) {
-                    if (helpRegister.getCommand().equals(commandEvent.getArgs().get(0))) {
+                for (Help help : HelpEvent.help) {
+                    if (help.getCommand().equals(commandEvent.getArgs().get(0))) {
                         builder.append("Command: ")
                                 .append(commandEvent.getIrcManager().getConfiguration().getPrefix())
-                                .append(helpRegister.getCommand())
+                                .append(help.getCommand())
                                 .append(" || ")
                                 .append("Help: ")
-                                .append(helpRegister.getHelp())
+                                .append(help.getHelp())
                                 .append(" || ")
                                 .append("Usage: ")
                                 .append(commandEvent.getIrcManager().getConfiguration().getPrefix())
-                                .append(helpRegister.getUsage());
+                                .append(help.getUsage());
                     }
                 }
             }

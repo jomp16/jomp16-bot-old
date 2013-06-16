@@ -9,19 +9,32 @@ package com.jomp16.help;
 
 import com.jomp16.irc.event.Level;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+public class Help {
+    private String command;
+    private String help;
+    private String usage;
+    private Level level;
 
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface Help {
-    String value();
+    public Help(String command, String help, String usage, Level level) {
+        this.command = command;
+        this.help = help;
+        this.usage = usage;
+        this.level = level;
+    }
 
-    String help();
+    public String getCommand() {
+        return command;
+    }
 
-    String usage();
+    public String getHelp() {
+        return help;
+    }
 
-    Level level() default Level.NORMAL;
+    public String getUsage() {
+        return usage;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
 }

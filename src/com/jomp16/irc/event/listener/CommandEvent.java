@@ -7,7 +7,7 @@
 
 package com.jomp16.irc.event.listener;
 
-import com.jomp16.help.HelpRegister;
+import com.jomp16.help.Help;
 import com.jomp16.irc.IRCManager;
 import com.jomp16.irc.channel.Channel;
 import com.jomp16.irc.channel.ChannelDAO;
@@ -65,9 +65,9 @@ public class CommandEvent {
     }
 
     public void showUsage(String command) {
-        for (HelpRegister helpRegister : event.getHelp()) {
-            if (helpRegister.getCommand().equals(command)) {
-                respond("Usage: " + ircManager.getConfiguration().getPrefix() + helpRegister.getUsage());
+        for (Help help : event.getHelp()) {
+            if (help.getCommand().equals(command)) {
+                respond("Usage: " + ircManager.getConfiguration().getPrefix() + help.getUsage());
             }
         }
     }
