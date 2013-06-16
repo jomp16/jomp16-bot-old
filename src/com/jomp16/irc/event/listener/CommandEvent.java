@@ -48,18 +48,11 @@ public class CommandEvent {
         date = new Date(System.currentTimeMillis());
     }
 
-    public int sign(int i) {
-        if (i == 0) return 0;
-        if (i >> 31 != 0) return -1;
-        return +1;
-    }
-
     public int transform(int i) {
-        if (sign(i) == -1) {
+        if (i >> 31 != 0) {
             return i * -1;
-        } else {
-            return i;
         }
+        return i;
     }
 
     private boolean isLocked() {

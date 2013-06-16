@@ -47,7 +47,7 @@ public class BotMain {
 
         ircManager.addAdmin("~jomp16@unaffiliated/jomp16");
 
-        ircManager.connect1();
+        ircManager.connect();
         ircManager.getOutputIRC().joinChannel("#jomp16-bot");
     }
 }

@@ -45,12 +45,12 @@ public class IRCManager {
 
         loadPlugin();
 
+        registerEvent(new About());
         registerEvent(new Help());
         registerEvent(new Plugin());
-        registerEvent(new About());
     }
 
-    public synchronized void connect1() throws Exception {
+    public synchronized void connect() throws Exception {
         new Thread(new Connect()).start();
 
         while (!ready) {
