@@ -23,24 +23,27 @@ public class JoinParser extends Parser {
 
     @Override
     public Event parse(IRCManager ircManager, long time, ParserToken token) {
-        User user;
-
-        if (ircManager.getAdmins().contains(token.getSource().getUser() + "@" + token.getSource().getHost())) {
-            user = new User(token.getSource().getNick(), token.getSource().getUser(), token.getSource().getHost(), Level.ADMIN);
-        } else if (ircManager.getMods().contains(token.getSource().getUser() + "@" + token.getSource().getHost())) {
-            user = new User(token.getSource().getNick(), token.getSource().getUser(), token.getSource().getHost(), Level.NORMAL);
-        } else {
-            user = new User(token.getSource().getNick(), token.getSource().getUser(), token.getSource().getHost(), Level.NORMAL);
+        if (token.getSource().getNick().equals(ircManager.getConfiguration().getNick())) {
+            return null;
         }
 
-        if (user.getUserName().equals(ircManager.getConfiguration().getNick())) {
-            return null;
+        User user;
+        String tmpCompleteUserMask = token.getSource().getUser() + "@" + token.getSource().getHost();
+
+        if (ircManager.getOwners().contains(tmpCompleteUserMask)) {
+            user = new User(token.getSource().getNick(), token.getSource().getUser(), token.getSource().getHost(), Level.OWNER);
+        } else if (ircManager.getAdmins().contains(tmpCompleteUserMask)) {
+            user = new User(token.getSource().getNick(), token.getSource().getUser(), token.getSource().getHost(), Level.ADMIN);
+        } else if (ircManager.getMods().contains(tmpCompleteUserMask)) {
+            user = new User(token.getSource().getNick(), token.getSource().getUser(), token.getSource().getHost(), Level.MOD);
+        } else {
+            user = new User(token.getSource().getNick(), token.getSource().getUser(), token.getSource().getHost(), Level.NORMAL);
         }
 
         Channel channel;
 
         if (token.getParams().get(0).startsWith("#")) {
-            channel = new Channel(token.getParams().get(0), null, null, null, null);
+            channel = new Channel(token.getParams().get(0));
         } else {
             return null;
         }

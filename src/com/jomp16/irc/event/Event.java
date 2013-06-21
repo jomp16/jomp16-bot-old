@@ -9,8 +9,6 @@ package com.jomp16.irc.event;
 
 import com.jomp16.irc.event.listener.*;
 import com.jomp16.irc.plugin.help.HelpRegister;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 
@@ -51,10 +49,6 @@ public abstract class Event {
      */
     public ArrayList<HelpRegister> getHelpRegister() {
         return helpRegister;
-    }
-
-    public Logger getLog() {
-        return LogManager.getLogger(this.getClass().getSimpleName());
     }
 
     /**

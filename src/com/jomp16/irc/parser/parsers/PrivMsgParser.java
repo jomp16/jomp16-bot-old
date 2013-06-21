@@ -19,21 +19,29 @@ import com.jomp16.irc.user.User;
 public class PrivMsgParser extends Parser {
     @Override
     public Event parse(IRCManager ircManager, long time, ParserToken token) {
-        User user;
+        if (token.getSource().getNick().equals(ircManager.getConfiguration().getNick())) {
+            return null;
+        }
 
-        if (ircManager.getAdmins().contains(token.getSource().getUser() + "@" + token.getSource().getHost())) {
+        User user;
+        String tmpCompleteUserMask = token.getSource().getUser() + "@" + token.getSource().getHost();
+
+        if (ircManager.getOwners().contains(tmpCompleteUserMask)) {
+            user = new User(token.getSource().getNick(), token.getSource().getUser(), token.getSource().getHost(), Level.OWNER);
+        } else if (ircManager.getAdmins().contains(tmpCompleteUserMask)) {
             user = new User(token.getSource().getNick(), token.getSource().getUser(), token.getSource().getHost(), Level.ADMIN);
-        } else if (ircManager.getMods().contains(token.getSource().getUser() + "@" + token.getSource().getHost())) {
-            user = new User(token.getSource().getNick(), token.getSource().getUser(), token.getSource().getHost(), Level.NORMAL);
+        } else if (ircManager.getMods().contains(tmpCompleteUserMask)) {
+            user = new User(token.getSource().getNick(), token.getSource().getUser(), token.getSource().getHost(), Level.MOD);
         } else {
             user = new User(token.getSource().getNick(), token.getSource().getUser(), token.getSource().getHost(), Level.NORMAL);
         }
+
         Channel channel;
 
         if (token.getParams().get(0).startsWith("#")) {
-            channel = new Channel(token.getParams().get(0), null, null, null, null);
+            channel = new Channel(token.getParams().get(0));
         } else {
-            channel = new Channel(user.getUserName(), null, null, null, null);
+            channel = new Channel(user.getUserName());
         }
 
         String message = token.getParams().get(1);

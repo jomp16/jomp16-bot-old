@@ -14,7 +14,6 @@ import com.jomp16.irc.event.Event;
 import com.jomp16.irc.event.Level;
 import com.jomp16.irc.plugin.help.HelpRegister;
 import com.jomp16.irc.user.User;
-import com.jomp16.irc.user.UserDAO;
 import org.apache.logging.log4j.Logger;
 
 import java.text.SimpleDateFormat;
@@ -26,7 +25,7 @@ public class CommandEvent {
     private static HashMap<String, Integer> spamLock = new HashMap<>();
     private IRCManager ircManager;
     private User user;
-    private UserDAO userDAO;
+    //    private UserDAO userDAO;
     private Channel channel;
     private ChannelDAO channelDAO;
     private String message;
@@ -146,9 +145,9 @@ public class CommandEvent {
         return log;
     }
 
-    public UserDAO getUserDAO() {
-        return userDAO;
-    }
+//    public UserDAO getUserDAO() {
+//        return userDAO;
+//    }
 
     public ChannelDAO getChannelDAO() {
         return channelDAO;

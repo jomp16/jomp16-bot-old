@@ -12,6 +12,8 @@ import com.jomp16.irc.event.Event;
 import com.jomp16.irc.plugin.help.HelpRegister;
 import org.apache.logging.log4j.Logger;
 
+import java.net.URLDecoder;
+
 public class InitEvent {
     private IRCManager ircManager;
     private Logger log;
@@ -31,5 +33,13 @@ public class InitEvent {
 
     public void addHelp(Event event, HelpRegister helpRegister) {
         event.registerHelp(helpRegister);
+    }
+
+    public String getPluginPath(Event event) {
+        try {
+            return URLDecoder.decode(event.getClass().getProtectionDomain().getCodeSource().getLocation().getPath(), "UTF-8");
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

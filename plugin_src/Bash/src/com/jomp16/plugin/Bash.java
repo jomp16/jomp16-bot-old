@@ -20,7 +20,6 @@ import com.jomp16.language.LanguageStringNotFoundException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.net.URLDecoder;
 
 public class Bash extends Event {
     private LanguageManager languageManager;
@@ -94,14 +93,13 @@ public class Bash extends Event {
     @Override
     public void onInit(InitEvent initEvent) throws Exception {
         String languageName = String.format("/lang/%s_%s.lang", System.getProperty("user.language"), System.getProperty("user.country"));
-        String jarPath = URLDecoder.decode(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath(), "UTF-8");
 
         try {
-            languageManager = new LanguageManager(new URL("jar:file:" + jarPath + "!" + languageName).openStream());
+            languageManager = new LanguageManager(new URL("jar:file:" + initEvent.getPluginPath(this) + "!" + languageName).openStream());
         } catch (LanguageNotFoundException e) {
             try {
                 languageName = String.format("/lang/%s_%s.lang", "en", "US");
-                languageManager = new LanguageManager(new URL("jar:file:" + jarPath + "!" + languageName).openStream());
+                languageManager = new LanguageManager(new URL("jar:file:" + initEvent.getPluginPath(this) + "!" + languageName).openStream());
             } catch (LanguageNotFoundException e1) {
                 // Ignore
             }
@@ -109,6 +107,5 @@ public class Bash extends Event {
 
         initEvent.addHelp(this, new HelpRegister("exec", languageManager.getString("HelpExec"), languageManager.getString("UsageExec"), Level.OWNER));
         initEvent.addHelp(this, new HelpRegister("bash", languageManager.getString("HelpBash"), languageManager.getString("UsageBash"), Level.OWNER));
-        super.onInit(initEvent);
     }
 }

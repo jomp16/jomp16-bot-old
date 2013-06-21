@@ -7,6 +7,7 @@
 
 package com.jomp16.irc.plugin.help;
 
+import com.jomp16.irc.IRCManager;
 import com.jomp16.irc.event.CommandFilter;
 import com.jomp16.irc.event.Event;
 import com.jomp16.irc.event.listener.CommandEvent;
@@ -15,70 +16,103 @@ import com.jomp16.irc.event.listener.ReloadEvent;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Help extends Event {
-    private static ArrayList<HelpRegister> helpRegister = new ArrayList<>();
+    private ArrayList<String> helpNormal = new ArrayList<>();
+    private ArrayList<String> helpMod = new ArrayList<>();
+    private ArrayList<String> helpAdmin = new ArrayList<>();
+    private ArrayList<String> helpOwner = new ArrayList<>();
+    private HashMap<String, HelpRegister> helpRegisters = new HashMap<>();
 
-    private static ArrayList<HelpRegister> registerHelp(ArrayList<Event> events) {
-        ArrayList<HelpRegister> helpRegisterTmp = new ArrayList<>();
-
+    private void registerHelp(ArrayList<Event> events) {
         for (Event event : events) {
-            helpRegisterTmp.addAll(event.getHelpRegister());
+            for (HelpRegister helpRegister : event.getHelpRegister()) {
+                helpRegisters.put(helpRegister.getCommand(), helpRegister);
+
+                switch (helpRegister.getLevel()) {
+                    case NORMAL:
+                        helpNormal.add(helpRegister.getCommand());
+                        helpMod.add(helpRegister.getCommand());
+                        helpAdmin.add(helpRegister.getCommand());
+                        helpOwner.add(helpRegister.getCommand());
+                        break;
+                    case MOD:
+                        helpMod.add(helpRegister.getCommand());
+                        helpAdmin.add(helpRegister.getCommand());
+                        helpOwner.add(helpRegister.getCommand());
+                        break;
+                    case ADMIN:
+                        helpAdmin.add(helpRegister.getCommand());
+                        helpOwner.add(helpRegister.getCommand());
+                        break;
+                    case OWNER:
+                        helpOwner.add(helpRegister.getCommand());
+                        break;
+                }
+            }
         }
-        return helpRegisterTmp;
     }
 
     @CommandFilter("help")
     public void help(CommandEvent commandEvent) {
-        if (helpRegister.size() == 0) {
-            helpRegister.addAll(registerHelp(commandEvent.getIrcManager().getEvents()));
+        if (helpRegisters.size() == 0) {
+            registerHelp(commandEvent.getIrcManager().getEvents());
         }
 
         if (commandEvent.getArgs().size() > 0) {
-            StringBuilder builder = new StringBuilder();
             if (commandEvent.getArgs().get(0).equals("all")) {
-                ArrayList<String> helpTmp = new ArrayList<>();
-                for (HelpRegister helpRegister : Help.helpRegister) {
+                switch (commandEvent.getUser().getLevel()) {
+                    case NORMAL:
+                        commandEvent.respond("Available help for that commands: " + StringUtils.join(helpNormal, ", "));
+                        break;
+                    case MOD:
+                        commandEvent.respond("Available help for that commands: " + StringUtils.join(helpMod, ", "));
+                        break;
+                    case ADMIN:
+                        commandEvent.respond("Available help for that commands: " + StringUtils.join(helpAdmin, ", "));
+                        break;
+                    case OWNER:
+                        commandEvent.respond("Available help for that commands: " + StringUtils.join(helpOwner, ", "));
+                        break;
+                }
+            } else {
+                if (helpRegisters.containsKey(commandEvent.getArgs().get(0))) {
+                    HelpRegister helpRegister = helpRegisters.get(commandEvent.getArgs().get(0));
                     switch (helpRegister.getLevel()) {
                         case NORMAL:
-                            helpTmp.add(helpRegister.getCommand());
+                            commandEvent.respond(getHelpInfo(commandEvent.getIrcManager(), helpRegister));
                             break;
                         case MOD:
-                            if (commandEvent.getIrcManager().getMods().contains(commandEvent.getUser().getCompleteHost())) {
-                                helpTmp.add(helpRegister.getCommand());
+                            if (commandEvent.getIrcManager().getMods().contains(commandEvent.getUser().getCompleteHost())
+                                    || commandEvent.getIrcManager().getAdmins().contains(commandEvent.getUser().getCompleteHost())
+                                    || commandEvent.getIrcManager().getOwners().contains(commandEvent.getUser().getCompleteHost())) {
+                                commandEvent.respond(getHelpInfo(commandEvent.getIrcManager(), helpRegister));
                             }
                             break;
                         case ADMIN:
-                            if (commandEvent.getIrcManager().getAdmins().contains(commandEvent.getUser().getCompleteHost())) {
-                                helpTmp.add(helpRegister.getCommand());
+                            if (commandEvent.getIrcManager().getAdmins().contains(commandEvent.getUser().getCompleteHost())
+                                    || commandEvent.getIrcManager().getOwners().contains(commandEvent.getUser().getCompleteHost())) {
+                                commandEvent.respond(getHelpInfo(commandEvent.getIrcManager(), helpRegister));
+                            }
+                            break;
+                        case OWNER:
+                            if (commandEvent.getIrcManager().getOwners().contains(commandEvent.getUser().getCompleteHost())) {
+                                commandEvent.respond(getHelpInfo(commandEvent.getIrcManager(), helpRegister));
                             }
                             break;
                     }
-                }
-
-                builder.append("Available help for that commands: ")
-                        .append(StringUtils.join(helpTmp, ", "));
-            } else {
-                for (HelpRegister helpRegister : Help.helpRegister) {
-                    if (helpRegister.getCommand().equals(commandEvent.getArgs().get(0))) {
-                        builder.append("Command: ")
-                                .append(commandEvent.getIrcManager().getConfiguration().getPrefix())
-                                .append(helpRegister.getCommand())
-                                .append(" || ")
-                                .append("Help: ")
-                                .append(helpRegister.getHelp())
-                                .append(" || ")
-                                .append("Usage: ")
-                                .append(commandEvent.getIrcManager().getConfiguration().getPrefix())
-                                .append(helpRegister.getUsage());
-                    }
+                } else {
+                    commandEvent.respond("No help found for that command, maybe the help doesn't exists or you mistake the command?");
                 }
             }
-
-            commandEvent.respond(builder);
         } else {
             commandEvent.showUsage("help");
         }
+    }
+
+    private String getHelpInfo(IRCManager ircManager, HelpRegister helpRegister) {
+        return "Command: " + ircManager.getConfiguration().getPrefix() + helpRegister.getCommand() + " || " + "Help: " + helpRegister.getHelp() + " || " + "Usage: " + ircManager.getConfiguration().getPrefix() + helpRegister.getUsage();
     }
 
     @Override
@@ -88,7 +122,11 @@ public class Help extends Event {
 
     @Override
     public void onReload(ReloadEvent reloadEvent) throws Exception {
-        helpRegister.clear();
-        helpRegister.addAll(registerHelp(reloadEvent.getIrcManager().getEvents()));
+        helpRegisters.clear();
+        helpNormal.clear();
+        helpMod.clear();
+        helpAdmin.clear();
+        helpOwner.clear();
+        registerHelp(reloadEvent.getIrcManager().getEvents());
     }
 }

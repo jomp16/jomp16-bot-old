@@ -44,7 +44,7 @@ public class JavaScript extends Event {
     @Override
     public void onInit(InitEvent initEvent) throws Exception {
         if (scriptEngine == null) {
-            getLog().debug("Created new instance of ScriptEngine");
+            initEvent.getLog().debug("Created new instance of ScriptEngine");
             scriptEngine = new ScriptEngineManager().getEngineByName("JavaScript");
         }
         initEvent.addHelp(this, new HelpRegister("js", "Run a java/javascript command", "js java/javascript command", Level.OWNER));
