@@ -10,8 +10,6 @@
     <orderEntry type="library" name="log4j-core-2.0-beta6" level="project" />
     <orderEntry type="library" name="log4j-api-2.0-beta6" level="project" />
     <orderEntry type="library" name="commons-lang3-3.1" level="project" />
-    <orderEntry type="library" name="Apache HTTP Component" level="project" />
-    <orderEntry type="library" name="gson-2.2.4" level="project" />
   </component>
 </module>
 

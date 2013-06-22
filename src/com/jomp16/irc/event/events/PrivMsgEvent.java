@@ -47,7 +47,8 @@ public class PrivMsgEvent extends Event {
         try {
             invoke(eventRegisters, args, ircManager.getConfiguration().getPrefix());
         } catch (Exception e) {
-            log.error("An error occurred: " + e.getMessage());
+            log.error("An error occurred: " + e.toString());
+            e.printStackTrace();
         }
     }
 

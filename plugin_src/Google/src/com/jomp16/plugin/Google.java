@@ -5,31 +5,32 @@
  * as published by Sam Hocevar. See the COPYING file for more details.
  */
 
-package com.jomp16.bot.plugin;
+package com.jomp16.plugin;
 
 import com.google.gson.Gson;
-import com.jomp16.irc.plugin.help.HelpRegister;
 import com.jomp16.irc.event.CommandFilter;
 import com.jomp16.irc.event.Event;
 import com.jomp16.irc.event.listener.CommandEvent;
 import com.jomp16.irc.event.listener.InitEvent;
+import com.jomp16.irc.plugin.help.HelpRegister;
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.http.client.fluent.Request;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.List;
 
-public class GooglePlugin extends Event {
+public class Google extends Event {
     private static String GOOGLE = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=%s";
 
     @CommandFilter("google")
     public void googleSearch(CommandEvent commandEvent) throws Exception {
         if (commandEvent.getArgs().size() >= 1) {
             String url = String.format(GOOGLE, URLEncoder.encode(commandEvent.getArgs().get(0), "UTF-8"));
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(Request.Get(url).execute().returnContent().asStream()))) {
+
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(new URL(url).openStream()))) {
                 GoogleSearch search = new Gson().fromJson(reader, GoogleSearch.class);
 
                 if (!search.responseStatus.equals("200")) {

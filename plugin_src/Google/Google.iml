@@ -7,10 +7,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="log4j-api-2.0-beta6" level="project" />
-    <orderEntry type="library" name="log4j-core-2.0-beta6" level="project" />
     <orderEntry type="module" module-name="jomp16-bot" />
-    <orderEntry type="library" name="commons-codec-1.8" level="project" />
+    <orderEntry type="library" name="gson-2.2.4" level="project" />
+    <orderEntry type="library" name="commons-lang3-3.1" level="project" />
   </component>
 </module>
 

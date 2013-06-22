@@ -32,16 +32,15 @@ public class PluginLoader {
                     URL[] urls = new URL[]{file.toURI().toURL()};
                     ClassLoader classLoader = this.getClass().getClassLoader();
 
-                    try (URLClassLoader urlClassLoader = new URLClassLoader(urls, classLoader)) {
-                        URL url = new URL("jar:file:" + file.getAbsolutePath() + "!/plugin.properties");
-                        Properties properties = new Properties();
-                        properties.load(url.openStream());
+                    URLClassLoader urlClassLoader = new URLClassLoader(urls, classLoader);
+                    URL url = new URL("jar:file:" + file.getAbsolutePath() + "!/plugin.properties");
+                    Properties properties = new Properties();
+                    properties.load(url.openStream());
 
-                        Class<? extends Event> eventClass = Class.forName(properties.getProperty("MainClass"), true, urlClassLoader).asSubclass(Event.class);
-                        Constructor<? extends Event> eventConstructor = eventClass.getConstructor();
+                    Class<? extends Event> eventClass = Class.forName(properties.getProperty("MainClass"), true, urlClassLoader).asSubclass(Event.class);
+                    Constructor<? extends Event> eventConstructor = eventClass.getConstructor();
 
-                        events.add(eventConstructor.newInstance());
-                    }
+                    events.add(eventConstructor.newInstance());
                 }
             }
         } catch (Exception e) {

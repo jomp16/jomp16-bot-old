@@ -39,6 +39,10 @@ public class Plugin extends Event {
                         if (eventHashMap.containsKey(commandEvent.getArgs().get(1))) {
                             eventHashMap.get(commandEvent.getArgs().get(1)).onDisable(new DisableEvent(commandEvent.getIrcManager(), LogManager.getLogger(commandEvent.getArgs().get(1))));
                             eventHashMap.remove(commandEvent.getArgs().get(1));
+
+                            PrivMsgEvent.reloadEvents(commandEvent.getIrcManager().getEvents());
+
+                            commandEvent.respond("Disabled plugin");
                         } else {
                             commandEvent.respond("Plugin not found");
                         }
@@ -47,11 +51,14 @@ public class Plugin extends Event {
                 case "reload":
                     if (commandEvent.getArgs().size() >= 2) {
                         if (commandEvent.getArgs().get(1).equals("all")) {
+                            int plugin = 0;
+
                             commandEvent.getIrcManager().getEvents().clear();
                             eventHashMap.clear();
 
                             for (Event event : new PluginLoader().load()) {
                                 commandEvent.getIrcManager().registerEvent(event, false);
+                                plugin++;
                             }
 
                             commandEvent.getIrcManager().getEvents().addAll(commandEvent.getIrcManager().getBundledEvent());
@@ -59,7 +66,7 @@ public class Plugin extends Event {
                             loadPluginInfo(commandEvent.getIrcManager().getEvents());
                             PrivMsgEvent.reloadEvents(commandEvent.getIrcManager().getEvents());
 
-                            commandEvent.respond("Reloaded plugins: " + commandEvent.getIrcManager().getEvents().size());
+                            commandEvent.respond("Reloaded plugins: " + plugin);
                         } else {
                             if (eventHashMap.containsKey(commandEvent.getArgs().get(1))) {
                                 commandEvent.getIrcManager().getEvents().remove(eventHashMap.get(commandEvent.getArgs().get(1)));
@@ -100,7 +107,7 @@ public class Plugin extends Event {
                             eventHashMap.put(event.getClass().getSimpleName(), event);
                             PrivMsgEvent.reloadEvents(commandEvent.getIrcManager().getEvents());
 
-                            commandEvent.respond("Loaded");
+                            commandEvent.respond("Loaded plugin");
                         } else {
                             commandEvent.respond("Plugin doesn't exists");
                         }

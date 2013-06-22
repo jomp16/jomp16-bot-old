@@ -10,12 +10,12 @@ package com.jomp16.plugin;
 import com.jomp16.irc.event.CommandFilter;
 import com.jomp16.irc.event.Event;
 import com.jomp16.irc.event.listener.CommandEvent;
-import com.sun.org.apache.xml.internal.security.utils.Base64;
 import org.apache.commons.codec.binary.BinaryCodec;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.Arrays;
+import java.util.Base64;
 
 public class CodecUtils extends Event {
     @CommandFilter("encode")
@@ -23,7 +23,7 @@ public class CodecUtils extends Event {
         if (commandEvent.getArgs().size() >= 2) {
             switch (commandEvent.getArgs().get(0).toLowerCase()) {
                 case "base64":
-                    commandEvent.respond(Base64.encode(commandEvent.getArgs().get(1).getBytes()));
+                    commandEvent.respond(new String(Base64.getEncoder().encode(commandEvent.getArgs().get(1).getBytes())));
                     break;
                 case "hex":
                     commandEvent.respond(String.valueOf(Hex.encodeHex(commandEvent.getArgs().get(1).getBytes())));
@@ -43,7 +43,7 @@ public class CodecUtils extends Event {
         if (commandEvent.getArgs().size() >= 2) {
             switch (commandEvent.getArgs().get(0).toLowerCase()) {
                 case "base64":
-                    commandEvent.respond(Base64.decode(commandEvent.getArgs().get(1).getBytes()));
+                    commandEvent.respond(new String(Base64.getDecoder().decode(commandEvent.getArgs().get(1))));
                     break;
                 case "hex":
                     commandEvent.respond(new String(Hex.decodeHex(commandEvent.getArgs().get(1).toCharArray())));
@@ -59,11 +59,14 @@ public class CodecUtils extends Event {
     public void hash(CommandEvent commandEvent) {
         if (commandEvent.getArgs().size() >= 2) {
             switch (commandEvent.getArgs().get(0).toLowerCase()) {
+                case "md2":
+                    commandEvent.respond(DigestUtils.md2Hex(commandEvent.getArgs().get(1)));
+                    break;
                 case "md5":
                     commandEvent.respond(DigestUtils.md5Hex(commandEvent.getArgs().get(1)));
                     break;
                 case "sha1":
-                    commandEvent.respond(DigestUtils.shaHex(commandEvent.getArgs().get(1)));
+                    commandEvent.respond(DigestUtils.sha1Hex(commandEvent.getArgs().get(1)));
                     break;
                 case "sha256":
                     commandEvent.respond(DigestUtils.sha256Hex(commandEvent.getArgs().get(1)));
