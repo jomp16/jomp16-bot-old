@@ -47,7 +47,26 @@ public class PrivMsgEvent extends Event {
         try {
             invoke(eventRegisters, args, ircManager.getConfiguration().getPrefix());
         } catch (Exception e) {
-            log.error("An error occurred: " + e);
+            log.error("An error occurred: " + e.getMessage());
+        }
+    }
+
+    public static void reloadEvents(ArrayList<Event> events) {
+        eventRegisters.clear();
+        registerArrayList(events);
+    }
+
+    private static void registerArrayList(ArrayList<Event> events) {
+        for (Event event : events) {
+            Method[] methods = event.getClass().getMethods();
+            for (Method method : methods) {
+                Annotation annotation = method.getAnnotation(CommandFilter.class);
+                if (annotation != null) {
+                    CommandFilter commandFilter = (CommandFilter) annotation;
+                    EventRegister eventRegister = new EventRegister(commandFilter.value(), event, commandFilter.level(), method);
+                    eventRegisters.add(eventRegister);
+                }
+            }
         }
     }
 
@@ -63,20 +82,6 @@ public class PrivMsgEvent extends Event {
             } else {
                 // Add unquoted word
                 args.add(matcher.group());
-            }
-        }
-    }
-
-    private void registerArrayList(ArrayList<Event> events) {
-        for (Event event : events) {
-            Method[] methods = event.getClass().getMethods();
-            for (Method method : methods) {
-                Annotation annotation = method.getAnnotation(CommandFilter.class);
-                if (annotation != null) {
-                    CommandFilter commandFilter = (CommandFilter) annotation;
-                    EventRegister eventRegister = new EventRegister(commandFilter.value(), event, commandFilter.level(), method);
-                    eventRegisters.add(eventRegister);
-                }
             }
         }
     }
@@ -120,7 +125,7 @@ public class PrivMsgEvent extends Event {
         }
     }
 
-    private class EventRegister {
+    private static class EventRegister {
         private String command;
         private Method method;
         private Event event;

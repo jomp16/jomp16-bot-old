@@ -64,7 +64,7 @@ public class IRCManager {
         try {
             ArrayList<Event> eventTmp = new PluginLoader().load();
             for (Event event : eventTmp) {
-                events.add(event);
+                registerEvent(event, false);
                 event.onInit(new InitEvent(this, LogManager.getLogger(event.getClass().getSimpleName())));
             }
         } catch (Exception e) {

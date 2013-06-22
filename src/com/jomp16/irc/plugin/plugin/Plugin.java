@@ -10,6 +10,7 @@ package com.jomp16.irc.plugin.plugin;
 import com.jomp16.irc.event.CommandFilter;
 import com.jomp16.irc.event.Event;
 import com.jomp16.irc.event.Level;
+import com.jomp16.irc.event.events.PrivMsgEvent;
 import com.jomp16.irc.event.listener.CommandEvent;
 import com.jomp16.irc.event.listener.DisableEvent;
 import com.jomp16.irc.event.listener.ResetEvent;
@@ -21,6 +22,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+@SuppressWarnings("ConstantConditions")
 public class Plugin extends Event {
     private static HashMap<String, Event> eventHashMap = new HashMap<>();
 
@@ -46,6 +48,7 @@ public class Plugin extends Event {
                     if (commandEvent.getArgs().size() >= 2) {
                         if (commandEvent.getArgs().get(1).equals("all")) {
                             commandEvent.getIrcManager().getEvents().clear();
+                            eventHashMap.clear();
 
                             for (Event event : new PluginLoader().load()) {
                                 commandEvent.getIrcManager().registerEvent(event, false);
@@ -53,8 +56,9 @@ public class Plugin extends Event {
 
                             commandEvent.getIrcManager().getEvents().addAll(commandEvent.getIrcManager().getBundledEvent());
 
-                            eventHashMap.clear();
                             loadPluginInfo(commandEvent.getIrcManager().getEvents());
+                            PrivMsgEvent.reloadEvents(commandEvent.getIrcManager().getEvents());
+
                             commandEvent.respond("Reloaded plugins: " + commandEvent.getIrcManager().getEvents().size());
                         } else {
                             if (eventHashMap.containsKey(commandEvent.getArgs().get(1))) {
@@ -66,7 +70,9 @@ public class Plugin extends Event {
                                     Event event = new PluginLoader().load(pluginFile);
                                     commandEvent.getIrcManager().registerEvent(event, false);
                                     eventHashMap.put(event.getClass().getSimpleName(), event);
-                                    commandEvent.respond("Reloaded");
+
+                                    PrivMsgEvent.reloadEvents(commandEvent.getIrcManager().getEvents());
+                                    commandEvent.respond("Reloaded plugin");
                                 } else {
                                     commandEvent.respond("Plugin doesn't exists");
                                 }
@@ -92,6 +98,8 @@ public class Plugin extends Event {
                             Event event = new PluginLoader().load(pluginFile);
                             commandEvent.getIrcManager().registerEvent(event, false);
                             eventHashMap.put(event.getClass().getSimpleName(), event);
+                            PrivMsgEvent.reloadEvents(commandEvent.getIrcManager().getEvents());
+
                             commandEvent.respond("Loaded");
                         } else {
                             commandEvent.respond("Plugin doesn't exists");
@@ -102,6 +110,7 @@ public class Plugin extends Event {
                     if (commandEvent.getArgs().size() >= 2) {
                         if (eventHashMap.containsKey(commandEvent.getArgs().get(1))) {
                             eventHashMap.get(commandEvent.getArgs().get(1)).onReset(new ResetEvent(commandEvent.getIrcManager(), LogManager.getLogger(commandEvent.getArgs().get(1))));
+                            PrivMsgEvent.reloadEvents(commandEvent.getIrcManager().getEvents());
                         } else {
                             commandEvent.respond("Plugin not found");
                         }
