@@ -12,7 +12,7 @@ import com.jomp16.irc.event.CommandFilter;
 import com.jomp16.irc.event.Event;
 import com.jomp16.irc.event.listener.CommandEvent;
 import com.jomp16.irc.event.listener.InitEvent;
-import com.jomp16.irc.event.listener.ReloadEvent;
+import com.jomp16.irc.event.listener.ResetEvent;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -121,12 +121,12 @@ public class Help extends Event {
     }
 
     @Override
-    public void onReload(ReloadEvent reloadEvent) throws Exception {
+    public void onReset(ResetEvent resetEvent) throws Exception {
         helpRegisters.clear();
         helpNormal.clear();
         helpMod.clear();
         helpAdmin.clear();
         helpOwner.clear();
-        registerHelp(reloadEvent.getIrcManager().getEvents());
+        registerHelp(resetEvent.getIrcManager().getEvents());
     }
 }

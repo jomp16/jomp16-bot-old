@@ -50,4 +50,20 @@ public class PluginLoader {
 
         return events;
     }
+
+    public Event load(File pluginFile) throws Exception {
+        URL[] urls = new URL[]{pluginFile.toURI().toURL()};
+        ClassLoader classLoader = this.getClass().getClassLoader();
+
+        try (URLClassLoader urlClassLoader = new URLClassLoader(urls, classLoader)) {
+            URL url = new URL("jar:file:" + pluginFile.getAbsolutePath() + "!/plugin.properties");
+            Properties properties = new Properties();
+            properties.load(url.openStream());
+
+            Class<? extends Event> eventClass = Class.forName(properties.getProperty("MainClass"), true, urlClassLoader).asSubclass(Event.class);
+            Constructor<? extends Event> eventConstructor = eventClass.getConstructor();
+
+            return eventConstructor.newInstance();
+        }
+    }
 }

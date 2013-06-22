@@ -12,10 +12,12 @@ import com.jomp16.irc.event.Event;
 import com.jomp16.irc.event.Level;
 import com.jomp16.irc.event.listener.CommandEvent;
 import com.jomp16.irc.event.listener.DisableEvent;
-import com.jomp16.irc.event.listener.ReloadEvent;
+import com.jomp16.irc.event.listener.ResetEvent;
+import com.jomp16.irc.plugin.PluginLoader;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -42,10 +44,35 @@ public class Plugin extends Event {
                     break;
                 case "reload":
                     if (commandEvent.getArgs().size() >= 2) {
-                        if (eventHashMap.containsKey(commandEvent.getArgs().get(1))) {
-                            eventHashMap.get(commandEvent.getArgs().get(1)).onReload(new ReloadEvent(commandEvent.getIrcManager(), LogManager.getLogger(commandEvent.getArgs().get(1))));
+                        if (commandEvent.getArgs().get(1).equals("all")) {
+                            commandEvent.getIrcManager().getEvents().clear();
+
+                            for (Event event : new PluginLoader().load()) {
+                                commandEvent.getIrcManager().registerEvent(event, false);
+                            }
+
+                            commandEvent.getIrcManager().getEvents().addAll(commandEvent.getIrcManager().getBundledEvent());
+
+                            eventHashMap.clear();
+                            loadPluginInfo(commandEvent.getIrcManager().getEvents());
+                            commandEvent.respond("Reloaded plugins: " + commandEvent.getIrcManager().getEvents().size());
                         } else {
-                            commandEvent.respond("Plugin not found");
+                            if (eventHashMap.containsKey(commandEvent.getArgs().get(1))) {
+                                commandEvent.getIrcManager().getEvents().remove(eventHashMap.get(commandEvent.getArgs().get(1)));
+                                eventHashMap.remove(commandEvent.getArgs().get(1));
+
+                                File pluginFile = pluginFile(commandEvent.getArgs().get(1));
+                                if (pluginFile != null) {
+                                    Event event = new PluginLoader().load(pluginFile);
+                                    commandEvent.getIrcManager().registerEvent(event, false);
+                                    eventHashMap.put(event.getClass().getSimpleName(), event);
+                                    commandEvent.respond("Reloaded");
+                                } else {
+                                    commandEvent.respond("Plugin doesn't exists");
+                                }
+                            } else {
+                                commandEvent.respond("Plugin doesn't exists");
+                            }
                         }
                     }
                     break;
@@ -58,14 +85,46 @@ public class Plugin extends Event {
 
                     commandEvent.respond("Available plugins: " + StringUtils.join(pluginNameTmp, ", "));
                     break;
+                case "load":
+                    if (commandEvent.getArgs().size() >= 2) {
+                        File pluginFile = pluginFile(commandEvent.getArgs().get(1));
+                        if (pluginFile != null) {
+                            Event event = new PluginLoader().load(pluginFile);
+                            commandEvent.getIrcManager().registerEvent(event, false);
+                            eventHashMap.put(event.getClass().getSimpleName(), event);
+                            commandEvent.respond("Loaded");
+                        } else {
+                            commandEvent.respond("Plugin doesn't exists");
+                        }
+                    }
+                    break;
+                case "reset":
+                    if (commandEvent.getArgs().size() >= 2) {
+                        if (eventHashMap.containsKey(commandEvent.getArgs().get(1))) {
+                            eventHashMap.get(commandEvent.getArgs().get(1)).onReset(new ResetEvent(commandEvent.getIrcManager(), LogManager.getLogger(commandEvent.getArgs().get(1))));
+                        } else {
+                            commandEvent.respond("Plugin not found");
+                        }
+                    }
+                    break;
             }
         }
     }
 
+    private File pluginFile(String jarName) {
+        File f = new File(System.getProperty("user.dir").replace("\\", " ") + "/plugins");
+        for (File file : f.listFiles()) {
+            if (file.getName().equals(jarName + ".jar")) {
+                return file;
+            }
+        }
+        return null;
+    }
+
     @Override
-    public void onReload(ReloadEvent reloadEvent) throws Exception {
+    public void onReset(ResetEvent resetEvent) throws Exception {
         eventHashMap.clear();
-        loadPluginInfo(reloadEvent.getIrcManager().getEvents());
+        loadPluginInfo(resetEvent.getIrcManager().getEvents());
     }
 
     private void loadPluginInfo(ArrayList<Event> events) {

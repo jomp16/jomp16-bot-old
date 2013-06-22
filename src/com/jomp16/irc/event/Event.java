@@ -71,13 +71,7 @@ public abstract class Event {
         disableEvent.getIrcManager().getEvents().remove(this);
     }
 
-    /**
-     * ReloadEvent called when someone call it
-     *
-     * @param reloadEvent
-     * @throws Exception
-     */
-    public void onReload(ReloadEvent reloadEvent) throws Exception {
+    public void onReset(ResetEvent resetEvent) throws Exception {
 
     }
 }

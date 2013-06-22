@@ -69,7 +69,7 @@ public class CommandEvent {
                 return false;
             }
         } else {
-            if (user.getLevel() == Level.ADMIN || user.getLevel() == Level.MOD) {
+            if (user.getLevel() == Level.OWNER || user.getLevel() == Level.ADMIN || user.getLevel() == Level.MOD) {
                 return false;
             } else {
                 spamLock.put(this.user.getUserName(), currentSec);
@@ -92,6 +92,18 @@ public class CommandEvent {
             } else {
                 ircManager.getOutputIRC().sendMessage(channel.getTargetName(), message);
             }
+        }
+    }
+
+    public void respondWithoutLock(Object message) {
+        ircManager.getOutputIRC().sendMessage(channel.getTargetName(), user.getUserName(), message);
+    }
+
+    public void respondWithoutLock(Object message, boolean showName) {
+        if (showName) {
+            respond(message);
+        } else {
+            ircManager.getOutputIRC().sendMessage(channel.getTargetName(), message);
         }
     }
 

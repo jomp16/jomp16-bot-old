@@ -10,8 +10,8 @@ package com.jomp16.irc.event.listener;
 import com.jomp16.irc.IRCManager;
 import org.apache.logging.log4j.Logger;
 
-public class ReloadEvent extends InitEvent {
-    public ReloadEvent(IRCManager ircManager, Logger log) {
+public class ResetEvent extends InitEvent {
+    public ResetEvent(IRCManager ircManager, Logger log) {
         super(ircManager, log);
     }
 }

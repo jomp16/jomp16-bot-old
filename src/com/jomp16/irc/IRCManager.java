@@ -29,6 +29,7 @@ import java.util.ArrayList;
 
 public class IRCManager {
     private ArrayList<Event> events = new ArrayList<>();
+    private ArrayList<Event> bundledEvent = new ArrayList<>();
     private ArrayList<String> owners = new ArrayList<>();
     private ArrayList<String> admins = new ArrayList<>();
     private ArrayList<String> mods = new ArrayList<>();
@@ -46,9 +47,9 @@ public class IRCManager {
 
         loadPlugin();
 
-        registerEvent(new About());
-        registerEvent(new Help());
-        registerEvent(new Plugin());
+        registerEvent(new About(), true);
+        registerEvent(new Help(), true);
+        registerEvent(new Plugin(), true);
     }
 
     public synchronized void connect() throws Exception {
@@ -71,8 +72,13 @@ public class IRCManager {
         }
     }
 
-    public void registerEvent(Event event) {
+    public void registerEvent(Event event, boolean bundledEvent) {
         events.add(event);
+
+        if (bundledEvent) {
+            this.bundledEvent.add(event);
+        }
+
         try {
             event.onInit(new InitEvent(this, LogManager.getLogger(event.getClass().getSimpleName())));
         } catch (Exception e) {
@@ -102,6 +108,10 @@ public class IRCManager {
 
     public ArrayList<Event> getEvents() {
         return events;
+    }
+
+    public ArrayList<Event> getBundledEvent() {
+        return bundledEvent;
     }
 
     public ArrayList<String> getOwners() {
