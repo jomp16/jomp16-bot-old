@@ -41,7 +41,7 @@ public class CodecUtils extends Event {
     @CommandFilter("decode")
     public void decode(CommandEvent commandEvent) throws Exception {
         if (commandEvent.getArgs().size() >= 2) {
-            switch (commandEvent.getArgs().get(0)) {
+            switch (commandEvent.getArgs().get(0).toLowerCase()) {
                 case "base64":
                     commandEvent.respond(Base64.decode(commandEvent.getArgs().get(1).getBytes()));
                     break;
