@@ -7,7 +7,7 @@
 
 package com.jomp16.irc;
 
-import com.jomp16.irc.configuration.Configuration;
+import com.jomp16.configuration.Configuration;
 import com.jomp16.irc.event.Event;
 import com.jomp16.irc.event.listener.InitEvent;
 import com.jomp16.irc.output.OutputIRC;
@@ -15,6 +15,7 @@ import com.jomp16.irc.output.OutputRaw;
 import com.jomp16.irc.parser.Parser;
 import com.jomp16.irc.plugin.PluginLoader;
 import com.jomp16.irc.plugin.about.About;
+import com.jomp16.irc.plugin.commands.Commands;
 import com.jomp16.irc.plugin.help.Help;
 import com.jomp16.irc.plugin.plugin.Plugin;
 import org.apache.logging.log4j.LogManager;
@@ -49,6 +50,7 @@ public class IRCManager {
 
         registerEvent(new About(), true);
         registerEvent(new Help(), true);
+        registerEvent(new Commands(), true);
         registerEvent(new Plugin(), true);
     }
 
@@ -62,10 +64,8 @@ public class IRCManager {
 
     private void loadPlugin() {
         try {
-            ArrayList<Event> eventTmp = new PluginLoader().load();
-            for (Event event : eventTmp) {
+            for (Event event : new PluginLoader().load()) {
                 registerEvent(event, false);
-                event.onInit(new InitEvent(this, LogManager.getLogger(event.getClass().getSimpleName())));
             }
         } catch (Exception e) {
             log.error(e);
@@ -144,7 +144,7 @@ public class IRCManager {
                 outputRaw = new OutputRaw(ircManager);
                 outputIRC = new OutputIRC(ircManager);
                 outputRaw.writeRaw("NICK " + configuration.getNick());
-                outputRaw.writeRaw("USER " + configuration.getHostMask() + " 8 * :" + configuration.getRealName());
+                outputRaw.writeRaw("USER " + configuration.getIdentify() + " 8 * :" + configuration.getRealName());
 
                 String tmp;
                 while ((tmp = ircReader.readLine()) != null) {
@@ -152,9 +152,10 @@ public class IRCManager {
                         ready = true;
                     }
                     try {
-                        Parser.parse(ircManager, tmp, configuration.isVerbose());
+                        Parser.parseLine(ircManager, tmp);
                     } catch (Exception e) {
                         log.error(e);
+                        e.printStackTrace();
                     }
                 }
             } catch (Exception e) {

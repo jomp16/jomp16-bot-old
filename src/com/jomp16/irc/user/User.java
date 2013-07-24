@@ -42,7 +42,7 @@ public class User {
         return level;
     }
 
-    public void setLevel(Level level) {
-        this.level = level;
+    public String getCompleteRawLine() {
+        return userName + "!" + getCompleteHost();
     }
 }

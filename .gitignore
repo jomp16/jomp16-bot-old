@@ -3,3 +3,5 @@ plugins/
 .idea/
 out/
 *-sources.jar
+*.js
+*.db

@@ -9,43 +9,69 @@ package com.jomp16.bot;
 
 import com.jomp16.bot.plugin.FunCommandsPlugin;
 import com.jomp16.bot.plugin.TestPlugin;
+import com.jomp16.configuration.Configuration;
 import com.jomp16.irc.IRCManager;
-import com.jomp16.irc.configuration.Configuration;
 import com.jomp16.language.LanguageManager;
 import com.jomp16.language.LanguageNotFoundException;
+import com.jomp16.sqlite.SQLiteManager;
+import com.jomp16.sqlite.configurator.SQLite_Configurator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.FileInputStream;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class BotMain {
-    private static IRCManager ircManager;
     private static Logger log = LogManager.getLogger(BotMain.class.getSimpleName());
-    private static LanguageManager languageManager;
-    private static String languageName;
+    private static SQLiteManager sqLiteManager;
 
     public static void main(String[] args) throws Exception {
-        languageName = String.format("/lang/%s_%s.lang", System.getProperty("user.language"), System.getProperty("user.country"));
-        boolean jar = BotMain.class.getResource("BotMain.class").toString().startsWith("jar:");
+        startIRCBot();
+    }
+
+    private static void startIRCBot() throws Exception {
+        sqLiteManager = new SQLiteManager("database");
 
         try {
-            languageManager = (jar) ? new LanguageManager(BotMain.class.getResourceAsStream(languageName)) : new LanguageManager(new FileInputStream(languageName.substring(1)));
+            sqLiteManager.getPreparedStatement("SELECT * FROM bot_config").close();
+        } catch (SQLException e) {
+            // If the sql fails, it is because the database is new
+            new SQLite_Configurator();
+        }
+
+        String languageName = String.format("/lang/%s_%s.lang", System.getProperty("user.language"), System.getProperty("user.country"));
+        boolean jar = BotMain.class.getResource("BotMain.class").toString().startsWith("jar:");
+
+        LanguageManager languageManager;
+
+        try {
+            languageManager = new LanguageManager(jar ? BotMain.class.getResourceAsStream(languageName) : new FileInputStream(languageName.substring(1)));
         } catch (LanguageNotFoundException e) {
             languageName = String.format("/lang/%s_%s.lang", "en", "US");
-            languageManager = (jar) ? new LanguageManager(BotMain.class.getResourceAsStream(languageName)) : new LanguageManager(new FileInputStream(languageName.substring(1)));
+            languageManager = new LanguageManager(jar ? BotMain.class.getResourceAsStream(languageName) : new FileInputStream(languageName.substring(1)));
         }
 
         log.trace(languageManager.getString("Welcome"));
 
-        ircManager = new IRCManager(new Configuration.Builder()
-                .setPrefix("*")
+        ResultSet ircConf = sqLiteManager.getResultSet("SELECT * FROM bot_config");
+
+        IRCManager ircManager = new IRCManager(new Configuration.Builder()
+                .setNick(ircConf.getString("nick"))
+                .setRealName(ircConf.getString("realName"))
+                .setPrefix(ircConf.getString("prefix"))
+                .setIdentify(ircConf.getString("identify"))
+                .setServer(ircConf.getString("server"))
                 .setVerbose(true)
                 .buildConfiguration());
 
         ircManager.registerEvent(new TestPlugin(), true);
         ircManager.registerEvent(new FunCommandsPlugin(), true);
 
-        ircManager.addOwner("~jomp16@unaffiliated/jomp16");
+        ResultSet resultSet = sqLiteManager.getResultSet("SELECT * FROM owners");
+        while (resultSet.next()) {
+            ircManager.addOwner(resultSet.getString("mask"));
+        }
 
         ircManager.connect();
         ircManager.getOutputIRC().joinChannel("#jomp16-bot");

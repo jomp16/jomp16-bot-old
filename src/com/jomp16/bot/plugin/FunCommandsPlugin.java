@@ -20,14 +20,22 @@ public class FunCommandsPlugin extends Event {
     @CommandFilter("fortune")
     public void fortune(CommandEvent commandEvent) throws Exception {
         if (commandEvent.getArgs().size() >= 0) {
-            Process process = (commandEvent.getArgs().size() >= 1)
-                    ? Runtime.getRuntime().exec("fortune", new String[]{commandEvent.getArgs().get(0)})
-                    : Runtime.getRuntime().exec("fortune");
-
+            Process process;
+            if (commandEvent.getArgs().size() >= 1) {
+                commandEvent.getArgs().add(0, "fortune");
+                String[] a = commandEvent.getArgs().toArray(new String[commandEvent.getArgs().size()]);
+                process = Runtime.getRuntime().exec(a);
+            } else {
+                process = Runtime.getRuntime().exec("fortune");
+            }
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
                 String tmp;
                 while ((tmp = reader.readLine()) != null) {
-                    commandEvent.respondWithoutLock(tmp, false);
+                    if (tmp.length() == 0) {
+                        commandEvent.respond(" ", false);
+                    } else {
+                        commandEvent.respond(tmp, false);
+                    }
                 }
             }
         }

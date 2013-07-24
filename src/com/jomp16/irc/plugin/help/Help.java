@@ -10,6 +10,7 @@ package com.jomp16.irc.plugin.help;
 import com.jomp16.irc.IRCManager;
 import com.jomp16.irc.event.CommandFilter;
 import com.jomp16.irc.event.Event;
+import com.jomp16.irc.event.Level;
 import com.jomp16.irc.event.listener.CommandEvent;
 import com.jomp16.irc.event.listener.InitEvent;
 import com.jomp16.irc.event.listener.ResetEvent;
@@ -55,7 +56,7 @@ public class Help extends Event {
     }
 
     @CommandFilter("help")
-    public void help(CommandEvent commandEvent) {
+    public void help(CommandEvent commandEvent) throws Exception {
         if (helpRegisters.size() == 0) {
             registerHelp(commandEvent.getIrcManager().getEvents());
         }
@@ -79,35 +80,34 @@ public class Help extends Event {
             } else {
                 if (helpRegisters.containsKey(commandEvent.getArgs().get(0))) {
                     HelpRegister helpRegister = helpRegisters.get(commandEvent.getArgs().get(0));
+                    Level level = commandEvent.getUser().getLevel();
+
                     switch (helpRegister.getLevel()) {
                         case NORMAL:
                             commandEvent.respond(getHelpInfo(commandEvent.getIrcManager(), helpRegister));
                             break;
                         case MOD:
-                            if (commandEvent.getIrcManager().getMods().contains(commandEvent.getUser().getCompleteHost())
-                                    || commandEvent.getIrcManager().getAdmins().contains(commandEvent.getUser().getCompleteHost())
-                                    || commandEvent.getIrcManager().getOwners().contains(commandEvent.getUser().getCompleteHost())) {
+                            if (level.equals(Level.MOD)) {
                                 commandEvent.respond(getHelpInfo(commandEvent.getIrcManager(), helpRegister));
                             }
                             break;
                         case ADMIN:
-                            if (commandEvent.getIrcManager().getAdmins().contains(commandEvent.getUser().getCompleteHost())
-                                    || commandEvent.getIrcManager().getOwners().contains(commandEvent.getUser().getCompleteHost())) {
+                            if (level.equals(Level.ADMIN)) {
                                 commandEvent.respond(getHelpInfo(commandEvent.getIrcManager(), helpRegister));
                             }
                             break;
                         case OWNER:
-                            if (commandEvent.getIrcManager().getOwners().contains(commandEvent.getUser().getCompleteHost())) {
+                            if (level.equals(Level.OWNER)) {
                                 commandEvent.respond(getHelpInfo(commandEvent.getIrcManager(), helpRegister));
                             }
                             break;
                     }
                 } else {
-                    commandEvent.respond("No help found for that command, maybe the help doesn't exists or you mistake the command?");
+                    commandEvent.respond("No help found for that command, maybe the help doesn't exists or you mistyped the command?");
                 }
             }
         } else {
-            commandEvent.showUsage("help");
+            commandEvent.showUsage(this, "help");
         }
     }
 

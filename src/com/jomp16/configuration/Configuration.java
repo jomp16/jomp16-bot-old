@@ -5,12 +5,12 @@
  * as published by Sam Hocevar. See the COPYING file for more details.
  */
 
-package com.jomp16.irc.configuration;
+package com.jomp16.configuration;
 
 public class Configuration {
     private String nick;
     private String realName;
-    private String hostMask;
+    private String identify;
     private String server;
     private String prefix;
     private int port;
@@ -21,7 +21,7 @@ public class Configuration {
         this.nick = builder.getNick();
         this.realName = builder.getRealName();
         this.server = builder.getServer();
-        this.hostMask = builder.getHostMask();
+        this.identify = builder.getIdentify();
         this.prefix = builder.getPrefix();
         this.port = builder.getPort();
         this.commandLock = builder.getCommandLock();
@@ -40,8 +40,8 @@ public class Configuration {
         return realName;
     }
 
-    public String getHostMask() {
-        return hostMask;
+    public String getIdentify() {
+        return identify;
     }
 
     public String getServer() {
@@ -68,7 +68,7 @@ public class Configuration {
         private String nick = "jomp16-bot";
         private String realName = "jomp16-bot";
         private String server = "irc.freenode.org";
-        private String hostMask = "jomp16-bot";
+        private String identify = "jomp16-bot";
         private String prefix = "!";
         private int port = 6667;
         private int commandLock = 5;
@@ -120,12 +120,12 @@ public class Configuration {
             return this;
         }
 
-        public String getHostMask() {
-            return hostMask;
+        public String getIdentify() {
+            return identify;
         }
 
-        public Builder setHostMask(String hostMask) {
-            this.hostMask = hostMask;
+        public Builder setIdentify(String identify) {
+            this.identify = identify;
             return this;
         }
 

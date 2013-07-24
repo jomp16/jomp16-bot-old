@@ -10,8 +10,10 @@ package com.jomp16.irc.event.listener;
 import com.jomp16.irc.IRCManager;
 import com.jomp16.irc.event.Event;
 import com.jomp16.irc.plugin.help.HelpRegister;
+import com.jomp16.sqlite.SQLiteManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.net.URLDecoder;
 
 public class InitEvent {
@@ -41,5 +43,14 @@ public class InitEvent {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public SQLiteManager getSqlLiteManager(Event event, String database) throws Exception {
+        File file = new File("plugins/" + event.getClass().getSimpleName());
+
+        if (!file.exists()) file.mkdir();
+
+        return new SQLiteManager((database.endsWith(".db")) ? file.getAbsolutePath() + "/" + database : file.getAbsolutePath() + "/" + database + ".db");
     }
 }

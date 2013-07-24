@@ -55,6 +55,16 @@ public enum Tags {
         this.command = command;
     }
 
+    public static Tags getTag(String tag) {
+        for (Tags tags : Tags.values()) {
+            if (tags.command.equals(tag)) {
+                return tags;
+            }
+        }
+
+        return null;
+    }
+
     @Override
     public String toString() {
         return command;

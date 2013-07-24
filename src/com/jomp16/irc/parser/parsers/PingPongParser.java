@@ -15,7 +15,7 @@ import com.jomp16.irc.parser.ParserToken;
 
 public class PingPongParser extends Parser {
     @Override
-    public Event parse(IRCManager ircManager, long time, ParserToken token) {
+    public Event parse(IRCManager ircManager, ParserToken token) {
         return new PingEvent();
     }
 }

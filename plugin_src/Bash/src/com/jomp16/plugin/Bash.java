@@ -40,11 +40,19 @@ public class Bash extends Event {
             try (BufferedReader commandReader = new BufferedReader(new InputStreamReader(process.getInputStream())); BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
                 String tmp1;
                 while ((tmp1 = commandReader.readLine()) != null) {
-                    commandEvent.respondWithoutLock(tmp1, false);
+                    if (tmp1.length() == 0) {
+                        commandEvent.respond(" ", false);
+                    } else {
+                        commandEvent.respond(tmp1, false);
+                    }
                 }
 
                 while ((tmp1 = errorReader.readLine()) != null) {
-                    commandEvent.respondWithoutLock(tmp1, false);
+                    if (tmp1.length() == 0) {
+                        commandEvent.respond(" ", false);
+                    } else {
+                        commandEvent.respond(tmp1, false);
+                    }
                 }
             } catch (Exception e) {
                 commandEvent.respond(languageManager.getString("Error"));
@@ -52,10 +60,9 @@ public class Bash extends Event {
         }
     }
 
-    @CommandFilter(value = "bash", level = Level.ADMIN)
+    @CommandFilter(value = "bash", level = Level.OWNER)
     public void bash(CommandEvent commandEvent) throws LanguageStringNotFoundException {
         Process process = null;
-        StringBuilder builder = new StringBuilder();
 
         if (commandEvent.getMessage().length() >= 6) {
             String tmp = commandEvent.getMessage().substring(6);
@@ -71,18 +78,23 @@ public class Bash extends Event {
             try (BufferedReader commandReader = new BufferedReader(new InputStreamReader(process.getInputStream())); BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
                 String tmp1;
                 while ((tmp1 = commandReader.readLine()) != null) {
-                    builder.append(tmp1)
-                            .append(" ");
+                    if (tmp1.length() == 0) {
+                        commandEvent.respond(" ", false);
+                    } else {
+                        commandEvent.respond(tmp1, false);
+                    }
                 }
 
                 while ((tmp1 = errorReader.readLine()) != null) {
-                    builder.append(tmp1)
-                            .append(" ");
+                    if (tmp1.length() == 0) {
+                        commandEvent.respond(" ", false);
+                    } else {
+                        commandEvent.respond(tmp1, false);
+                    }
                 }
             } catch (Exception e) {
                 commandEvent.respond(languageManager.getString("Error"));
             }
-            commandEvent.respond(builder, false);
         }
     }
 

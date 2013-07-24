@@ -10,6 +10,6 @@ package com.jomp16.language;
 public class LanguageNotFoundException extends Exception {
     @Override
     public String getMessage() {
-        return "We can't find your language, maybe you mistake the language or the language doesn't exists?";
+        return "I cannot find your language, maybe you mistake the language or the language doesn't exists?";
     }
 }

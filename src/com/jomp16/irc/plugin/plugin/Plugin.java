@@ -37,8 +37,11 @@ public class Plugin extends Event {
                 case "disable":
                     if (commandEvent.getArgs().size() >= 2) {
                         if (eventHashMap.containsKey(commandEvent.getArgs().get(1))) {
-                            eventHashMap.get(commandEvent.getArgs().get(1)).onDisable(new DisableEvent(commandEvent.getIrcManager(), LogManager.getLogger(commandEvent.getArgs().get(1))));
-                            eventHashMap.remove(commandEvent.getArgs().get(1));
+                            Event eventToDisable = eventHashMap.get(commandEvent.getArgs().get(1));
+
+                            eventToDisable.onDisable(new DisableEvent(commandEvent.getIrcManager(), LogManager.getLogger(eventToDisable.getClass().getSimpleName())));
+                            eventHashMap.remove(eventToDisable.getClass().getSimpleName());
+                            commandEvent.getIrcManager().getEvents().remove(eventToDisable);
 
                             PrivMsgEvent.reloadEvents(commandEvent.getIrcManager().getEvents());
 
@@ -69,8 +72,11 @@ public class Plugin extends Event {
                             commandEvent.respond("Reloaded plugins: " + plugin);
                         } else {
                             if (eventHashMap.containsKey(commandEvent.getArgs().get(1))) {
-                                commandEvent.getIrcManager().getEvents().remove(eventHashMap.get(commandEvent.getArgs().get(1)));
-                                eventHashMap.remove(commandEvent.getArgs().get(1));
+                                Event eventToDisable = eventHashMap.get(commandEvent.getArgs().get(1));
+                                eventToDisable.onDisable(new DisableEvent(commandEvent.getIrcManager(), LogManager.getLogger(eventToDisable.getClass().getSimpleName())));
+
+                                commandEvent.getIrcManager().getEvents().remove(eventToDisable);
+                                eventHashMap.remove(eventToDisable.getClass().getSimpleName());
 
                                 File pluginFile = pluginFile(commandEvent.getArgs().get(1));
                                 if (pluginFile != null) {

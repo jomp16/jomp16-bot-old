@@ -10,6 +10,6 @@ package com.jomp16.language;
 public class LanguageStringNotFoundException extends Exception {
     @Override
     public String getMessage() {
-        return "We can't find the string for the specified key, maybe you mistake the key or the key doesn't exists?";
+        return "I cannot find the string for the specified key, maybe you mistake the key or the key doesn't exists?";
     }
 }

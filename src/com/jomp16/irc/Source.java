@@ -7,6 +7,8 @@
 
 package com.jomp16.irc;
 
+import com.jomp16.irc.event.Level;
+
 public class Source {
     private String raw;
     private String nick;
@@ -76,5 +78,27 @@ public class Source {
                 ", user='" + user + '\'' +
                 ", host='" + host + '\'' +
                 '}';
+    }
+
+    public static Level loopMask(IRCManager ircManager, String tmpMask) {
+        for (String ownersMask : ircManager.getOwners()) {
+            if (Source.match(tmpMask, ownersMask)) {
+                return Level.OWNER;
+            }
+        }
+
+        for (String adminsMask : ircManager.getAdmins()) {
+            if (Source.match(tmpMask, adminsMask)) {
+                return Level.ADMIN;
+            }
+        }
+
+        for (String modsMask : ircManager.getMods()) {
+            if (Source.match(tmpMask, modsMask)) {
+                return Level.MOD;
+            }
+        }
+
+        return Level.NORMAL;
     }
 }

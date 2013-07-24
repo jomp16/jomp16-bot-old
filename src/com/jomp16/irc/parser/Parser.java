@@ -9,8 +9,8 @@ package com.jomp16.irc.parser;
 
 import com.jomp16.irc.IRCManager;
 import com.jomp16.irc.Source;
+import com.jomp16.irc.dispatcher.Dispatcher;
 import com.jomp16.irc.event.Event;
-import com.jomp16.irc.event.listener.CommandEvent;
 import com.jomp16.irc.parser.parsers.JoinParser;
 import com.jomp16.irc.parser.parsers.NickNameInUseParser;
 import com.jomp16.irc.parser.parsers.PingPongParser;
@@ -20,66 +20,52 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
 
 public abstract class Parser {
-    private static final HashMap<Tags, Parser> parsers = new HashMap<>();
+    private static final HashMap<Tags, Parser> parsers = new HashMap<Tags, Parser>() {{
+        put(Tags.COMMAND_PING, new PingPongParser());
+        put(Tags.COMMAND_PRIVMSG, new PrivMsgParser());
+        put(Tags.COMMAND_JOIN, new JoinParser());
+        put(Tags.ERROR_NICK_IN_USE, new NickNameInUseParser());
+    }};
     private static Logger log = LogManager.getLogger(Parser.class.getSimpleName());
     private static String host = null;
 
-    static {
-        parsers.put(Tags.COMMAND_PING, new PingPongParser());
-        parsers.put(Tags.COMMAND_PRIVMSG, new PrivMsgParser());
-        parsers.put(Tags.COMMAND_JOIN, new JoinParser());
-        parsers.put(Tags.ERROR_NICK_IN_USE, new NickNameInUseParser());
-    }
-
-    public static void parse(IRCManager ircManager, String line, boolean verbose) {
-        String[] parts = Utils.splitUntilOccurenceAfterOccurence(line, " ", ":", 1, " ", line.startsWith(":") ? 1 : 0);
-        long time = System.currentTimeMillis();
-
-        if (verbose) {
-            log.info(Arrays.toString(parts));
+    public static void parseLine(IRCManager ircManager, String rawLine) {
+        if (rawLine == null) {
+            throw new IllegalArgumentException("Can't process null lines");
         }
+
+        ArrayList<String> parsedLine = Utils.tokenizeLine(rawLine);
+
+        log.trace(parsedLine);
 
         if (host == null) {
-            host = parts[0];
+            host = parsedLine.get(0);
         }
 
-        if (parts.length < 1 || (parts[0].startsWith(":") && parts.length < 2)) {
-            if (verbose) {
-                log.error("Line too short: " + line);
-            }
-            return;
+        if (!parsedLine.get(0).startsWith(":")) {
+            parsedLine.add(0, host);
         }
 
-        if (!parts[0].startsWith(":")) {
-            String[] modifiedParts = new String[parts.length + 1];
-            System.arraycopy(parts, 0, modifiedParts, 1, parts.length);
-            modifiedParts[0] = host;
-            parts = modifiedParts;
-        }
+        Source source = new Source(parsedLine.remove(0).replace(":", ""));
+        String command = parsedLine.remove(0).toUpperCase();
 
-        Source source = new Source(parts[0].replace(":", ""));
-        String command = parts[1];
-        ArrayList<String> params = new ArrayList<>(Arrays.asList(Arrays.copyOfRange(parts, 2, parts.length)));
+        ParserToken token = new ParserToken(rawLine, source, command, parsedLine);
 
-        if (verbose) {
-            // log.info("Source: " + source.toString() + " command: " + command + " params: " + params);
-        }
+        if (parsers.containsKey(Tags.getTag(command))) {
+            new Thread(() -> {
+                Event event = parsers.get(Tags.getTag(command)).parse(ircManager, token);
 
-        ParserToken token = new ParserToken(line, source, command, params);
-        for (Map.Entry<Tags, Parser> parser : parsers.entrySet()) {
-            if (parser.getKey().toString().equals(command)) {
-                Event e = parser.getValue().parse(ircManager, time, token);
-                if (e != null) {
-                    e.respond(new CommandEvent(ircManager, null, null, null, e, params, LogManager.getLogger(e.getClass().getSimpleName())));
+                if (event != null) {
+                    Dispatcher.dispatchEvent(event, ircManager, null, null, null, parsedLine);
                 }
-            }
+            }).start();
+        } else {
+            log.error("Command not found: " + command);
         }
     }
 
-    public abstract Event parse(IRCManager ircManager, long time, ParserToken token);
+    public abstract Event parse(IRCManager ircManager, ParserToken token);
 }

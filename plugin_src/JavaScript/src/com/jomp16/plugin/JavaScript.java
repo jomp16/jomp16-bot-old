@@ -17,42 +17,63 @@ import com.jomp16.irc.plugin.help.HelpRegister;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+import java.io.InputStreamReader;
+import java.net.URL;
 
 public class JavaScript extends Event {
     private static ScriptEngine scriptEngine = null;
 
     @CommandFilter(value = "js", level = Level.OWNER)
     public void js(CommandEvent commandEvent) throws Exception {
-        if (commandEvent.getMessage().length() > 4) {
+        if (commandEvent.getArgs().size() >= 1) {
             scriptEngine.put("commandEvent", commandEvent);
-            scriptEngine.put("testEvent", this);
-            try {
-                Object object = scriptEngine.eval(commandEvent.getMessage().substring(4));
-                if (object != null) {
-                    if (!object.equals("null")) {
-                        commandEvent.respond(object, false);
+
+            if (commandEvent.getArgs().get(0).equals("load")) {
+                if (commandEvent.getArgs().size() >= 2) {
+                    if (commandEvent.getArgs().get(1).equals("url")) {
+                        if (commandEvent.getArgs().size() >= 3) {
+                            Object object = scriptEngine.eval(new InputStreamReader(new URL(commandEvent.getArgs().get(2)).openStream()));
+                            if (object != null) {
+                                if (!object.equals("null")) {
+                                    commandEvent.respond(object, false);
+                                }
+                            }
+                        }
                     }
                 }
-            } catch (Exception e) {
-                commandEvent.respond(e);
+            } else {
+                new Thread(() -> {
+                    try {
+                        Object object = scriptEngine.eval(commandEvent.getArgs().get(0));
+
+                        if (object != null) {
+                            if (!object.equals("null")) {
+                                commandEvent.respond(object, false);
+                            }
+                        }
+                    } catch (ScriptException e) {
+                        e.printStackTrace();
+                    }
+                }).start();
             }
         } else {
-            commandEvent.showUsage("js");
+            commandEvent.showUsage(this, "js");
         }
     }
 
     @Override
     public void onInit(InitEvent initEvent) throws Exception {
+        initEvent.addHelp(this, new HelpRegister("js", "Run a java/javascript command", "js load url the_url or 'java/javascript command' (note the quotes)", Level.OWNER));
+
         if (scriptEngine == null) {
-            initEvent.getLog().debug("Created new instance of ScriptEngine");
             scriptEngine = new ScriptEngineManager().getEngineByName("JavaScript");
+            initEvent.getLog().debug("Created new instance of ScriptEngine");
         }
-        initEvent.addHelp(this, new HelpRegister("js", "Run a java/javascript command", "js java/javascript command", Level.OWNER));
     }
 
     @Override
     public void onDisable(DisableEvent disableEvent) throws Exception {
-        super.onDisable(disableEvent);
         scriptEngine = null;
     }
 }

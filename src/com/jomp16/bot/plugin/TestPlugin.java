@@ -11,7 +11,6 @@ import com.jomp16.irc.event.CommandFilter;
 import com.jomp16.irc.event.Event;
 import com.jomp16.irc.event.Level;
 import com.jomp16.irc.event.listener.CommandEvent;
-import com.jomp16.irc.event.listener.JoinEvent;
 
 public class TestPlugin extends Event {
     public String humanReadableByteCount(long bytes, boolean si) {
@@ -92,11 +91,11 @@ public class TestPlugin extends Event {
     }
 
     @Override
-    public void onJoin(JoinEvent joinEvent) {
-        if (joinEvent.getIrcManager().getAdmins().contains(joinEvent.getUser().getCompleteHost())) {
-            joinEvent.getChannelDAO().giveOP(joinEvent.getUser());
+    public void onJoin(CommandEvent commandEvent) {
+        if (commandEvent.getIrcManager().getAdmins().contains(commandEvent.getUser().getCompleteHost())) {
+            commandEvent.getChannelDAO().giveOP(commandEvent.getUser());
         } else {
-            joinEvent.getChannelDAO().giveVoice(joinEvent.getUser());
+            commandEvent.getChannelDAO().giveVoice(commandEvent.getUser());
         }
     }
 }

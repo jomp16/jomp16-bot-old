@@ -11,7 +11,7 @@ import com.jomp16.irc.IRCManager;
 import com.jomp16.irc.channel.Channel;
 import com.jomp16.irc.event.Event;
 import com.jomp16.irc.event.Level;
-import com.jomp16.irc.event.listener.JoinEvent;
+import com.jomp16.irc.event.listener.CommandEvent;
 import com.jomp16.irc.parser.Parser;
 import com.jomp16.irc.parser.ParserToken;
 import com.jomp16.irc.user.User;
@@ -22,7 +22,7 @@ public class JoinParser extends Parser {
     private Logger log = LogManager.getLogger(this.getClass().getSimpleName());
 
     @Override
-    public Event parse(IRCManager ircManager, long time, ParserToken token) {
+    public Event parse(IRCManager ircManager, ParserToken token) {
         if (token.getSource().getNick().equals(ircManager.getConfiguration().getNick())) {
             return null;
         }
@@ -51,7 +51,7 @@ public class JoinParser extends Parser {
         token.getParams().remove(0);
         for (Event event : ircManager.getEvents()) {
             try {
-                event.onJoin(new JoinEvent(ircManager, user, channel, null, event, null, LogManager.getLogger(event.getClass().getSimpleName())));
+                event.onJoin(new CommandEvent(ircManager, user, channel, null, null, LogManager.getLogger(event.getClass().getSimpleName())));
             } catch (Exception e) {
                 log.error(e);
             }

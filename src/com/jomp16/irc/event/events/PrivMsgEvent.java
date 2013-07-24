@@ -8,6 +8,7 @@
 package com.jomp16.irc.event.events;
 
 import com.jomp16.irc.IRCManager;
+import com.jomp16.irc.Source;
 import com.jomp16.irc.channel.Channel;
 import com.jomp16.irc.event.CommandFilter;
 import com.jomp16.irc.event.Event;
@@ -19,12 +20,17 @@ import org.apache.logging.log4j.Logger;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PrivMsgEvent extends Event {
     private static ArrayList<EventRegister> eventRegisters = new ArrayList<>();
+    private static HashMap<String, Integer> spamLock = new HashMap<>();
+    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ss");
     private IRCManager ircManager;
     private User user;
     private String message;
@@ -32,29 +38,29 @@ public class PrivMsgEvent extends Event {
     private ArrayList<String> args = new ArrayList<>();
     private Logger log = LogManager.getLogger(this.getClass().getSimpleName());
 
-    public PrivMsgEvent(IRCManager ircManager, User user, Channel channel, String message, ArrayList<Event> events) {
+    public PrivMsgEvent(IRCManager ircManager, User user, Channel channel, String message, PrivMSGTag tag, ArrayList<Event> events) {
         this.ircManager = ircManager;
         this.user = user;
         this.message = message;
         this.channel = channel;
 
-        parseLine(message);
-
-        if (eventRegisters.size() == 0) {
-            registerArrayList(events);
-        }
-
-        try {
-            invoke(eventRegisters, args, ircManager.getConfiguration().getPrefix());
-        } catch (Exception e) {
-            log.error("An error occurred: " + e.toString());
-            e.printStackTrace();
+        switch (tag) {
+            case NORMAL:
+                runNormal(events);
+                break;
+            case PING:
+                // TODO: see this
+                break;
         }
     }
 
     public static void reloadEvents(ArrayList<Event> events) {
         eventRegisters.clear();
         registerArrayList(events);
+    }
+
+    public static ArrayList<EventRegister> getEventRegisters() {
+        return eventRegisters;
     }
 
     private static void registerArrayList(ArrayList<Event> events) {
@@ -68,6 +74,25 @@ public class PrivMsgEvent extends Event {
                     eventRegisters.add(eventRegister);
                 }
             }
+        }
+    }
+
+    private void runNormal(ArrayList<Event> events) {
+        parseLine(message);
+
+        if (eventRegisters.size() == 0) {
+            registerArrayList(events);
+        }
+
+        try {
+            for (Event event : ircManager.getEvents()) {
+                event.onPrivateMessage(new CommandEvent(ircManager, user, channel, message, args, LogManager.getLogger(event.getClass().getSimpleName())));
+            }
+
+            invoke(eventRegisters, args, ircManager.getConfiguration().getPrefix());
+        } catch (Exception e) {
+            log.error("An error occurred: " + e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -88,49 +113,102 @@ public class PrivMsgEvent extends Event {
     }
 
     public void invoke(ArrayList<EventRegister> eventRegisters, ArrayList<String> args, String prefix) throws Exception {
-        if (args.get(0).startsWith(prefix)) {
-            args.set(0, args.get(0).substring(1));
-            for (EventRegister eventRegister : eventRegisters) {
-                if (args.get(0).equals(eventRegister.command)) {
-                    args.remove(0);
-                    CommandEvent commandEvent = new CommandEvent(ircManager, user, channel, message, eventRegister.event, args, LogManager.getLogger(eventRegister.event.getClass().getSimpleName()));
-                    switch (eventRegister.level) {
-                        case NORMAL:
-                            eventRegister.method.invoke(eventRegister.event, commandEvent);
-                            break;
-                        case MOD:
-                            if (ircManager.getMods().contains(user.getCompleteHost()) || ircManager.getAdmins().contains(user.getCompleteHost()) || ircManager.getOwners().contains(user.getCompleteHost())) {
-                                eventRegister.method.invoke(eventRegister.event, commandEvent);
-                            } else {
-                                ircManager.getOutputIRC().sendMessage(channel.getTargetName(), user.getUserName(), "No enough permission to run that command =(");
+        if (args.size() >= 1) {
+            if (!isLocked()) {
+                if (args.get(0).startsWith(prefix)) {
+                    args.set(0, args.get(0).substring(1));
+
+                    for (EventRegister eventRegister : eventRegisters) {
+                        if (args.get(0).equals(eventRegister.command)) {
+                            args.remove(0);
+                            CommandEvent commandEvent = new CommandEvent(ircManager, user, channel, message, args, LogManager.getLogger(eventRegister.event.getClass().getSimpleName()));
+
+                            Level level = Source.loopMask(ircManager, user.getCompleteRawLine());
+                            switch (eventRegister.level) {
+                                case NORMAL:
+                                    invoke(eventRegister.method, eventRegister.event, commandEvent);
+                                    break;
+                                case MOD:
+                                    if (level == Level.MOD || level == Level.ADMIN || level == Level.OWNER) {
+                                        invoke(eventRegister.method, eventRegister.event, commandEvent);
+                                    }
+                                    break;
+                                case ADMIN:
+                                    if (level == Level.ADMIN || level == Level.OWNER) {
+                                        invoke(eventRegister.method, eventRegister.event, commandEvent);
+                                    }
+                                    break;
+                                case OWNER:
+                                    if (level == Level.OWNER) {
+                                        invoke(eventRegister.method, eventRegister.event, commandEvent);
+                                    }
+                                    break;
                             }
+
                             break;
-                        case ADMIN:
-                            if (ircManager.getAdmins().contains(user.getCompleteHost()) || ircManager.getOwners().contains(user.getCompleteHost())) {
-                                eventRegister.method.invoke(eventRegister.event, commandEvent);
-                            } else {
-                                ircManager.getOutputIRC().sendMessage(channel.getTargetName(), user.getUserName(), "No enough permission to run that command =(");
-                            }
-                            break;
-                        case OWNER:
-                            if (ircManager.getOwners().contains(user.getCompleteHost())) {
-                                eventRegister.method.invoke(eventRegister.event, commandEvent);
-                            } else {
-                                ircManager.getOutputIRC().sendMessage(channel.getTargetName(), user.getUserName(), "No enough permission to run that command =(");
-                            }
-                            break;
+                        }
                     }
-                    break;
                 }
             }
         }
     }
 
-    private static class EventRegister {
-        private String command;
-        private Method method;
-        private Event event;
-        private Level level;
+    private int transform(int i) {
+        if (i >> 31 != 0) {
+            i = i * -1;
+        }
+
+        if (i > 60) {
+            return 60;
+        }
+
+        return i;
+    }
+
+    private boolean isLocked() {
+        int currentSec = Integer.parseInt(simpleDateFormat.format(new Date(System.currentTimeMillis())));
+        if (spamLock.containsKey(this.user.getUserName())) {
+            int timeLock = spamLock.get(this.user.getUserName());
+            int timeOut = ircManager.getConfiguration().getCommandLock();
+            if (timeLock > transform(currentSec + timeOut) || timeLock < transform(currentSec - timeOut)) {
+                spamLock.replace(this.user.getUserName(), currentSec);
+                return false;
+            }
+        } else {
+            if (user.getLevel() == Level.OWNER || user.getLevel() == Level.ADMIN || user.getLevel() == Level.MOD) {
+                return false;
+            } else {
+                spamLock.put(this.user.getUserName(), currentSec);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void invoke(Method method, Event event, CommandEvent commandEvent) {
+        try {
+            method.invoke(event, commandEvent);
+        } catch (Exception e) {
+            log.error(e);
+            e.printStackTrace();
+        }
+    }
+
+    public enum PrivMSGTag {
+        VERSION,
+        ACTION,
+        PING,
+        TIME,
+        FINGER,
+        DCC,
+        NORMAL
+    }
+
+    public static class EventRegister {
+        public String command;
+        public Method method;
+        public Event event;
+        public Level level;
 
         public EventRegister(String command, Event event, Level level, Method method) {
             this.command = command;

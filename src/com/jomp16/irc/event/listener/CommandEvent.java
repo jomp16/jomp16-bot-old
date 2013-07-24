@@ -11,7 +11,6 @@ import com.jomp16.irc.IRCManager;
 import com.jomp16.irc.channel.Channel;
 import com.jomp16.irc.channel.ChannelDAO;
 import com.jomp16.irc.event.Event;
-import com.jomp16.irc.event.Level;
 import com.jomp16.irc.plugin.help.HelpRegister;
 import com.jomp16.irc.user.User;
 import org.apache.logging.log4j.Logger;
@@ -31,105 +30,85 @@ public class CommandEvent {
     private String message;
     private ArrayList<String> args;
     private Logger log;
-    private Event event;
     private Date date;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ss");
 
-    public CommandEvent(IRCManager ircManager, User user, Channel channel, String message, Event event, ArrayList<String> args, Logger log) {
+    public CommandEvent(IRCManager ircManager, User user, Channel channel, String message, ArrayList<String> args, Logger log) {
         this.ircManager = ircManager;
         this.user = user;
         this.channel = channel;
         this.channelDAO = new ChannelDAO(ircManager, user, channel);
         this.message = message;
-        this.event = event;
         this.args = args;
         this.log = log;
         date = new Date(System.currentTimeMillis());
     }
 
-    public int transform(int i) {
-        if (i >> 31 != 0) {
-            i = i * -1;
-        }
-
-        if (i > 60) {
-            return 60;
-        }
-
-        return i;
-    }
-
-    private boolean isLocked() {
-        int currentSec = Integer.parseInt(simpleDateFormat.format(date));
-        if (spamLock.containsKey(this.user.getUserName())) {
-            int timeLock = spamLock.get(this.user.getUserName());
-            int timeOut = ircManager.getConfiguration().getCommandLock();
-            if (timeLock > transform(currentSec + timeOut) || timeLock < transform(currentSec - timeOut)) {
-                spamLock.replace(this.user.getUserName(), currentSec);
-                return false;
-            }
-        } else {
-            if (user.getLevel() == Level.OWNER || user.getLevel() == Level.ADMIN || user.getLevel() == Level.MOD) {
-                return false;
-            } else {
-                spamLock.put(this.user.getUserName(), currentSec);
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public void respond(Object message) {
-        if (!isLocked()) {
-            ircManager.getOutputIRC().sendMessage(channel.getTargetName(), user.getUserName(), message);
-        }
-    }
-
-    public void respond(Object message, boolean showName) {
-        if (!isLocked()) {
-            if (showName) {
-                respond(message);
-            } else {
-                ircManager.getOutputIRC().sendMessage(channel.getTargetName(), message);
-            }
-        }
-    }
-
-    public void respondWithoutLock(Object message) {
+    public synchronized void respond(Object message) {
         ircManager.getOutputIRC().sendMessage(channel.getTargetName(), user.getUserName(), message);
+
+        try {
+            wait(700);
+        } catch (Exception e) {
+            log.error(e);
+        }
     }
 
-    public void respondWithoutLock(Object message, boolean showName) {
+    public synchronized void respond(Object message, boolean showName) {
         if (showName) {
             respond(message);
         } else {
             ircManager.getOutputIRC().sendMessage(channel.getTargetName(), message);
         }
-    }
 
-    public void respond(Object target, Object message) {
-        if (!isLocked()) {
-            ircManager.getOutputIRC().sendMessage(target, message);
+        try {
+            wait(700);
+        } catch (Exception e) {
+            log.error(e);
         }
     }
 
-    public void respond(Object target, Object user, Object message) {
-        if (!isLocked()) {
-            ircManager.getOutputIRC().sendMessage(target, user, message);
+    public synchronized void respond(Object target, Object message) {
+        ircManager.getOutputIRC().sendMessage(target, message);
+
+        try {
+            wait(700);
+        } catch (Exception e) {
+            log.error(e);
         }
     }
 
-    public void respond(String user, Object message) {
-        if (!isLocked()) {
-            ircManager.getOutputIRC().sendMessage(channel.getTargetName(), user, message);
+    public synchronized void respond(Object target, Object user, Object message) {
+        ircManager.getOutputIRC().sendMessage(target, user, message);
+
+        try {
+            wait(700);
+        } catch (Exception e) {
+            log.error(e);
         }
     }
 
-    public void showUsage(String command) {
+    public synchronized void respond(String user, Object message) {
+        ircManager.getOutputIRC().sendMessage(channel.getTargetName(), user, message);
+
+        try {
+            wait(700);
+        } catch (Exception e) {
+            log.error(e);
+        }
+    }
+
+    public synchronized void showUsage(Event event, String command) {
         for (HelpRegister helpRegister : event.getHelpRegister()) {
             if (helpRegister.getCommand().equals(command)) {
                 respond("Usage: " + ircManager.getConfiguration().getPrefix() + helpRegister.getUsage());
             }
+        }
+
+        try {
+            wait(700);
+        } catch (Exception e) {
+            log.error(e);
         }
     }
 

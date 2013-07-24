@@ -1,7 +1,3 @@
 I will but something here later....
 
-TODO:   Add whatever to store the users of a channel on a array (normal, voice, op and all) on Channel class
-        Change hardcoded string value to the language manager (multi language system)
-        Add more classes to handle the rest of the IRC commands
-        Create a SQLite Manager and move all hardcoded values to a database
-        Create a SQLite Configurator to configure the database at first start
+Check TODO to see the todo for project
