@@ -14,7 +14,7 @@ import com.jomp16.irc.event.listener.CommandEvent;
 import com.jomp16.irc.event.listener.InitEvent;
 import com.jomp16.irc.event.listener.ResetEvent;
 import com.jomp16.irc.plugin.help.HelpRegister;
-import com.sun.deploy.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 

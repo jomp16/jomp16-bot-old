@@ -5,7 +5,7 @@
  * as published by Sam Hocevar. See the COPYING file for more details.
  */
 
-package com.jomp16.plugin;
+package com.jomp16.plugin.cyanogenmod;
 
 import com.jomp16.irc.event.Event;
 

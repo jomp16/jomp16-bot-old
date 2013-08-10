@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright © 2013 jomp16 <joseoliviopedrosa@gmail.com>
+  ~ This work is free. You can redistribute it and/or modify it under the
+  ~ terms of the Do What The Fuck You Want To Public License, Version 2,
+  ~ as published by Sam Hocevar. See the COPYING file for more details.
+  -->
+
+<project name="module_jomp16-bot" default="compile.module.jomp16-bot">
+    <dirname property="module.jomp16-bot.basedir" file="${ant.file.module_jomp16-bot}"/>
+
+
+    <property name="compiler.args.jomp16-bot" value="${compiler.args}"/>
+
+    <property name="jomp16-bot.output.dir" value="${module.jomp16-bot.basedir}/out/production/jomp16-bot"/>
+    <property name="jomp16-bot.testoutput.dir" value="${module.jomp16-bot.basedir}/out/test/jomp16-bot"/>
+
+    <path id="jomp16-bot.module.bootclasspath">
+        <!-- Paths to be included in compilation bootclasspath -->
+    </path>
+
+    <path id="jomp16-bot.module.production.classpath">
+        <path refid="library.log4j-core-2.0-beta6.classpath"/>
+        <path refid="library.log4j-api-2.0-beta6.classpath"/>
+        <path refid="library.commons-lang3-3.1.classpath"/>
+        <path refid="library.sqlite-jdbc-3.7.15-snapshot-2.classpath"/>
+        <path refid="library.guava-14.0.1.classpath"/>
+        <path refid="library.reflections-0.9.9-rc1-uberjar.classpath"/>
+        <path refid="library.javassist.classpath"/>
+    </path>
+
+    <path id="jomp16-bot.runtime.production.module.classpath">
+        <pathelement location="${jomp16-bot.output.dir}"/>
+        <path refid="library.log4j-core-2.0-beta6.classpath"/>
+        <path refid="library.log4j-api-2.0-beta6.classpath"/>
+        <path refid="library.commons-lang3-3.1.classpath"/>
+        <path refid="library.sqlite-jdbc-3.7.15-snapshot-2.classpath"/>
+        <path refid="library.guava-14.0.1.classpath"/>
+        <path refid="library.reflections-0.9.9-rc1-uberjar.classpath"/>
+        <path refid="library.javassist.classpath"/>
+    </path>
+
+    <path id="jomp16-bot.module.classpath">
+        <pathelement location="${jomp16-bot.output.dir}"/>
+        <path refid="library.log4j-core-2.0-beta6.classpath"/>
+        <path refid="library.log4j-api-2.0-beta6.classpath"/>
+        <path refid="library.commons-lang3-3.1.classpath"/>
+        <path refid="library.sqlite-jdbc-3.7.15-snapshot-2.classpath"/>
+        <path refid="library.guava-14.0.1.classpath"/>
+        <path refid="library.reflections-0.9.9-rc1-uberjar.classpath"/>
+        <path refid="library.javassist.classpath"/>
+    </path>
+
+    <path id="jomp16-bot.runtime.module.classpath">
+        <pathelement location="${jomp16-bot.testoutput.dir}"/>
+        <pathelement location="${jomp16-bot.output.dir}"/>
+        <path refid="library.log4j-core-2.0-beta6.classpath"/>
+        <path refid="library.log4j-api-2.0-beta6.classpath"/>
+        <path refid="library.commons-lang3-3.1.classpath"/>
+        <path refid="library.sqlite-jdbc-3.7.15-snapshot-2.classpath"/>
+        <path refid="library.guava-14.0.1.classpath"/>
+        <path refid="library.reflections-0.9.9-rc1-uberjar.classpath"/>
+        <path refid="library.javassist.classpath"/>
+    </path>
+
+
+    <patternset id="excluded.from.module.jomp16-bot">
+        <patternset refid="ignored.files"/>
+    </patternset>
+
+    <patternset id="excluded.from.compilation.jomp16-bot">
+        <patternset refid="excluded.from.module.jomp16-bot"/>
+    </patternset>
+
+    <path id="jomp16-bot.module.sourcepath">
+        <dirset dir="${module.jomp16-bot.basedir}">
+            <include name="src"/>
+        </dirset>
+    </path>
+
+
+    <target name="compile.module.jomp16-bot"
+            depends="compile.module.jomp16-bot.production,compile.module.jomp16-bot.tests"
+            description="Compile module jomp16-bot"/>
+
+    <target name="compile.module.jomp16-bot.production" description="Compile module jomp16-bot; production classes">
+        <mkdir dir="${jomp16-bot.output.dir}"/>
+        <javac destdir="${jomp16-bot.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
+               memorymaximumsize="${compiler.max.memory}" fork="true">
+            <compilerarg line="${compiler.args.jomp16-bot}"/>
+            <bootclasspath refid="jomp16-bot.module.bootclasspath"/>
+            <classpath refid="jomp16-bot.module.production.classpath"/>
+            <src refid="jomp16-bot.module.sourcepath"/>
+            <patternset refid="excluded.from.compilation.jomp16-bot"/>
+        </javac>
+
+        <copy todir="${jomp16-bot.output.dir}">
+            <fileset dir="${module.jomp16-bot.basedir}/src">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="compile.module.jomp16-bot.tests" depends="compile.module.jomp16-bot.production"
+            description="compile module jomp16-bot; test classes" unless="skip.tests"/>
+
+    <target name="clean.module.jomp16-bot" description="cleanup module">
+        <delete dir="${jomp16-bot.output.dir}"/>
+        <delete dir="${jomp16-bot.testoutput.dir}"/>
+    </target>
+</project>

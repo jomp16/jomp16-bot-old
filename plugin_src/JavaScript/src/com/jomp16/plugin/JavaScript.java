@@ -68,7 +68,6 @@ public class JavaScript extends Event {
 
         if (scriptEngine == null) {
             scriptEngine = new ScriptEngineManager().getEngineByName("JavaScript");
-            initEvent.getLog().debug("Created new instance of ScriptEngine");
         }
     }
 

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright © 2013 jomp16 <joseoliviopedrosa@gmail.com>
+  ~ This work is free. You can redistribute it and/or modify it under the
+  ~ terms of the Do What The Fuck You Want To Public License, Version 2,
+  ~ as published by Sam Hocevar. See the COPYING file for more details.
+  -->
+
+<project name="module_manager" default="compile.module.manager">
+    <dirname property="module.manager.basedir" file="${ant.file.module_manager}"/>
+
+
+    <property name="compiler.args.manager" value="${compiler.args}"/>
+
+    <property name="manager.output.dir" value="${module.manager.basedir}/../../out/production/Manager"/>
+    <property name="manager.testoutput.dir" value="${module.manager.basedir}/../../out/test/Manager"/>
+
+    <path id="manager.module.bootclasspath">
+        <!-- Paths to be included in compilation bootclasspath -->
+    </path>
+
+    <path id="manager.module.production.classpath">
+        <pathelement location="${jomp16-bot.output.dir}"/>
+    </path>
+
+    <path id="manager.runtime.production.module.classpath">
+        <pathelement location="${manager.output.dir}"/>
+        <path refid="jomp16-bot.runtime.production.module.classpath"/>
+    </path>
+
+    <path id="manager.module.classpath">
+        <pathelement location="${manager.output.dir}"/>
+        <pathelement location="${jomp16-bot.testoutput.dir}"/>
+        <pathelement location="${jomp16-bot.output.dir}"/>
+    </path>
+
+    <path id="manager.runtime.module.classpath">
+        <pathelement location="${manager.testoutput.dir}"/>
+        <pathelement location="${manager.output.dir}"/>
+        <path refid="jomp16-bot.runtime.module.classpath"/>
+    </path>
+
+
+    <patternset id="excluded.from.module.manager">
+        <patternset refid="ignored.files"/>
+    </patternset>
+
+    <patternset id="excluded.from.compilation.manager">
+        <patternset refid="excluded.from.module.manager"/>
+    </patternset>
+
+    <path id="manager.module.sourcepath">
+        <dirset dir="${module.manager.basedir}">
+            <include name="src"/>
+        </dirset>
+    </path>
+
+
+    <target name="compile.module.manager" depends="compile.module.manager.production,compile.module.manager.tests"
+            description="Compile module Manager"/>
+
+    <target name="compile.module.manager.production" depends="compile.module.jomp16-bot"
+            description="Compile module Manager; production classes">
+        <mkdir dir="${manager.output.dir}"/>
+        <javac destdir="${manager.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
+               memorymaximumsize="${compiler.max.memory}" fork="true">
+            <compilerarg line="${compiler.args.manager}"/>
+            <bootclasspath refid="manager.module.bootclasspath"/>
+            <classpath refid="manager.module.production.classpath"/>
+            <src refid="manager.module.sourcepath"/>
+            <patternset refid="excluded.from.compilation.manager"/>
+        </javac>
+
+        <copy todir="${manager.output.dir}">
+            <fileset dir="${module.manager.basedir}/src">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="compile.module.manager.tests" depends="compile.module.manager.production"
+            description="compile module Manager; test classes" unless="skip.tests"/>
+
+    <target name="clean.module.manager" description="cleanup module">
+        <delete dir="${manager.output.dir}"/>
+        <delete dir="${manager.testoutput.dir}"/>
+    </target>
+</project>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright © 2013 jomp16 <joseoliviopedrosa@gmail.com>
+  ~ This work is free. You can redistribute it and/or modify it under the
+  ~ terms of the Do What The Fuck You Want To Public License, Version 2,
+  ~ as published by Sam Hocevar. See the COPYING file for more details.
+  -->
+
+<project name="module_utils" default="compile.module.utils">
+    <dirname property="module.utils.basedir" file="${ant.file.module_utils}"/>
+
+
+    <property name="compiler.args.utils" value="${compiler.args}"/>
+
+    <property name="utils.output.dir" value="${module.utils.basedir}/../../out/production/Utils"/>
+    <property name="utils.testoutput.dir" value="${module.utils.basedir}/../../out/test/Utils"/>
+
+    <path id="utils.module.bootclasspath">
+        <!-- Paths to be included in compilation bootclasspath -->
+    </path>
+
+    <path id="utils.module.production.classpath">
+        <pathelement location="${jomp16-bot.output.dir}"/>
+    </path>
+
+    <path id="utils.runtime.production.module.classpath">
+        <pathelement location="${utils.output.dir}"/>
+        <path refid="jomp16-bot.runtime.production.module.classpath"/>
+    </path>
+
+    <path id="utils.module.classpath">
+        <pathelement location="${utils.output.dir}"/>
+        <pathelement location="${jomp16-bot.testoutput.dir}"/>
+        <pathelement location="${jomp16-bot.output.dir}"/>
+    </path>
+
+    <path id="utils.runtime.module.classpath">
+        <pathelement location="${utils.testoutput.dir}"/>
+        <pathelement location="${utils.output.dir}"/>
+        <path refid="jomp16-bot.runtime.module.classpath"/>
+    </path>
+
+
+    <patternset id="excluded.from.module.utils">
+        <patternset refid="ignored.files"/>
+    </patternset>
+
+    <patternset id="excluded.from.compilation.utils">
+        <patternset refid="excluded.from.module.utils"/>
+    </patternset>
+
+    <path id="utils.module.sourcepath">
+        <dirset dir="${module.utils.basedir}">
+            <include name="src"/>
+        </dirset>
+    </path>
+
+
+    <target name="compile.module.utils" depends="compile.module.utils.production,compile.module.utils.tests"
+            description="Compile module Utils"/>
+
+    <target name="compile.module.utils.production" depends="compile.module.jomp16-bot"
+            description="Compile module Utils; production classes">
+        <mkdir dir="${utils.output.dir}"/>
+        <javac destdir="${utils.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
+               memorymaximumsize="${compiler.max.memory}" fork="true">
+            <compilerarg line="${compiler.args.utils}"/>
+            <bootclasspath refid="utils.module.bootclasspath"/>
+            <classpath refid="utils.module.production.classpath"/>
+            <src refid="utils.module.sourcepath"/>
+            <patternset refid="excluded.from.compilation.utils"/>
+        </javac>
+
+        <copy todir="${utils.output.dir}">
+            <fileset dir="${module.utils.basedir}/src">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="compile.module.utils.tests" depends="compile.module.utils.production"
+            description="compile module Utils; test classes" unless="skip.tests"/>
+
+    <target name="clean.module.utils" description="cleanup module">
+        <delete dir="${utils.output.dir}"/>
+        <delete dir="${utils.testoutput.dir}"/>
+    </target>
+</project>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright © 2013 jomp16 <joseoliviopedrosa@gmail.com>
+  ~ This work is free. You can redistribute it and/or modify it under the
+  ~ terms of the Do What The Fuck You Want To Public License, Version 2,
+  ~ as published by Sam Hocevar. See the COPYING file for more details.
+  -->
+
+<project name="module_bash" default="compile.module.bash">
+    <dirname property="module.bash.basedir" file="${ant.file.module_bash}"/>
+
+
+    <property name="compiler.args.bash" value="${compiler.args}"/>
+
+    <property name="bash.output.dir" value="${module.bash.basedir}/../../out/production/Bash"/>
+    <property name="bash.testoutput.dir" value="${module.bash.basedir}/../../out/test/Bash"/>
+
+    <path id="bash.module.bootclasspath">
+        <!-- Paths to be included in compilation bootclasspath -->
+    </path>
+
+    <path id="bash.module.production.classpath">
+        <pathelement location="${jomp16-bot.output.dir}"/>
+    </path>
+
+    <path id="bash.runtime.production.module.classpath">
+        <pathelement location="${bash.output.dir}"/>
+        <path refid="jomp16-bot.runtime.production.module.classpath"/>
+    </path>
+
+    <path id="bash.module.classpath">
+        <pathelement location="${bash.output.dir}"/>
+        <pathelement location="${jomp16-bot.testoutput.dir}"/>
+        <pathelement location="${jomp16-bot.output.dir}"/>
+    </path>
+
+    <path id="bash.runtime.module.classpath">
+        <pathelement location="${bash.testoutput.dir}"/>
+        <pathelement location="${bash.output.dir}"/>
+        <path refid="jomp16-bot.runtime.module.classpath"/>
+    </path>
+
+
+    <patternset id="excluded.from.module.bash">
+        <patternset refid="ignored.files"/>
+    </patternset>
+
+    <patternset id="excluded.from.compilation.bash">
+        <patternset refid="excluded.from.module.bash"/>
+    </patternset>
+
+    <path id="bash.module.sourcepath">
+        <dirset dir="${module.bash.basedir}">
+            <include name="src"/>
+        </dirset>
+    </path>
+
+
+    <target name="compile.module.bash" depends="compile.module.bash.production,compile.module.bash.tests"
+            description="Compile module Bash"/>
+
+    <target name="compile.module.bash.production" depends="compile.module.jomp16-bot"
+            description="Compile module Bash; production classes">
+        <mkdir dir="${bash.output.dir}"/>
+        <javac destdir="${bash.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
+               memorymaximumsize="${compiler.max.memory}" fork="true">
+            <compilerarg line="${compiler.args.bash}"/>
+            <bootclasspath refid="bash.module.bootclasspath"/>
+            <classpath refid="bash.module.production.classpath"/>
+            <src refid="bash.module.sourcepath"/>
+            <patternset refid="excluded.from.compilation.bash"/>
+        </javac>
+
+        <copy todir="${bash.output.dir}">
+            <fileset dir="${module.bash.basedir}/src">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="compile.module.bash.tests" depends="compile.module.bash.production"
+            description="compile module Bash; test classes" unless="skip.tests"/>
+
+    <target name="clean.module.bash" description="cleanup module">
+        <delete dir="${bash.output.dir}"/>
+        <delete dir="${bash.testoutput.dir}"/>
+    </target>
+</project>

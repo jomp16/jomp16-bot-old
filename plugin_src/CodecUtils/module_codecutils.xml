@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright © 2013 jomp16 <joseoliviopedrosa@gmail.com>
+  ~ This work is free. You can redistribute it and/or modify it under the
+  ~ terms of the Do What The Fuck You Want To Public License, Version 2,
+  ~ as published by Sam Hocevar. See the COPYING file for more details.
+  -->
+
+<project name="module_codecutils" default="compile.module.codecutils">
+    <dirname property="module.codecutils.basedir" file="${ant.file.module_codecutils}"/>
+
+
+    <property name="compiler.args.codecutils" value="${compiler.args}"/>
+
+    <property name="codecutils.output.dir" value="${module.codecutils.basedir}/../../out/production/CodecUtils"/>
+    <property name="codecutils.testoutput.dir" value="${module.codecutils.basedir}/../../out/test/CodecUtils"/>
+
+    <path id="codecutils.module.bootclasspath">
+        <!-- Paths to be included in compilation bootclasspath -->
+    </path>
+
+    <path id="codecutils.module.production.classpath">
+        <path refid="library.commons-codec-1.8.classpath"/>
+        <pathelement location="${jomp16-bot.output.dir}"/>
+    </path>
+
+    <path id="codecutils.runtime.production.module.classpath">
+        <pathelement location="${codecutils.output.dir}"/>
+        <path refid="library.commons-codec-1.8.classpath"/>
+        <path refid="jomp16-bot.runtime.production.module.classpath"/>
+    </path>
+
+    <path id="codecutils.module.classpath">
+        <pathelement location="${codecutils.output.dir}"/>
+        <path refid="library.commons-codec-1.8.classpath"/>
+        <pathelement location="${jomp16-bot.testoutput.dir}"/>
+        <pathelement location="${jomp16-bot.output.dir}"/>
+    </path>
+
+    <path id="codecutils.runtime.module.classpath">
+        <pathelement location="${codecutils.testoutput.dir}"/>
+        <pathelement location="${codecutils.output.dir}"/>
+        <path refid="library.commons-codec-1.8.classpath"/>
+        <path refid="jomp16-bot.runtime.module.classpath"/>
+    </path>
+
+
+    <patternset id="excluded.from.module.codecutils">
+        <patternset refid="ignored.files"/>
+    </patternset>
+
+    <patternset id="excluded.from.compilation.codecutils">
+        <patternset refid="excluded.from.module.codecutils"/>
+    </patternset>
+
+    <path id="codecutils.module.sourcepath">
+        <dirset dir="${module.codecutils.basedir}">
+            <include name="src"/>
+        </dirset>
+    </path>
+
+
+    <target name="compile.module.codecutils"
+            depends="compile.module.codecutils.production,compile.module.codecutils.tests"
+            description="Compile module CodecUtils"/>
+
+    <target name="compile.module.codecutils.production" depends="compile.module.jomp16-bot"
+            description="Compile module CodecUtils; production classes">
+        <mkdir dir="${codecutils.output.dir}"/>
+        <javac destdir="${codecutils.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
+               memorymaximumsize="${compiler.max.memory}" fork="true">
+            <compilerarg line="${compiler.args.codecutils}"/>
+            <bootclasspath refid="codecutils.module.bootclasspath"/>
+            <classpath refid="codecutils.module.production.classpath"/>
+            <src refid="codecutils.module.sourcepath"/>
+            <patternset refid="excluded.from.compilation.codecutils"/>
+        </javac>
+
+        <copy todir="${codecutils.output.dir}">
+            <fileset dir="${module.codecutils.basedir}/src">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="compile.module.codecutils.tests" depends="compile.module.codecutils.production"
+            description="compile module CodecUtils; test classes" unless="skip.tests"/>
+
+    <target name="clean.module.codecutils" description="cleanup module">
+        <delete dir="${codecutils.output.dir}"/>
+        <delete dir="${codecutils.testoutput.dir}"/>
+    </target>
+</project>
