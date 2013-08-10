@@ -15,6 +15,13 @@ public class HelpRegister {
     private String usage;
     private Level level;
 
+    /**
+     * Help class for register a help
+     *
+     * @param command the command
+     * @param help    the description/help of the command
+     * @param usage   the usage of the command, like (command doSomething "Hello World!")
+     */
     public HelpRegister(String command, String help, String usage) {
         this.command = command;
         this.help = help;
@@ -22,6 +29,14 @@ public class HelpRegister {
         this.level = Level.NORMAL;
     }
 
+    /**
+     * Help class for register a help
+     *
+     * @param command the command
+     * @param help    the description/help of the command
+     * @param usage   the usage of the command, like (command doSomething "Hello World!")
+     * @param level   the level who the command need for level greater than NORMAL
+     */
     public HelpRegister(String command, String help, String usage, Level level) {
         this.command = command;
         this.help = help;
@@ -29,18 +44,38 @@ public class HelpRegister {
         this.level = level;
     }
 
+    /**
+     * Get the command
+     *
+     * @return the command
+     */
     public String getCommand() {
         return command;
     }
 
+    /**
+     * Return the description/help of the command
+     *
+     * @return the description/help of the command
+     */
     public String getHelp() {
         return help;
     }
 
+    /**
+     * Return the usage of the command
+     *
+     * @return the usage of the command
+     */
     public String getUsage() {
         return usage;
     }
 
+    /**
+     * Return the level of the command
+     *
+     * @return the level of the command
+     */
     public Level getLevel() {
         return level;
     }

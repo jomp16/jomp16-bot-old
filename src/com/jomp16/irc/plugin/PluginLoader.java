@@ -10,6 +10,8 @@ package com.jomp16.irc.plugin;
 import com.jomp16.irc.event.Event;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.reflections.Reflections;
+import org.reflections.util.ConfigurationBuilder;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -17,12 +19,46 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.Set;
 
 @SuppressWarnings("ConstantConditions")
 public class PluginLoader {
     private Logger log = LogManager.getLogger(this.getClass().getSimpleName());
 
     public ArrayList<Event> load() throws Exception {
+        ArrayList<Event> events = new ArrayList<>();
+
+        try {
+            File f = new File(System.getProperty("user.dir").replace("\\", "/") + "/plugins");
+            for (File file : f.listFiles()) {
+                if (file.getName().endsWith(".jar")) {
+                    URL[] urls = new URL[]{file.toURI().toURL()};
+                    ClassLoader classLoader = this.getClass().getClassLoader();
+                    URLClassLoader urlClassLoader = new URLClassLoader(urls, classLoader);
+                    Reflections reflections = new Reflections(new ConfigurationBuilder().addUrls(new URL("file:" + file.getPath())));
+                    Set<String> classes = reflections.getStore().getSubTypesOf(Event.class.getName());
+
+                    for (String s : classes) {
+                        Class<? extends Event> eventClass = Class.forName(s, true, urlClassLoader).asSubclass(Event.class);
+                        Constructor<? extends Event> eventConstructor = eventClass.getConstructor();
+
+                        Event event = eventConstructor.newInstance();
+
+                        events.add(event);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            log.error(e);
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        return events;
+    }
+
+    @Deprecated
+    public ArrayList<Event> load1() throws Exception {
         ArrayList<Event> events = new ArrayList<>();
 
         try {
@@ -50,19 +86,41 @@ public class PluginLoader {
         return events;
     }
 
-    public Event load(File pluginFile) throws Exception {
+    @Deprecated
+    public Event load1(File pluginFile) throws Exception {
         URL[] urls = new URL[]{pluginFile.toURI().toURL()};
         ClassLoader classLoader = this.getClass().getClassLoader();
 
-        try (URLClassLoader urlClassLoader = new URLClassLoader(urls, classLoader)) {
-            URL url = new URL("jar:file:" + pluginFile.getAbsolutePath() + "!/plugin.properties");
-            Properties properties = new Properties();
-            properties.load(url.openStream());
+        URLClassLoader urlClassLoader = new URLClassLoader(urls, classLoader);
+        URL url = new URL("jar:file:" + pluginFile.getAbsolutePath() + "!/plugin.properties");
+        Properties properties = new Properties();
+        properties.load(url.openStream());
 
-            Class<? extends Event> eventClass = Class.forName(properties.getProperty("MainClass"), true, urlClassLoader).asSubclass(Event.class);
+        Class<? extends Event> eventClass = Class.forName(properties.getProperty("MainClass"), true, urlClassLoader).asSubclass(Event.class);
+        Constructor<? extends Event> eventConstructor = eventClass.getConstructor();
+
+        return eventConstructor.newInstance();
+    }
+
+    public ArrayList<Event> load(File pluginFile) throws Exception {
+        ArrayList<Event> events = new ArrayList<>();
+
+        URL[] urls = new URL[]{pluginFile.toURI().toURL()};
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        URLClassLoader urlClassLoader = new URLClassLoader(urls, classLoader);
+
+        Reflections reflections = new Reflections(new ConfigurationBuilder().addUrls(new URL("file:" + pluginFile.getPath())));
+        Set<String> classes = reflections.getStore().getSubTypesOf(Event.class.getName());
+
+        for (String s : classes) {
+            Class<? extends Event> eventClass = Class.forName(s, true, urlClassLoader).asSubclass(Event.class);
             Constructor<? extends Event> eventConstructor = eventClass.getConstructor();
 
-            return eventConstructor.newInstance();
+            Event event = eventConstructor.newInstance();
+
+            events.add(event);
         }
+
+        return events;
     }
 }

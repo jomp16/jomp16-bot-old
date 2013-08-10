@@ -51,6 +51,6 @@ public class InitEvent {
 
         if (!file.exists()) file.mkdir();
 
-        return new SQLiteManager((database.endsWith(".db")) ? file.getAbsolutePath() + "/" + database : file.getAbsolutePath() + "/" + database + ".db");
+        return new SQLiteManager(database.endsWith(".db") ? file.getAbsolutePath() + "/" + database : file.getAbsolutePath() + "/" + database + ".db");
     }
 }

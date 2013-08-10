@@ -54,40 +54,54 @@ public class Plugin extends Event {
                 case "reload":
                     if (commandEvent.getArgs().size() >= 2) {
                         if (commandEvent.getArgs().get(1).equals("all")) {
-                            int plugin = 0;
+                            int tmp = 0;
 
                             commandEvent.getIrcManager().getEvents().clear();
                             eventHashMap.clear();
 
                             for (Event event : new PluginLoader().load()) {
+                                tmp++;
+
                                 commandEvent.getIrcManager().registerEvent(event, false);
-                                plugin++;
                             }
 
                             commandEvent.getIrcManager().getEvents().addAll(commandEvent.getIrcManager().getBundledEvent());
 
                             loadPluginInfo(commandEvent.getIrcManager().getEvents());
+
                             PrivMsgEvent.reloadEvents(commandEvent.getIrcManager().getEvents());
 
-                            commandEvent.respond("Reloaded plugins: " + plugin);
+                            commandEvent.respond("Reloaded " + tmp + " plugin classes");
                         } else {
                             if (eventHashMap.containsKey(commandEvent.getArgs().get(1))) {
-                                Event eventToDisable = eventHashMap.get(commandEvent.getArgs().get(1));
-                                eventToDisable.onDisable(new DisableEvent(commandEvent.getIrcManager(), LogManager.getLogger(eventToDisable.getClass().getSimpleName())));
+                                if (!commandEvent.getIrcManager().getBundledEvent().contains(eventHashMap.get(commandEvent.getArgs().get(1)))) {
+                                    Event eventToDisable = eventHashMap.get(commandEvent.getArgs().get(1));
+                                    try {
+                                        eventToDisable.onDisable(new DisableEvent(commandEvent.getIrcManager(), LogManager.getLogger(eventToDisable.getClass().getSimpleName())));
+                                    } catch (Exception e) {
+                                        // Ignore it...
+                                        commandEvent.getLog().error(e);
+                                    }
+                                    commandEvent.getIrcManager().getEvents().remove(eventToDisable);
+                                    eventHashMap.remove(eventToDisable.getClass().getSimpleName());
 
-                                commandEvent.getIrcManager().getEvents().remove(eventToDisable);
-                                eventHashMap.remove(eventToDisable.getClass().getSimpleName());
+                                    File pluginFile = pluginFile(commandEvent.getArgs().get(1));
+                                    int tmp = 0;
 
-                                File pluginFile = pluginFile(commandEvent.getArgs().get(1));
-                                if (pluginFile != null) {
-                                    Event event = new PluginLoader().load(pluginFile);
-                                    commandEvent.getIrcManager().registerEvent(event, false);
-                                    eventHashMap.put(event.getClass().getSimpleName(), event);
+                                    if (pluginFile != null) {
+                                        for (Event event : new PluginLoader().load(pluginFile)) {
+                                            tmp++;
 
-                                    PrivMsgEvent.reloadEvents(commandEvent.getIrcManager().getEvents());
-                                    commandEvent.respond("Reloaded plugin");
-                                } else {
-                                    commandEvent.respond("Plugin doesn't exists");
+                                            commandEvent.getIrcManager().registerEvent(event, false);
+                                            eventHashMap.put(event.getClass().getSimpleName(), event);
+                                        }
+
+                                        PrivMsgEvent.reloadEvents(commandEvent.getIrcManager().getEvents());
+
+                                        commandEvent.respond("Reloaded " + tmp + " plugin classes");
+                                    } else {
+                                        commandEvent.respond("Plugin doesn't exists");
+                                    }
                                 }
                             } else {
                                 commandEvent.respond("Plugin doesn't exists");
@@ -108,12 +122,18 @@ public class Plugin extends Event {
                     if (commandEvent.getArgs().size() >= 2) {
                         File pluginFile = pluginFile(commandEvent.getArgs().get(1));
                         if (pluginFile != null) {
-                            Event event = new PluginLoader().load(pluginFile);
-                            commandEvent.getIrcManager().registerEvent(event, false);
-                            eventHashMap.put(event.getClass().getSimpleName(), event);
+                            int tmp = 0;
+
+                            for (Event event : new PluginLoader().load(pluginFile)) {
+                                tmp++;
+
+                                commandEvent.getIrcManager().registerEvent(event, false);
+                                eventHashMap.put(event.getClass().getSimpleName(), event);
+                            }
+
                             PrivMsgEvent.reloadEvents(commandEvent.getIrcManager().getEvents());
 
-                            commandEvent.respond("Loaded plugin");
+                            commandEvent.respond("Loaded " + tmp + " plugin classes");
                         } else {
                             commandEvent.respond("Plugin doesn't exists");
                         }

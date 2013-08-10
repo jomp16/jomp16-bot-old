@@ -57,12 +57,14 @@ public class Google extends Event {
                     commandEvent.respond(String.format(tmp, 1, title, url2));
                 }
             }
+        } else {
+            commandEvent.showUsage(this, "google");
         }
     }
 
     @Override
     public void onInit(InitEvent initEvent) throws Exception {
-        initEvent.addHelp(this, new HelpRegister("google", "Search on google using term given", "google \"<the term to search>\" N (where N is the number of links to give, current maximum is 4, optional)"));
+        initEvent.addHelp(this, new HelpRegister("google", "Search on google using the term given", "'<the term to search>' N (where N is the number of links to give, current maximum is 4, optional)"));
     }
 
     private class GoogleSearch {

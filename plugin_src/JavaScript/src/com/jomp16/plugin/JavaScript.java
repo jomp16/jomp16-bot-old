@@ -64,7 +64,7 @@ public class JavaScript extends Event {
 
     @Override
     public void onInit(InitEvent initEvent) throws Exception {
-        initEvent.addHelp(this, new HelpRegister("js", "Run a java/javascript command", "js load url the_url or 'java/javascript command' (note the quotes)", Level.OWNER));
+        initEvent.addHelp(this, new HelpRegister("js", "Run a java/javascript command", "(load url the_url) or ('java/javascript command') (note the quotes)", Level.OWNER));
 
         if (scriptEngine == null) {
             scriptEngine = new ScriptEngineManager().getEngineByName("JavaScript");

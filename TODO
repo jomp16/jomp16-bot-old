@@ -4,3 +4,5 @@ Add more classes to handle the rest of the IRC commands
 Create a SQLite Configurator to configure the database at first start
 
 Create a Manager plugin for manage the teh shit of bot, I dunno if I create this as internal or external plugin =( (Currently external plugin)
+
+Move Plugin manager to Manager plugin AND REWRITE all the plugin manager

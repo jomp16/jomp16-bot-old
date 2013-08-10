@@ -13,6 +13,7 @@ import com.jomp16.irc.event.Level;
 import com.jomp16.irc.event.listener.CommandEvent;
 
 public class Manager extends Event {
+    // TODO: TERMINATE THIS SHIT
     @CommandFilter(value = "manager", level = Level.OWNER)
     public void manager(CommandEvent commandEvent) {
         if (commandEvent.getArgs().size() >= 2) {

@@ -7,6 +7,6 @@
 
 Error=Um erro aconteceu =(
 HelpExec=Executa um comando que não bash
-UsageExec=exec comando
+UsageExec=comando
 HelpBash=Executa um comando de bash
-UsageBash=bash comando
+UsageBash=comando

@@ -112,12 +112,12 @@ public class Help extends Event {
     }
 
     private String getHelpInfo(IRCManager ircManager, HelpRegister helpRegister) {
-        return "Command: " + ircManager.getConfiguration().getPrefix() + helpRegister.getCommand() + " || " + "Help: " + helpRegister.getHelp() + " || " + "Usage: " + ircManager.getConfiguration().getPrefix() + helpRegister.getUsage();
+        return "Command: " + ircManager.getConfiguration().getPrefix() + helpRegister.getCommand() + " || " + "Help: " + helpRegister.getHelp() + " || " + "Usage: " + ircManager.getConfiguration().getPrefix() + helpRegister.getCommand() + " " + helpRegister.getUsage();
     }
 
     @Override
     public void onInit(InitEvent initEvent) throws Exception {
-        initEvent.addHelp(this, new HelpRegister("help", "get help of a plugin", "help <all||plugin_name>"));
+        initEvent.addHelp(this, new HelpRegister("help", "get help of a plugin", "<all||plugin_name>"));
     }
 
     @Override

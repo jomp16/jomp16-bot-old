@@ -11,7 +11,9 @@ import com.jomp16.irc.event.CommandFilter;
 import com.jomp16.irc.event.Event;
 import com.jomp16.irc.event.events.PrivMsgEvent;
 import com.jomp16.irc.event.listener.CommandEvent;
+import com.jomp16.irc.event.listener.InitEvent;
 import com.jomp16.irc.event.listener.ResetEvent;
+import com.jomp16.irc.plugin.help.HelpRegister;
 import com.sun.deploy.util.StringUtils;
 
 import java.util.ArrayList;
@@ -70,6 +72,11 @@ public class Commands extends Event {
                 commandEvent.respond("Available commands: " + StringUtils.join(commandsOwner, ", "));
                 break;
         }
+    }
+
+    @Override
+    public void onInit(InitEvent initEvent) throws Exception {
+        initEvent.addHelp(this, new HelpRegister("commands", "Return the available commands for you", "commands"));
     }
 
     @Override

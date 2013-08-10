@@ -10,6 +10,8 @@ package com.jomp16.plugin;
 import com.jomp16.irc.event.CommandFilter;
 import com.jomp16.irc.event.Event;
 import com.jomp16.irc.event.listener.CommandEvent;
+import com.jomp16.irc.event.listener.InitEvent;
+import com.jomp16.irc.plugin.help.HelpRegister;
 import org.apache.commons.codec.binary.BinaryCodec;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -34,7 +36,12 @@ public class CodecUtils extends Event {
                 case "bytes":
                     commandEvent.respond(Arrays.toString(commandEvent.getArgs().get(1).getBytes()));
                     break;
+                default:
+                    commandEvent.showUsage(this, "encode");
+                    break;
             }
+        } else {
+            commandEvent.showUsage(this, "encode");
         }
     }
 
@@ -51,7 +58,12 @@ public class CodecUtils extends Event {
                 case "binary":
                     commandEvent.respond(new String(BinaryCodec.fromAscii(commandEvent.getArgs().get(1).replace(" ", "").getBytes())));
                     break;
+                default:
+                    commandEvent.showUsage(this, "decode");
+                    break;
             }
+        } else {
+            commandEvent.showUsage(this, "decode");
         }
     }
 
@@ -77,7 +89,12 @@ public class CodecUtils extends Event {
                 case "sha512":
                     commandEvent.respond(DigestUtils.sha512Hex(commandEvent.getArgs().get(1)));
                     break;
+                default:
+                    commandEvent.showUsage(this, "hash");
+                    break;
             }
+        } else {
+            commandEvent.showUsage(this, "hash");
         }
     }
 
@@ -96,5 +113,12 @@ public class CodecUtils extends Event {
         }
 
         return builder.toString();
+    }
+
+    @Override
+    public void onInit(InitEvent initEvent) throws Exception {
+        initEvent.addHelp(this, new HelpRegister("hash", "Return a hash of the string given", "(md2, md5, sha1, sha256, sha384, sha512) 'string to return the hash'"));
+        initEvent.addHelp(this, new HelpRegister("encode", "Encode a string", "(binary, hex, base64) 'string to encode'"));
+        initEvent.addHelp(this, new HelpRegister("decode", "Decode a string", "(binary, hex, base64) 'string encoded to decode'"));
     }
 }

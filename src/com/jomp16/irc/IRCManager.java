@@ -9,6 +9,7 @@ package com.jomp16.irc;
 
 import com.jomp16.configuration.Configuration;
 import com.jomp16.irc.event.Event;
+import com.jomp16.irc.event.events.PrivMsgEvent;
 import com.jomp16.irc.event.listener.InitEvent;
 import com.jomp16.irc.output.OutputIRC;
 import com.jomp16.irc.output.OutputRaw;
@@ -55,6 +56,10 @@ public class IRCManager {
     }
 
     public synchronized void connect() throws Exception {
+        PrivMsgEvent.reloadEvents(events);
+
+        log.info("Loaded " + events.size() + " plugins classes and " + PrivMsgEvent.getEventRegisters().size() + " commands");
+
         new Thread(new Connect()).start();
 
         while (!ready) {

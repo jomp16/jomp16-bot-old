@@ -12,6 +12,7 @@ import com.google.common.base.CharMatcher;
 import java.util.ArrayList;
 
 public class Utils {
+    // I took it from PircBotX =P
     public static ArrayList<String> tokenizeLine(String input) {
         ArrayList<String> stringParts = new ArrayList<>();
         if (input == null || input.length() == 0) {
