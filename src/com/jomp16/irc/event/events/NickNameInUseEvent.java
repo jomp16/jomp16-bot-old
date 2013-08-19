@@ -20,7 +20,7 @@ public class NickNameInUseEvent extends Event {
 
     @Override
     public void respond() {
-        ircManager.getOutputIRC().changeNick("jomp16-bot" + num);
+        ircManager.getOutputIRC().changeNick(ircManager.getConfiguration().getNick() + "_" + num);
         num++;
     }
 }
