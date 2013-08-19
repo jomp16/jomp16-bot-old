@@ -29,27 +29,29 @@ public class Help extends Event {
     private void registerHelp(ArrayList<Event> events) {
         for (Event event : events) {
             for (HelpRegister helpRegister : event.getHelpRegister()) {
-                helpRegisters.put(helpRegister.getCommand(), helpRegister);
+                for (String s : helpRegister.getCommand()) {
+                    helpRegisters.put(s, helpRegister);
 
-                switch (helpRegister.getLevel()) {
-                    case NORMAL:
-                        helpNormal.add(helpRegister.getCommand());
-                        helpMod.add(helpRegister.getCommand());
-                        helpAdmin.add(helpRegister.getCommand());
-                        helpOwner.add(helpRegister.getCommand());
-                        break;
-                    case MOD:
-                        helpMod.add(helpRegister.getCommand());
-                        helpAdmin.add(helpRegister.getCommand());
-                        helpOwner.add(helpRegister.getCommand());
-                        break;
-                    case ADMIN:
-                        helpAdmin.add(helpRegister.getCommand());
-                        helpOwner.add(helpRegister.getCommand());
-                        break;
-                    case OWNER:
-                        helpOwner.add(helpRegister.getCommand());
-                        break;
+                    switch (helpRegister.getLevel()) {
+                        case NORMAL:
+                            helpNormal.add(s);
+                            helpMod.add(s);
+                            helpAdmin.add(s);
+                            helpOwner.add(s);
+                            break;
+                        case MOD:
+                            helpMod.add(s);
+                            helpAdmin.add(s);
+                            helpOwner.add(s);
+                            break;
+                        case ADMIN:
+                            helpAdmin.add(s);
+                            helpOwner.add(s);
+                            break;
+                        case OWNER:
+                            helpOwner.add(s);
+                            break;
+                    }
                 }
             }
         }

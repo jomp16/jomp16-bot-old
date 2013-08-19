@@ -10,7 +10,7 @@ package com.jomp16.irc.plugin.help;
 import com.jomp16.irc.event.Level;
 
 public class HelpRegister {
-    private String command;
+    private String[] command;
     private String help;
     private String usage;
     private Level level;
@@ -22,8 +22,15 @@ public class HelpRegister {
      * @param help    the description/help of the command
      * @param usage   the usage of the command, like (command doSomething "Hello World!")
      */
-    public HelpRegister(String command, String help, String usage) {
+    public HelpRegister(String[] command, String help, String usage) {
         this.command = command;
+        this.help = help;
+        this.usage = usage;
+        this.level = Level.NORMAL;
+    }
+
+    public HelpRegister(String command, String help, String usage) {
+        this.command = new String[]{command};
         this.help = help;
         this.usage = usage;
         this.level = Level.NORMAL;
@@ -37,8 +44,15 @@ public class HelpRegister {
      * @param usage   the usage of the command, like (command doSomething "Hello World!")
      * @param level   the level who the command need for level greater than NORMAL
      */
-    public HelpRegister(String command, String help, String usage, Level level) {
+    public HelpRegister(String[] command, String help, String usage, Level level) {
         this.command = command;
+        this.help = help;
+        this.usage = usage;
+        this.level = level;
+    }
+
+    public HelpRegister(String command, String help, String usage, Level level) {
+        this.command = new String[]{command};
         this.help = help;
         this.usage = usage;
         this.level = level;
@@ -49,7 +63,7 @@ public class HelpRegister {
      *
      * @return the command
      */
-    public String getCommand() {
+    public String[] getCommand() {
         return command;
     }
 

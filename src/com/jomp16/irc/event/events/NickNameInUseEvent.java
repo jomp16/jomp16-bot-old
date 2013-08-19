@@ -7,15 +7,20 @@
 
 package com.jomp16.irc.event.events;
 
+import com.jomp16.irc.IRCManager;
 import com.jomp16.irc.event.Event;
-import com.jomp16.irc.event.listener.CommandEvent;
 
 public class NickNameInUseEvent extends Event {
     private static int num = 1;
+    private IRCManager ircManager;
+
+    public NickNameInUseEvent(IRCManager ircManager) {
+        this.ircManager = ircManager;
+    }
 
     @Override
-    public void respond(CommandEvent commandEvent) {
-        commandEvent.getIrcManager().getOutputIRC().changeNick("jomp16-bot" + num);
+    public void respond() {
+        ircManager.getOutputIRC().changeNick("jomp16-bot" + num);
         num++;
     }
 }

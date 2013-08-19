@@ -19,19 +19,17 @@ import com.jomp16.language.LanguageStringNotFoundException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public class Bash extends Event {
+public class Exec extends Event {
     private LanguageManager languageManager;
 
-    @CommandFilter(value = "bash", level = Level.OWNER)
-    public void bash(CommandEvent commandEvent) throws LanguageStringNotFoundException {
+    @CommandFilter(value = "exec", level = Level.OWNER)
+    public void exec(CommandEvent commandEvent) throws LanguageStringNotFoundException {
         Process process = null;
 
         if (commandEvent.getMessage().length() >= 6) {
             String tmp = commandEvent.getMessage().substring(6);
             try {
-                process = Runtime.getRuntime().exec("bash");
-                process.getOutputStream().write((tmp + "\nexit\n").getBytes());
-                process.getOutputStream().flush();
+                process = Runtime.getRuntime().exec(tmp);
             } catch (Exception e) {
                 commandEvent.respond(languageManager.getString("Error"));
             }
@@ -64,6 +62,6 @@ public class Bash extends Event {
     public void onInit(InitEvent initEvent) throws Exception {
         languageManager = Vars.getLanguageManager(initEvent.getPluginPath(this));
 
-        initEvent.addHelp(this, new HelpRegister("bash", languageManager.getString("HelpBash"), languageManager.getString("UsageBash"), Level.OWNER));
+        initEvent.addHelp(this, new HelpRegister("exec", languageManager.getString("HelpExec"), languageManager.getString("UsageExec"), Level.OWNER));
     }
 }

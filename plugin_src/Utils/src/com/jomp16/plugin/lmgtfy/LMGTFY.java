@@ -22,16 +22,16 @@ public class LMGTFY extends Event {
     @CommandFilter("lmgtfy")
     public void lmgtfy(CommandEvent commandEvent) throws UnsupportedEncodingException {
         if (commandEvent.getArgs().size() >= 2) {
-            String formmated = String.format(URL, URLEncoder.encode(commandEvent.getArgs().get(0), "UTF-8"));
+            String formmated = String.format(URL, URLEncoder.encode(commandEvent.getArgs().get(1), "UTF-8"));
 
-            commandEvent.respond(commandEvent.getArgs().get(1), formmated);
+            commandEvent.respond(commandEvent.getArgs().get(0), formmated);
         } else {
-            commandEvent.showUsage(this, "lmgtfy");
+            commandEvent.showUsage(this, commandEvent.getCommand());
         }
     }
 
     @Override
     public void onInit(InitEvent initEvent) throws Exception {
-        initEvent.addHelp(this, new HelpRegister("lmgtfy", "Generate a lmgtfy link for a stupid user", "'term' user"));
+        initEvent.addHelp(this, new HelpRegister("lmgtfy", "Generate a lmgtfy link for a stupid user", "user 'term'"));
     }
 }

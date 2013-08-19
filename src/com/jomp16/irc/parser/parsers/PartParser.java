@@ -10,37 +10,26 @@ package com.jomp16.irc.parser.parsers;
 import com.jomp16.irc.IRCManager;
 import com.jomp16.irc.Source;
 import com.jomp16.irc.channel.Channel;
-import com.jomp16.irc.channel.ChannelLevel;
 import com.jomp16.irc.channel.ChannelList;
 import com.jomp16.irc.event.Event;
-import com.jomp16.irc.event.events.JoinEvent;
+import com.jomp16.irc.event.events.PartEvent;
 import com.jomp16.irc.parser.Parser;
 import com.jomp16.irc.parser.ParserToken;
 import com.jomp16.irc.user.User;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-public class JoinParser extends Parser {
-    private Logger log = LogManager.getLogger(this.getClass().getSimpleName());
-
+public class PartParser extends Parser {
     @Override
     public Event parse(IRCManager ircManager, ParserToken token) {
-        if (token.getSource().getNick().equals(ircManager.getConfiguration().getNick())) {
-            return null;
-        }
+        // :jomp16!~jomp16@unaffiliated/jomp16 PART #jomp16-bot :"Saindo"
+        // [#jomp16-bot, "Saindo"]
+        // Source{raw='jomp16!~jomp16@unaffiliated/jomp16', nick='jomp16', user='~jomp16', host='unaffiliated/jomp16'}
 
         User user = new User(token.getSource().getNick(), token.getSource().getUser(), token.getSource().getHost(), Source.loopMask(ircManager, token.getSource().getRaw()));
+        Channel channel = new Channel(token.getParams().get(0));
+        String reason = token.getParams().get(1);
 
-        Channel channel;
+        ChannelList.removeUserToChannel(channel.getTargetName(), user.getUserName());
 
-        if (token.getParams().get(0).startsWith("#")) {
-            channel = new Channel(token.getParams().get(0));
-        } else {
-            return null;
-        }
-
-        ChannelList.addUserToChannel(channel.getTargetName(), user.getUserName(), ChannelLevel.NORMAL);
-
-        return new JoinEvent(ircManager, user, channel);
+        return new PartEvent(ircManager, user, channel, reason);
     }
 }

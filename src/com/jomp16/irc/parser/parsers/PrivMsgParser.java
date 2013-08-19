@@ -36,13 +36,13 @@ public class PrivMsgParser extends Parser {
 
         String message = token.getParams().get(0);
 
-        PrivMsgEvent.PrivMSGTag tag = PrivMsgEvent.PrivMSGTag.NORMAL;
+        //PrivMsgEvent.PrivMSGTag tag = PrivMsgEvent.PrivMSGTag.NORMAL;
 
-        if (message.startsWith("\u0001PING ")) {
-            tag = PrivMsgEvent.PrivMSGTag.PING;
-        }
+        //if (message.startsWith("\u0001PING ")) {
+        //    tag = PrivMsgEvent.PrivMSGTag.PING;
+        //}
 
-        new PrivMsgEvent(ircManager, user, channel, message, tag, ircManager.getEvents());
+        new PrivMsgEvent(ircManager, user, channel, message, PrivMsgEvent.PrivMSGTag.NORMAL);
         return null;
     }
 }

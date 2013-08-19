@@ -7,6 +7,8 @@
 
 package com.jomp16.irc.channel;
 
+import java.util.HashMap;
+
 public class Channel {
     private final String targetName;
 
@@ -16,5 +18,13 @@ public class Channel {
 
     public String getTargetName() {
         return targetName;
+    }
+
+    public HashMap<String, ChannelLevel> getUsers() {
+        return ChannelList.getListUsers(targetName);
+    }
+
+    public String getChannelTopic() {
+        return ChannelList.getChannelTopic(this.targetName);
     }
 }

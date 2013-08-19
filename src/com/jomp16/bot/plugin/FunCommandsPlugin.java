@@ -11,6 +11,7 @@ import com.jomp16.irc.event.CommandFilter;
 import com.jomp16.irc.event.Event;
 import com.jomp16.irc.event.listener.CommandEvent;
 import com.jomp16.irc.event.listener.InitEvent;
+import com.jomp16.irc.event.listener.event.PrivMsgEvent;
 import com.jomp16.irc.plugin.help.HelpRegister;
 
 import java.io.BufferedReader;
@@ -44,5 +45,18 @@ public class FunCommandsPlugin extends Event {
     @Override
     public void onInit(InitEvent initEvent) throws Exception {
         initEvent.addHelp(this, new HelpRegister("fortune", "Get a fortune by using the fortune command from Linux", "fortune <optional param>"));
+    }
+
+    @Override   // move it
+    public void onPrivMsg(PrivMsgEvent privMsgEvent) {
+        String tmp = privMsgEvent.getMessage().toLowerCase();
+
+        if (tmp.startsWith(privMsgEvent.getIrcManager().getConfiguration().getNick() + ": ")) {
+            if (tmp.contains("i love you")) {
+                privMsgEvent.respond("I love you too dawg!");
+            } else if (tmp.contains("i don't love you") || tmp.contains("i do not love you")) {
+                privMsgEvent.respond("Why? Anyways, I still love you, and hope you love me too in the future =)");
+            }
+        }
     }
 }

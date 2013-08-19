@@ -38,7 +38,7 @@ public class PrivMsgEvent extends Event {
     private ArrayList<String> args = new ArrayList<>();
     private Logger log = LogManager.getLogger(this.getClass().getSimpleName());
 
-    public PrivMsgEvent(IRCManager ircManager, User user, Channel channel, String message, PrivMSGTag tag, ArrayList<Event> events) {
+    public PrivMsgEvent(IRCManager ircManager, User user, Channel channel, String message, PrivMSGTag tag) {
         this.ircManager = ircManager;
         this.user = user;
         this.message = message;
@@ -46,7 +46,7 @@ public class PrivMsgEvent extends Event {
 
         switch (tag) {
             case NORMAL:
-                runNormal(events);
+                runNormal(ircManager.getEvents());
                 break;
             case PING:
                 // TODO: see this
@@ -70,8 +70,10 @@ public class PrivMsgEvent extends Event {
                 Annotation annotation = method.getAnnotation(CommandFilter.class);
                 if (annotation != null) {
                     CommandFilter commandFilter = (CommandFilter) annotation;
-                    EventRegister eventRegister = new EventRegister(commandFilter.value(), event, commandFilter.level(), method);
-                    eventRegisters.add(eventRegister);
+                    for (String s : commandFilter.value()) {
+                        EventRegister eventRegister = new EventRegister(s, event, commandFilter.level(), method);
+                        eventRegisters.add(eventRegister);
+                    }
                 }
             }
         }
@@ -86,7 +88,7 @@ public class PrivMsgEvent extends Event {
 
         try {
             for (Event event : ircManager.getEvents()) {
-                event.onPrivateMessage(new CommandEvent(ircManager, user, channel, message, args, LogManager.getLogger(event.getClass().getSimpleName())));
+                event.onPrivMsg(new com.jomp16.irc.event.listener.event.PrivMsgEvent(ircManager, user, channel, message, args, LogManager.getLogger(event.getClass().getSimpleName())));
             }
 
             invoke(eventRegisters, args, ircManager.getConfiguration().getPrefix());
@@ -121,7 +123,7 @@ public class PrivMsgEvent extends Event {
                     for (EventRegister eventRegister : eventRegisters) {
                         if (args.get(0).equals(eventRegister.command)) {
                             args.remove(0);
-                            CommandEvent commandEvent = new CommandEvent(ircManager, user, channel, message, args, LogManager.getLogger(eventRegister.event.getClass().getSimpleName()));
+                            CommandEvent commandEvent = new CommandEvent(ircManager, user, channel, message, eventRegister.command, args, LogManager.getLogger(eventRegister.event.getClass().getSimpleName()));
 
                             Level level = Source.loopMask(ircManager, user.getCompleteRawLine());
                             switch (eventRegister.level) {

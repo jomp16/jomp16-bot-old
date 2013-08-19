@@ -7,10 +7,10 @@
 
 package com.jomp16.irc.event;
 
-import com.jomp16.irc.event.listener.CommandEvent;
 import com.jomp16.irc.event.listener.DisableEvent;
 import com.jomp16.irc.event.listener.InitEvent;
 import com.jomp16.irc.event.listener.ResetEvent;
+import com.jomp16.irc.event.listener.event.*;
 import com.jomp16.irc.plugin.help.HelpRegister;
 
 import java.util.ArrayList;
@@ -26,11 +26,31 @@ public abstract class Event {
         return helpRegister;
     }
 
-    public void onJoin(CommandEvent commandEvent) {
+    public void onJoin(JoinEvent joinEvent) {
 
     }
 
-    public void onPrivateMessage(CommandEvent commandEvent) {
+    public void onPart(PartEvent partEvent) {
+
+    }
+
+    public void onQuit(QuitEvent quitEvent) {
+
+    }
+
+    public void onNick(NickEvent nickEvent) {
+
+    }
+
+    public void onMode(ModeEvent modeEvent) {
+
+    }
+
+    public void onPrivMsg(PrivMsgEvent privMsgEvent) {
+
+    }
+
+    public void onKick(KickEvent kickEvent) {
 
     }
 
@@ -46,7 +66,7 @@ public abstract class Event {
 
     }
 
-    public void respond(CommandEvent commandEvent) {
+    public void respond() {
 
     }
 }

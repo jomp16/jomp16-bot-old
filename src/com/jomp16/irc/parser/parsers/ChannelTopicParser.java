@@ -8,14 +8,18 @@
 package com.jomp16.irc.parser.parsers;
 
 import com.jomp16.irc.IRCManager;
+import com.jomp16.irc.channel.ChannelList;
 import com.jomp16.irc.event.Event;
-import com.jomp16.irc.event.events.NickNameInUseEvent;
 import com.jomp16.irc.parser.Parser;
 import com.jomp16.irc.parser.ParserToken;
 
-public class NickNameInUseParser extends Parser {
+public class ChannelTopicParser extends Parser {
     @Override
     public Event parse(IRCManager ircManager, ParserToken token) {
-        return new NickNameInUseEvent(ircManager);
+        String topic = token.getParams().get(2);
+        String channel = token.getParams().get(1);
+
+        ChannelList.setTopic(channel, topic);
+        return null;
     }
 }

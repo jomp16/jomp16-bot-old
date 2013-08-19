@@ -16,7 +16,6 @@ import org.apache.commons.codec.binary.BinaryCodec;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 
-import java.util.Arrays;
 import java.util.Base64;
 
 public class CodecUtils extends Event {
@@ -33,9 +32,9 @@ public class CodecUtils extends Event {
                 case "binary":
                     commandEvent.respond(getBinary(commandEvent.getArgs().get(1)));
                     break;
-                case "bytes":
-                    commandEvent.respond(Arrays.toString(commandEvent.getArgs().get(1).getBytes()));
-                    break;
+                //case "bytes":
+                //    commandEvent.respond(Arrays.toString(commandEvent.getArgs().get(1).getBytes()));
+                //    break;
                 default:
                     commandEvent.showUsage(this, "encode");
                     break;
@@ -117,8 +116,8 @@ public class CodecUtils extends Event {
 
     @Override
     public void onInit(InitEvent initEvent) throws Exception {
-        initEvent.addHelp(this, new HelpRegister("hash", "Return a hash of the string given", "(md2, md5, sha1, sha256, sha384, sha512) 'string to return the hash'"));
-        initEvent.addHelp(this, new HelpRegister("encode", "Encode a string", "(binary, hex, base64) 'string to encode'"));
-        initEvent.addHelp(this, new HelpRegister("decode", "Decode a string", "(binary, hex, base64) 'string encoded to decode'"));
+        initEvent.addHelp(this, new HelpRegister("hash", "Return a hash of the string given", "<md2, md5, sha1, sha256, sha384, sha512> 'string to return the hash'"));
+        initEvent.addHelp(this, new HelpRegister("encode", "Encode a string", "<binary, hex, base64> 'string to encode'"));
+        initEvent.addHelp(this, new HelpRegister("decode", "Decode a string", "<binary, hex, base64> 'string encoded to decode'"));
     }
 }

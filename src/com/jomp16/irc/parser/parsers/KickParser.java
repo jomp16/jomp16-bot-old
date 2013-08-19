@@ -10,37 +10,28 @@ package com.jomp16.irc.parser.parsers;
 import com.jomp16.irc.IRCManager;
 import com.jomp16.irc.Source;
 import com.jomp16.irc.channel.Channel;
-import com.jomp16.irc.channel.ChannelLevel;
 import com.jomp16.irc.channel.ChannelList;
 import com.jomp16.irc.event.Event;
-import com.jomp16.irc.event.events.JoinEvent;
+import com.jomp16.irc.event.events.KickEvent;
 import com.jomp16.irc.parser.Parser;
 import com.jomp16.irc.parser.ParserToken;
 import com.jomp16.irc.user.User;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-public class JoinParser extends Parser {
-    private Logger log = LogManager.getLogger(this.getClass().getSimpleName());
-
+public class KickParser extends Parser {
     @Override
     public Event parse(IRCManager ircManager, ParserToken token) {
-        if (token.getSource().getNick().equals(ircManager.getConfiguration().getNick())) {
-            return null;
-        }
+        // [DEBUG #KICK]: :jomp16!~jomp16@unaffiliated/jomp16 KICK #jomp16-bot Willy_Wonka :Willy_Wonka
+        // [DEBUG #KICK]: [#jomp16-bot, Willy_Wonka, Willy_Wonka]
+        // [DEBUG #KICK]: Source{raw='jomp16!~jomp16@unaffiliated/jomp16', nick='jomp16', user='~jomp16', host='unaffiliated/jomp16'}
 
         User user = new User(token.getSource().getNick(), token.getSource().getUser(), token.getSource().getHost(), Source.loopMask(ircManager, token.getSource().getRaw()));
+        Channel channel = new Channel(token.getParams().get(0));
 
-        Channel channel;
+        String user1 = token.getParams().get(1);
+        String reason = token.getParams().get(2);
 
-        if (token.getParams().get(0).startsWith("#")) {
-            channel = new Channel(token.getParams().get(0));
-        } else {
-            return null;
-        }
+        ChannelList.removeUserToChannel(channel.getTargetName(), user1);
 
-        ChannelList.addUserToChannel(channel.getTargetName(), user.getUserName(), ChannelLevel.NORMAL);
-
-        return new JoinEvent(ircManager, user, channel);
+        return new KickEvent(ircManager, user, channel, user1, reason);
     }
 }
