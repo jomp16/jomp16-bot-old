@@ -7,6 +7,7 @@
 
 package com.jomp16.irc.output;
 
+import com.jomp16.configuration.Configuration;
 import com.jomp16.irc.IRCManager;
 
 public class OutputIRC {
@@ -37,7 +38,10 @@ public class OutputIRC {
     }
 
     public void changeNick(String nick) {
-        ircManager.getConfiguration().setNick(nick);
+        Configuration.Builder builder = ircManager.getConfiguration().getBuilder();
+        builder.setNick(nick);
+
+        ircManager.setConfiguration(builder.buildConfiguration());
         ircManager.getOutputRaw().writeRaw("NICK " + nick);
     }
 }

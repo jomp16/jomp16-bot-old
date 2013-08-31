@@ -26,9 +26,13 @@ public class NickEvent extends Event {
     }
 
     @Override
-    public void respond() {
-        for (Event event : ircManager.getEvents()) {
-            event.onNick(new com.jomp16.irc.event.listener.event.NickEvent(ircManager, user, args.get(0), args.get(1), LogManager.getLogger(event.getClass().getSimpleName())));
-        }
+    public void respond() throws Exception {
+        ircManager.getEvents().forEach((event) -> {
+            try {
+                event.onNick(new com.jomp16.irc.event.listener.event.NickEvent(ircManager, user, args.get(0), args.get(1), LogManager.getLogger(event.getClass().getSimpleName())));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

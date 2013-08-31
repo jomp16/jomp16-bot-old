@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SQLite_Configurator {
-    // TODO: terminate this shit
+    // TODO: terminate and improve this shittz!!
 
     private SQLiteManager sqLiteManager;
     private Scanner scanner = new Scanner(System.in);

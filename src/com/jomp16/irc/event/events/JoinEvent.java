@@ -25,9 +25,13 @@ public class JoinEvent extends Event {
     }
 
     @Override
-    public void respond() {
-        for (Event event : ircManager.getEvents()) {
-            event.onJoin(new com.jomp16.irc.event.listener.event.JoinEvent(ircManager, user, channel, LogManager.getLogger(event.getClass().getSimpleName())));
-        }
+    public void respond() throws Exception {
+        ircManager.getEvents().forEach((event) -> {
+            try {
+                event.onJoin(new com.jomp16.irc.event.listener.event.JoinEvent(ircManager, user, channel, LogManager.getLogger(event.getClass().getSimpleName())));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

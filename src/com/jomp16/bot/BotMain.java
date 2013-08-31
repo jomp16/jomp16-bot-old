@@ -59,6 +59,7 @@ public class BotMain {
         IRCManager ircManager = new IRCManager(new Configuration.Builder()
                 .setNick(ircConf.getString("nick"))
                 .setRealName(ircConf.getString("realName"))
+                .setPassword(ircConf.getString("password"))
                 .setPrefix(ircConf.getString("prefix"))
                 .setIdentify(ircConf.getString("identify"))
                 .setServer(ircConf.getString("server"))

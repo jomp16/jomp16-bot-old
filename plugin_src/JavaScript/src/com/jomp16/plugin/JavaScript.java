@@ -43,7 +43,7 @@ public class JavaScript extends Event {
                     }
                 }
             } else {
-                new Thread(() -> {
+                Runnable runnable = () -> {
                     try {
                         Object object = scriptEngine.eval(commandEvent.getArgs().get(0));
 
@@ -55,7 +55,9 @@ public class JavaScript extends Event {
                     } catch (ScriptException e) {
                         e.printStackTrace();
                     }
-                }).start();
+                };
+
+                commandEvent.getIrcManager().getExecutor().execute(runnable);
             }
         } else {
             commandEvent.showUsage(this, "js");

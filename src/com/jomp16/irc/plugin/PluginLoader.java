@@ -50,8 +50,6 @@ public class PluginLoader {
             }
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
-            System.exit(1);
         }
 
         return events;

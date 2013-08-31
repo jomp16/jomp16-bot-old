@@ -26,31 +26,31 @@ public abstract class Event {
         return helpRegister;
     }
 
-    public void onJoin(JoinEvent joinEvent) {
+    public void onJoin(JoinEvent joinEvent) throws Exception {
 
     }
 
-    public void onPart(PartEvent partEvent) {
+    public void onPart(PartEvent partEvent) throws Exception {
 
     }
 
-    public void onQuit(QuitEvent quitEvent) {
+    public void onQuit(QuitEvent quitEvent) throws Exception {
 
     }
 
-    public void onNick(NickEvent nickEvent) {
+    public void onNick(NickEvent nickEvent) throws Exception {
 
     }
 
-    public void onMode(ModeEvent modeEvent) {
+    public void onMode(ModeEvent modeEvent) throws Exception {
 
     }
 
-    public void onPrivMsg(PrivMsgEvent privMsgEvent) {
+    public void onPrivMsg(PrivMsgEvent privMsgEvent) throws Exception {
 
     }
 
-    public void onKick(KickEvent kickEvent) {
+    public void onKick(KickEvent kickEvent) throws Exception {
 
     }
 
@@ -66,7 +66,7 @@ public abstract class Event {
 
     }
 
-    public void respond() {
+    public void respond() throws Exception {
 
     }
 }

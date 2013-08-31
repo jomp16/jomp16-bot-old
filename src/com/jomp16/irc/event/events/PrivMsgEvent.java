@@ -87,9 +87,13 @@ public class PrivMsgEvent extends Event {
         }
 
         try {
-            for (Event event : ircManager.getEvents()) {
-                event.onPrivMsg(new com.jomp16.irc.event.listener.event.PrivMsgEvent(ircManager, user, channel, message, args, LogManager.getLogger(event.getClass().getSimpleName())));
-            }
+            ircManager.getEvents().forEach((event) -> {
+                try {
+                    event.onPrivMsg(new com.jomp16.irc.event.listener.event.PrivMsgEvent(ircManager, user, channel, message, args, LogManager.getLogger(event.getClass().getSimpleName())));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
 
             invoke(eventRegisters, args, ircManager.getConfiguration().getPrefix());
         } catch (Exception e) {
@@ -123,6 +127,7 @@ public class PrivMsgEvent extends Event {
                     for (EventRegister eventRegister : eventRegisters) {
                         if (args.get(0).equals(eventRegister.command)) {
                             args.remove(0);
+
                             CommandEvent commandEvent = new CommandEvent(ircManager, user, channel, message, eventRegister.command, args, LogManager.getLogger(eventRegister.event.getClass().getSimpleName()));
 
                             Level level = Source.loopMask(ircManager, user.getCompleteRawLine());
@@ -131,17 +136,17 @@ public class PrivMsgEvent extends Event {
                                     invoke(eventRegister.method, eventRegister.event, commandEvent);
                                     break;
                                 case MOD:
-                                    if (level == Level.MOD || level == Level.ADMIN || level == Level.OWNER) {
+                                    if (level.equals(Level.MOD) || level.equals(Level.ADMIN) || level.equals(Level.OWNER)) {
                                         invoke(eventRegister.method, eventRegister.event, commandEvent);
                                     }
                                     break;
                                 case ADMIN:
-                                    if (level == Level.ADMIN || level == Level.OWNER) {
+                                    if (level.equals(Level.ADMIN) || level.equals(Level.OWNER)) {
                                         invoke(eventRegister.method, eventRegister.event, commandEvent);
                                     }
                                     break;
                                 case OWNER:
-                                    if (level == Level.OWNER) {
+                                    if (level.equals(Level.OWNER)) {
                                         invoke(eventRegister.method, eventRegister.event, commandEvent);
                                     }
                                     break;
@@ -188,12 +193,16 @@ public class PrivMsgEvent extends Event {
     }
 
     private void invoke(Method method, Event event, CommandEvent commandEvent) {
-        try {
-            method.invoke(event, commandEvent);
-        } catch (Exception e) {
-            log.error(e);
-            e.printStackTrace();
-        }
+        Runnable runnable = () -> {
+            try {
+                method.invoke(event, commandEvent);
+            } catch (Exception e) {
+                log.error(e);
+                e.printStackTrace();
+            }
+        };
+
+        ircManager.getExecutor().execute(runnable);
     }
 
     public enum PrivMSGTag {

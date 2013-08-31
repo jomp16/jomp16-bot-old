@@ -27,9 +27,13 @@ public class PartEvent extends Event {
     }
 
     @Override
-    public void respond() {
-        for (Event event : ircManager.getEvents()) {
-            event.onPart(new com.jomp16.irc.event.listener.event.PartEvent(ircManager, user, channel, reason, LogManager.getLogger(event.getClass().getSimpleName())));
-        }
+    public void respond() throws Exception {
+        ircManager.getEvents().forEach((event) -> {
+            try {
+                event.onPart(new com.jomp16.irc.event.listener.event.PartEvent(ircManager, user, channel, reason, LogManager.getLogger(event.getClass().getSimpleName())));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

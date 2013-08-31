@@ -95,9 +95,15 @@ public class CommandEvent {
 
     public synchronized void showUsage(Event event, String command) {
         for (HelpRegister helpRegister : event.getHelpRegister()) {
-            for (String s : helpRegister.getCommand()) {
-                if (s.equals(command)) {
-                    respond("Usage: " + ircManager.getConfiguration().getPrefix() + s + " " + helpRegister.getUsage());
+            if (helpRegister.getCommand().equals(command)) {
+                respond("Usage: " + ircManager.getConfiguration().getPrefix() + command + " " + helpRegister.getUsage());
+            } else {
+                if (helpRegister.getOptCommands() != null && helpRegister.getOptCommands().length != 0) {
+                    for (String s : helpRegister.getOptCommands()) {
+                        if (s.equals(command)) {
+                            respond("Usage: " + ircManager.getConfiguration().getPrefix() + s + " " + helpRegister.getUsage());
+                        }
+                    }
                 }
             }
         }

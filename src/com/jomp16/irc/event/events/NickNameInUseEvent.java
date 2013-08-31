@@ -19,7 +19,7 @@ public class NickNameInUseEvent extends Event {
     }
 
     @Override
-    public void respond() {
+    public void respond() throws Exception {
         ircManager.getOutputIRC().changeNick(ircManager.getConfiguration().getNick() + "_" + num);
         num++;
     }

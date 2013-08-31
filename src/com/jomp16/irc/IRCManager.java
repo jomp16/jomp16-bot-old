@@ -22,12 +22,11 @@ import com.jomp16.irc.plugin.plugin.Plugin;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class IRCManager {
     private ArrayList<Event> events = new ArrayList<>();
@@ -42,10 +41,18 @@ public class IRCManager {
     private IRCManager ircManager;
     private Logger log = LogManager.getLogger(this.getClass().getSimpleName());
     private boolean ready = false;
+    private ExecutorService executor = Executors.newCachedThreadPool();
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public IRCManager(Configuration configuration) {
         this.configuration = configuration;
         ircManager = this;
+
+        File f = new File("plugins");
+
+        if (!f.exists()) {
+            f.mkdir();
+        }
 
         loadPlugin();
 
@@ -58,13 +65,11 @@ public class IRCManager {
     public synchronized void connect() throws Exception {
         PrivMsgEvent.reloadEvents(events);
 
-        log.info("Loaded " + events.size() + " plugins classes and " + PrivMsgEvent.getEventRegisters().size() + " commands");
+        executor.execute(new Connect());
 
-        new Thread(new Connect()).start();
-
-        while (!ready) {
-            wait(100);
-        }
+        do {
+            wait(1000);
+        } while (!ready);
     }
 
     private void loadPlugin() {
@@ -84,11 +89,15 @@ public class IRCManager {
             this.bundledEvent.add(event);
         }
 
-        try {
-            event.onInit(new InitEvent(this, LogManager.getLogger(event.getClass().getSimpleName())));
-        } catch (Exception e) {
-            log.error(e);
-        }
+        Runnable runnable = () -> {
+            try {
+                event.onInit(new InitEvent(this, LogManager.getLogger(event.getClass().getSimpleName())));
+            } catch (Exception e) {
+                log.error(e);
+            }
+        };
+
+        executor.execute(runnable);
     }
 
     public void addOwner(String owner) {
@@ -135,8 +144,16 @@ public class IRCManager {
         return configuration;
     }
 
+    public void setConfiguration(Configuration configuration) {
+        this.configuration = configuration;
+    }
+
     public BufferedWriter getIrcWriter() {
         return ircWriter;
+    }
+
+    public ExecutorService getExecutor() {
+        return executor;
     }
 
     private class Connect implements Runnable {
@@ -154,8 +171,15 @@ public class IRCManager {
                 String tmp;
                 while ((tmp = ircReader.readLine()) != null) {
                     if (tmp.contains("MODE " + configuration.getNick())) {
+                        if (configuration.getPassword() != null && !configuration.getPassword().equals("null")) {
+                            outputIRC.sendMessage("NickServ", "identify " + configuration.getPassword());
+                        } else {
+                            ready = true;
+                        }
+                    } else if (tmp.contains("You are now identified for ")) {
                         ready = true;
                     }
+
                     try {
                         Parser.parseLine(ircManager, tmp);
                     } catch (Exception e) {

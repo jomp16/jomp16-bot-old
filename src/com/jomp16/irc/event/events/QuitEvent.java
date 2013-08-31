@@ -24,9 +24,13 @@ public class QuitEvent extends Event {
     }
 
     @Override
-    public void respond() {
-        for (Event event : ircManager.getEvents()) {
-            event.onQuit(new com.jomp16.irc.event.listener.event.QuitEvent(ircManager, user, quitMessage, LogManager.getLogger(event.getClass().getSimpleName())));
-        }
+    public void respond() throws Exception {
+        ircManager.getEvents().forEach((event) -> {
+            try {
+                event.onQuit(new com.jomp16.irc.event.listener.event.QuitEvent(ircManager, user, quitMessage, LogManager.getLogger(event.getClass().getSimpleName())));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

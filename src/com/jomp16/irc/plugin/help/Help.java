@@ -29,31 +29,41 @@ public class Help extends Event {
     private void registerHelp(ArrayList<Event> events) {
         for (Event event : events) {
             for (HelpRegister helpRegister : event.getHelpRegister()) {
-                for (String s : helpRegister.getCommand()) {
-                    helpRegisters.put(s, helpRegister);
+                helpRegisters.put(helpRegister.getCommand(), helpRegister);
 
-                    switch (helpRegister.getLevel()) {
-                        case NORMAL:
-                            helpNormal.add(s);
-                            helpMod.add(s);
-                            helpAdmin.add(s);
-                            helpOwner.add(s);
-                            break;
-                        case MOD:
-                            helpMod.add(s);
-                            helpAdmin.add(s);
-                            helpOwner.add(s);
-                            break;
-                        case ADMIN:
-                            helpAdmin.add(s);
-                            helpOwner.add(s);
-                            break;
-                        case OWNER:
-                            helpOwner.add(s);
-                            break;
+                addToList(helpRegister.getCommand(), helpRegister.getLevel());
+
+                if (helpRegister.getOptCommands() != null && helpRegister.getOptCommands().length != 0) {
+                    for (String s : helpRegister.getOptCommands()) {
+                        helpRegisters.put(s, helpRegister);
+
+                        addToList(s, helpRegister.getLevel());
                     }
                 }
             }
+        }
+    }
+
+    private void addToList(String command, Level level) {
+        switch (level) {
+            case NORMAL:
+                helpNormal.add(command);
+                helpMod.add(command);
+                helpAdmin.add(command);
+                helpOwner.add(command);
+                break;
+            case MOD:
+                helpMod.add(command);
+                helpAdmin.add(command);
+                helpOwner.add(command);
+                break;
+            case ADMIN:
+                helpAdmin.add(command);
+                helpOwner.add(command);
+                break;
+            case OWNER:
+                helpOwner.add(command);
+                break;
         }
     }
 
@@ -114,7 +124,11 @@ public class Help extends Event {
     }
 
     private String getHelpInfo(IRCManager ircManager, HelpRegister helpRegister) {
-        return "Command: " + ircManager.getConfiguration().getPrefix() + helpRegister.getCommand() + " || " + "Help: " + helpRegister.getHelp() + " || " + "Usage: " + ircManager.getConfiguration().getPrefix() + helpRegister.getCommand() + " " + helpRegister.getUsage();
+        if (helpRegister.getOptCommands() != null && helpRegister.getOptCommands().length != 0) {
+            return "Command: " + ircManager.getConfiguration().getPrefix() + helpRegister.getCommand() + " || " + "Optional commands: " + StringUtils.join(helpRegister.getOptCommands(), ", ") + " || " + "Help: " + helpRegister.getHelp() + " || " + "Usage: " + ircManager.getConfiguration().getPrefix() + helpRegister.getCommand() + " " + helpRegister.getUsage();
+        } else {
+            return "Command: " + ircManager.getConfiguration().getPrefix() + helpRegister.getCommand() + " || " + "Help: " + helpRegister.getHelp() + " || " + "Usage: " + ircManager.getConfiguration().getPrefix() + helpRegister.getCommand() + " " + helpRegister.getUsage();
+        }
     }
 
     @Override

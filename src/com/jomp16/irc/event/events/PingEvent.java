@@ -20,7 +20,7 @@ public class PingEvent extends Event {
     }
 
     @Override
-    public void respond() {
+    public void respond() throws Exception {
         ircManager.getOutputRaw().writeRaw("PONG :" + target);
     }
 }

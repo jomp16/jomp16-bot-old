@@ -29,9 +29,13 @@ public class KickEvent extends Event {
     }
 
     @Override
-    public void respond() {
-        for (Event event : ircManager.getEvents()) {
-            event.onKick(new com.jomp16.irc.event.listener.event.KickEvent(ircManager, user, channel, userKicked, reason, LogManager.getLogger(event.getClass().getSimpleName())));
-        }
+    public void respond() throws Exception {
+        ircManager.getEvents().forEach((event) -> {
+            try {
+                event.onKick(new com.jomp16.irc.event.listener.event.KickEvent(ircManager, user, channel, userKicked, reason, LogManager.getLogger(event.getClass().getSimpleName())));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

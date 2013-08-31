@@ -36,47 +36,47 @@ public abstract class Parser {
     private static String host = null;
 
     public static void parseLine(IRCManager ircManager, String rawLine) {
-        new Thread(() -> {
-            if (rawLine == null) {
-                throw new IllegalArgumentException("Can't process null lines");
-            }
+        if (rawLine == null) {
+            throw new IllegalArgumentException("Can't process null lines");
+        }
 
-            ArrayList<String> parsedLine = Utils.tokenizeLine(rawLine);
+        ArrayList<String> parsedLine = Utils.tokenizeLine(rawLine);
 
-            log.trace(parsedLine);
+        log.trace(parsedLine);
 
-            if (host == null) {
-                host = parsedLine.get(0);
-            }
+        if (host == null) {
+            host = parsedLine.get(0);
+        }
 
-            if (!parsedLine.get(0).startsWith(":")) {
-                parsedLine.add(0, host);
-            }
+        if (!parsedLine.get(0).startsWith(":")) {
+            parsedLine.add(0, host);
+        }
 
-            Source source = new Source(parsedLine.remove(0).replace(":", ""));
-            String command = parsedLine.remove(0).toUpperCase();
+        Source source = new Source(parsedLine.remove(0).replace(":", ""));
+        String command = parsedLine.remove(0).toUpperCase();
 
-            ParserToken token = new ParserToken(rawLine, source, command, parsedLine);
+        ParserToken token = new ParserToken(rawLine, source, command, parsedLine);
 
-            if (parsers.containsKey(Tags.getTag(command))) {
-                log.info("Found parser for command: " + command);
+        if (parsers.containsKey(Tags.getTag(command))) {
+            log.info("Found parser for command: " + command);
 
-                new Thread(() -> {
-                    Event event = parsers.get(Tags.getTag(command)).parse(ircManager, token);
+            Runnable runnable = () -> {
+                Event event = parsers.get(Tags.getTag(command)).parse(ircManager, token);
 
-                    if (event != null) {
-                        try {
-                            event.respond();
-                        } catch (Exception e) {
-                            log.error(e);
-                        }
+                if (event != null) {
+                    try {
+                        event.respond();
+                    } catch (Exception e) {
+                        log.error(e);
                     }
-                }).start();
-            } else {
-                log.info("Parser for command " + command + " not found");
-            }
-        }).start();
+                }
+            };
+
+            ircManager.getExecutor().execute(runnable);
+        } else {
+            log.info("Parser for command " + command + " not found");
+        }
     }
 
-    public abstract Event parse(IRCManager ircManager, ParserToken token);
+    public abstract Event parse(IRCManager ircManager, ParserToken parserToken);
 }

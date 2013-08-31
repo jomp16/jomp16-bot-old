@@ -10,34 +10,38 @@ package com.jomp16.configuration;
 public class Configuration {
     private String nick;
     private String realName;
+    private String password;
     private String identify;
     private String server;
     private String prefix;
     private int port;
     private int commandLock;
     private boolean verbose;
+    private Builder builder;
 
     public Configuration(Builder builder) {
         this.nick = builder.getNick();
         this.realName = builder.getRealName();
+        this.password = builder.getPassword();
         this.server = builder.getServer();
         this.identify = builder.getIdentify();
         this.prefix = builder.getPrefix();
         this.port = builder.getPort();
         this.commandLock = builder.getCommandLock();
         this.verbose = builder.isVerbose();
+        this.builder = builder;
     }
 
     public String getNick() {
         return nick;
     }
 
-    public void setNick(String nick) {
-        this.nick = nick;
-    }
-
     public String getRealName() {
         return realName;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getIdentify() {
@@ -64,15 +68,36 @@ public class Configuration {
         return verbose;
     }
 
+    public Builder getBuilder() {
+        return builder;
+    }
+
     public static class Builder {
         private String nick = "jomp16-bot";
         private String realName = "jomp16-bot";
+        private String password = null;
         private String server = "irc.freenode.org";
         private String identify = "jomp16-bot";
         private String prefix = "!";
         private int port = 6667;
         private int commandLock = 5;
         private boolean verbose = false;
+
+        public Builder() {
+
+        }
+
+        public Builder(Builder builder) {
+            this.nick = builder.getNick();
+            this.realName = builder.getRealName();
+            this.password = builder.getPassword();
+            this.server = builder.getServer();
+            this.identify = builder.getIdentify();
+            this.prefix = builder.getPrefix();
+            this.port = builder.getPort();
+            this.commandLock = builder.getCommandLock();
+            this.verbose = builder.isVerbose();
+        }
 
         public Configuration buildConfiguration() {
             return new Configuration(this);
@@ -93,6 +118,15 @@ public class Configuration {
 
         public Builder setRealName(String realName) {
             this.realName = realName;
+            return this;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public Builder setPassword(String password) {
+            this.password = password;
             return this;
         }
 

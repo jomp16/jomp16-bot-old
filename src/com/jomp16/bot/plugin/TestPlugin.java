@@ -7,11 +7,11 @@
 
 package com.jomp16.bot.plugin;
 
+import com.jomp16.irc.channel.ChannelList;
 import com.jomp16.irc.event.CommandFilter;
 import com.jomp16.irc.event.Event;
 import com.jomp16.irc.event.Level;
 import com.jomp16.irc.event.listener.CommandEvent;
-import org.apache.commons.lang3.StringUtils;
 
 public class TestPlugin extends Event {
     public String humanReadableByteCount(long bytes, boolean si) {
@@ -22,28 +22,9 @@ public class TestPlugin extends Event {
         return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
     }
 
-    @CommandFilter("lol")
-    public void doSomething(CommandEvent commandEvent) {
-        if (commandEvent.getArgs().size() > 0) {
-            commandEvent.respond(commandEvent.getArgs().toString());
-        } else {
-            commandEvent.respond("='(", false);
-        }
-    }
-
-    @CommandFilter("umad?")
-    public void doSomething2(CommandEvent commandEvent) {
-        commandEvent.respond("UMAD BRO?", true);
-    }
-
     @CommandFilter("ram")
     public void doSomething3(CommandEvent commandEvent) {
         commandEvent.respond(humanReadableByteCount(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory(), true));
-    }
-
-    @CommandFilter("ram2")
-    public void doSomething4(CommandEvent commandEvent) {
-        commandEvent.respond(humanReadableByteCount(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory(), false));
     }
 
     @CommandFilter(value = "join", level = Level.ADMIN)
@@ -93,6 +74,11 @@ public class TestPlugin extends Event {
 
     @CommandFilter("showUsers")
     public void showUsers(CommandEvent commandEvent) {
-        commandEvent.respond(StringUtils.join(commandEvent.getChannel().getUsers().keySet(), ", "));
+        if (commandEvent.getArgs().size() >= 1) {
+            commandEvent.respond("Size of list: " + ChannelList.getListUsers(commandEvent.getArgs().get(0)).keySet().size());
+        } else {
+            //commandEvent.respond(StringUtils.join(commandEvent.getChannel().getUsers().keySet(), ", "));
+            commandEvent.respond("Size of list: " + commandEvent.getChannel().getUsers().keySet().size());
+        }
     }
 }

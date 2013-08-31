@@ -42,25 +42,34 @@ public class ChannelList {
 
     public static void removeUserToChannel(String channel, String user) {
         HashMultimap<String, ChannelUser> tmp = hashMapChannelUsers;
+        ArrayList<ChannelUser> users = new ArrayList<>();
 
-        for (Map.Entry<String, ChannelUser> entry : tmp.entries()) {
-            if (entry.getKey().equals(channel)) {
-                ChannelUser channelUser = entry.getValue();
-                if (channelUser.getUser().equals(user)) {
-                    hashMapChannelUsers.remove(entry.getKey(), entry.getValue());
+        for (String s : tmp.keySet()) {
+            if (s.equals(channel)) {
+                for (ChannelUser channelUser : hashMapChannelUsers.get(s)) {
+                    if (!channelUser.getUser().equals(user)) {
+                        users.add(channelUser);
+                    }
                 }
             }
         }
+
+        hashMapChannelUsers.replaceValues(channel, users);
     }
 
     public static void removeUserFromAllChannel(String user) {
         HashMultimap<String, ChannelUser> tmp = hashMapChannelUsers;
 
-        for (Map.Entry<String, ChannelUser> entry : tmp.entries()) {
-            ChannelUser channelUser = entry.getValue();
-            if (channelUser.getUser().equals(user)) {
-                hashMapChannelUsers.remove(entry.getKey(), entry.getValue());
+        for (String s : tmp.keySet()) {
+            ArrayList<ChannelUser> users = new ArrayList<>();
+
+            for (ChannelUser channelUser : hashMapChannelUsers.get(s)) {
+                if (!channelUser.getUser().equals(user)) {
+                    users.add(channelUser);
+                }
             }
+
+            hashMapChannelUsers.replaceValues(s, users);
         }
     }
 

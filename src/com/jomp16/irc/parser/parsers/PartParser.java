@@ -26,7 +26,11 @@ public class PartParser extends Parser {
 
         User user = new User(token.getSource().getNick(), token.getSource().getUser(), token.getSource().getHost(), Source.loopMask(ircManager, token.getSource().getRaw()));
         Channel channel = new Channel(token.getParams().get(0));
-        String reason = token.getParams().get(1);
+        String reason = "";
+
+        if (token.getParams().size() >= 2) {
+            reason = token.getParams().get(1);
+        }
 
         ChannelList.removeUserToChannel(channel.getTargetName(), user.getUserName());
 
