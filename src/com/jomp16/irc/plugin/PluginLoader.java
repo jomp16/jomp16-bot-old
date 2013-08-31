@@ -18,7 +18,6 @@ import java.lang.reflect.Constructor;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
-import java.util.Properties;
 import java.util.Set;
 
 @SuppressWarnings("ConstantConditions")
@@ -53,51 +52,6 @@ public class PluginLoader {
         }
 
         return events;
-    }
-
-    @Deprecated
-    public ArrayList<Event> load1() throws Exception {
-        ArrayList<Event> events = new ArrayList<>();
-
-        try {
-            File f = new File(System.getProperty("user.dir").replace("\\", "/") + "/plugins");
-            for (File file : f.listFiles()) {
-                if (file.getName().endsWith(".jar")) {
-                    URL[] urls = new URL[]{file.toURI().toURL()};
-                    ClassLoader classLoader = this.getClass().getClassLoader();
-
-                    URLClassLoader urlClassLoader = new URLClassLoader(urls, classLoader);
-                    URL url = new URL("jar:file:" + file.getAbsolutePath() + "!/plugin.properties");
-                    Properties properties = new Properties();
-                    properties.load(url.openStream());
-
-                    Class<? extends Event> eventClass = Class.forName(properties.getProperty("MainClass"), true, urlClassLoader).asSubclass(Event.class);
-                    Constructor<? extends Event> eventConstructor = eventClass.getConstructor();
-
-                    events.add(eventConstructor.newInstance());
-                }
-            }
-        } catch (Exception e) {
-            log.error(e);
-        }
-
-        return events;
-    }
-
-    @Deprecated
-    public Event load1(File pluginFile) throws Exception {
-        URL[] urls = new URL[]{pluginFile.toURI().toURL()};
-        ClassLoader classLoader = this.getClass().getClassLoader();
-
-        URLClassLoader urlClassLoader = new URLClassLoader(urls, classLoader);
-        URL url = new URL("jar:file:" + pluginFile.getAbsolutePath() + "!/plugin.properties");
-        Properties properties = new Properties();
-        properties.load(url.openStream());
-
-        Class<? extends Event> eventClass = Class.forName(properties.getProperty("MainClass"), true, urlClassLoader).asSubclass(Event.class);
-        Constructor<? extends Event> eventConstructor = eventClass.getConstructor();
-
-        return eventConstructor.newInstance();
     }
 
     public ArrayList<Event> load(File pluginFile) throws Exception {
