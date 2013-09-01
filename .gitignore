@@ -2,9 +2,7 @@ plugins/
 out/
 lib/
 lib_tmp/
-.idea/
 *.jar
 *.js
 *.db
 *.zip
-*.iml
