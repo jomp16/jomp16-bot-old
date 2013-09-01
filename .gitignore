@@ -1,7 +1,8 @@
-jomp16-bot.jar
 plugins/
-.idea/
 out/
-*-sources.jar
+lib/
+lib_tmp/
+*.jar
 *.js
 *.db
+*.zip
