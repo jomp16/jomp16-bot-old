@@ -15,6 +15,7 @@ import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.listener.CommandEvent;
 import tk.jomp16.irc.event.listener.InitEvent;
 import tk.jomp16.irc.plugin.help.HelpRegister;
+import tk.jomp16.plugin.rot13.Rot13;
 
 import java.util.Base64;
 
@@ -32,9 +33,6 @@ public class CodecUtils extends Event {
                 case "binary":
                     commandEvent.respond(getBinary(commandEvent.getArgs().get(1)));
                     break;
-                //case "bytes":
-                //    commandEvent.respond(Arrays.toString(commandEvent.getArgs().get(1).getBytes()));
-                //    break;
                 default:
                     commandEvent.showUsage(this, "encode");
                     break;
@@ -97,6 +95,15 @@ public class CodecUtils extends Event {
         }
     }
 
+    @Command("rot13")
+    public void rot13(CommandEvent commandEvent) {
+        if (commandEvent.getArgs().size() >= 1) {
+            commandEvent.respond(Rot13.rotate(commandEvent.getArgs().get(0)));
+        } else {
+            commandEvent.showUsage(this, "rot13");
+        }
+    }
+
     private String getBinary(String text) {
         StringBuilder builder = new StringBuilder();
         String tmp = new String(BinaryCodec.toAsciiChars(text.getBytes()));
@@ -119,5 +126,6 @@ public class CodecUtils extends Event {
         initEvent.addHelp(this, new HelpRegister("hash", "Return a hash of the string given", "<md2, md5, sha1, sha256, sha384, sha512> 'string to return the hash'"));
         initEvent.addHelp(this, new HelpRegister("encode", "Encode a string", "<binary, hex, base64> 'string to encode'"));
         initEvent.addHelp(this, new HelpRegister("decode", "Decode a string", "<binary, hex, base64> 'string encoded to decode'"));
+        initEvent.addHelp(this, new HelpRegister("rot13", "Rotate a string by 13 times", "'string to rotate'"));
     }
 }
