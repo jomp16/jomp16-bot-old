@@ -13,13 +13,6 @@ public class CurrencyJSON {
     private String from;
     private String v;
 
-    public CurrencyJSON(String to, String rate, String from, String v) {
-        this.to = to;
-        this.rate = rate;
-        this.from = from;
-        this.v = v;
-    }
-
     public String getTo() {
         return to;
     }

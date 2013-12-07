@@ -7,7 +7,7 @@
 
 package tk.jomp16.plugin;
 
-import tk.jomp16.irc.event.CommandFilter;
+import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.Level;
 import tk.jomp16.irc.event.listener.CommandEvent;
@@ -22,12 +22,13 @@ import java.io.InputStreamReader;
 public class Bash extends Event {
     private LanguageManager languageManager;
 
-    @CommandFilter(value = "bash", level = Level.OWNER)
+    @Command(value = "bash", level = Level.OWNER)
     public void bash(CommandEvent commandEvent) throws LanguageStringNotFoundException {
         Process process = null;
 
-        if (commandEvent.getMessage().length() >= 6) {
-            String tmp = commandEvent.getMessage().substring(6);
+        if (commandEvent.getMessage().length() > 0) {
+            String tmp = commandEvent.getMessage();
+
             try {
                 process = Runtime.getRuntime().exec("bash");
                 process.getOutputStream().write((tmp + "\nexit\n").getBytes());

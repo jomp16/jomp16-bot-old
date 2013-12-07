@@ -8,7 +8,7 @@
 package tk.jomp16.bot.plugin;
 
 import tk.jomp16.irc.channel.ChannelList;
-import tk.jomp16.irc.event.CommandFilter;
+import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.Level;
 import tk.jomp16.irc.event.listener.CommandEvent;
@@ -22,12 +22,12 @@ public class TestPlugin extends Event {
         return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
     }
 
-    @CommandFilter("ram")
+    @Command("ram")
     public void doSomething3(CommandEvent commandEvent) {
         commandEvent.respond(humanReadableByteCount(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory(), true));
     }
 
-    @CommandFilter(value = "join", level = Level.ADMIN)
+    @Command(value = "join", level = Level.ADMIN)
     public void doSomething5(CommandEvent commandEvent) {
         if (commandEvent.getArgs().size() > 0) {
             if (commandEvent.getArgs().get(0).startsWith("#")) {
@@ -38,7 +38,7 @@ public class TestPlugin extends Event {
         }
     }
 
-    @CommandFilter(value = "say", level = Level.ADMIN)
+    @Command(value = "say", level = Level.ADMIN)
     public void say(CommandEvent commandEvent) {
         if (commandEvent.getArgs().size() > 0) {
             if (commandEvent.getArgs().size() == 1) {
@@ -55,7 +55,7 @@ public class TestPlugin extends Event {
         }
     }
 
-    @CommandFilter(value = "part", level = Level.ADMIN)
+    @Command(value = "part", level = Level.ADMIN)
     public void part(CommandEvent commandEvent) {
         if (commandEvent.getArgs().size() > 0) {
             if (commandEvent.getArgs().size() == 1) {
@@ -72,13 +72,19 @@ public class TestPlugin extends Event {
         }
     }
 
-    @CommandFilter("showUsers")
+    @Command("showUsers")
     public void showUsers(CommandEvent commandEvent) {
         if (commandEvent.getArgs().size() >= 1) {
             commandEvent.respond("Size of list: " + ChannelList.getListUsers(commandEvent.getArgs().get(0)).keySet().size());
         } else {
-            //commandEvent.respond(StringUtils.join(commandEvent.getChannel().getUsers().keySet(), ", "));
-            commandEvent.respond("Size of list: " + commandEvent.getChannel().getUsers().keySet().size());
+            //commandEvent.respond(StringUtils.join(commandEvent.getChannel().getAllUsersWithLevel().keySet(), ", "));
+            commandEvent.respond("Size of list: " + commandEvent.getChannel().getAllUsersWithLevel().keySet().size());
         }
+    }
+
+    @Command("testMessage")
+    public void testRawMessage(CommandEvent commandEvent) {
+        commandEvent.respond(commandEvent.getMessage());
+        commandEvent.respond(commandEvent.getRawMessage());
     }
 }

@@ -7,7 +7,7 @@
 
 package tk.jomp16.plugin;
 
-import tk.jomp16.irc.event.CommandFilter;
+import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.Level;
 import tk.jomp16.irc.event.listener.CommandEvent;
@@ -17,16 +17,15 @@ import tk.jomp16.irc.plugin.help.HelpRegister;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
 public class JavaScript extends Event {
     private static ScriptEngine scriptEngine = null;
 
-    @CommandFilter(value = "js", level = Level.OWNER)
+    @Command(value = {"js", "javascript"}, level = Level.OWNER)
     public void js(CommandEvent commandEvent) throws Exception {
-        if (commandEvent.getArgs().size() >= 1) {
+        if (commandEvent.getMessage().length() > 0 || commandEvent.getArgs().size() >= 1) {
             scriptEngine.put("commandEvent", commandEvent);
 
             if (commandEvent.getArgs().get(0).equals("load")) {
@@ -43,30 +42,22 @@ public class JavaScript extends Event {
                     }
                 }
             } else {
-                Runnable runnable = () -> {
-                    try {
-                        Object object = scriptEngine.eval(commandEvent.getArgs().get(0));
+                Object object = scriptEngine.eval(commandEvent.getMessage());
 
-                        if (object != null) {
-                            if (!object.equals("null")) {
-                                commandEvent.respond(object, false);
-                            }
-                        }
-                    } catch (ScriptException e) {
-                        e.printStackTrace();
+                if (object != null) {
+                    if (!object.equals("null")) {
+                        commandEvent.respond(object, false);
                     }
-                };
-
-                commandEvent.getIrcManager().getExecutor().execute(runnable);
+                }
             }
         } else {
-            commandEvent.showUsage(this, "js");
+            commandEvent.showUsage(this, commandEvent.getCommand());
         }
     }
 
     @Override
     public void onInit(InitEvent initEvent) throws Exception {
-        initEvent.addHelp(this, new HelpRegister("js", "Run a java/javascript command", "(load url the_url) or ('java/javascript command') (note the quotes)", Level.OWNER));
+        initEvent.addHelp(this, new HelpRegister("js", new String[]{"javascript"}, "Run a java/javascript command", "(load url the_url) or (java/javascript command)", Level.OWNER));
 
         if (scriptEngine == null) {
             scriptEngine = new ScriptEngineManager().getEngineByName("JavaScript");

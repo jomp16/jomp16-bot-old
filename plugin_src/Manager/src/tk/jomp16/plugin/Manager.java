@@ -7,14 +7,14 @@
 
 package tk.jomp16.plugin;
 
-import tk.jomp16.irc.event.CommandFilter;
+import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.Level;
 import tk.jomp16.irc.event.listener.CommandEvent;
 
 public class Manager extends Event {
     // TODO: TERMINATE THIS SHIT
-    @CommandFilter(value = "manager", level = Level.OWNER)
+    @Command(value = "manager", level = Level.OWNER)
     public void manager(CommandEvent commandEvent) {
         if (commandEvent.getArgs().size() >= 2) {
             switch (commandEvent.getArgs().remove(0)) {

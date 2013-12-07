@@ -24,16 +24,18 @@ public class CommandEvent {
     private Channel channel;
     private ChannelDAO channelDAO;
     private String message;
+    private String rawMessage;
     private ArrayList<String> args;
     private Logger log;
     private String command;
 
-    public CommandEvent(IRCManager ircManager, User user, Channel channel, String message, String command, ArrayList<String> args, Logger log) {
+    public CommandEvent(IRCManager ircManager, User user, Channel channel, String message, String rawMessage, String command, ArrayList<String> args, Logger log) {
         this.ircManager = ircManager;
         this.user = user;
         this.channel = channel;
-        this.channelDAO = new ChannelDAO(ircManager, user, channel);
+        this.channelDAO = new ChannelDAO(ircManager, channel);
         this.message = message;
+        this.rawMessage = rawMessage;
         this.command = command;
         this.args = args;
         this.log = log;
@@ -129,6 +131,10 @@ public class CommandEvent {
 
     public String getMessage() {
         return message;
+    }
+
+    public String getRawMessage() {
+        return rawMessage;
     }
 
     public String getCommand() {

@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface CommandFilter {
+public @interface Command {
     String[] value();
 
     Level level() default Level.NORMAL;

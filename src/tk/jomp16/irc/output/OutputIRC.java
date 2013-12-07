@@ -29,12 +29,32 @@ public class OutputIRC {
         ircManager.getOutputRaw().writeRaw("PART " + channel + " :" + reason);
     }
 
+    public void giveOP(Object channel, Object user) {
+        ircManager.getOutputRaw().writeRaw("MODE " + channel + " +o " + user);
+    }
+
+    public void giveVoice(Object channel, Object user) {
+        ircManager.getOutputRaw().writeRaw("MODE " + channel + " +v " + user);
+    }
+
+    public void removeOP(Object channel, Object user) {
+        ircManager.getOutputRaw().writeRaw("MODE " + channel + " -o " + user);
+    }
+
+    public void removeVoice(Object channel, Object user) {
+        ircManager.getOutputRaw().writeRaw("MODE " + channel + " -v " + user);
+    }
+
     public void sendMessage(Object target, Object message) {
         ircManager.getOutputRaw().writeRaw("PRIVMSG " + target + " :" + message);
     }
 
     public void sendMessage(Object target, Object username, Object message) {
         ircManager.getOutputRaw().writeRaw("PRIVMSG " + target + " :" + username + ": " + message);
+    }
+
+    public void sendAction(Object target, Object action) {
+        ircManager.getOutputRaw().writeRaw("PRIVMSG " + target + " :\001ACTION " + action + "\001");
     }
 
     public void changeNick(String nick) {

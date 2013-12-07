@@ -9,7 +9,7 @@ package tk.jomp16.irc.plugin.help;
 
 import org.apache.commons.lang3.StringUtils;
 import tk.jomp16.irc.IRCManager;
-import tk.jomp16.irc.event.CommandFilter;
+import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.Level;
 import tk.jomp16.irc.event.listener.CommandEvent;
@@ -67,7 +67,7 @@ public class Help extends Event {
         }
     }
 
-    @CommandFilter("help")
+    @Command("help")
     public void help(CommandEvent commandEvent) throws Exception {
         if (helpRegisters.size() == 0) {
             registerHelp(commandEvent.getIrcManager().getEvents());

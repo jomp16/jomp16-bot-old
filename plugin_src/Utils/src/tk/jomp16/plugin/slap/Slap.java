@@ -5,22 +5,23 @@
  * as published by Sam Hocevar. See the COPYING file for more details.
  */
 
-package tk.jomp16.irc.plugin.about;
+package tk.jomp16.plugin.slap;
 
 import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.listener.CommandEvent;
 import tk.jomp16.irc.event.listener.InitEvent;
-import tk.jomp16.irc.plugin.help.HelpRegister;
 
-public class About extends Event {
-    @Command("about")
-    public void about(CommandEvent commandEvent) {
-        commandEvent.respond("jomp16-bot written by jomp16, with help (code and tips) from nebkat, licensed under WTFPL, source code at https://github.com/jomp16/jomp16-bot");
+public class Slap extends Event {
+    @Command("slap")
+    public void slap(CommandEvent commandEvent) {
+        if (commandEvent.getArgs().size() >= 1) {
+            commandEvent.getIrcManager().getOutputIRC().sendAction(commandEvent.getChannel().getTargetName(), "slaps " + commandEvent.getArgs().get(0) + " with a big trout");
+        }
     }
 
     @Override
     public void onInit(InitEvent initEvent) throws Exception {
-        initEvent.addHelp(this, new HelpRegister("about", "Return the info about this bot", ""));
+
     }
 }

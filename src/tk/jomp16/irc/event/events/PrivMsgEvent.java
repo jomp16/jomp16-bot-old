@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 import tk.jomp16.irc.IRCManager;
 import tk.jomp16.irc.Source;
 import tk.jomp16.irc.channel.Channel;
-import tk.jomp16.irc.event.CommandFilter;
+import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.Level;
 import tk.jomp16.irc.event.listener.CommandEvent;
@@ -67,11 +67,11 @@ public class PrivMsgEvent extends Event {
         for (Event event : events) {
             Method[] methods = event.getClass().getMethods();
             for (Method method : methods) {
-                Annotation annotation = method.getAnnotation(CommandFilter.class);
+                Annotation annotation = method.getAnnotation(Command.class);
                 if (annotation != null) {
-                    CommandFilter commandFilter = (CommandFilter) annotation;
-                    for (String s : commandFilter.value()) {
-                        EventRegister eventRegister = new EventRegister(s, event, commandFilter.level(), method);
+                    Command command = (Command) annotation;
+                    for (String s : command.value()) {
+                        EventRegister eventRegister = new EventRegister(s, event, command.level(), method);
                         eventRegisters.add(eventRegister);
                     }
                 }
@@ -128,7 +128,9 @@ public class PrivMsgEvent extends Event {
                         if (args.get(0).equals(eventRegister.command)) {
                             args.remove(0);
 
-                            CommandEvent commandEvent = new CommandEvent(ircManager, user, channel, message, eventRegister.command, args, LogManager.getLogger(eventRegister.event.getClass().getSimpleName()));
+                            String messageWithoutCommand = message.substring(message.substring(1).length() > eventRegister.command.length() ? eventRegister.command.length() + 2 : message.length());
+
+                            CommandEvent commandEvent = new CommandEvent(ircManager, user, channel, messageWithoutCommand, message, eventRegister.command, args, LogManager.getLogger(eventRegister.event.getClass().getSimpleName()));
 
                             Level level = Source.loopMask(ircManager, user.getCompleteRawLine());
                             switch (eventRegister.level) {

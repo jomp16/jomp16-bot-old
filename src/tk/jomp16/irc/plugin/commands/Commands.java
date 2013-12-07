@@ -8,7 +8,7 @@
 package tk.jomp16.irc.plugin.commands;
 
 import org.apache.commons.lang3.StringUtils;
-import tk.jomp16.irc.event.CommandFilter;
+import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.events.PrivMsgEvent;
 import tk.jomp16.irc.event.listener.CommandEvent;
@@ -52,7 +52,7 @@ public class Commands extends Event {
         }
     }
 
-    @CommandFilter("commands")
+    @Command("commands")
     public void commands(CommandEvent commandEvent) {
         if (!flag) {
             registerCommands();

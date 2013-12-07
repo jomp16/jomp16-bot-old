@@ -10,7 +10,7 @@ package tk.jomp16.plugin;
 import org.apache.commons.codec.binary.BinaryCodec;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
-import tk.jomp16.irc.event.CommandFilter;
+import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.listener.CommandEvent;
 import tk.jomp16.irc.event.listener.InitEvent;
@@ -19,7 +19,7 @@ import tk.jomp16.irc.plugin.help.HelpRegister;
 import java.util.Base64;
 
 public class CodecUtils extends Event {
-    @CommandFilter("encode")
+    @Command("encode")
     public void encode(CommandEvent commandEvent) throws Exception {
         if (commandEvent.getArgs().size() >= 2) {
             switch (commandEvent.getArgs().get(0).toLowerCase()) {
@@ -44,7 +44,7 @@ public class CodecUtils extends Event {
         }
     }
 
-    @CommandFilter("decode")
+    @Command("decode")
     public void decode(CommandEvent commandEvent) throws Exception {
         if (commandEvent.getArgs().size() >= 2) {
             switch (commandEvent.getArgs().get(0).toLowerCase()) {
@@ -66,7 +66,7 @@ public class CodecUtils extends Event {
         }
     }
 
-    @CommandFilter("hash")
+    @Command("hash")
     public void hash(CommandEvent commandEvent) {
         if (commandEvent.getArgs().size() >= 2) {
             switch (commandEvent.getArgs().get(0).toLowerCase()) {

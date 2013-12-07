@@ -12,36 +12,34 @@ import tk.jomp16.irc.user.User;
 
 public class ChannelDAO {
     private IRCManager ircManager;
-    private User user;
     private Channel channel;
 
-    public ChannelDAO(IRCManager ircManager, User user, Channel channel) {
+    public ChannelDAO(IRCManager ircManager, Channel channel) {
         this.ircManager = ircManager;
-        this.user = user;
         this.channel = channel;
     }
 
     public synchronized void partChannel() {
-        ircManager.getOutputRaw().writeRaw("PART " + channel.getTargetName());
+        ircManager.getOutputIRC().partChannel(channel.getTargetName());
     }
 
     public synchronized void partChannel(String reason) {
-        ircManager.getOutputRaw().writeRaw("PART " + channel.getTargetName() + " :" + reason);
+        ircManager.getOutputIRC().partChannel(channel.getTargetName(), reason);
     }
 
     public synchronized void giveOP(User user) {
-        ircManager.getOutputRaw().writeRaw("MODE " + channel.getTargetName() + " +o " + user.getUserName());
+        ircManager.getOutputIRC().giveOP(channel.getTargetName(), user.getUserName());
     }
 
     public synchronized void giveVoice(User user) {
-        ircManager.getOutputRaw().writeRaw("MODE " + channel.getTargetName() + " +v " + user.getUserName());
+        ircManager.getOutputIRC().giveVoice(channel.getTargetName(), user.getUserName());
     }
 
     public synchronized void removeOP(User user) {
-        ircManager.getOutputRaw().writeRaw("MODE " + channel.getTargetName() + " -o " + user.getUserName());
+        ircManager.getOutputIRC().removeOP(channel.getTargetName(), user.getUserName());
     }
 
     public synchronized void removeVoice(User user) {
-        ircManager.getOutputRaw().writeRaw("MODE " + channel.getTargetName() + " -v " + user.getUserName());
+        ircManager.getOutputIRC().removeVoice(channel.getTargetName(), user.getUserName());
     }
 }

@@ -7,7 +7,7 @@
 
 package tk.jomp16.plugin.lmgtfy;
 
-import tk.jomp16.irc.event.CommandFilter;
+import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.listener.CommandEvent;
 import tk.jomp16.irc.event.listener.InitEvent;
@@ -19,7 +19,7 @@ import java.net.URLEncoder;
 public class LMGTFY extends Event {
     private String URL = "http://lmgtfy.com/?q=%s";
 
-    @CommandFilter("lmgtfy")
+    @Command("lmgtfy")
     public void lmgtfy(CommandEvent commandEvent) throws UnsupportedEncodingException {
         if (commandEvent.getArgs().size() >= 2) {
             String formmated = String.format(URL, URLEncoder.encode(commandEvent.getArgs().get(1), "UTF-8"));

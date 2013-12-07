@@ -7,7 +7,7 @@
 
 package tk.jomp16.bot.plugin;
 
-import tk.jomp16.irc.event.CommandFilter;
+import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.listener.CommandEvent;
 import tk.jomp16.irc.event.listener.InitEvent;
@@ -18,7 +18,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class FunCommandsPlugin extends Event {
-    @CommandFilter("fortune")
+    @Command("fortune")
     public void fortune(CommandEvent commandEvent) throws Exception {
         if (commandEvent.getArgs().size() >= 0) {
             Process process;

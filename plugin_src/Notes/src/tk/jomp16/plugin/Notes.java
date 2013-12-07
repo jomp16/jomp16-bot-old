@@ -7,7 +7,7 @@
 
 package tk.jomp16.plugin;
 
-import tk.jomp16.irc.event.CommandFilter;
+import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.listener.CommandEvent;
 import tk.jomp16.irc.event.listener.DisableEvent;
@@ -65,7 +65,7 @@ public class Notes extends Event {
         manager.close();
     }
 
-    @CommandFilter("notes")
+    @Command("notes")
     public void onNotes(CommandEvent commandEvent) throws SQLException {
         if (commandEvent.getArgs().size() >= 1) {
             if (commandEvent.getArgs().get(0).equals("add")) {

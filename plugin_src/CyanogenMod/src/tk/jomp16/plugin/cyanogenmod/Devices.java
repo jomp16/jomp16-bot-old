@@ -9,7 +9,7 @@ package tk.jomp16.plugin.cyanogenmod;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import tk.jomp16.irc.event.CommandFilter;
+import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.listener.CommandEvent;
 import tk.jomp16.irc.event.listener.InitEvent;
@@ -23,7 +23,7 @@ public class Devices extends Event {
     private HashMap<String, DeviceInfo> devices = new HashMap<>();
     private String CM_WIKI_URL = "http://wiki.cyanogenmod.org/w/%s_Info";
 
-    @CommandFilter("device")
+    @Command("device")
     public void device(CommandEvent commandEvent) throws Exception {
         if (commandEvent.getArgs().size() >= 1) {
             if (commandEvent.getArgs().get(0).equals("all")) {

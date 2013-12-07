@@ -9,7 +9,7 @@ package tk.jomp16.irc.plugin.plugin;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
-import tk.jomp16.irc.event.CommandFilter;
+import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.Level;
 import tk.jomp16.irc.event.events.PrivMsgEvent;
@@ -26,7 +26,7 @@ import java.util.HashMap;
 public class Plugin extends Event {
     private static HashMap<String, Event> eventHashMap = new HashMap<>();
 
-    @CommandFilter(value = "plugin", level = Level.OWNER)
+    @Command(value = "plugin", level = Level.OWNER)
     public void plugin(CommandEvent commandEvent) throws Exception {
         if (eventHashMap.size() == 0) {
             loadPluginInfo(commandEvent.getIrcManager().getEvents());

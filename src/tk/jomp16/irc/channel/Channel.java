@@ -7,6 +7,7 @@
 
 package tk.jomp16.irc.channel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Channel {
@@ -20,8 +21,48 @@ public class Channel {
         return targetName;
     }
 
-    public HashMap<String, ChannelLevel> getUsers() {
+    public HashMap<String, ChannelLevel> getAllUsersWithLevel() {
         return ChannelList.getListUsers(targetName);
+    }
+
+    public ArrayList<String> getAllUsers() {
+        return new ArrayList<>(ChannelList.getListUsers(targetName).keySet());
+    }
+
+    public ArrayList<String> getAllOpUsers() {
+        ArrayList<String> opUsers = new ArrayList<>();
+
+        ChannelList.getListUsers(targetName).forEach((user, level) -> {
+            if (level.equals(ChannelLevel.OP)) {
+                opUsers.add(user);
+            }
+        });
+
+        return opUsers;
+    }
+
+    public ArrayList<String> getAllVoiceUsers() {
+        ArrayList<String> voiceUsers = new ArrayList<>();
+
+        ChannelList.getListUsers(targetName).forEach((user, level) -> {
+            if (level.equals(ChannelLevel.VOICE)) {
+                voiceUsers.add(user);
+            }
+        });
+
+        return voiceUsers;
+    }
+
+    public ArrayList<String> getAllNormalUsers() {
+        ArrayList<String> normalUsers = new ArrayList<>();
+
+        ChannelList.getListUsers(targetName).forEach((user, level) -> {
+            if (level.equals(ChannelLevel.NORMAL)) {
+                normalUsers.add(user);
+            }
+        });
+
+        return normalUsers;
     }
 
     public String getChannelTopic() {

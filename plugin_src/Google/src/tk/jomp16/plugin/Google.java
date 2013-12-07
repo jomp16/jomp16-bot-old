@@ -9,7 +9,7 @@ package tk.jomp16.plugin;
 
 import com.google.gson.Gson;
 import org.apache.commons.lang3.StringEscapeUtils;
-import tk.jomp16.irc.event.CommandFilter;
+import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.listener.CommandEvent;
 import tk.jomp16.irc.event.listener.InitEvent;
@@ -25,7 +25,7 @@ import java.util.List;
 public class Google extends Event {
     private static String GOOGLE = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=%s";
 
-    @CommandFilter("google")
+    @Command("google")
     public void googleSearch(CommandEvent commandEvent) throws Exception {
         if (commandEvent.getArgs().size() >= 1) {
             String url = String.format(GOOGLE, URLEncoder.encode(commandEvent.getArgs().get(0), "UTF-8"));

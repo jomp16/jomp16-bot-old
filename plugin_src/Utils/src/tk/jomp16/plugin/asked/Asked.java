@@ -15,7 +15,7 @@ public class Asked extends Event {
 
     @Override
     public void onPrivMsg(CommandEvent commandEvent) {
-        if (commandEvent.getMessage().contains("?")) {
+        if (commandEvent.getRawMessage().contains("?")) {
             if (askedMap.containsKey(commandEvent.getChannel().getTargetName())) {
                 int asked = askedMap.get(commandEvent.getChannel().getTargetName());
                 asked++;

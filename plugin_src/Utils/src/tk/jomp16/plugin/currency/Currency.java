@@ -9,7 +9,7 @@ package tk.jomp16.plugin.currency;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
-import tk.jomp16.irc.event.CommandFilter;
+import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.listener.CommandEvent;
 import tk.jomp16.irc.event.listener.InitEvent;
@@ -22,7 +22,7 @@ import java.net.URL;
 public class Currency extends Event {
     private String URL_CURRENCY = "http://rate-exchange.appspot.com/currency?from=%s&to=%s&q=%s";
 
-    @CommandFilter({"currency", "money"})
+    @Command({"currency", "money"})
     public void currency(CommandEvent commandEvent) throws Exception {
         if (commandEvent.getArgs().size() >= 3) {
             String quantity = commandEvent.getArgs().get(0).toUpperCase();
@@ -39,7 +39,7 @@ public class Currency extends Event {
                 currencyJSON = new Gson().fromJson(reader, CurrencyJSON.class);
             }
 
-            commandEvent.respond("Currency: " + quantity + " " + from + " to " + to + " equals " + currencyJSON.getV() + " || 1 " + to + " to " + from + " equals " + currencyJSON.getRate());
+            commandEvent.respond("Currency: " + quantity + " " + from + " to " + to + " equals " + currencyJSON.getV() + " || 1 " + from + " to " + to + " equals " + currencyJSON.getRate());
         } else {
             commandEvent.showUsage(this, commandEvent.getCommand());
         }
