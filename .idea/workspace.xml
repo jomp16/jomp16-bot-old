@@ -6,10 +6,22 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a805d74-f257-41a4-a4c3-8d8bb3ea3f46" name="Default" comment="More files">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/plugin_src/CodecUtils/src/tk/jomp16/plugin/rot13/Rot13.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugin_src/CodecUtils/src/tk/jomp16/plugin/CodecUtils.java" afterPath="$PROJECT_DIR$/plugin_src/CodecUtils/src/tk/jomp16/plugin/CodecUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TODO" afterPath="$PROJECT_DIR$/TODO" />
+    <list default="true" id="8a805d74-f257-41a4-a4c3-8d8bb3ea3f46" name="Default" comment="Added Rot13">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/asked/Asked.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/channel/ChannelList.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/channel/ChannelList.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/plugin/commands/Commands.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/plugin/commands/Commands.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugin_src/CyanogenMod/src/tk/jomp16/plugin/cyanogenmod/Devices.java" afterPath="$PROJECT_DIR$/plugin_src/CyanogenMod/src/tk/jomp16/plugin/cyanogenmod/Devices.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/plugin/help/Help.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/plugin/help/Help.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/ParserToken.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/ParserToken.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/plugin/plugin/Plugin.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/plugin/plugin/Plugin.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/PrivMsgEvent.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/PrivMsgEvent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/PrivMsgEvent.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/PrivMsgEvent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/PrivMsgParser.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/PrivMsgParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugin_src/CodecUtils/src/tk/jomp16/plugin/rot13/Rot13.java" afterPath="$PROJECT_DIR$/plugin_src/CodecUtils/src/tk/jomp16/plugin/rot13/Rot13.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/slap/Slap.java" afterPath="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/slap/Slap.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/bot/plugin/TestPlugin.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/bot/plugin/TestPlugin.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/url/URL.java" afterPath="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/url/URL.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugin_src/CyanogenMod/src/tk/jomp16/plugin/cyanogenmod/Versions.java" afterPath="$PROJECT_DIR$/plugin_src/CyanogenMod/src/tk/jomp16/plugin/cyanogenmod/Versions.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="jomp16-bot1.iws" />
@@ -82,7 +94,62 @@
     <favorites_list name="jomp16-bot1" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="Devices.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/plugin_src/CyanogenMod/src/tk/jomp16/plugin/cyanogenmod/Devices.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="59" column="66" selection-start="2829" selection-end="2829" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="2091">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Commands.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/plugin/commands/Commands.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="57" column="38" selection-start="2285" selection-end="2285" vertical-scroll-proportion="0.9431438" vertical-offset="150" max-vertical-offset="1479">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Plugin.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/plugin/plugin/Plugin.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="72" column="0" selection-start="3313" selection-end="3313" vertical-scroll-proportion="0.0" vertical-offset="1190" max-vertical-offset="2788">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Help.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/plugin/help/Help.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="72" column="34" selection-start="2704" selection-end="2704" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2601">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Versions.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/plugin_src/CyanogenMod/src/tk/jomp16/plugin/cyanogenmod/Versions.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="18" selection-start="361" selection-end="361" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="731">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PrivMsgEvent.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/events/PrivMsgEvent.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="206" column="0" selection-start="8007" selection-end="8007" vertical-scroll-proportion="0.0" vertical-offset="2878" max-vertical-offset="3706">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -114,19 +181,33 @@
         <option value="$PROJECT_DIR$/src/tk/jomp16/irc/output/OutputIRC.java" />
         <option value="$PROJECT_DIR$/src/tk/jomp16/irc/event/CommandFilter.java" />
         <option value="$PROJECT_DIR$/src/tk/jomp16/irc/event/Command.java" />
-        <option value="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/slap/Slap.java" />
         <option value="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/CommandEvent.java" />
-        <option value="$PROJECT_DIR$/src/tk/jomp16/bot/plugin/TestPlugin.java" />
         <option value="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/Bash.java" />
         <option value="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/Exec.java" />
         <option value="$PROJECT_DIR$/plugin_src/JavaScript/src/tk/jomp16/plugin/JavaScript.java" />
-        <option value="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/PrivMsgEvent.java" />
-        <option value="$PROJECT_DIR$/plugin_src/CyanogenMod/src/tk/jomp16/plugin/cyanogenmod/Devices.java" />
         <option value="$PROJECT_DIR$/src/tk/jomp16/bot/BotMain.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/plugin_src/CodecUtils/src/tk/jomp16/plugin/rot13/Rot13.java" />
         <option value="$PROJECT_DIR$/plugin_src/CodecUtils/src/tk/jomp16/plugin/CodecUtils.java" />
         <option value="$PROJECT_DIR$/TODO" />
+        <option value="$PROJECT_DIR$/plugin_src/CodecUtils/src/tk/jomp16/plugin/rot13/Rot13.java" />
+        <option value="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/ActionEvent.java" />
+        <option value="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/ActionEvent.java" />
+        <option value="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/ActionParser.java" />
+        <option value="$PROJECT_DIR$/src/tk/jomp16/irc/parser/ParserToken.java" />
+        <option value="$PROJECT_DIR$/src/tk/jomp16/irc/parser/Parser.java" />
+        <option value="$PROJECT_DIR$/src/tk/jomp16/irc/event/Event.java" />
+        <option value="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/PrivMsgParser.java" />
+        <option value="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/PrivMsgEvent.java" />
+        <option value="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/PrivMsgEvent.java" />
+        <option value="$PROJECT_DIR$/src/tk/jomp16/bot/plugin/TestPlugin.java" />
+        <option value="$PROJECT_DIR$/src/tk/jomp16/irc/channel/ChannelList.java" />
+        <option value="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/slap/Slap.java" />
+        <option value="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/url/URL.java" />
+        <option value="$PROJECT_DIR$/plugin_src/CyanogenMod/src/tk/jomp16/plugin/cyanogenmod/Versions.java" />
+        <option value="$PROJECT_DIR$/src/tk/jomp16/irc/plugin/plugin/Plugin.java" />
+        <option value="$PROJECT_DIR$/src/tk/jomp16/irc/plugin/help/Help.java" />
+        <option value="$PROJECT_DIR$/plugin_src/CyanogenMod/src/tk/jomp16/plugin/cyanogenmod/Devices.java" />
+        <option value="$PROJECT_DIR$/src/tk/jomp16/irc/plugin/commands/Commands.java" />
       </list>
     </option>
   </component>
@@ -195,7 +276,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="plugin_src" />
+              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -206,36 +287,58 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="jomp16-bot" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="plugin_src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CodecUtils" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jomp16-bot1" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jomp16-bot" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="plugin_src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CodecUtils" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="irc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="irc" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -253,15 +356,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="plugin_src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CodecUtils" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="irc" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -269,7 +372,67 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="rot13" />
+              <option name="myItemId" value="plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="irc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="help" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="irc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="commands" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -281,7 +444,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="GenerateAntBuildDialog.generateIdeaHomeProperty" value="false" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
@@ -310,17 +473,18 @@
     <property name="last.edited.regexp" value="google.com.br" />
     <property name="dynamic.classpath" value="false" />
     <property name="options.searchVisible" value="true" />
+    <property name="SearchEverywhereHistory" value="" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.jomp16.plugin.url" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/plugin_src/CyanogenMod/src" />
       <recent name="$PROJECT_DIR$/lib" />
       <recent name="$PROJECT_DIR$/plugin_src/CodecUtils" />
       <recent name="$PROJECT_DIR$/event_src/src/com/jomp16/event" />
       <recent name="$PROJECT_DIR$/src/com/jomp16/language" />
-    </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.jomp16.plugin.url" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/plugin_src/CodecUtils/src" />
@@ -580,7 +744,11 @@
       <created>1386449477409</created>
       <updated>1386449477410</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Added Rot13">
+      <created>1386450611636</created>
+      <updated>1386450611636</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -605,22 +773,23 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="960" y="27" width="961" height="1054" extended-state="4" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33222222" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3288889" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3211111" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.320304" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29872882" sideWeight="0.43385416" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3061889" sideWeight="0.434024" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329582" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29872882" sideWeight="0.565625" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3061889" sideWeight="0.5648855" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32777777" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3292683" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4754953" sideWeight="0.6933333" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.9727372" sideWeight="0.6933333" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3220339" sideWeight="0.5482315" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24973205" sideWeight="0.6726862" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24973205" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39800444" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -635,37 +804,36 @@
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32918552" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32222223" sideWeight="0.5482315" order="2" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329582" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329582" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31111112" sideWeight="0.43383136" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3061889" sideWeight="0.434024" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329582" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329582" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24973205" sideWeight="0.6730123" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24973205" sideWeight="0.6730123" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24973205" sideWeight="0.6726862" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24973205" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39800444" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33222222" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3288889" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3211111" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.320304" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3061889" sideWeight="0.5648855" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32777777" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30666667" sideWeight="0.565635" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32918552" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3292683" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4030668" sideWeight="0.6933333" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.9727372" sideWeight="0.6933333" order="0" side_tool="false" content_ui="combo" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32222223" sideWeight="0.5482315" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3220339" sideWeight="0.5482315" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28922093" sideWeight="0.28935698" order="3" side_tool="true" content_ui="tabs" />
     </layout-to-restore>
   </component>
@@ -686,7 +854,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="Removed annotation Help, renamed HelpRegister to Help and updated some class file to the new Help" />
     <MESSAGE value="Moar updates" />
     <MESSAGE value="Moar updates&#10;&#10;Added spam control (default 5 seconds to wait to reply) and added getLevel on User Class =)" />
     <MESSAGE value="Little updates&#10;&#10;No description yet..." />
@@ -711,7 +878,8 @@
     <MESSAGE value="gitignore&#10;&#10;I always do derpz" />
     <MESSAGE value="Pull a lot of changes&#10;&#10;I haven't worked on this project a lot of time&#10;&#10;I will work on this again when I want =D" />
     <MESSAGE value="More files" />
-    <option name="LAST_COMMIT_MESSAGE" value="More files" />
+    <MESSAGE value="Added Rot13" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Rot13" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -727,133 +895,156 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/bot/BotMain.java">
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="101" selection-start="1552" selection-end="1552" vertical-scroll-proportion="0.0" vertical-offset="714" max-vertical-offset="1156">
+        <state line="82" column="14" selection-start="3728" selection-end="3728" vertical-scroll-proportion="0.5401338" vertical-offset="1071" max-vertical-offset="18156" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/META-INF/MANIFEST.MF">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="611" />
+      </provider>
+    </entry>
+    <entry file="jar:///opt/java/src.zip!/java/lang/StringBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="404" column="18" selection-start="10756" selection-end="10756" vertical-scroll-proportion="0.33333334" vertical-offset="6270" max-vertical-offset="7174" />
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/commons-codec-1.8.jar!/org/apache/commons/codec/digest/DigestUtils.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="13" selection-start="174" selection-end="174" vertical-scroll-proportion="-3.0755336" vertical-offset="1958" max-vertical-offset="2567" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TODO">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="22" selection-start="22" selection-end="22" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="621">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/bot/BotMain.java">
+    <entry file="file://$PROJECT_DIR$/plugin_src/CodecUtils/src/tk/jomp16/plugin/rot13/Rot13.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="13" selection-start="852" selection-end="852" vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="1156">
+        <state line="13" column="8" selection-start="530" selection-end="530" vertical-scroll-proportion="0.14847161" vertical-offset="0" max-vertical-offset="916">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/output/OutputIRC.java">
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/events/JoinEvent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="50" selection-start="1463" selection-end="1463" vertical-scroll-proportion="0.43657142" vertical-offset="264" max-vertical-offset="1139" />
+        <state line="15" column="13" selection-start="513" selection-end="513" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="578">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/events/ModeEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="13" selection-start="513" selection-end="513" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1037">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/events/NickEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="13" selection-start="504" selection-end="504" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="578">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/events/NickNameInUseEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="13" selection-start="399" selection-end="399" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="442">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/events/PartEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="13" selection-start="513" selection-end="513" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/events/PingEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="13" selection-start="399" selection-end="399" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="442">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/events/QuitEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="13" selection-start="475" selection-end="475" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="578">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/DisableEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="13" selection-start="407" selection-end="407" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/InitEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="13" selection-start="577" selection-end="577" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="782">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/ResetEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="13" selection-start="407" selection-end="407" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/Command.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="42" selection-start="630" selection-end="630" vertical-scroll-proportion="0.37080538" vertical-offset="0" max-vertical-offset="596" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/slap/Slap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="18" selection-start="529" selection-end="533" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="476" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugin_src/Notes/src/tk/jomp16/plugin/Notes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="13" selection-start="817" selection-end="817" vertical-scroll-proportion="-3.2281303" vertical-offset="1984" max-vertical-offset="2567" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/bot/plugin/TestPlugin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="84" column="25" selection-start="3820" selection-end="3831" vertical-scroll-proportion="1.1460481" vertical-offset="608" max-vertical-offset="1479" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/Vars.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="13" selection-start="440" selection-end="440" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="578" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/Bash.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="50" selection-start="1027" selection-end="1027" vertical-scroll-proportion="0.3797251" vertical-offset="0" max-vertical-offset="1037" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/Exec.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="0" selection-start="1083" selection-end="1083" vertical-scroll-proportion="0.0652921" vertical-offset="217" max-vertical-offset="1003" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/plugin/help/HelpRegister.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="11" selection-start="1555" selection-end="1555" vertical-scroll-proportion="0.33277312" vertical-offset="533" max-vertical-offset="1768" />
-      </provider>
-    </entry>
-    <entry file="jar:///opt/java/src.zip!/java/lang/String.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1916" column="18" selection-start="75082" selection-end="75082" vertical-scroll-proportion="0.5042017" vertical-offset="31677" max-vertical-offset="53210" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugin_src/CyanogenMod/src/tk/jomp16/plugin/cyanogenmod/CyanogenMod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="13" selection-start="368" selection-end="368" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugin_src/CyanogenMod/src/tk/jomp16/plugin/cyanogenmod/Devices.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="111" column="72" selection-start="4708" selection-end="4708" vertical-scroll-proportion="2.8573883" vertical-offset="224" max-vertical-offset="2210" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/events/PrivMsgEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="199" column="0" selection-start="7884" selection-end="7884" vertical-scroll-proportion="0.0" vertical-offset="2992" max-vertical-offset="3672" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugin_src/JavaScript/src/tk/jomp16/plugin/JavaScript.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="0" selection-start="1848" selection-end="1848" vertical-scroll-proportion="0.33277312" vertical-offset="278" max-vertical-offset="1037" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/sqlite/SQLiteManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="11" selection-start="486" selection-end="486" vertical-scroll-proportion="0.20987654" vertical-offset="0" max-vertical-offset="1564" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/bot/BotMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="61" selection-start="3124" selection-end="3124" vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="1156">
+        <state line="16" column="18" selection-start="555" selection-end="555" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="323">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/CommandEvent.java">
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/Level.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="19" selection-start="967" selection-end="967" vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="2278">
+        <state line="9" column="12" selection-start="323" selection-end="323" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="272">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/JoinEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="7" selection-start="333" selection-end="333" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1479">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/ModeEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="3" selection-start="279" selection-end="279" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1615">
           <folding>
-            <element signature="e#0#4393#0" expanded="false" />
+            <element signature="e#0#2889#0" expanded="false" />
             <element signature="imports" expanded="false" />
-            <element signature="e#3767#3768#0" expanded="false" />
-            <element signature="e#3800#3801#0" expanded="false" />
-            <element signature="e#3829#3830#0" expanded="false" />
-            <element signature="e#3856#3857#0" expanded="false" />
-            <element signature="e#3891#3892#0" expanded="false" />
-            <element signature="e#3921#3922#0" expanded="false" />
-            <element signature="e#3955#3956#0" expanded="false" />
-            <element signature="e#3985#3986#0" expanded="false" />
-            <element signature="e#4022#4023#0" expanded="false" />
-            <element signature="e#4055#4056#0" expanded="false" />
-            <element signature="e#4089#4090#0" expanded="false" />
-            <element signature="e#4119#4120#0" expanded="false" />
-            <element signature="e#4161#4162#0" expanded="false" />
-            <element signature="e#4188#4189#0" expanded="false" />
-            <element signature="e#4218#4219#0" expanded="false" />
-            <element signature="e#4244#4245#0" expanded="false" />
-            <element signature="e#4356#4357#0" expanded="false" />
-            <element signature="e#4389#4390#0" expanded="false" />
+            <element signature="e#1090#1091#0" expanded="false" />
+            <element signature="e#1123#1124#0" expanded="false" />
+            <element signature="e#1152#1153#0" expanded="false" />
+            <element signature="e#1179#1180#0" expanded="false" />
+            <element signature="e#1214#1215#0" expanded="false" />
+            <element signature="e#1244#1245#0" expanded="false" />
+            <element signature="e#1280#1281#0" expanded="false" />
+            <element signature="e#1312#1313#0" expanded="false" />
+            <element signature="e#1379#1380#0" expanded="false" />
+            <element signature="e#1406#1407#0" expanded="false" />
+            <element signature="e#1439#1440#0" expanded="false" />
+            <element signature="e#1468#1469#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/KickEvent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="13" selection-start="483" selection-end="483" vertical-scroll-proportion="0.0" vertical-offset="1004" max-vertical-offset="1615">
+        <state line="107" column="5" selection-start="1385" selection-end="2796" vertical-scroll-proportion="0.0" vertical-offset="699" max-vertical-offset="1615">
           <folding>
             <element signature="e#0#2799#0" expanded="false" />
             <element signature="imports" expanded="false" />
@@ -873,58 +1064,215 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/events/KickEvent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="611">
+        <state line="38" column="11" selection-start="1031" selection-end="1374" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="646">
+          <folding>
+            <element signature="e#0#1383#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///opt/java/src.zip!/java/lang/Object.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="234" column="18" selection-start="10054" selection-end="10054" vertical-scroll-proportion="0.33296943" vertical-offset="3282" max-vertical-offset="9163">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/parser/ParserToken.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="14" selection-start="3728" selection-end="3728" vertical-scroll-proportion="0.5401338" vertical-offset="1071" max-vertical-offset="18156">
+        <state line="43" column="18" selection-start="1068" selection-end="1068" vertical-scroll-proportion="0.51965064" vertical-offset="0" max-vertical-offset="916">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/META-INF/MANIFEST.MF">
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/parser/Tags.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="611">
+        <state line="25" column="4" selection-start="735" selection-end="735" vertical-scroll-proportion="0.33296943" vertical-offset="35" max-vertical-offset="1275">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar:///opt/java/src.zip!/java/lang/StringBuilder.java">
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/parser/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="404" column="18" selection-start="10756" selection-end="10756" vertical-scroll-proportion="0.33333334" vertical-offset="6270" max-vertical-offset="7174">
+        <state line="33" column="7" selection-start="1343" selection-end="1343" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1258">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/plugin_src/CodecUtils/src/tk/jomp16/plugin/rot13/Rot13.java">
+    <entry file="jar:///opt/java/src.zip!/java/lang/String.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="28" selection-start="896" selection-end="896" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="561">
+        <state line="1949" column="18" selection-start="76406" selection-end="76406" vertical-scroll-proportion="0.3321739" vertical-offset="32347" max-vertical-offset="53091">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/commons-codec-1.8.jar!/org/apache/commons/codec/digest/DigestUtils.class">
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/PrivMsgParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="13" selection-start="174" selection-end="174" vertical-scroll-proportion="-3.0755336" vertical-offset="1958" max-vertical-offset="2567">
+        <state line="52" column="18" selection-start="1850" selection-end="1850" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="850">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TODO">
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/Event.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="22" selection-start="22" selection-end="22" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="621">
+        <state line="48" column="33" selection-start="1268" selection-end="1268" vertical-scroll-proportion="0.0" vertical-offset="189" max-vertical-offset="1105">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/PrivMsgEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="0" selection-start="1414" selection-end="1414" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1683">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/channel/Channel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="29" selection-start="739" selection-end="739" vertical-scroll-proportion="0.33333334" vertical-offset="33" max-vertical-offset="1173">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/bot/plugin/TestPlugin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="81" column="62" selection-start="3851" selection-end="3851" vertical-scroll-proportion="1.1090909" vertical-offset="248" max-vertical-offset="1496">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/guava-14.0.1.jar!/com/google/common/collect/AbstractMapBasedMultimap.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="16" selection-start="1859" selection-end="1859" vertical-scroll-proportion="0.34727272" vertical-offset="438" max-vertical-offset="7786">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugin_src/CyanogenMod/src/tk/jomp16/plugin/cyanogenmod/CyanogenMod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="13" selection-start="368" selection-end="368" vertical-scroll-proportion="0.1734694" vertical-offset="0" max-vertical-offset="588">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/channel/ChannelList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="66" column="0" selection-start="2197" selection-end="2197" vertical-scroll-proportion="0.0" vertical-offset="853" max-vertical-offset="1989">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/plugin_src/CodecUtils/src/tk/jomp16/plugin/CodecUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="102" column="50" selection-start="4217" selection-end="4217" vertical-scroll-proportion="0.30917874" vertical-offset="1287" max-vertical-offset="2074">
+        <state line="102" column="50" selection-start="4217" selection-end="4217" vertical-scroll-proportion="0.0" vertical-offset="1115" max-vertical-offset="2074">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugin_src/Google/src/tk/jomp16/plugin/Google.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="13" selection-start="782" selection-end="782" vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="1275">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/currency/Currency.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="16" selection-start="1804" selection-end="1804" vertical-scroll-proportion="0.5215909" vertical-offset="0" max-vertical-offset="880">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/lmgtfy/LMGTFY.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="13" selection-start="617" selection-end="617" vertical-scroll-proportion="0.11590909" vertical-offset="0" max-vertical-offset="880">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/programmer/NotABug.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="13" selection-start="453" selection-end="453" vertical-scroll-proportion="0.11422172" vertical-offset="0" max-vertical-offset="893">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/programmer/Jokes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="13" selection-start="584" selection-end="584" vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="1241">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/slap/Slap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="5" selection-start="779" selection-end="779" vertical-scroll-proportion="0.23181818" vertical-offset="0" max-vertical-offset="880">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/url/URL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="41" selection-start="1170" selection-end="1170" vertical-scroll-proportion="0.2125" vertical-offset="0" max-vertical-offset="880">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/events/PrivMsgEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="206" column="0" selection-start="8007" selection-end="8007" vertical-scroll-proportion="0.0" vertical-offset="2878" max-vertical-offset="3706">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugin_src/CyanogenMod/src/tk/jomp16/plugin/cyanogenmod/Versions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="18" selection-start="361" selection-end="361" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="731">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/CommandEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="29" selection-start="1459" selection-end="1459" vertical-scroll-proportion="0.33277592" vertical-offset="311" max-vertical-offset="2278">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/IRCManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="122" column="28" selection-start="3522" selection-end="3522" vertical-scroll-proportion="0.33295456" vertical-offset="1305" max-vertical-offset="2635">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugin_src/CyanogenMod/src/tk/jomp16/plugin/cyanogenmod/Devices.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="59" column="66" selection-start="2829" selection-end="2829" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="2091">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/plugin/help/Help.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="72" column="34" selection-start="2704" selection-end="2704" vertical-scroll-proportion="0.0" vertical-offset="439" max-vertical-offset="2601">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/plugin/plugin/Plugin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="72" column="0" selection-start="3313" selection-end="3313" vertical-scroll-proportion="0.0" vertical-offset="1496" max-vertical-offset="2788">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/plugin/commands/Commands.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="38" selection-start="2285" selection-end="2285" vertical-scroll-proportion="0.9431438" vertical-offset="150" max-vertical-offset="1479">
           <folding />
         </state>
       </provider>
@@ -939,7 +1287,7 @@
               <type id="library" />
             </show-content>
           </artifact-editor>
-          <last-edited>jomp16-bot</last-edited>
+          <last-edited>Bash</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -988,7 +1336,7 @@
       </state>
       <state key="JdkListConfigurable.UI">
         <settings>
-          <last-edited>Android 4.2.2 Platform</last-edited>
+          <last-edited>1.8</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1005,6 +1353,7 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>

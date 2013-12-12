@@ -17,6 +17,7 @@ import tk.jomp16.irc.event.listener.ResetEvent;
 import tk.jomp16.irc.plugin.help.HelpRegister;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Commands extends Event {
     private ArrayList<String> commandsNormal = new ArrayList<>();
@@ -50,6 +51,11 @@ public class Commands extends Event {
 
             flag = true;
         }
+
+        Collections.sort(commandsNormal, String::compareTo);
+        Collections.sort(commandsMod, String::compareTo);
+        Collections.sort(commandsAdmin, String::compareTo);
+        Collections.sort(commandsOwner, String::compareTo);
     }
 
     @Command("commands")

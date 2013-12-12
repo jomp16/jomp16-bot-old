@@ -17,16 +17,17 @@ import tk.jomp16.irc.event.listener.InitEvent;
 import tk.jomp16.irc.event.listener.ResetEvent;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class Help extends Event {
-    private ArrayList<String> helpNormal = new ArrayList<>();
-    private ArrayList<String> helpMod = new ArrayList<>();
-    private ArrayList<String> helpAdmin = new ArrayList<>();
-    private ArrayList<String> helpOwner = new ArrayList<>();
-    private HashMap<String, HelpRegister> helpRegisters = new HashMap<>();
+    private static ArrayList<String> helpNormal = new ArrayList<>();
+    private static ArrayList<String> helpMod = new ArrayList<>();
+    private static ArrayList<String> helpAdmin = new ArrayList<>();
+    private static ArrayList<String> helpOwner = new ArrayList<>();
+    private static HashMap<String, HelpRegister> helpRegisters = new HashMap<>();
 
-    private void registerHelp(ArrayList<Event> events) {
+    private static void registerHelp(ArrayList<Event> events) {
         for (Event event : events) {
             for (HelpRegister helpRegister : event.getHelpRegister()) {
                 helpRegisters.put(helpRegister.getCommand(), helpRegister);
@@ -44,7 +45,7 @@ public class Help extends Event {
         }
     }
 
-    private void addToList(String command, Level level) {
+    private static void addToList(String command, Level level) {
         switch (level) {
             case NORMAL:
                 helpNormal.add(command);
@@ -65,6 +66,11 @@ public class Help extends Event {
                 helpOwner.add(command);
                 break;
         }
+
+        Collections.sort(helpNormal, String::compareTo);
+        Collections.sort(helpMod, String::compareTo);
+        Collections.sort(helpAdmin, String::compareTo);
+        Collections.sort(helpOwner, String::compareTo);
     }
 
     @Command("help")
@@ -129,6 +135,15 @@ public class Help extends Event {
         } else {
             return "Command: " + ircManager.getConfiguration().getPrefix() + helpRegister.getCommand() + " || " + "Help: " + helpRegister.getHelp() + " || " + "Usage: " + ircManager.getConfiguration().getPrefix() + helpRegister.getCommand() + " " + helpRegister.getUsage();
         }
+    }
+
+    public static void reloadHelp(ArrayList<Event> events) {
+        helpRegisters.clear();
+        helpNormal.clear();
+        helpMod.clear();
+        helpAdmin.clear();
+        helpOwner.clear();
+        registerHelp(events);
     }
 
     @Override

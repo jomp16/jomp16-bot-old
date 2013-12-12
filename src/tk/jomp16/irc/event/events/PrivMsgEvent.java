@@ -35,6 +35,7 @@ public class PrivMsgEvent extends Event {
     private User user;
     private String message;
     private Channel channel;
+    private PrivMSGTag tag;
     private ArrayList<String> args = new ArrayList<>();
     private Logger log = LogManager.getLogger(this.getClass().getSimpleName());
 
@@ -43,15 +44,21 @@ public class PrivMsgEvent extends Event {
         this.user = user;
         this.message = message;
         this.channel = channel;
+        this.tag = tag;
 
         switch (tag) {
             case NORMAL:
-                runNormal(ircManager.getEvents());
+            case ACTION:
+                runNormalAndAction(ircManager.getEvents());
                 break;
             case PING:
                 // TODO: see this
                 break;
         }
+    }
+
+    private void runAction(ArrayList<Event> events) {
+
     }
 
     public static void reloadEvents(ArrayList<Event> events) {
@@ -79,7 +86,7 @@ public class PrivMsgEvent extends Event {
         }
     }
 
-    private void runNormal(ArrayList<Event> events) {
+    private void runNormalAndAction(ArrayList<Event> events) {
         parseLine(message);
 
         if (eventRegisters.size() == 0) {
@@ -89,7 +96,7 @@ public class PrivMsgEvent extends Event {
         try {
             ircManager.getEvents().forEach((event) -> {
                 try {
-                    event.onPrivMsg(new tk.jomp16.irc.event.listener.event.PrivMsgEvent(ircManager, user, channel, message, args, LogManager.getLogger(event.getClass().getSimpleName())));
+                    event.onPrivMsg(new tk.jomp16.irc.event.listener.event.PrivMsgEvent(ircManager, user, channel, message, tag, args, LogManager.getLogger(event.getClass().getSimpleName())));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -176,6 +183,7 @@ public class PrivMsgEvent extends Event {
 
     private boolean isLocked() {
         int currentSec = Integer.parseInt(simpleDateFormat.format(new Date(System.currentTimeMillis())));
+
         if (spamLock.containsKey(this.user.getUserName())) {
             int timeLock = spamLock.get(this.user.getUserName());
             int timeOut = ircManager.getConfiguration().getCommandLock();
@@ -195,16 +203,12 @@ public class PrivMsgEvent extends Event {
     }
 
     private void invoke(Method method, Event event, CommandEvent commandEvent) {
-        Runnable runnable = () -> {
-            try {
-                method.invoke(event, commandEvent);
-            } catch (Exception e) {
-                log.error(e);
-                e.printStackTrace();
-            }
-        };
-
-        ircManager.getExecutor().execute(runnable);
+        try {
+            method.invoke(event, commandEvent);
+        } catch (Exception e) {
+            log.error(e);
+            e.printStackTrace();
+        }
     }
 
     public enum PrivMSGTag {

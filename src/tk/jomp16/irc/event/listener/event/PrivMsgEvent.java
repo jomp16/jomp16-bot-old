@@ -14,19 +14,23 @@ import tk.jomp16.irc.user.User;
 
 import java.util.ArrayList;
 
+import static tk.jomp16.irc.event.events.PrivMsgEvent.PrivMSGTag;
+
 public class PrivMsgEvent {
     private IRCManager ircManager;
     private User user;
     private Channel channel;
     private String message;
+    private PrivMSGTag tag;
     private ArrayList<String> args;
     private Logger logger;
 
-    public PrivMsgEvent(IRCManager ircManager, User user, Channel channel, String message, ArrayList<String> args, Logger logger) {
+    public PrivMsgEvent(IRCManager ircManager, User user, Channel channel, String message, PrivMSGTag tag, ArrayList<String> args, Logger logger) {
         this.ircManager = ircManager;
         this.user = user;
         this.channel = channel;
         this.message = message;
+        this.tag = tag;
         this.args = args;
         this.logger = logger;
     }
@@ -45,6 +49,10 @@ public class PrivMsgEvent {
 
     public String getMessage() {
         return message;
+    }
+
+    public PrivMSGTag getTag() {
+        return tag;
     }
 
     public ArrayList<String> getArgs() {

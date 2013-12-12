@@ -25,6 +25,7 @@ public class URL extends Event {
 
     @Override
     public void onPrivMsg(PrivMsgEvent privMsgEvent) throws Exception {
+        // TODO: remove hardcoded channel
         if (!privMsgEvent.getChannel().getTargetName().equals("#teamhacksung-support") && !privMsgEvent.getChannel().getTargetName().equals("#zlotycrew")) {
             if (privMsgEvent.getMessage().contains("http://") || privMsgEvent.getMessage().contains("https://") || privMsgEvent.getMessage().contains("www.")) {
                 Matcher matcher = urlPattern.matcher(privMsgEvent.getMessage());

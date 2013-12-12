@@ -12,6 +12,7 @@ import tk.jomp16.irc.event.events.ModeEvent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class ChannelList {
@@ -41,62 +42,50 @@ public class ChannelList {
     }
 
     public static void removeUserToChannel(String channel, String user) {
-        HashMultimap<String, ChannelUser> tmp = hashMapChannelUsers;
-        ArrayList<ChannelUser> users = new ArrayList<>();
+        if (hashMapChannelUsers.containsKey(channel)) {
+            for (Iterator<ChannelUser> iterator = hashMapChannelUsers.get(channel).iterator(); iterator.hasNext(); ) {
+                ChannelUser channelUser = iterator.next();
 
-        for (String s : tmp.keySet()) {
-            if (s.equals(channel)) {
-                for (ChannelUser channelUser : hashMapChannelUsers.get(s)) {
-                    if (!channelUser.getUser().equals(user)) {
-                        users.add(channelUser);
-                    }
+                if (channelUser.getUser().equals(user)) {
+                    iterator.remove();
+
+                    break;
                 }
             }
         }
-
-        hashMapChannelUsers.replaceValues(channel, users);
     }
 
     public static void removeUserFromAllChannel(String user) {
-        HashMultimap<String, ChannelUser> tmp = hashMapChannelUsers;
+        for (Iterator<ChannelUser> iterator = hashMapChannelUsers.values().iterator(); iterator.hasNext(); ) {
+            ChannelUser channelUser = iterator.next();
 
-        for (String s : tmp.keySet()) {
-            ArrayList<ChannelUser> users = new ArrayList<>();
-
-            for (ChannelUser channelUser : hashMapChannelUsers.get(s)) {
-                if (!channelUser.getUser().equals(user)) {
-                    users.add(channelUser);
-                }
+            if (channelUser.getUser().equals(user)) {
+                iterator.remove();
             }
-
-            hashMapChannelUsers.replaceValues(s, users);
         }
     }
 
     public static void changeNick(String oldNick, String newNick) {
-        HashMultimap<String, ChannelUser> tmp = hashMapChannelUsers;
+        HashMultimap<String, ChannelUser> tmp = HashMultimap.create();
 
-        for (String s : tmp.keySet()) {
-            ArrayList<ChannelUser> users = new ArrayList<>();
-
+        for (String s : hashMapChannelUsers.keySet()) {
             for (ChannelUser channelUser : hashMapChannelUsers.get(s)) {
                 if (channelUser.getUser().equals(oldNick)) {
                     channelUser.setUser(newNick);
                 }
 
-                users.add(channelUser);
+                tmp.put(s, channelUser);
             }
-
-            hashMapChannelUsers.replaceValues(s, users);
         }
+
+        hashMapChannelUsers.clear();
+        hashMapChannelUsers = tmp;
     }
 
     public static void changeUserLevel(String channel, String nick, ModeEvent.Modes mode) {
-        HashMultimap<String, ChannelUser> tmp = hashMapChannelUsers;
-
         ArrayList<ChannelUser> users = new ArrayList<>();
 
-        for (ChannelUser channelUser : tmp.get(channel)) {
+        for (ChannelUser channelUser : hashMapChannelUsers.get(channel)) {
             if (channelUser.getUser().equals(nick)) {
                 ChannelLevel level = ChannelLevel.NORMAL;
 

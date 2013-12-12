@@ -79,6 +79,7 @@ public class TestPlugin extends Event {
         } else {
             //commandEvent.respond(StringUtils.join(commandEvent.getChannel().getAllUsersWithLevel().keySet(), ", "));
             commandEvent.respond("Size of list: " + commandEvent.getChannel().getAllUsersWithLevel().keySet().size());
+            commandEvent.respond(commandEvent.getChannel().getAllUsers());
         }
     }
 

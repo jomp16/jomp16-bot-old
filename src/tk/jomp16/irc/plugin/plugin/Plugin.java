@@ -17,6 +17,7 @@ import tk.jomp16.irc.event.listener.CommandEvent;
 import tk.jomp16.irc.event.listener.DisableEvent;
 import tk.jomp16.irc.event.listener.ResetEvent;
 import tk.jomp16.irc.plugin.PluginLoader;
+import tk.jomp16.irc.plugin.help.Help;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -66,10 +67,9 @@ public class Plugin extends Event {
                             }
 
                             commandEvent.getIrcManager().getEvents().addAll(commandEvent.getIrcManager().getBundledEvent());
-
                             loadPluginInfo(commandEvent.getIrcManager().getEvents());
-
                             PrivMsgEvent.reloadEvents(commandEvent.getIrcManager().getEvents());
+                            Help.reloadHelp(commandEvent.getIrcManager().getEvents());
 
                             commandEvent.respond("Reloaded " + tmp + " plugin classes");
                         } else {

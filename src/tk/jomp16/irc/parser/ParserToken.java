@@ -39,4 +39,14 @@ public class ParserToken {
     public ArrayList<String> getParams() {
         return params;
     }
+
+    @Override
+    public String toString() {
+        return "ParserToken{" +
+                "rawLine='" + rawLine + '\'' +
+                ", source=" + source +
+                ", command='" + command + '\'' +
+                ", params=" + params +
+                '}';
+    }
 }

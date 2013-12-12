@@ -10,7 +10,6 @@ package tk.jomp16.plugin.slap;
 import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.listener.CommandEvent;
-import tk.jomp16.irc.event.listener.InitEvent;
 
 public class Slap extends Event {
     @Command("slap")
@@ -18,10 +17,5 @@ public class Slap extends Event {
         if (commandEvent.getArgs().size() >= 1) {
             commandEvent.getIrcManager().getOutputIRC().sendAction(commandEvent.getChannel().getTargetName(), "slaps " + commandEvent.getArgs().get(0) + " with a big trout");
         }
-    }
-
-    @Override
-    public void onInit(InitEvent initEvent) throws Exception {
-
     }
 }
