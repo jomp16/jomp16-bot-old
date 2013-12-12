@@ -57,10 +57,6 @@ public class PrivMsgEvent extends Event {
         }
     }
 
-    private void runAction(ArrayList<Event> events) {
-
-    }
-
     public static void reloadEvents(ArrayList<Event> events) {
         eventRegisters.clear();
         registerArrayList(events);
