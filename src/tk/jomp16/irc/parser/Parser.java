@@ -1,5 +1,5 @@
 /*
- * Copyright © 2013 jomp16 <joseoliviopedrosa@gmail.com>
+ * Copyright © 2014 jomp16 <joseoliviopedrosa@gmail.com>
  * This work is free. You can redistribute it and/or modify it under the
  * terms of the Do What The Fuck You Want To Public License, Version 2,
  * as published by Sam Hocevar. See the COPYING file for more details.
@@ -7,13 +7,13 @@
 
 package tk.jomp16.irc.parser;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import tk.jomp16.irc.IRCManager;
 import tk.jomp16.irc.Source;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.parser.parsers.*;
 import tk.jomp16.irc.utils.Utils;
+import tk.jomp16.logger.LogManager;
+import tk.jomp16.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +25,11 @@ public abstract class Parser {
         put(Tags.COMMAND_KICK, new KickParser());
         put(Tags.COMMAND_MODE, new ModeParser());
         put(Tags.RESPONSE_NAMES_LIST, new NamesParser());
-        put(Tags.ERROR_NICK_IN_USE, new NickNameInUseParser());
+
+        NickNameInUseParser nickNameInUseParser = new NickNameInUseParser();
+        put(Tags.ERROR_NICK_IN_USE, nickNameInUseParser);
+        put(Tags.ERROR_NICK_UNAVAILABLE, nickNameInUseParser);
+
         put(Tags.COMMAND_NICK, new NickParser());
         put(Tags.COMMAND_PART, new PartParser());
         put(Tags.COMMAND_PING, new PingParser());
@@ -42,7 +46,7 @@ public abstract class Parser {
 
         ArrayList<String> parsedLine = Utils.tokenizeLine(rawLine);
 
-        log.trace(parsedLine);
+        log.debug(parsedLine);
 
         if (host == null) {
             host = parsedLine.get(0);

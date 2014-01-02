@@ -1,5 +1,5 @@
 /*
- * Copyright © 2013 jomp16 <joseoliviopedrosa@gmail.com>
+ * Copyright © 2014 jomp16 <joseoliviopedrosa@gmail.com>
  * This work is free. You can redistribute it and/or modify it under the
  * terms of the Do What The Fuck You Want To Public License, Version 2,
  * as published by Sam Hocevar. See the COPYING file for more details.
@@ -7,8 +7,6 @@
 
 package tk.jomp16.irc;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import tk.jomp16.configuration.Configuration;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.events.PrivMsgEvent;
@@ -21,6 +19,8 @@ import tk.jomp16.irc.plugin.about.About;
 import tk.jomp16.irc.plugin.commands.Commands;
 import tk.jomp16.irc.plugin.help.Help;
 import tk.jomp16.irc.plugin.plugin.Plugin;
+import tk.jomp16.logger.LogManager;
+import tk.jomp16.logger.Logger;
 
 import java.io.*;
 import java.net.Socket;
@@ -177,6 +177,9 @@ public class IRCManager {
                             ready = true;
                         }
                     } else if (tmp.contains("You are now identified for ")) {
+                        ready = true;
+                    } else if (tmp.contains("is not a registered nickname")) {
+                        log.info("I couldn't identify for: " + configuration.getNick() + "!");
                         ready = true;
                     }
 

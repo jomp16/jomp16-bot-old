@@ -1,5 +1,5 @@
 /*
- * Copyright © 2013 jomp16 <joseoliviopedrosa@gmail.com>
+ * Copyright © 2014 jomp16 <joseoliviopedrosa@gmail.com>
  * This work is free. You can redistribute it and/or modify it under the
  * terms of the Do What The Fuck You Want To Public License, Version 2,
  * as published by Sam Hocevar. See the COPYING file for more details.
@@ -49,6 +49,7 @@ public enum Tags {
     ERROR_NO_NICK_GIVEN("431"),
     ERROR_NICK_INVALID("432"),
     ERROR_NICK_IN_USE("433"),
+    ERROR_NICK_UNAVAILABLE("437"),
     ERROR_NOT_ON_CHANNEL("442"),
     ERROR_WRONG_PASSWORD("464");
     private String command;

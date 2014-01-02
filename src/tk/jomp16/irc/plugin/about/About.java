@@ -1,5 +1,5 @@
 /*
- * Copyright © 2013 jomp16 <joseoliviopedrosa@gmail.com>
+ * Copyright © 2014 jomp16 <joseoliviopedrosa@gmail.com>
  * This work is free. You can redistribute it and/or modify it under the
  * terms of the Do What The Fuck You Want To Public License, Version 2,
  * as published by Sam Hocevar. See the COPYING file for more details.
@@ -16,7 +16,7 @@ import tk.jomp16.irc.plugin.help.HelpRegister;
 public class About extends Event {
     @Command("about")
     public void about(CommandEvent commandEvent) {
-        commandEvent.respond("jomp16-bot written by jomp16, with help (code and tips) from nebkat, licensed under WTFPL, source code at https://github.com/jomp16/jomp16-bot");
+        commandEvent.respond("jomp16-bot written by jomp16, licensed under WTFPL, source code at https://github.com/jomp16/jomp16-bot");
     }
 
     @Override

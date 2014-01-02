@@ -1,5 +1,5 @@
 /*
- * Copyright © 2013 jomp16 <joseoliviopedrosa@gmail.com>
+ * Copyright © 2014 jomp16 <joseoliviopedrosa@gmail.com>
  * This work is free. You can redistribute it and/or modify it under the
  * terms of the Do What The Fuck You Want To Public License, Version 2,
  * as published by Sam Hocevar. See the COPYING file for more details.
@@ -10,7 +10,6 @@ package tk.jomp16.irc.channel;
 import com.google.common.collect.HashMultimap;
 import tk.jomp16.irc.event.events.ModeEvent;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -83,28 +82,37 @@ public class ChannelList {
     }
 
     public static void changeUserLevel(String channel, String nick, ModeEvent.Modes mode) {
-        ArrayList<ChannelUser> users = new ArrayList<>();
+        if (hashMapChannelUsers.containsKey(channel)) {
+            ChannelUser channelUser1 = null;
 
-        for (ChannelUser channelUser : hashMapChannelUsers.get(channel)) {
-            if (channelUser.getUser().equals(nick)) {
-                ChannelLevel level = ChannelLevel.NORMAL;
+            for (Iterator<ChannelUser> iterator = hashMapChannelUsers.get(channel).iterator(); iterator.hasNext(); ) {
+                ChannelUser channelUser = iterator.next();
 
-                switch (mode) {
-                    case VOICE:
-                        level = ChannelLevel.VOICE;
-                        break;
-                    case OP:
-                        level = ChannelLevel.OP;
-                        break;
+                if (channelUser.getUser().equals(nick)) {
+                    ChannelLevel level = ChannelLevel.NORMAL;
+
+                    switch (mode) {
+                        case VOICE:
+                            level = ChannelLevel.VOICE;
+                            break;
+                        case OP:
+                            level = ChannelLevel.OP;
+                            break;
+                    }
+
+                    channelUser.setChannelLevel(level);
+                    channelUser1 = channelUser;
+
+                    iterator.remove();
+
+                    break;
                 }
-
-                channelUser.setChannelLevel(level);
             }
 
-            users.add(channelUser);
+            if (channelUser1 != null) {
+                hashMapChannelUsers.put(channel, channelUser1);
+            }
         }
-
-        hashMapChannelUsers.replaceValues(channel, users);
     }
 
     public static HashMap<String, ChannelLevel> getListUsers(String channel) {

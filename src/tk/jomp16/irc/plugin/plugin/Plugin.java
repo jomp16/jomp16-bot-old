@@ -1,5 +1,5 @@
 /*
- * Copyright © 2013 jomp16 <joseoliviopedrosa@gmail.com>
+ * Copyright © 2014 jomp16 <joseoliviopedrosa@gmail.com>
  * This work is free. You can redistribute it and/or modify it under the
  * terms of the Do What The Fuck You Want To Public License, Version 2,
  * as published by Sam Hocevar. See the COPYING file for more details.
@@ -8,7 +8,6 @@
 package tk.jomp16.irc.plugin.plugin;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
 import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.Level;
@@ -18,6 +17,7 @@ import tk.jomp16.irc.event.listener.DisableEvent;
 import tk.jomp16.irc.event.listener.ResetEvent;
 import tk.jomp16.irc.plugin.PluginLoader;
 import tk.jomp16.irc.plugin.help.Help;
+import tk.jomp16.logger.LogManager;
 
 import java.io.File;
 import java.util.ArrayList;

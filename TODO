@@ -1,3 +1,7 @@
+Change Log4J 2 to my own Logger implementation (because I need to write to UI too)
+
+Create an UI =D (plugins can create their own UI too)
+
 Lower the RAM usage...
 
 Add whatever to store the users of a channel on a array (normal, voice, op and all) on Channel class
