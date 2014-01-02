@@ -1,5 +1,5 @@
 /*
- * Copyright © 2013 jomp16 <joseoliviopedrosa@gmail.com>
+ * Copyright © 2014 jomp16 <joseoliviopedrosa@gmail.com>
  * This work is free. You can redistribute it and/or modify it under the
  * terms of the Do What The Fuck You Want To Public License, Version 2,
  * as published by Sam Hocevar. See the COPYING file for more details.
@@ -14,7 +14,8 @@ import tk.jomp16.irc.event.listener.DisableEvent;
 import tk.jomp16.irc.event.listener.InitEvent;
 import tk.jomp16.irc.event.listener.ResetEvent;
 import tk.jomp16.irc.plugin.help.HelpRegister;
-import tk.jomp16.sqlite.SQLiteManager;
+import tk.jomp16.plugin.database.NotesOpenHelper;
+import tk.jomp16.sqlite1.SQLiteDatabase;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,25 +24,19 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Notes extends Event {
-    private SQLiteManager manager;
+    private SQLiteDatabase database;
     private SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
     private SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm:ss");
     private ArrayList<NotesRegister> notes = new ArrayList<>();
+    private int DATABASE_VERSION = 1;
 
     @Override
     public void onInit(InitEvent initEvent) throws Exception {
         initEvent.addHelp(this, new HelpRegister("notes", "Save/see a note for you or for a user", "add/see (when is add, usage is add (user for give a message to a user) or 'title' 'message' (to register and you will see it)"));
 
-        manager = initEvent.getSqlLiteManager(this, "database");
+        database = new NotesOpenHelper(initEvent.getPluginPath(this) + "/database.db", DATABASE_VERSION).getDatabase();
 
-        manager.executeFastUpdateQuery("CREATE TABLE IF NOT EXISTS notes " +
-                "(user string NOT NULL, " +
-                "title string NOT NULL, " +
-                "message string NOT NULL, " +
-                "date string NOT NULL, " +
-                "time string NOT NULL)");
-
-        ResultSet resultSet = manager.getResultSet("SELECT * FROM notes");
+        ResultSet resultSet = database.getResultSet("SELECT * FROM notes");
 
         while (resultSet.next()) {
             notes.add(new NotesRegister(resultSet.getString("user"), resultSet.getString("title"), resultSet.getString("message"), resultSet.getString("date"), resultSet.getString("time")));
@@ -52,7 +47,7 @@ public class Notes extends Event {
     public void onReset(ResetEvent resetEvent) throws Exception {
         notes.clear();
 
-        ResultSet resultSet = manager.getResultSet("SELECT * FROM notes");
+        ResultSet resultSet = database.getResultSet("SELECT * FROM notes");
 
         while (resultSet.next()) {
             notes.add(new NotesRegister(resultSet.getString("user"), resultSet.getString("title"), resultSet.getString("message"), resultSet.getString("date"), resultSet.getString("time")));
@@ -62,7 +57,7 @@ public class Notes extends Event {
     @Override
     public void onDisable(DisableEvent disableEvent) throws Exception {
         notes.clear();
-        manager.close();
+        database.close();
     }
 
     @Command("notes")
@@ -79,7 +74,7 @@ public class Notes extends Event {
                         String date = formatDate.format(dat);
                         String time = formatTime.format(dat);
 
-                        manager.insertData("notes", commandEvent.getUser().getUserName(), tmpTitle, tmpMessage, date, time);
+                        database.insertData("notes", commandEvent.getUser().getUserName(), tmpTitle, tmpMessage, date, time);
                         notes.add(new NotesRegister(commandEvent.getUser().getUserName(), tmpTitle, tmpMessage, date, time));
                     }
                 }
@@ -128,7 +123,7 @@ public class Notes extends Event {
             } else if (commandEvent.getArgs().get(0).equals("clear")) {
                 if (commandEvent.getArgs().size() >= 2) {
                     if (commandEvent.getArgs().get(1).equals("all")) {
-                        manager.executeFastUpdateQuery("DELETE FROM notes WHERE user = ?", commandEvent.getUser().getUserName());
+                        database.executeFastUpdateQuery("DELETE FROM notes WHERE user = ?", commandEvent.getUser().getUserName());
                         ArrayList<NotesRegister> tmpNotes = new ArrayList<>();
 
                         for (NotesRegister register : notes) {
@@ -149,7 +144,7 @@ public class Notes extends Event {
 
                                 if (register.getUser().equals(commandEvent.getUser().getUserName())) {
                                     notes.remove(register);
-                                    manager.executeFastUpdateQuery("DELETE FROM notes WHERE user = ? AND title = ? AND message = ? AND date = ? AND time = ?", register.getUser(), register.getTitle(), register.getMessage(), register.getDate(), register.getTime());
+                                    database.executeFastUpdateQuery("DELETE FROM notes WHERE user = ? AND title = ? AND message = ? AND date = ? AND time = ?", register.getUser(), register.getTitle(), register.getMessage(), register.getDate(), register.getTime());
                                 }
                             }
                         } catch (Exception e) {

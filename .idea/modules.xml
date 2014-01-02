@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/plugin_src/JavaScript/JavaScript.iml" filepath="$PROJECT_DIR$/plugin_src/JavaScript/JavaScript.iml" />
       <module fileurl="file://$PROJECT_DIR$/plugin_src/Manager/Manager.iml" filepath="$PROJECT_DIR$/plugin_src/Manager/Manager.iml" />
       <module fileurl="file://$PROJECT_DIR$/plugin_src/Notes/Notes.iml" filepath="$PROJECT_DIR$/plugin_src/Notes/Notes.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugin_src/Play/Play.iml" filepath="$PROJECT_DIR$/plugin_src/Play/Play.iml" />
       <module fileurl="file://$PROJECT_DIR$/plugin_src/Reputation/Reputation.iml" filepath="$PROJECT_DIR$/plugin_src/Reputation/Reputation.iml" />
       <module fileurl="file://$PROJECT_DIR$/plugin_src/Utils/Utils.iml" filepath="$PROJECT_DIR$/plugin_src/Utils/Utils.iml" />
       <module fileurl="file://$PROJECT_DIR$/jomp16-bot.iml" filepath="$PROJECT_DIR$/jomp16-bot.iml" />

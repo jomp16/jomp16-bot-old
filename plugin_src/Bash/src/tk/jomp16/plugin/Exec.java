@@ -1,5 +1,5 @@
 /*
- * Copyright © 2013 jomp16 <joseoliviopedrosa@gmail.com>
+ * Copyright © 2014 jomp16 <joseoliviopedrosa@gmail.com>
  * This work is free. You can redistribute it and/or modify it under the
  * terms of the Do What The Fuck You Want To Public License, Version 2,
  * as published by Sam Hocevar. See the COPYING file for more details.
@@ -61,7 +61,7 @@ public class Exec extends Event {
 
     @Override
     public void onInit(InitEvent initEvent) throws Exception {
-        languageManager = Vars.getLanguageManager(initEvent.getPluginPath(this));
+        languageManager = Vars.getLanguageManager(initEvent.getFullPluginPath(this));
 
         initEvent.addHelp(this, new HelpRegister("exec", languageManager.getString("HelpExec"), languageManager.getString("UsageExec"), Level.OWNER));
     }

@@ -6,51 +6,28 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a805d74-f257-41a4-a4c3-8d8bb3ea3f46" name="Default" comment="minimal changes">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tk/jomp16/logger/LogManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tk/jomp16/logger/Logger.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tk/jomp16/ui/MainUI.form" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tk/jomp16/ui/MainUI.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/log.properties" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/log4j_api_2_0_beta8.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/log4j_core_2_0_beta8.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compressLibs.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/getLibs.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/log4j2.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/plugin/about/About.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/plugin/about/About.java" />
+    <list default="true" id="8a805d74-f257-41a4-a4c3-8d8bb3ea3f46" name="Default" comment="Push changes before I start to work again&#10;&#10;Removed Log4J 2;&#10;Added own logging solution (still bad ='( )&#10;Started to work on main UI&#10;And, what more?">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tk/jomp16/bot/database/BotOpenHelper.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/plugin_src/Notes/src/tk/jomp16/plugin/database/NotesOpenHelper.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/plugin_src/Play/Play.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/play/Play.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/artifacts/Play.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/play/database/PlayOpenHelper.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tk/jomp16/sqlite1/SQLiteDatabase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tk/jomp16/sqlite1/SQLiteOpenHelper.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tk/jomp16/sqlite/SQLiteUpgradeManager.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/sqlite_jdbc_3_7_2.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/sqlite_jdbc_3_7_15_M1.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/Bash.java" afterPath="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/Bash.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/bot/BotMain.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/bot/BotMain.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/channel/ChannelList.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/channel/ChannelList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/CommandEvent.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/CommandEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugin_src/CyanogenMod/CyanogenMod.iml" afterPath="$PROJECT_DIR$/plugin_src/CyanogenMod/CyanogenMod.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/DisableEvent.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/DisableEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/IRCManager.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/IRCManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/Exec.java" afterPath="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/Exec.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/InitEvent.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/InitEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/JoinEvent.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/JoinEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/JoinEvent.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/JoinEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/JoinParser.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/JoinParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/KickEvent.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/KickEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/KickEvent.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/KickEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/ModeEvent.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/ModeEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/ModeEvent.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/ModeEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/NickEvent.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/NickEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/NickEvent.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/NickEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/output/OutputRaw.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/output/OutputRaw.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/Parser.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/Parser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/PartEvent.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/PartEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/PartEvent.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/PartEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/plugin/plugin/Plugin.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/plugin/plugin/Plugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/plugin/PluginLoader.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/plugin/PluginLoader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/PrivMsgEvent.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/PrivMsgEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/PrivMsgEvent.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/PrivMsgEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/QuitEvent.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/QuitEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/QuitEvent.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/QuitEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/ResetEvent.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/ResetEvent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugin_src/Notes/src/tk/jomp16/plugin/Notes.java" afterPath="$PROJECT_DIR$/plugin_src/Notes/src/tk/jomp16/plugin/Notes.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/sqlite/SQLiteManager.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/sqlite/SQLiteManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TODO" afterPath="$PROJECT_DIR$/TODO" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/Tags.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/Tags.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jomp16-bot.iml" afterPath="$PROJECT_DIR$/jomp16-bot.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/jomp16_bot.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/jomp16_bot.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lang/pt_BR.lang" afterPath="$PROJECT_DIR$/lang/pt_BR.lang" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="jomp16-bot1.iws" />
@@ -123,7 +100,82 @@
     <favorites_list name="jomp16-bot1" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="Notes.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/plugin_src/Notes/src/tk/jomp16/plugin/Notes.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="36" column="104" selection-start="1597" selection-end="1597" vertical-scroll-proportion="0.0" vertical-offset="714" max-vertical-offset="2788">
+              <folding>
+                <element signature="e#0#7503#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BotMain.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/tk/jomp16/bot/BotMain.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="75" column="25" selection-start="3116" selection-end="3116" vertical-scroll-proportion="2.858407" vertical-offset="0" max-vertical-offset="1190">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SQLite_Configurator.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/tk/jomp16/sqlite/configurator/SQLite_Configurator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="29" column="11" selection-start="960" selection-end="960" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2754">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BotOpenHelper.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/tk/jomp16/bot/database/BotOpenHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="21" column="0" selection-start="692" selection-end="692" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SQLiteDatabase.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/tk/jomp16/sqlite1/SQLiteDatabase.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="114" column="0" selection-start="3877" selection-end="3877" vertical-scroll-proportion="0.0" vertical-offset="1608" max-vertical-offset="2006">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Play.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/play/Play.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="87" selection-start="905" selection-end="905" vertical-scroll-proportion="0.0" vertical-offset="133" max-vertical-offset="544">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NotesOpenHelper.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/plugin_src/Notes/src/tk/jomp16/plugin/database/NotesOpenHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="21" column="16" selection-start="715" selection-end="715" vertical-scroll-proportion="0.0" vertical-offset="99" max-vertical-offset="510">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -148,16 +200,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/tk/jomp16/irc/channel/Channel.java" />
-        <option value="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/currency/Currency.java" />
-        <option value="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/currency/CurrencyJSON.java" />
-        <option value="$PROJECT_DIR$/src/tk/jomp16/irc/output/OutputIRC.java" />
-        <option value="$PROJECT_DIR$/src/tk/jomp16/irc/event/CommandFilter.java" />
-        <option value="$PROJECT_DIR$/src/tk/jomp16/irc/event/Command.java" />
-        <option value="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/Bash.java" />
-        <option value="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/Exec.java" />
-        <option value="$PROJECT_DIR$/plugin_src/JavaScript/src/tk/jomp16/plugin/JavaScript.java" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/plugin_src/CodecUtils/src/tk/jomp16/plugin/CodecUtils.java" />
         <option value="$PROJECT_DIR$/plugin_src/CodecUtils/src/tk/jomp16/plugin/rot13/Rot13.java" />
         <option value="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/ActionEvent.java" />
@@ -182,7 +224,6 @@
         <option value="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/PrivMsgEvent.java" />
         <option value="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/CommandEvent.java" />
         <option value="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/DisableEvent.java" />
-        <option value="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/InitEvent.java" />
         <option value="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/ResetEvent.java" />
         <option value="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/JoinEvent.java" />
         <option value="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/KickEvent.java" />
@@ -193,12 +234,23 @@
         <option value="$PROJECT_DIR$/src/tk/jomp16/irc/parser/Tags.java" />
         <option value="$PROJECT_DIR$/src/tk/jomp16/irc/parser/Parser.java" />
         <option value="$PROJECT_DIR$/src/tk/jomp16/logger/Logger.java" />
-        <option value="$PROJECT_DIR$/src/tk/jomp16/bot/BotMain.java" />
         <option value="$PROJECT_DIR$/src/tk/jomp16/ui/MainUI.java" />
         <option value="$PROJECT_DIR$/src/tk/jomp16/irc/plugin/about/About.java" />
         <option value="$PROJECT_DIR$/lang/pt_BR.lang" />
         <option value="$PROJECT_DIR$/src/tk/jomp16/irc/channel/ChannelList.java" />
         <option value="$PROJECT_DIR$/TODO" />
+        <option value="$PROJECT_DIR$/src/tk/jomp16/sqlite/SQLiteManager.java" />
+        <option value="$PROJECT_DIR$/src/tk/jomp16/sqlite/SQLiteUpgradeManager.java" />
+        <option value="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/Bash.java" />
+        <option value="$PROJECT_DIR$/src/tk/jomp16/sqlite1/SQLiteOpenHelper.java" />
+        <option value="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/InitEvent.java" />
+        <option value="$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/play/database/PlayOpenHelper.java" />
+        <option value="$PROJECT_DIR$/plugin_src/Notes/src/tk/jomp16/plugin/database/NotesOpenHelper.java" />
+        <option value="$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/play/Play.java" />
+        <option value="$PROJECT_DIR$/src/tk/jomp16/sqlite1/SQLiteDatabase.java" />
+        <option value="$PROJECT_DIR$/plugin_src/Notes/src/tk/jomp16/plugin/Notes.java" />
+        <option value="$PROJECT_DIR$/src/tk/jomp16/bot/database/BotOpenHelper.java" />
+        <option value="$PROJECT_DIR$/src/tk/jomp16/bot/BotMain.java" />
       </list>
     </option>
   </component>
@@ -267,7 +319,293 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sqlite1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sqlite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="database" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugins" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="plugin_src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugin_src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Play" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugin_src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Play" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="play" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugin_src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Play" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="play" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="database" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugin_src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Notes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugin_src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Notes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugin_src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Notes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="database" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -300,7 +638,7 @@
     <property name="GenerateAntBuildDialog.generateSingleFile" value="false" />
     <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/sqlite-jdbc-3.7.15-M1.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/sqlite-jdbc-3.7.2.jar!/" />
     <property name="GenerateAntBuildDialog.inclineRuntiemClasspath" value="false" />
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="build" />
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="false" />
@@ -323,9 +661,11 @@
     <property name="dynamic.classpath" value="false" />
     <property name="options.searchVisible" value="true" />
     <property name="SearchEverywhereHistory" value="" />
+    <property name="LayoutCode.rearrangeEntriesJava" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="tk.jomp16.sqlite" />
       <recent name="com.jomp16.plugin.url" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -357,7 +697,21 @@
       <envs />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
-      <method />
+      <method>
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="Bash" />
+          <artifact name="CodecUtils" />
+          <artifact name="CyanogenMod" />
+          <artifact name="Google" />
+          <artifact name="JavaScript" />
+          <artifact name="jomp16-bot" />
+          <artifact name="Manager" />
+          <artifact name="Notes" />
+          <artifact name="Play" />
+          <artifact name="Utils" />
+        </option>
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
@@ -507,7 +861,20 @@
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
-      <method />
+      <method>
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="Bash" />
+          <artifact name="CodecUtils" />
+          <artifact name="Google" />
+          <artifact name="JavaScript" />
+          <artifact name="jomp16-bot" />
+          <artifact name="Manager" />
+          <artifact name="Notes" />
+          <artifact name="Play" />
+          <artifact name="Utils" />
+        </option>
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Application.BotMain" />
@@ -620,7 +987,11 @@
       <created>1386876029400</created>
       <updated>1386876029400</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Push changes before I start to work again&#10;&#10;Removed Log4J 2;&#10;Added own logging solution (still bad ='( )&#10;Started to work on main UI&#10;And, what more?">
+      <created>1388686823504</created>
+      <updated>1388686823504</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -650,16 +1021,18 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33222222" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3288889" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20447284" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31881803" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3061889" sideWeight="0.434024" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329582" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30510315" sideWeight="0.5648855" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3763608" sideWeight="0.5648855" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32777777" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3292683" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18012924" sideWeight="0.6933333" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18012924" sideWeight="0.6933333" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31881803" sideWeight="0.5482315" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24973205" sideWeight="0.6726862" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24973205" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39800444" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -671,12 +1044,10 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24973205" sideWeight="0.6730123" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960597" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.320304" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32918552" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3217768" sideWeight="0.5482315" order="2" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20447284" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -700,12 +1071,12 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.320304" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30510315" sideWeight="0.5648855" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30482116" sideWeight="0.5648855" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32777777" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32918552" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3292683" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17557251" sideWeight="0.6933333" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18012924" sideWeight="0.6933333" order="0" side_tool="false" content_ui="combo" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3217768" sideWeight="0.5482315" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28922093" sideWeight="0.28935698" order="3" side_tool="true" content_ui="tabs" />
@@ -723,12 +1094,10 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="Little updates&#10;&#10;No description yet..." />
     <MESSAGE value="..." />
     <MESSAGE value="Little updates and a little TODO list" />
     <MESSAGE value="Included libraries" />
@@ -753,7 +1122,8 @@
     <MESSAGE value="Added Rot13" />
     <MESSAGE value="Updates...&#10;&#10;No summary =D" />
     <MESSAGE value="minimal changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="minimal changes" />
+    <MESSAGE value="Push changes before I start to work again&#10;&#10;Removed Log4J 2;&#10;Added own logging solution (still bad ='( )&#10;Started to work on main UI&#10;And, what more?" />
+    <option name="LAST_COMMIT_MESSAGE" value="Push changes before I start to work again&#10;&#10;Removed Log4J 2;&#10;Added own logging solution (still bad ='( )&#10;Started to work on main UI&#10;And, what more?" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -769,86 +1139,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/PrivMsgEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="0" selection-start="1414" selection-end="1414" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1683" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/channel/Channel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="29" selection-start="739" selection-end="739" vertical-scroll-proportion="0.33333334" vertical-offset="33" max-vertical-offset="1173" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/bot/plugin/TestPlugin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="62" selection-start="3851" selection-end="3851" vertical-scroll-proportion="1.1090909" vertical-offset="248" max-vertical-offset="1496" />
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/guava-14.0.1.jar!/com/google/common/collect/AbstractMapBasedMultimap.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="16" selection-start="1859" selection-end="1859" vertical-scroll-proportion="0.34727272" vertical-offset="438" max-vertical-offset="7786" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugin_src/CyanogenMod/src/tk/jomp16/plugin/cyanogenmod/CyanogenMod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="13" selection-start="368" selection-end="368" vertical-scroll-proportion="0.1734694" vertical-offset="0" max-vertical-offset="588" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugin_src/CodecUtils/src/tk/jomp16/plugin/CodecUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="102" column="50" selection-start="4217" selection-end="4217" vertical-scroll-proportion="0.0" vertical-offset="1115" max-vertical-offset="2074" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugin_src/Google/src/tk/jomp16/plugin/Google.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="13" selection-start="782" selection-end="782" vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="1275" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/currency/Currency.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="16" selection-start="1804" selection-end="1804" vertical-scroll-proportion="0.5215909" vertical-offset="0" max-vertical-offset="880" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/lmgtfy/LMGTFY.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="13" selection-start="617" selection-end="617" vertical-scroll-proportion="0.11590909" vertical-offset="0" max-vertical-offset="880" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/programmer/NotABug.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="13" selection-start="453" selection-end="453" vertical-scroll-proportion="0.11422172" vertical-offset="0" max-vertical-offset="893" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/programmer/Jokes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="13" selection-start="584" selection-end="584" vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="1241" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/slap/Slap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="5" selection-start="779" selection-end="779" vertical-scroll-proportion="0.23181818" vertical-offset="0" max-vertical-offset="880" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/url/URL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="41" selection-start="1170" selection-end="1170" vertical-scroll-proportion="0.2125" vertical-offset="0" max-vertical-offset="880" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/plugin/help/Help.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="34" selection-start="2704" selection-end="2704" vertical-scroll-proportion="0.0" vertical-offset="439" max-vertical-offset="2601" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/plugin/commands/Commands.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="38" selection-start="2285" selection-end="2285" vertical-scroll-proportion="0.0" vertical-offset="354" max-vertical-offset="1479" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugin_src/CyanogenMod/src/tk/jomp16/plugin/cyanogenmod/Versions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="24" selection-start="740" selection-end="740" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="731" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/utils/Utils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="29" column="28" selection-start="1151" selection-end="1151" vertical-scroll-proportion="0.6121113" vertical-offset="0" max-vertical-offset="646" />
@@ -934,11 +1224,6 @@
         <state line="743" column="0" selection-start="27685" selection-end="27685" vertical-scroll-proportion="0.0" vertical-offset="11798" max-vertical-offset="33983" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/InitEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="18" selection-start="860" selection-end="860" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="901" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/plugin_src/CyanogenMod/src/tk/jomp16/plugin/cyanogenmod/Devices.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="83" column="0" selection-start="3790" selection-end="3790" vertical-scroll-proportion="0.0" vertical-offset="940" max-vertical-offset="2091" />
@@ -979,16 +1264,6 @@
         <state line="31" column="0" selection-start="1199" selection-end="1199" vertical-scroll-proportion="0.44444445" vertical-offset="17" max-vertical-offset="1326" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/IRCManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="181" column="91" selection-start="5695" selection-end="5695" vertical-scroll-proportion="0.6666667" vertical-offset="2210" max-vertical-offset="3009" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/bot/BotMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="23" selection-start="1095" selection-end="1095" vertical-scroll-proportion="-0.5" vertical-offset="765" max-vertical-offset="1377" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/tk/jomp16/ui/MainUI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="76" column="14" selection-start="2579" selection-end="2579" vertical-scroll-proportion="-0.03628118" vertical-offset="950" max-vertical-offset="1853" />
@@ -1014,16 +1289,172 @@
         <state line="104" column="0" selection-start="3619" selection-end="3619" vertical-scroll-proportion="0.60918254" vertical-offset="663" max-vertical-offset="1751" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TODO">
+    <entry file="file://$PROJECT_DIR$/log.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="53" selection-start="137" selection-end="137" vertical-scroll-proportion="0.056198347" vertical-offset="0" max-vertical-offset="605">
+        <state line="8" column="8" selection-start="329" selection-end="329" vertical-scroll-proportion="0.22006473" vertical-offset="0" max-vertical-offset="618">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/log.properties">
+    <entry file="file://$PROJECT_DIR$/TODO">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="8" selection-start="329" selection-end="329" vertical-scroll-proportion="0.22006473" vertical-offset="0" max-vertical-offset="618">
+        <state line="0" column="44" selection-start="44" selection-end="44" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="603">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/sqlite/SQLiteUpgradeManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="0" selection-start="423" selection-end="423" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="272">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///opt/java/src.zip!/java/lang/String.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="110" column="19" selection-start="3617" selection-end="3617" vertical-scroll-proportion="0.33333334" vertical-offset="1074" max-vertical-offset="53108">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/Vars.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="34" selection-start="540" selection-end="540" vertical-scroll-proportion="0.0" vertical-offset="24" max-vertical-offset="578">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/Bash.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="65" column="82" selection-start="2600" selection-end="2600" vertical-scroll-proportion="0.0" vertical-offset="639" max-vertical-offset="1037">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/IRCManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="93" column="0" selection-start="2877" selection-end="2877" vertical-scroll-proportion="0.22727273" vertical-offset="1033" max-vertical-offset="2686">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/InitEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="60" column="38" selection-start="1658" selection-end="1658" vertical-scroll-proportion="0.0" vertical-offset="686" max-vertical-offset="1479">
+          <folding>
+            <element signature="e#0#2467#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#1670#1716#0" expanded="true" />
+            <element signature="e#2117#2163#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///opt/java/src.zip!/java/sql/PreparedStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="94" column="8" selection-start="3346" selection-end="3346" vertical-scroll-proportion="0.0" vertical-offset="839" max-vertical-offset="22100">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/sqlite1/SQLiteOpenHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="0" selection-start="1011" selection-end="1011" vertical-scroll-proportion="0.7516234" vertical-offset="47" max-vertical-offset="663">
+          <folding>
+            <element signature="e#837#838#0" expanded="true" />
+            <element signature="e#872#873#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/play/database/PlayOpenHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="13" selection-start="1480" selection-end="1480" vertical-scroll-proportion="0.0" vertical-offset="328" max-vertical-offset="765">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/sqlite-jdbc-3.7.2.jar!/org/sqlite/PrepStmt.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="84" column="0" selection-start="2637" selection-end="2637" vertical-scroll-proportion="0.18993506" vertical-offset="869" max-vertical-offset="5270">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/sqlite-jdbc-3.7.2.jar!/org/sqlite/DB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="338" column="0" selection-start="11595" selection-end="11595" vertical-scroll-proportion="0.35655057" vertical-offset="5225" max-vertical-offset="7344">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugin_src/Notes/src/tk/jomp16/plugin/database/NotesOpenHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="16" selection-start="715" selection-end="715" vertical-scroll-proportion="0.0" vertical-offset="99" max-vertical-offset="510">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/play/Play.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="87" selection-start="905" selection-end="905" vertical-scroll-proportion="0.0" vertical-offset="133" max-vertical-offset="544">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/sqlite/SQLiteManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="5" selection-start="687" selection-end="1289" vertical-scroll-proportion="0.0" vertical-offset="1778" max-vertical-offset="2176">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/sqlite1/SQLiteDatabase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="114" column="0" selection-start="3877" selection-end="3877" vertical-scroll-proportion="0.0" vertical-offset="1608" max-vertical-offset="2006">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugin_src/Notes/src/tk/jomp16/plugin/Notes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="104" selection-start="1597" selection-end="1597" vertical-scroll-proportion="0.0" vertical-offset="714" max-vertical-offset="2788">
+          <folding>
+            <element signature="e#0#7503#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/bot/database/BotOpenHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="0" selection-start="692" selection-end="692" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/sqlite/configurator/SQLite_Configurator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="11" selection-start="960" selection-end="960" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2754">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/bot/BotMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="75" column="25" selection-start="3116" selection-end="3116" vertical-scroll-proportion="2.858407" vertical-offset="0" max-vertical-offset="1190">
           <folding />
         </state>
       </provider>
@@ -1099,12 +1530,11 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>jomp16-bot</last-edited>
+          <last-edited>Utils</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
@@ -1124,7 +1554,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>reflections-0.9.9-RC1</last-edited>
+          <last-edited>sqlite-jdbc-3.7.2</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

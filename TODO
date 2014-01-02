@@ -1,3 +1,5 @@
+See a better way to execute database upgrade
+
 Change Log4J 2 to my own Logger implementation (because I need to write to UI too)
 
 Create an UI =D (plugins can create their own UI too)

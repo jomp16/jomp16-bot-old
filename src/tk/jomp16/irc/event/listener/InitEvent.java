@@ -37,7 +37,13 @@ public class InitEvent {
         event.registerHelp(helpRegister);
     }
 
-    public String getPluginPath(Event event) {
+    /**
+     * Get the plugin path
+     *
+     * @param event the event of the plugin
+     * @return the full path, including the plugin jar
+     */
+    public String getFullPluginPath(Event event) {
         try {
             return URLDecoder.decode(event.getClass().getProtectionDomain().getCodeSource().getLocation().getPath(), "UTF-8");
         } catch (Exception e) {
@@ -45,12 +51,35 @@ public class InitEvent {
         }
     }
 
+    public String getPluginPath(Event event) {
+        File file = new File("plugins/" + event.getClass().getSimpleName());
+
+        if (!file.exists()) {
+            file.mkdir();
+        }
+
+        return file.getAbsolutePath();
+    }
+
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public SQLiteManager getSqlLiteManager(Event event, String database) throws Exception {
         File file = new File("plugins/" + event.getClass().getSimpleName());
 
-        if (!file.exists()) file.mkdir();
+        if (!file.exists()) {
+            file.mkdir();
+        }
 
         return new SQLiteManager(database.endsWith(".db") ? file.getAbsolutePath() + "/" + database : file.getAbsolutePath() + "/" + database + ".db");
+    }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public SQLiteManager getSqlLiteManager(Event event) throws Exception {
+        File file = new File("plugins/" + event.getClass().getSimpleName());
+
+        if (!file.exists()) {
+            file.mkdir();
+        }
+
+        return new SQLiteManager(file.getAbsolutePath() + "/database.db");
     }
 }

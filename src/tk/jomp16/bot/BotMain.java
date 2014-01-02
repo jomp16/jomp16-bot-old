@@ -31,6 +31,8 @@ public class BotMain {
     }
 
     public static void startIRCBot() throws Exception {
+        // TODO: CHANGE TO SQLITEOPENHELPER
+
         sqLiteManager = new SQLiteManager("database");
 
         try {

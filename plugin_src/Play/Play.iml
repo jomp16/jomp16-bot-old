@@ -7,11 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="commons-lang3-3.1" level="project" />
-    <orderEntry type="library" name="guava-14.0.1" level="project" />
-    <orderEntry type="library" name="javassist" level="project" />
-    <orderEntry type="library" name="reflections-0.9.9-RC1" level="project" />
-    <orderEntry type="library" name="sqlite-jdbc-3.7.2" level="project" />
+    <orderEntry type="module" module-name="jomp16-bot" />
   </component>
 </module>
 
