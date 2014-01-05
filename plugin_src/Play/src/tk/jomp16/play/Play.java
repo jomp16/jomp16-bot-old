@@ -9,6 +9,7 @@ package tk.jomp16.play;
 
 import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
+import tk.jomp16.irc.event.Level;
 import tk.jomp16.irc.event.listener.CommandEvent;
 import tk.jomp16.irc.event.listener.InitEvent;
 import tk.jomp16.irc.event.listener.event.PrivMsgEvent;
@@ -63,6 +64,27 @@ public class Play extends Event {
                             commandEvent.respond("Deleted!");
                         } else {
                             commandEvent.respond("Hey bro, or this music doesn't exists, or you aren't the author of teh music! So... GTFO mate!");
+                        }
+                    } else if (commandEvent.getArgs().size() >= 3) {
+                        if (commandEvent.getUser().getLevel().equals(Level.MOD)
+                                || commandEvent.getUser().getLevel().equals(Level.ADMIN)
+                                || commandEvent.getUser().getLevel().equals(Level.OWNER)) {
+                            String musicName = commandEvent.getArgs().get(1);
+                            String authorName = commandEvent.getArgs().get(2);
+                            int musicID;
+
+                            ResultSet resultSet = database.getResultSet("SELECT * FROM musics WHERE author = ? AND musicName = ?", authorName, musicName);
+
+                            if (resultSet.next()) {
+                                musicID = resultSet.getInt("musicID");
+
+                                database.executeFastUpdateQuery("DELETE FROM musics WHERE musicID = ?", musicID);
+                                database.executeFastUpdateQuery("DELETE FROM records WHERE musicID = ?", musicID);
+
+                                commandEvent.respond("Deleted!");
+                            } else {
+                                commandEvent.respond("Hey bro, this music belongs to ");
+                            }
                         }
                     }
                     break;

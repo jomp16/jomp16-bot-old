@@ -6,14 +6,8 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a805d74-f257-41a4-a4c3-8d8bb3ea3f46" name="Default" comment="Changes!&#10;&#10;Rewrote SQLiteManager (now it's SQLiteDatabase, and you can create with a class extending SQLiteOpenHelper (like Android does =D)&#10;&#10;I still have the old SQLiteManager, because BotMain needs it (first start), but when I have time, I will change this&#10;&#10;Added Play plugin, for an user record any music, and start to play (an old idea =D)">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/play/PlayRegister.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/CyanogenMod.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/CyanogenMod.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/IRCManager.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/IRCManager.java" />
+    <list default="true" id="8a805d74-f257-41a4-a4c3-8d8bb3ea3f46" name="Default" comment="Fucking changes...">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/play/Play.java" afterPath="$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/play/Play.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/play/database/PlayOpenHelper.java" afterPath="$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/play/database/PlayOpenHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/PrivMsgEvent.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/PrivMsgEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/sqlite1/SQLiteDatabase.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/sqlite1/SQLiteDatabase.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="jomp16-bot1.iws" />
@@ -90,7 +84,7 @@
       <file leaf-file-name="Play.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/play/Play.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="86" selection-start="3228" selection-end="3228" vertical-scroll-proportion="2.2631578" vertical-offset="33" max-vertical-offset="1649">
+            <state line="81" column="68" selection-start="4341" selection-end="4341" vertical-scroll-proportion="0.81163436" vertical-offset="829" max-vertical-offset="2006">
               <folding />
             </state>
           </provider>
@@ -602,7 +596,11 @@
       <created>1388697923098</created>
       <updated>1388697923098</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Fucking changes...">
+      <created>1388959363281</created>
+      <updated>1388959363282</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -710,7 +708,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="Little updates and a little TODO list" />
     <MESSAGE value="Included libraries" />
     <MESSAGE value="Little updates&#10;&#10;No description" />
     <MESSAGE value="Updates&#10;&#10;No description" />
@@ -735,7 +732,8 @@
     <MESSAGE value="minimal changes" />
     <MESSAGE value="Push changes before I start to work again&#10;&#10;Removed Log4J 2;&#10;Added own logging solution (still bad ='( )&#10;Started to work on main UI&#10;And, what more?" />
     <MESSAGE value="Changes!&#10;&#10;Rewrote SQLiteManager (now it's SQLiteDatabase, and you can create with a class extending SQLiteOpenHelper (like Android does =D)&#10;&#10;I still have the old SQLiteManager, because BotMain needs it (first start), but when I have time, I will change this&#10;&#10;Added Play plugin, for an user record any music, and start to play (an old idea =D)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes!&#10;&#10;Rewrote SQLiteManager (now it's SQLiteDatabase, and you can create with a class extending SQLiteOpenHelper (like Android does =D)&#10;&#10;I still have the old SQLiteManager, because BotMain needs it (first start), but when I have time, I will change this&#10;&#10;Added Play plugin, for an user record any music, and start to play (an old idea =D)" />
+    <MESSAGE value="Fucking changes..." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fucking changes..." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -1017,7 +1015,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/play/Play.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="86" selection-start="3228" selection-end="3228" vertical-scroll-proportion="2.2631578" vertical-offset="33" max-vertical-offset="1649">
+        <state line="81" column="68" selection-start="4341" selection-end="4341" vertical-scroll-proportion="0.81163436" vertical-offset="829" max-vertical-offset="2006">
           <folding />
         </state>
       </provider>
