@@ -43,7 +43,7 @@ public class SQLiteDatabase {
         connection = DriverManager.getConnection(databasePath.endsWith(".db") ? "jdbc:sqlite:" + databasePath : "jdbc:sqlite:" + databasePath + ".db");
 
         if (newDatabase) {
-            executeFastUpdateQuery("CREATE TABLE private_info (databaseVersion integer NOT NULL)");
+            executeFastUpdateQuery("CREATE TABLE private_info (databaseVersion INTEGER NOT NULL)");
             insertData("private_info", databaseVersion);
         }
     }
@@ -92,22 +92,6 @@ public class SQLiteDatabase {
         tmpSQL = tmpSQL.substring(0, tmpSQL.length() - 2) + ")";
 
         return loopObject(tmpSQL, data).executeUpdate();
-    }
-
-//    private void insertOrReplaceData(String tableName, Object... data) throws SQLException {
-//        String tmpSQL = "INSERT OR REPLACE INTO " + tableName + " VALUES (";
-//
-//        for (Object ignored : data) {
-//            tmpSQL += "?, ";
-//        }
-//
-//        tmpSQL = tmpSQL.substring(0, tmpSQL.length() - 2) + ")";
-//
-//        loopObject(tmpSQL, data).executeUpdate();
-//    }
-
-    public int deleteRow(String tableName, String columnName, int rowData) throws SQLException {
-        return executeFastUpdateQuery("DELETE FROM " + tableName + " WHERE " + columnName + " = ?", rowData);
     }
 
     public void close() throws SQLException {

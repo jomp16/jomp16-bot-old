@@ -19,22 +19,13 @@ public class PlayOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database) throws SQLException {
-//        database.executeFastUpdateQuery("CREATE TABLE records (" +
-//                "musicID integer NOT NULL, " +
-//                "content string NOT NULL)");
-//        database.executeFastUpdateQuery("CREATE TABLE musics (" +
-//                "musicID integer NOT NULL, " +
-//                "musicName string NOT NULL, " +
-//                "author string NOT NULL)");
-//        database.executeFastUpdateQuery("CREATE TABLE teste (testeblah string NOT NULL)");
-//
-//        database.insertData("teste", "a");
-//        database.insertData("teste", "b");
-//        database.insertData("teste", "c");
-//        database.insertData("teste", "d");
-//        database.insertData("teste", "e");
-//
-//        database.executeFastUpdateQuery("DROP TABLE teste");
+        database.executeFastUpdateQuery("CREATE TABLE records (" +
+                "musicID INTEGER NOT NULL, " +
+                "content STRING NOT NULL)");
+        database.executeFastUpdateQuery("CREATE TABLE musics (" +
+                "musicID INTEGER PRIMARY KEY, " +
+                "musicName STRING NOT NULL, " +
+                "author STRING NOT NULL)");
     }
 
     @Override

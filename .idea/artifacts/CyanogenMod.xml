@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="CyanogenMod">
+  <artifact type="jar" name="CyanogenMod">
     <output-path>$PROJECT_DIR$/plugins</output-path>
     <root id="archive" name="CyanogenMod.jar">
       <element id="module-output" name="CyanogenMod" />

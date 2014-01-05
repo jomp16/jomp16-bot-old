@@ -90,18 +90,18 @@ public class PrivMsgEvent extends Event {
         }
 
         try {
-            ircManager.getEvents().forEach((event) -> {
-                try {
-                    event.onPrivMsg(new tk.jomp16.irc.event.listener.event.PrivMsgEvent(ircManager, user, channel, message, tag, args, LogManager.getLogger(event.getClass().getSimpleName())));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
+//            ircManager.getEvents().forEach((event) -> {
+//                try {
+//                    event.onPrivMsg(new tk.jomp16.irc.event.listener.event.PrivMsgEvent(ircManager, user, channel, message, tag, args, LogManager.getLogger(event.getClass().getSimpleName())));
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            });
 
             invoke(eventRegisters, args, ircManager.getConfiguration().getPrefix());
         } catch (Exception e) {
             log.error("An error occurred: " + e.toString());
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 
@@ -160,9 +160,23 @@ public class PrivMsgEvent extends Event {
                             break;
                         }
                     }
+                } else {
+                    execPrivAction();
                 }
             }
+        } else {
+            execPrivAction();
         }
+    }
+
+    private void execPrivAction() throws Exception {
+        ircManager.getEvents().forEach((event) -> {
+            try {
+                event.onPrivMsg(new tk.jomp16.irc.event.listener.event.PrivMsgEvent(ircManager, user, channel, message, tag, args, LogManager.getLogger(event.getClass().getSimpleName())));
+            } catch (Exception e) {
+                log.error(e);
+            }
+        });
     }
 
     private int transform(int i) {
@@ -203,7 +217,6 @@ public class PrivMsgEvent extends Event {
             method.invoke(event, commandEvent);
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
         }
     }
 
