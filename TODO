@@ -1,15 +1,10 @@
-See a better way to execute database upgrade
-
-Change Log4J 2 to my own Logger implementation (because I need to write to UI too)
-
-Create an UI =D (plugins can create their own UI too)
+Create an UI =D (plugins can create their own UI too) (nearly done)
 
 Lower the RAM usage...
 
 Add whatever to store the users of a channel on a array (normal, voice, op and all) on Channel class
-Change hardcoded string value to the language manager (multi language system)
+Change hardcoded string value to the language manager (multi language system) (in progress)
 Add more classes to handle the rest of the IRC commands
-Create a SQLite Configurator to configure the database at first start
 
 Create a Manager plugin for manage the teh shit of bot, I dunno if I create this as internal or external plugin =( (Currently external plugin)
 
@@ -17,6 +12,4 @@ Move Plugin manager to Manager plugin AND REWRITE all the teh plugin manager
 
 See what I can do with [:moorcock.freenode.net, 333, jomp16-bot, #jomp16-bot, jomp16!~jomp16@unaffiliated/jomp16, 1376763658]
 
-Multithread
-
-Change own languageManager to official bundle of Java
+Multi-thread

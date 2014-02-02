@@ -12,6 +12,7 @@
     <orderEntry type="library" name="javassist" level="project" />
     <orderEntry type="library" name="reflections-0.9.9-RC1" level="project" />
     <orderEntry type="library" name="sqlite-jdbc-3.7.2" level="project" />
+    <orderEntry type="library" name="gson-2.2.4" level="project" />
   </component>
 </module>
 

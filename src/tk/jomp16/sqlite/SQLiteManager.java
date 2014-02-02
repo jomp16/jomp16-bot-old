@@ -1,9 +1,7 @@
-/*
- * Copyright © 2014 jomp16 <joseoliviopedrosa@gmail.com>
- * This work is free. You can redistribute it and/or modify it under the
- * terms of the Do What The Fuck You Want To Public License, Version 2,
- * as published by Sam Hocevar. See the COPYING file for more details.
- */
+// Copyright © 2014 jomp16 <joseoliviopedrosa@gmail.com>
+// This work is free. You can redistribute it and/or modify it under the
+// terms of the Do What The Fuck You Want To Public License, Version 2,
+// as published by Sam Hocevar. See the COPYING file for more details.
 
 package tk.jomp16.sqlite;
 
@@ -33,7 +31,7 @@ public class SQLiteManager {
         statement = connection.createStatement();
 
         executeFastUpdateQuery("CREATE TABLE IF NOT EXISTS private_info (databaseVersion integer NOT NULL)");
-        insertOrReplaceData("private_info", databaseVersion);
+        //insertOrReplaceData("private_info", databaseVersion);
     }
 
     public void executeFastUpdateQuery(String SQL, Object... params) throws SQLException {

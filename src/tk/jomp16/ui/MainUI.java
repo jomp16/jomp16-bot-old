@@ -1,9 +1,7 @@
-/*
- * Copyright © 2014 jomp16 <joseoliviopedrosa@gmail.com>
- * This work is free. You can redistribute it and/or modify it under the
- * terms of the Do What The Fuck You Want To Public License, Version 2,
- * as published by Sam Hocevar. See the COPYING file for more details.
- */
+// Copyright © 2014 jomp16 <joseoliviopedrosa@gmail.com>
+// This work is free. You can redistribute it and/or modify it under the
+// terms of the Do What The Fuck You Want To Public License, Version 2,
+// as published by Sam Hocevar. See the COPYING file for more details.
 
 package tk.jomp16.ui;
 
@@ -13,14 +11,12 @@ import tk.jomp16.bot.plugin.TestPlugin;
 import tk.jomp16.configuration.Configuration;
 import tk.jomp16.irc.IRCManager;
 import tk.jomp16.language.LanguageManager;
-import tk.jomp16.language.LanguageNotFoundException;
 import tk.jomp16.logger.LogManager;
 import tk.jomp16.logger.Logger;
 import tk.jomp16.sqlite.SQLiteManager;
 import tk.jomp16.sqlite.configurator.SQLite_Configurator;
 
 import javax.swing.*;
-import java.io.FileInputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.concurrent.Executor;
@@ -88,14 +84,7 @@ public class MainUI {
         String languageName = String.format("/lang/%s_%s.lang", System.getProperty("user.language"), System.getProperty("user.country"));
         boolean jar = BotMain.class.getResource("BotMain.class").toString().startsWith("jar:");
 
-        LanguageManager languageManager;
-
-        try {
-            languageManager = new LanguageManager(jar ? BotMain.class.getResourceAsStream(languageName) : new FileInputStream(languageName.substring(1)));
-        } catch (LanguageNotFoundException e) {
-            languageName = String.format("/lang/%s_%s.lang", "en", "US");
-            languageManager = new LanguageManager(jar ? BotMain.class.getResourceAsStream(languageName) : new FileInputStream(languageName.substring(1)));
-        }
+        LanguageManager languageManager = new LanguageManager("tk.jomp16.resource.Strings");
 
         log.trace(languageManager.getString("Welcome"));
 
