@@ -6,56 +6,65 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a805d74-f257-41a4-a4c3-8d8bb3ea3f46" name="Default" comment="Fucking changes 2#...">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tk/jomp16/language/ResourceBundleControl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/bash/resource/Strings.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/plugin/play/resource/Strings.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tk/jomp16/resource/Strings.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/bash/resource/Strings_pt_BR.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/plugin/play/resource/Strings_pt_BR.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tk/jomp16/resource/Strings_pt_BR.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/bash/Vars.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lang/en_US.lang" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lang/pt_BR.lang" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/plugin_src/Bash/lang/en_US.lang" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/plugin_src/Bash/lang/pt_BR.lang" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/Vars.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/tk/jomp16/language/LanguageNotFoundException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/tk/jomp16/language/LanguageStringNotFoundException.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/Bash.java" afterPath="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/bash/Bash.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/Exec.java" afterPath="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/bash/Exec.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/plugin_src/CodecUtils/src/tk/jomp16/plugin/CodecUtils.java" afterPath="$PROJECT_DIR$/plugin_src/CodecUtils/src/tk/jomp16/plugin/codecutils/CodecUtils.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/plugin_src/CodecUtils/src/tk/jomp16/plugin/rot13/Rot13.java" afterPath="$PROJECT_DIR$/plugin_src/CodecUtils/src/tk/jomp16/plugin/codecutils/rot13/Rot13.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/plugin_src/Google/src/tk/jomp16/plugin/Google.java" afterPath="$PROJECT_DIR$/plugin_src/Google/src/tk/jomp16/plugin/google/Google.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/plugin_src/JavaScript/src/tk/jomp16/plugin/JavaScript.java" afterPath="$PROJECT_DIR$/plugin_src/JavaScript/src/tk/jomp16/plugin/javascript/JavaScript.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/plugin_src/Manager/src/tk/jomp16/plugin/Manager.java" afterPath="$PROJECT_DIR$/plugin_src/Manager/src/tk/jomp16/plugin/manager/Manager.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/plugin_src/Notes/src/tk/jomp16/plugin/Notes.java" afterPath="$PROJECT_DIR$/plugin_src/Notes/src/tk/jomp16/plugin/notes/Notes.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/plugin_src/Notes/src/tk/jomp16/plugin/NotesRegister.java" afterPath="$PROJECT_DIR$/plugin_src/Notes/src/tk/jomp16/plugin/notes/NotesRegister.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/plugin_src/Notes/src/tk/jomp16/plugin/database/NotesOpenHelper.java" afterPath="$PROJECT_DIR$/plugin_src/Notes/src/tk/jomp16/plugin/notes/database/NotesOpenHelper.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/play/Play.java" afterPath="$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/plugin/play/Play.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/play/PlayRegister.java" afterPath="$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/plugin/play/PlayRegister.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/play/database/PlayOpenHelper.java" afterPath="$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/plugin/play/database/PlayOpenHelper.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/currency/Currency.java" afterPath="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/utils/currency/Currency.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/currency/CurrencyJSON.java" afterPath="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/utils/currency/CurrencyJSON.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/lmgtfy/LMGTFY.java" afterPath="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/utils/lmgtfy/LMGTFY.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/programmer/Jokes.java" afterPath="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/utils/programmer/Jokes.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/programmer/NotABug.java" afterPath="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/utils/programmer/NotABug.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/slap/Slap.java" afterPath="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/utils/slap/Slap.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/url/URL.java" afterPath="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/utils/url/URL.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/url/URLDefaultTrustManager.java" afterPath="$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/utils/url/URLDefaultTrustManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="$PROJECT_DIR$/.idea/.name" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/Bash.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/Bash.xml" />
+    <list default="true" id="8a805d74-f257-41a4-a4c3-8d8bb3ea3f46" name="Default" comment="Updates 2#&#10;&#10;Update copyright&#10;Added lib dir&#10;Removed comments in .json">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/commons-codec-1.8.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/commons-lang3-3.1.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/gson-2.2.4.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/guava-14.0.1.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/javassist.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/jomp16-bot.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/jsoup-1.7.2.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/reflections-0.9.9-RC1.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/sqlite-jdbc-3.7.2.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/bot/BotMain.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/bot/BotMain.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/channel/Channel.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/channel/Channel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/channel/ChannelDAO.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/channel/ChannelDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/channel/ChannelLevel.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/channel/ChannelLevel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/ChannelTopicParser.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/ChannelTopicParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/channel/ChannelUser.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/channel/ChannelUser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/Command.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/Command.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/plugin/commands/Commands.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/plugin/commands/Commands.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/configuration/Configuration.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/configuration/Configuration.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/CyanogenMod.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/CyanogenMod.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/Event.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/Event.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/bot/plugin/FunCommandsPlugin.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/bot/plugin/FunCommandsPlugin.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/Google.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/Google.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/plugin/help/Help.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/plugin/help/Help.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/plugin/help/HelpRegister.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/plugin/help/HelpRegister.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/InitEvent.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/InitEvent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/KickParser.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/KickParser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/language/LanguageManager.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/language/LanguageManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/Level.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/Level.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/ui/MainUI.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/ui/MainUI.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/ModeParser.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/ModeParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/NamesParser.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/NamesParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/NickNameInUseEvent.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/NickNameInUseEvent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/NickNameInUseParser.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/NickNameInUseParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/NickParser.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/NickParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/output/OutputIRC.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/output/OutputIRC.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/ParserToken.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/ParserToken.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/PartParser.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/PartParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/PingEvent.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/PingEvent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/PingParser.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/PingParser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/plugin/PluginLoader.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/plugin/PluginLoader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/PrivMsgParser.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/PrivMsgParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/QuitParser.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/parser/parsers/QuitParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/language/ResourceBundleControl.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/language/ResourceBundleControl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/sqlite/SQLiteManager.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/sqlite/SQLiteManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TODO" afterPath="$PROJECT_DIR$/TODO" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jomp16-bot.iml" afterPath="$PROJECT_DIR$/jomp16-bot.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/jomp16.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/jomp16.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/jomp16_bot.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/jomp16_bot.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/sqlite/configurator/SQLite_Configurator.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/sqlite/configurator/SQLite_Configurator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/Source.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/Source.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/bash/resource/Strings.json" afterPath="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/bash/resource/Strings.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/plugin/play/resource/Strings.json" afterPath="$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/plugin/play/resource/Strings.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/resource/Strings.json" afterPath="$PROJECT_DIR$/src/tk/jomp16/resource/Strings.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/bash/resource/Strings_pt_BR.json" afterPath="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/bash/resource/Strings_pt_BR.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/plugin/play/resource/Strings_pt_BR.json" afterPath="$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/plugin/play/resource/Strings_pt_BR.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/resource/Strings_pt_BR.json" afterPath="$PROJECT_DIR$/src/tk/jomp16/resource/Strings_pt_BR.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/bot/plugin/TestPlugin.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/bot/plugin/TestPlugin.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/user/User.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/user/User.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/user/UserDAO.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/user/UserDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tk/jomp16/irc/utils/Utils.java" afterPath="$PROJECT_DIR$/src/tk/jomp16/irc/utils/Utils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/Utils.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/Utils.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -129,7 +138,17 @@
     <favorites_list name="jomp16-bot1" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name=".gitignore" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="5" selection-start="29" selection-end="29" vertical-scroll-proportion="0.07825086" vertical-offset="0" max-vertical-offset="869">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -154,9 +173,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/DisableEvent.java" />
-        <option value="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/ResetEvent.java" />
-        <option value="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/JoinEvent.java" />
         <option value="$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/KickEvent.java" />
         <option value="$PROJECT_DIR$/src/tk/jomp16/irc/event/events/JoinEvent.java" />
         <option value="$PROJECT_DIR$/src/tk/jomp16/logger/LogManager.java" />
@@ -197,14 +213,17 @@
         <option value="$PROJECT_DIR$/src/tk/jomp16/resource/JSONResourceBundleControl.java" />
         <option value="$PROJECT_DIR$/src/tk/jomp16/language/LanguageManager.java" />
         <option value="$PROJECT_DIR$/src/tk/jomp16/resource/a.json" />
-        <option value="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/bash/resource/Strings.json" />
-        <option value="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/bash/resource/Strings_pt_BR.json" />
         <option value="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/bash/Bash.java" />
         <option value="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/bash/Exec.java" />
-        <option value="$PROJECT_DIR$/src/tk/jomp16/resource/Strings_pt_BR.json" />
         <option value="$PROJECT_DIR$/src/tk/jomp16/bot/BotMain.java" />
-        <option value="$PROJECT_DIR$/src/tk/jomp16/resource/Strings.json" />
         <option value="$PROJECT_DIR$/src/tk/jomp16/sqlite/SQLiteManager.java" />
+        <option value="$PROJECT_DIR$/src/tk/jomp16/resource/Strings.json" />
+        <option value="$PROJECT_DIR$/src/tk/jomp16/resource/Strings_pt_BR.json" />
+        <option value="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/bash/resource/Strings.json" />
+        <option value="$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/bash/resource/Strings_pt_BR.json" />
+        <option value="$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/plugin/play/resource/Strings.json" />
+        <option value="$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/plugin/play/resource/Strings_pt_BR.json" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -277,13 +296,23 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jomp16-bot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GenerateAntBuildDialog.generateIdeaHomeProperty" value="false" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
@@ -660,7 +689,8 @@
       <changelist id="8a805d74-f257-41a4-a4c3-8d8bb3ea3f46" name="Default" comment="" />
       <created>1370128052690</created>
       <updated>1370128052690</updated>
-      <workItem from="1391299640531" duration="3228000" />
+      <workItem from="1391299640531" duration="3504000" />
+      <workItem from="1391309991157" duration="434000" />
     </task>
     <task id="LOCAL-00001" summary="A bunch of updates =D&#10;&#10;I dunno what is included =P&#10;&#10;The major feature is SQLite. still a WIP, but is usable">
       <created>1374637072811</created>
@@ -746,11 +776,15 @@
       <created>1388960180173</created>
       <updated>1388960180173</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Updates">
+      <created>1391307014091</created>
+      <updated>1391307014091</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3228000" />
+    <option name="totallyTimeSpent" value="3938000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -774,26 +808,24 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="27" width="1922" height="1054" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33222222" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3288889" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20447284" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31881803" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329582" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3061889" sideWeight="0.434024" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329582" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40065145" sideWeight="0.5648855" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5648855" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32777777" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3292683" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29818955" sideWeight="0.6933333" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29818955" sideWeight="0.6933333" order="0" side_tool="false" content_ui="combo" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16080937" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31782177" sideWeight="0.5482315" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24973205" sideWeight="0.6726862" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24973205" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39800444" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -803,9 +835,11 @@
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329582" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24973205" sideWeight="0.6730123" order="2" side_tool="false" content_ui="combo" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960597" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31881803" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32918552" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31782177" sideWeight="0.5482315" order="2" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20447284" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -864,7 +898,6 @@
     <MESSAGE value="Updates&#10;&#10;No description yet" />
     <MESSAGE value="A bunch of updates =D&#10;&#10;I dunno what is included =P&#10;&#10;The major feature is SQLite. still a WIP, but is usable" />
     <MESSAGE value="Moar updates&#10;&#10;Most important: now bot can load all classes which extends Event of a .jar, so, doesn't need anymore to put all methods at a same class, and no need for plugin.properties, thanks Reflections plugin!" />
-    <MESSAGE value="Updates" />
     <MESSAGE value="A bunch of updates&#10;&#10;Added more parsers and events, and other changes" />
     <MESSAGE value="Minor change to NickNameInUseEvent&#10;&#10;Change hardcoded nick to the nick on Configuration class" />
     <MESSAGE value="Push changes before create new branch for Java 7 code" />
@@ -882,7 +915,8 @@
     <MESSAGE value="Changes!&#10;&#10;Rewrote SQLiteManager (now it's SQLiteDatabase, and you can create with a class extending SQLiteOpenHelper (like Android does =D)&#10;&#10;I still have the old SQLiteManager, because BotMain needs it (first start), but when I have time, I will change this&#10;&#10;Added Play plugin, for an user record any music, and start to play (an old idea =D)" />
     <MESSAGE value="Fucking changes..." />
     <MESSAGE value="Fucking changes 2#..." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fucking changes 2#..." />
+    <MESSAGE value="Updates" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updates" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -933,11 +967,6 @@
         <state line="36" column="104" selection-start="1597" selection-end="1597" vertical-scroll-proportion="0.0" vertical-offset="714" max-vertical-offset="2788" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/sqlite/configurator/SQLite_Configurator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="11" selection-start="960" selection-end="960" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2754" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/event/PrivMsgEvent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="49" column="18" selection-start="1369" selection-end="1369" vertical-scroll-proportion="0.33333334" vertical-offset="326" max-vertical-offset="1717" />
@@ -945,11 +974,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/plugin/play/database/PlayOpenHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="43" selection-start="703" selection-end="1061" vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="612">
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
+        <state line="27" column="43" selection-start="703" selection-end="1061" vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="612" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/events/QuitEvent.java">
@@ -967,18 +992,9 @@
         <state line="77" column="0" selection-start="2383" selection-end="2383" vertical-scroll-proportion="0.0" vertical-offset="649" max-vertical-offset="22100" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/IRCManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="189" column="21" selection-start="5948" selection-end="5948" vertical-scroll-proportion="0.61488676" vertical-offset="2051" max-vertical-offset="2669">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///opt/java/src.zip!/java/sql/ResultSet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1144" column="12" selection-start="53687" selection-end="53687" vertical-scroll-proportion="1.0387812" vertical-offset="18631" max-vertical-offset="72607">
-          <folding />
-        </state>
+        <state line="1144" column="12" selection-start="53687" selection-end="53687" vertical-scroll-proportion="1.0387812" vertical-offset="18631" max-vertical-offset="72607" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/event/listener/InitEvent.java">
@@ -990,9 +1006,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/bash/Vars.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="34" selection-start="470" selection-end="470" vertical-scroll-proportion="0.26288658" vertical-offset="0" max-vertical-offset="582">
-          <folding />
-        </state>
+        <state line="14" column="34" selection-start="470" selection-end="470" vertical-scroll-proportion="0.26288658" vertical-offset="0" max-vertical-offset="582" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tk/jomp16/ui/MainUI.java">
@@ -1004,9 +1018,7 @@
     </entry>
     <entry file="jar:///opt/java/src.zip!/java/lang/ClassLoader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1428" column="30" selection-start="54444" selection-end="54444" vertical-scroll-proportion="2.2027028" vertical-offset="22132" max-vertical-offset="36482">
-          <folding />
-        </state>
+        <state line="1428" column="30" selection-start="54444" selection-end="54444" vertical-scroll-proportion="2.2027028" vertical-offset="22132" max-vertical-offset="36482" />
       </provider>
     </entry>
     <entry file="jar:///opt/java/src.zip!/java/net/URLClassLoader.java">
@@ -1016,16 +1028,12 @@
     </entry>
     <entry file="jar:///opt/java/src.zip!/java/lang/Class.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="325" column="27" selection-start="11921" selection-end="11921" vertical-scroll-proportion="0.50980395" vertical-offset="3944" max-vertical-offset="58684">
-          <folding />
-        </state>
+        <state line="325" column="27" selection-start="11921" selection-end="11921" vertical-scroll-proportion="0.50980395" vertical-offset="3944" max-vertical-offset="58684" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tk/jomp16/logger/Logger.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="103" column="16" selection-start="3488" selection-end="3488" vertical-scroll-proportion="0.33204633" vertical-offset="1375" max-vertical-offset="3128">
-          <folding />
-        </state>
+        <state line="103" column="16" selection-start="3488" selection-end="3488" vertical-scroll-proportion="0.33204633" vertical-offset="1375" max-vertical-offset="3128" />
       </provider>
     </entry>
     <entry file="jar:///opt/java/src.zip!/java/text/Format.java">
@@ -1035,26 +1043,19 @@
     </entry>
     <entry file="jar:///opt/java/src.zip!/java/text/MessageFormat.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="840" column="23" selection-start="36473" selection-end="36473" vertical-scroll-proportion="0.7111111" vertical-offset="13112" max-vertical-offset="26537">
-          <folding />
-        </state>
+        <state line="840" column="23" selection-start="36473" selection-end="36473" vertical-scroll-proportion="0.7111111" vertical-offset="13112" max-vertical-offset="26537" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/plugin/PluginLoader.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="70" column="20" selection-start="2654" selection-end="2654" vertical-scroll-proportion="0.6137184" vertical-offset="323" max-vertical-offset="1190">
-          <folding>
-            <element signature="e#697#736#0" expanded="false" />
-            <element signature="method#addSoftwareLibrary#0;class#PluginLoader#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/plugin_src/Utils/src/tk/jomp16/plugin/utils/url/URL.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="13" selection-start="735" selection-end="735" vertical-scroll-proportion="0.11943794" vertical-offset="0" max-vertical-offset="854">
-          <folding />
-        </state>
+        <state line="22" column="13" selection-start="735" selection-end="735" vertical-scroll-proportion="0.11943794" vertical-offset="0" max-vertical-offset="854" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TODO">
@@ -1069,9 +1070,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/plugin/play/PlayRegister.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="13" selection-start="326" selection-end="326" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="459">
-          <folding />
-        </state>
+        <state line="9" column="13" selection-start="326" selection-end="326" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="459" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tk/jomp16/sqlite1/SQLiteDatabase.java">
@@ -1083,19 +1082,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/plugin/play/Play.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="60" selection-start="1941" selection-end="1941" vertical-scroll-proportion="0.8204633" vertical-offset="0" max-vertical-offset="2040">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/85e6a844/83ae737b-c2bb-498a-a64a-c3216db8e216/..bot_config">
-      <provider selected="true" editor-type-id="com.intellij.persistence.database.editor.DatabaseTableFileEditorProvider">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
-          <folding />
-        </state>
+        <state line="41" column="60" selection-start="1941" selection-end="1941" vertical-scroll-proportion="0.8204633" vertical-offset="0" max-vertical-offset="2040" />
       </provider>
     </entry>
     <entry file="dbDummy://dbtable:/85e6a844/83ae737b-c2bb-498a-a64a-c3216db8e216/..admins">
@@ -1103,9 +1090,7 @@
         <state />
       </provider>
       <provider editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102" />
       </provider>
     </entry>
     <entry file="dbDummy://dbtable:/85e6a844/83ae737b-c2bb-498a-a64a-c3216db8e216/..owners">
@@ -1113,60 +1098,113 @@
         <state />
       </provider>
       <provider editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102" />
       </provider>
     </entry>
     <entry file="jar:///opt/java/src.zip!/java/util/Arrays.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3792" column="30" selection-start="176843" selection-end="176843" vertical-scroll-proportion="0.3327338" vertical-offset="63650" max-vertical-offset="85935">
-          <folding />
-        </state>
+        <state line="3792" column="30" selection-start="176843" selection-end="176843" vertical-scroll-proportion="0.3327338" vertical-offset="63650" max-vertical-offset="85935" />
       </provider>
     </entry>
     <entry file="jar:///opt/java/src.zip!/java/util/ResourceBundle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2014" column="24" selection-start="86397" selection-end="86397" vertical-scroll-proportion="-1.3183453" vertical-offset="33611" max-vertical-offset="49453">
-          <folding />
-        </state>
+        <state line="2014" column="24" selection-start="86397" selection-end="86397" vertical-scroll-proportion="-1.3183453" vertical-offset="33611" max-vertical-offset="49453" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tk/jomp16/language/ResourceBundleControl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="35" column="0" selection-start="1166" selection-end="1166" vertical-scroll-proportion="0.27158272" vertical-offset="308" max-vertical-offset="1343">
-          <folding>
-            <element signature="e#0#2489#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/bash/resource/Strings_pt_BR.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="25" selection-start="307" selection-end="307" vertical-scroll-proportion="0.035564855" vertical-offset="0" max-vertical-offset="956">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/bash/resource/Strings.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="282" selection-end="463" vertical-scroll-proportion="-1.3076923" vertical-offset="0" max-vertical-offset="221">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/bash/Exec.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="0" selection-start="604" selection-end="604" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1241">
-          <folding>
-            <element signature="e#0#2546#0" expanded="false" />
-          </folding>
-        </state>
+        <state line="16" column="0" selection-start="604" selection-end="604" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1241" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/bash/Bash.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="48" selection-start="849" selection-end="849" vertical-scroll-proportion="0.26234567" vertical-offset="0" max-vertical-offset="1037">
+        <state line="24" column="48" selection-start="849" selection-end="849" vertical-scroll-proportion="0.26234567" vertical-offset="0" max-vertical-offset="1037" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/language/LanguageManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="13" selection-start="389" selection-end="389" vertical-scroll-proportion="0.20773931" vertical-offset="0" max-vertical-offset="982">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/sqlite/SQLiteManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="10" selection-start="1232" selection-end="1232" vertical-scroll-proportion="0.48664123" vertical-offset="238" max-vertical-offset="2159">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/bot/BotMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1071">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/irc/IRCManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0034602077" vertical-offset="3" max-vertical-offset="2669">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/85e6a844/83ae737b-c2bb-498a-a64a-c3216db8e216/..private_info">
+      <provider selected="true" editor-type-id="com.intellij.persistence.database.editor.DatabaseTableFileEditorProvider">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102" />
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/85e6a844/83ae737b-c2bb-498a-a64a-c3216db8e216/..bot_config">
+      <provider selected="true" editor-type-id="com.intellij.persistence.database.editor.DatabaseTableFileEditorProvider">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/resource/Strings.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="843">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/resource/Strings_pt_BR.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="843">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/bash/resource/Strings.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="204">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugin_src/Bash/src/tk/jomp16/plugin/bash/resource/Strings_pt_BR.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="1" selection-start="1" selection-end="1" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="843">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/plugin/play/resource/Strings.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="136">
           <folding />
         </state>
       </provider>
@@ -1178,64 +1216,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/plugin_src/Play/src/tk/jomp16/plugin/play/resource/Strings.json">
+    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/sqlite/configurator/SQLite_Configurator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="282" selection-end="282" vertical-scroll-proportion="0.053543307" vertical-offset="0" max-vertical-offset="635">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/language/LanguageManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="13" selection-start="389" selection-end="389" vertical-scroll-proportion="0.20773931" vertical-offset="0" max-vertical-offset="982">
+        <state line="34" column="16" selection-start="1107" selection-end="1107" vertical-scroll-proportion="0.58688146" vertical-offset="0" max-vertical-offset="2839">
           <folding>
-            <element signature="e#0#825#0" expanded="true" />
-            <element signature="imports" expanded="true" />
+            <element signature="e#0#5025#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/resource/Strings_pt_BR.json">
+    <entry file="file://$PROJECT_DIR$/COPYING">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="44" selection-start="326" selection-end="326" vertical-scroll-proportion="0.057921637" vertical-offset="0" max-vertical-offset="587">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/bot/BotMain.java">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="34" selection-start="1122" selection-end="1122" vertical-scroll-proportion="0.0" vertical-offset="38" max-vertical-offset="1020">
+        <state line="4" column="5" selection-start="29" selection-end="29" vertical-scroll-proportion="0.07825086" vertical-offset="0" max-vertical-offset="869">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/resource/Strings.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="46" selection-start="328" selection-end="328" vertical-scroll-proportion="0.20272572" vertical-offset="0" max-vertical-offset="587">
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/85e6a844/83ae737b-c2bb-498a-a64a-c3216db8e216/..private_info">
-      <provider selected="true" editor-type-id="com.intellij.persistence.database.editor.DatabaseTableFileEditorProvider">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tk/jomp16/sqlite/SQLiteManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="10" selection-start="1232" selection-end="1232" vertical-scroll-proportion="0.48664123" vertical-offset="238" max-vertical-offset="2159">
-          <folding>
-            <marker date="1391302354959" expanded="true" signature="-1:-1" placeholder="DROP TABLE m..." />
-            <marker date="1391302354959" expanded="true" signature="-1:-1" placeholder="DROP TABLE I..." />
-            <marker date="1391302354959" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-          </folding>
         </state>
       </provider>
     </entry>

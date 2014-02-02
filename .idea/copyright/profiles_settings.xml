@@ -1,8 +1,8 @@
 <component name="CopyrightManager">
   <settings default="WTFPL">
-    <module2copyright />
-    <LanguageOptions name="__TEMPLATE__">
-      <option name="block" value="false" />
-    </LanguageOptions>
+    <module2copyright>
+      <element module="All" copyright="WTFPL" />
+    </module2copyright>
+    <LanguageOptions name="__TEMPLATE__" />
   </settings>
 </component>

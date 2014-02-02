@@ -1,8 +1,5 @@
 plugins/
 out/
-lib/
-lib_tmp/
-*.jar
 *.js
 *.db
 *.zip
