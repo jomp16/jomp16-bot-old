@@ -41,12 +41,15 @@ public class IRCManager {
     private IRCManager ircManager;
     private Logger log = LogManager.getLogger(this.getClass().getSimpleName());
     private boolean ready = false;
+    private boolean nickserv = false;
+    private boolean mode = false;
     private ExecutorService executor = Executors.newCachedThreadPool();
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public IRCManager(Configuration configuration) {
         this.configuration = configuration;
         ircManager = this;
+        nickserv = isNickServEnabled();
 
         File f = new File("plugins");
 
@@ -68,7 +71,7 @@ public class IRCManager {
         executor.execute(new Connect());
 
         do {
-            wait(1000);
+            wait(500);
         } while (!ready);
     }
 
@@ -170,16 +173,20 @@ public class IRCManager {
 
                 String tmp;
                 while ((tmp = ircReader.readLine()) != null) {
-                    if (tmp.contains("MODE " + configuration.getNick())) {
-                        if (configuration.getPassword() != null && !configuration.getPassword().equals("null")) {
-                            outputIRC.sendMessage("NickServ", "identify " + configuration.getPassword());
-                        } else {
-                            ready = true;
-                        }
+                    if (tmp.contains("You have 30 seconds to identify to your nickname before it is changed.") && isNickServEnabled()) {
+                        outputIRC.sendMessage("NickServ", "identify " + configuration.getPassword());
                     } else if (tmp.contains("You are now identified for ")) {
-                        ready = true;
+                        nickserv = false;
                     } else if (tmp.contains("is not a registered nickname")) {
                         log.info("I couldn't identify for: " + configuration.getNick() + "!");
+                        ready = true;
+                    } else if (tmp.contains("MODE " + configuration.getNick())) {
+                        mode = true;
+                    }
+
+                    if (mode && isNickServEnabled() && !nickserv) {
+                        ready = true;
+                    } else if (mode && !isNickServEnabled()) {
                         ready = true;
                     }
 
@@ -193,5 +200,9 @@ public class IRCManager {
                 log.error(e);
             }
         }
+    }
+
+    private boolean isNickServEnabled() {
+        return configuration.getPassword() != null && !configuration.getPassword().equals("null");
     }
 }

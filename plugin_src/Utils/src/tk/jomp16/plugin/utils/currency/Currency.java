@@ -14,6 +14,7 @@ import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.listener.CommandEvent;
 import tk.jomp16.irc.event.listener.InitEvent;
 import tk.jomp16.irc.plugin.help.HelpRegister;
+import tk.jomp16.language.LanguageManager;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -21,6 +22,7 @@ import java.net.URL;
 
 public class Currency extends Event {
     private String URL_CURRENCY = "http://rate-exchange.appspot.com/currency?from=%s&to=%s&q=%s";
+    private LanguageManager languageManager;
 
     @Command({"currency", "money"})
     public void currency(CommandEvent commandEvent) throws Exception {
@@ -39,7 +41,8 @@ public class Currency extends Event {
                 currencyJSON = new Gson().fromJson(reader, CurrencyJSON.class);
             }
 
-            commandEvent.respond("Currency: " + quantity + " " + from + " to " + to + " equals " + currencyJSON.getV() + " || 1 " + from + " to " + to + " equals " + currencyJSON.getRate());
+            //commandEvent.respond("Currency: " + quantity + " " + from + " to " + to + " equals " + currencyJSON.getV() + " || 1 " + from + " to " + to + " equals " + currencyJSON.getRate());
+            commandEvent.respond(languageManager.getString("currency.respond", quantity, from, to, currencyJSON.getV(), currencyJSON.getRate()));
         } else {
             commandEvent.showUsage(this, commandEvent.getCommand());
         }
@@ -47,6 +50,8 @@ public class Currency extends Event {
 
     @Override
     public void onInit(InitEvent initEvent) throws Exception {
-        initEvent.addHelp(this, new HelpRegister("currency", new String[]{"money"}, "Get currency", "quantity fromCurrency toCurrency"));
+        this.languageManager = new LanguageManager("tk.jomp16.plugin.utils.resource.Strings");
+
+        initEvent.addHelp(this, new HelpRegister("currency", new String[]{"money"}, languageManager.getString("currency.help"), languageManager.getString("currency.usage")));
     }
 }

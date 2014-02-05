@@ -20,6 +20,7 @@ import java.util.*;
 public class ResourceBundleControl extends ResourceBundle.Control {
     private final String CHARSET = "UTF-8";
     private final String FORMAT_JSON = "json";
+    private String CURRENT_ELEMENT;
     private final List<String> FORMATS = new ArrayList<>(FORMAT_DEFAULT);
 
     public ResourceBundleControl() {
@@ -33,6 +34,8 @@ public class ResourceBundleControl extends ResourceBundle.Control {
 
     @Override
     public ResourceBundle newBundle(String baseName, Locale locale, String format, ClassLoader loader, boolean reload) throws IllegalAccessException, InstantiationException, IOException {
+        this.CURRENT_ELEMENT = format;
+
         if (!FORMAT_JSON.equals(format)) {
             return super.newBundle(baseName, locale, format, loader, reload);
         }
@@ -55,14 +58,19 @@ public class ResourceBundleControl extends ResourceBundle.Control {
         JSONResourceBundle rb = new JSONResourceBundle();
 
         for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
-            rb.put(entry.getKey(), entry.getValue().getAsString());
+            rb.put(entry.getKey(), entry.getValue());
         }
 
         return rb;
     }
 
+    public boolean isJSON() {
+        assert CURRENT_ELEMENT != null;
+        return CURRENT_ELEMENT.equals(FORMAT_JSON);
+    }
+
     private static class JSONResourceBundle extends ResourceBundle {
-        private HashMap<String, Object> data = new HashMap<>();
+        private HashMap<String, JsonElement> data = new HashMap<>();
 
         @Override
         public Enumeration<String> getKeys() {
@@ -74,7 +82,7 @@ public class ResourceBundleControl extends ResourceBundle.Control {
             return data.get(key);
         }
 
-        public void put(String key, Object value) {
+        public void put(String key, JsonElement value) {
             data.put(key, value);
         }
     }
