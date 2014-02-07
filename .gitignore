@@ -1,6 +1,7 @@
 .idea/workspace.xml
 plugins/
 out/
+jomp16-bot.jar
 *.js
 *.db
 *.zip
