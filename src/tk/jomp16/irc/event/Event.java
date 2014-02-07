@@ -14,15 +14,16 @@ import tk.jomp16.irc.event.listener.event.*;
 import tk.jomp16.irc.plugin.help.HelpRegister;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Event {
-    private ArrayList<HelpRegister> helpRegister = new ArrayList<>();
+    private List<HelpRegister> helpRegister = new ArrayList<>();
 
     public void registerHelp(HelpRegister helpRegister) {
         this.helpRegister.add(helpRegister);
     }
 
-    public ArrayList<HelpRegister> getHelpRegister() {
+    public List<HelpRegister> getHelpRegister() {
         return helpRegister;
     }
 

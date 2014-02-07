@@ -15,22 +15,25 @@ import tk.jomp16.irc.utils.Utils;
 import tk.jomp16.logger.LogManager;
 import tk.jomp16.logger.Logger;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public abstract class Parser {
-    private static final HashMap<Tags, Parser> parsers = new HashMap<Tags, Parser>() {{
+    private static final Map<Tags, Parser> parsers = new HashMap<Tags, Parser>() {{
+        put(Tags.COMMAND_ERROR, new ErrorParser());
         put(Tags.COMMAND_JOIN, new JoinParser());
         put(Tags.COMMAND_KICK, new KickParser());
         put(Tags.COMMAND_MODE, new ModeParser());
         put(Tags.COMMAND_NICK, new NickParser());
         put(Tags.COMMAND_PART, new PartParser());
-        //put(Tags.COMMAND_PING, new PingParser()); // see if ping in IRCManager.Connect does work and doesn't use much RAM
+        put(Tags.COMMAND_PING, new PingParser());
         put(Tags.COMMAND_PRIVMSG, new PrivMsgParser());
 
         NickNameInUseParser nickNameInUseParser = new NickNameInUseParser();
         put(Tags.ERROR_NICK_IN_USE, nickNameInUseParser);
         put(Tags.ERROR_NICK_UNAVAILABLE, nickNameInUseParser);
+
         put(Tags.RESPONSE_NAMES_LIST, new NamesParser());
         put(Tags.RESPONSE_TOPIC_MESSAGE, new ChannelTopicParser());
     }};
@@ -42,7 +45,7 @@ public abstract class Parser {
             throw new IllegalArgumentException("Can't process null lines");
         }
 
-        ArrayList<String> parsedLine = Utils.tokenizeLine(rawLine);
+        List<String> parsedLine = Utils.tokenizeLine(rawLine);
 
         log.debug(parsedLine);
 
@@ -60,23 +63,27 @@ public abstract class Parser {
         ParserToken token = new ParserToken(rawLine, source, command, parsedLine);
 
         if (parsers.containsKey(Tags.getTag(command))) {
-            log.info("Found parser for command: " + command);
+            log.debug("Found parser for command: " + command);
 
-            Runnable runnable = () -> {
-                Event event = parsers.get(Tags.getTag(command)).parse(ircManager, token);
+            Parser parser = parsers.get(Tags.getTag(command));
 
-                if (event != null) {
-                    try {
-                        event.respond();
-                    } catch (Exception e) {
-                        log.error(e);
+            if (parser != null) {
+                Runnable runnable = () -> {
+                    Event event = parser.parse(ircManager, token);
+
+                    if (event != null) {
+                        try {
+                            event.respond();
+                        } catch (Exception e) {
+                            log.error(e);
+                        }
                     }
-                }
-            };
+                };
 
-            ircManager.getExecutor().execute(runnable);
+                ircManager.getExecutor().execute(runnable);
+            }
         } else {
-            log.info("Parser for command " + command + " not found");
+            log.debug("Parser for command " + command + " not found");
         }
     }
 

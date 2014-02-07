@@ -12,7 +12,7 @@ import tk.jomp16.irc.channel.Channel;
 import tk.jomp16.irc.user.User;
 import tk.jomp16.logger.Logger;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import static tk.jomp16.irc.event.events.PrivMsgEvent.PrivMSGTag;
 
@@ -22,10 +22,10 @@ public class PrivMsgEvent {
     private Channel channel;
     private String message;
     private PrivMSGTag tag;
-    private ArrayList<String> args;
+    private List<String> args;
     private Logger logger;
 
-    public PrivMsgEvent(IRCManager ircManager, User user, Channel channel, String message, PrivMSGTag tag, ArrayList<String> args, Logger logger) {
+    public PrivMsgEvent(IRCManager ircManager, User user, Channel channel, String message, PrivMSGTag tag, List<String> args, Logger logger) {
         this.ircManager = ircManager;
         this.user = user;
         this.channel = channel;
@@ -55,7 +55,7 @@ public class PrivMsgEvent {
         return tag;
     }
 
-    public ArrayList<String> getArgs() {
+    public List<String> getArgs() {
         return args;
     }
 

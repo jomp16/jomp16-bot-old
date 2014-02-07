@@ -14,10 +14,11 @@ import tk.jomp16.irc.event.listener.InitEvent;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public class Jokes extends Event {
-    private ArrayList<String> jokes = new ArrayList<>();
+    private List<String> jokes = new ArrayList<>();
     private Random random = new Random();
 
     @Command("programmerJokes")

@@ -19,6 +19,7 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @SuppressWarnings("ConstantConditions")
@@ -26,8 +27,8 @@ public class PluginLoader {
     private Logger log = LogManager.getLogger(this.getClass().getSimpleName());
     private ClassLoader classLoader = ClassLoader.getSystemClassLoader();
 
-    public ArrayList<Event> load() throws Exception {
-        ArrayList<Event> events = new ArrayList<>();
+    public List<Event> load() throws Exception {
+        List<Event> events = new ArrayList<>();
 
         try {
             File f = new File(System.getProperty("user.dir").replace("\\", "/") + "/plugins");

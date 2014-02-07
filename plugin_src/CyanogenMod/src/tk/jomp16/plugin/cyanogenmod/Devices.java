@@ -19,9 +19,10 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Devices extends Event {
-    private HashMap<String, DeviceInfo> devices = new HashMap<>();
+    private Map<String, DeviceInfo> devices = new HashMap<>();
     private String CM_WIKI_URL = "http://wiki.cyanogenmod.org/w/%s_Info";
     private String BUILD_TARGET_URL = "https://raw.github.com/CyanogenMod/hudson/master/cm-build-targets";
 

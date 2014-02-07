@@ -9,15 +9,15 @@ package tk.jomp16.irc.parser;
 
 import tk.jomp16.irc.Source;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ParserToken {
     private final String rawLine;
     private final Source source;
     private final String command;
-    private final ArrayList<String> params;
+    private final List<String> params;
 
-    public ParserToken(String rawLine, Source source, String command, ArrayList<String> params) {
+    public ParserToken(String rawLine, Source source, String command, List<String> params) {
         this.rawLine = rawLine;
         this.source = source;
         this.command = command;
@@ -36,7 +36,7 @@ public class ParserToken {
         return command;
     }
 
-    public ArrayList<String> getParams() {
+    public List<String> getParams() {
         return params;
     }
 

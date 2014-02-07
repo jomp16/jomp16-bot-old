@@ -21,6 +21,10 @@ public class OutputIRC {
         ircManager.getOutputRaw().writeRaw("JOIN " + channel);
     }
 
+    public void joinChannel(Object channel, Object password) {
+        ircManager.getOutputRaw().writeRaw("JOIN " + channel + " " + password);
+    }
+
     public void partChannel(Object channel) {
         ircManager.getOutputRaw().writeRaw("PART " + channel);
     }

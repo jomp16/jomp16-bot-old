@@ -23,7 +23,8 @@ public class OutputRaw {
 
     public void writeRaw(String line) {
         Runnable runnable = () -> {
-            log.info(line);
+            log.debug(line);
+
             try {
                 ircManager.getIrcWriter().write(line);
                 ircManager.getIrcWriter().newLine();

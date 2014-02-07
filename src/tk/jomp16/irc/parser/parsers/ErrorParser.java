@@ -8,19 +8,14 @@
 package tk.jomp16.irc.parser.parsers;
 
 import tk.jomp16.irc.IRCManager;
-import tk.jomp16.irc.channel.ChannelList;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.parser.Parser;
 import tk.jomp16.irc.parser.ParserToken;
 
-public class ChannelTopicParser extends Parser {
+public class ErrorParser extends Parser {
     @Override
-    public Event parse(IRCManager ircManager, ParserToken token) {
-        String channel = token.getParams().get(1);
-        String topic = token.getParams().get(2);
-
-        ChannelList.setTopic(channel, topic);
-
+    public Event parse(IRCManager ircManager, ParserToken parserToken) {
+        // todo: [ERROR, Closing Link: unaffiliated/jomp16 (Ping timeout: 246 seconds)]
         return null;
     }
 }

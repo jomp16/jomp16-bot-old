@@ -12,14 +12,14 @@ import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.user.User;
 import tk.jomp16.logger.LogManager;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class NickEvent extends Event {
     private IRCManager ircManager;
     private User user;
-    private ArrayList<String> args;
+    private List<String> args;
 
-    public NickEvent(IRCManager ircManager, User user, ArrayList<String> args) {
+    public NickEvent(IRCManager ircManager, User user, List<String> args) {
         this.ircManager = ircManager;
         this.user = user;
         this.args = args;

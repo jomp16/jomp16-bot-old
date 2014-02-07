@@ -70,7 +70,7 @@ public class ResourceBundleControl extends ResourceBundle.Control {
     }
 
     private static class JSONResourceBundle extends ResourceBundle {
-        private HashMap<String, JsonElement> data = new HashMap<>();
+        private Map<String, JsonElement> data = new HashMap<>();
 
         @Override
         public Enumeration<String> getKeys() {

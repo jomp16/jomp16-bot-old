@@ -15,7 +15,7 @@ import tk.jomp16.irc.plugin.help.HelpRegister;
 import tk.jomp16.irc.user.User;
 import tk.jomp16.logger.Logger;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class CommandEvent {
     private IRCManager ircManager;
@@ -25,11 +25,11 @@ public class CommandEvent {
     private ChannelDAO channelDAO;
     private String message;
     private String rawMessage;
-    private ArrayList<String> args;
+    private List<String> args;
     private Logger log;
     private String command;
 
-    public CommandEvent(IRCManager ircManager, User user, Channel channel, String message, String rawMessage, String command, ArrayList<String> args, Logger log) {
+    public CommandEvent(IRCManager ircManager, User user, Channel channel, String message, String rawMessage, String command, List<String> args, Logger log) {
         this.ircManager = ircManager;
         this.user = user;
         this.channel = channel;
@@ -141,7 +141,7 @@ public class CommandEvent {
         return command;
     }
 
-    public ArrayList<String> getArgs() {
+    public List<String> getArgs() {
         return args;
     }
 

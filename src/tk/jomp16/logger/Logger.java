@@ -14,6 +14,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
 
 public class Logger {
@@ -21,7 +22,7 @@ public class Logger {
     private String className;
     private static JTextArea textPane;
     private Properties logProperties;
-    private ArrayList<String> show;
+    private List<String> show;
 
     public Logger(Class<?> aClass) throws Exception {
         this.aClass = aClass;

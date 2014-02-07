@@ -18,12 +18,13 @@ import tk.jomp16.irc.plugin.help.HelpRegister;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class Commands extends Event {
-    private ArrayList<String> commandsNormal = new ArrayList<>();
-    private ArrayList<String> commandsMod = new ArrayList<>();
-    private ArrayList<String> commandsAdmin = new ArrayList<>();
-    private ArrayList<String> commandsOwner = new ArrayList<>();
+    private List<String> commandsNormal = new ArrayList<>();
+    private List<String> commandsMod = new ArrayList<>();
+    private List<String> commandsAdmin = new ArrayList<>();
+    private List<String> commandsOwner = new ArrayList<>();
     private boolean flag = false;
 
     private void registerCommands() {

@@ -10,11 +10,12 @@ package tk.jomp16.irc.utils;
 import com.google.common.base.CharMatcher;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Utils {
     // I took it from PircBotX =P
-    public static ArrayList<String> tokenizeLine(String input) {
-        ArrayList<String> stringParts = new ArrayList<>();
+    public static List<String> tokenizeLine(String input) {
+        List<String> stringParts = new ArrayList<>();
         if (input == null || input.length() == 0) {
             return stringParts;
         }

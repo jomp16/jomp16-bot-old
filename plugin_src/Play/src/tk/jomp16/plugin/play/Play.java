@@ -19,10 +19,11 @@ import tk.jomp16.sqlite1.SQLiteDatabase;
 
 import java.sql.ResultSet;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Play extends Event {
     private SQLiteDatabase database;
-    private HashMap<String, PlayRegister> playRegisterHashMap = new HashMap<>();
+    private Map<String, PlayRegister> playRegisterHashMap = new HashMap<>();
     private LanguageManager languageManager;
 
     @Command("plugin")

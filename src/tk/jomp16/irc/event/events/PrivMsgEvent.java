@@ -21,22 +21,20 @@ import tk.jomp16.logger.Logger;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PrivMsgEvent extends Event {
-    private static ArrayList<EventRegister> eventRegisters = new ArrayList<>();
-    private static HashMap<String, Integer> spamLock = new HashMap<>();
+    private static List<EventRegister> eventRegisters = new ArrayList<>();
+    private static Map<String, Integer> spamLock = new HashMap<>();
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ss");
     private IRCManager ircManager;
     private User user;
     private String message;
     private Channel channel;
     private PrivMSGTag tag;
-    private ArrayList<String> args = new ArrayList<>();
+    private List<String> args = new ArrayList<>();
     private Logger log = LogManager.getLogger(this.getClass().getSimpleName());
 
     public PrivMsgEvent(IRCManager ircManager, User user, Channel channel, String message, PrivMSGTag tag) {
@@ -57,16 +55,16 @@ public class PrivMsgEvent extends Event {
         }
     }
 
-    public static void reloadEvents(ArrayList<Event> events) {
+    public static void reloadEvents(List<Event> events) {
         eventRegisters.clear();
         registerArrayList(events);
     }
 
-    public static ArrayList<EventRegister> getEventRegisters() {
+    public static List<EventRegister> getEventRegisters() {
         return eventRegisters;
     }
 
-    private static void registerArrayList(ArrayList<Event> events) {
+    private static void registerArrayList(List<Event> events) {
         for (Event event : events) {
             Method[] methods = event.getClass().getMethods();
             for (Method method : methods) {
@@ -82,7 +80,7 @@ public class PrivMsgEvent extends Event {
         }
     }
 
-    private void runNormalAndAction(ArrayList<Event> events) {
+    private void runNormalAndAction(List<Event> events) {
         parseLine(message);
 
         if (eventRegisters.size() == 0) {
@@ -121,7 +119,7 @@ public class PrivMsgEvent extends Event {
         }
     }
 
-    public void invoke(ArrayList<EventRegister> eventRegisters, ArrayList<String> args, String prefix) throws Exception {
+    public void invoke(List<EventRegister> eventRegisters, List<String> args, String prefix) throws Exception {
         if (args.size() >= 1) {
             if (!isLocked()) {
                 if (args.get(0).startsWith(prefix)) {

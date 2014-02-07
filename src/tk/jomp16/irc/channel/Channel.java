@@ -8,7 +8,8 @@
 package tk.jomp16.irc.channel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Channel {
     private final String targetName;
@@ -21,16 +22,16 @@ public class Channel {
         return targetName;
     }
 
-    public HashMap<String, ChannelLevel> getAllUsersWithLevel() {
+    public Map<String, ChannelLevel> getAllUsersWithLevel() {
         return ChannelList.getListUsers(targetName);
     }
 
-    public ArrayList<String> getAllUsers() {
+    public List<String> getAllUsers() {
         return new ArrayList<>(ChannelList.getListUsers(targetName).keySet());
     }
 
-    public ArrayList<String> getAllOpUsers() {
-        ArrayList<String> opUsers = new ArrayList<>();
+    public List<String> getAllOpUsers() {
+        List<String> opUsers = new ArrayList<>();
 
         ChannelList.getListUsers(targetName).forEach((user, level) -> {
             if (level.equals(ChannelLevel.OP)) {
@@ -41,8 +42,8 @@ public class Channel {
         return opUsers;
     }
 
-    public ArrayList<String> getAllVoiceUsers() {
-        ArrayList<String> voiceUsers = new ArrayList<>();
+    public List<String> getAllVoiceUsers() {
+        List<String> voiceUsers = new ArrayList<>();
 
         ChannelList.getListUsers(targetName).forEach((user, level) -> {
             if (level.equals(ChannelLevel.VOICE)) {
@@ -53,8 +54,8 @@ public class Channel {
         return voiceUsers;
     }
 
-    public ArrayList<String> getAllNormalUsers() {
-        ArrayList<String> normalUsers = new ArrayList<>();
+    public List<String> getAllNormalUsers() {
+        List<String> normalUsers = new ArrayList<>();
 
         ChannelList.getListUsers(targetName).forEach((user, level) -> {
             if (level.equals(ChannelLevel.NORMAL)) {

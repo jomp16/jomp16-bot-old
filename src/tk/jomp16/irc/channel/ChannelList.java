@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class ChannelList {
     private static HashMultimap<String, ChannelUser> hashMapChannelUsers = HashMultimap.create();
-    private static HashMap<String, String> channelTopic = new HashMap<>();
+    private static Map<String, String> channelTopic = new HashMap<>();
 
     public static void setTopic(String channel, String topic) {
         if (channelTopic.containsKey(channel)) {
@@ -115,8 +115,8 @@ public class ChannelList {
         }
     }
 
-    public static HashMap<String, ChannelLevel> getListUsers(String channel) {
-        HashMap<String, ChannelLevel> tmp = new HashMap<>();
+    public static Map<String, ChannelLevel> getListUsers(String channel) {
+        Map<String, ChannelLevel> tmp = new HashMap<>();
 
         for (Map.Entry<String, ChannelUser> entry : hashMapChannelUsers.entries()) {
             if (entry.getKey().equals(channel)) {

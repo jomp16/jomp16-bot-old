@@ -17,6 +17,7 @@ import tk.jomp16.irc.parser.ParserToken;
 import tk.jomp16.irc.user.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class NickParser extends Parser {
     @Override
@@ -27,7 +28,7 @@ public class NickParser extends Parser {
 
         User user = new User(token.getParams().get(0), token.getSource().getUser(), token.getSource().getHost(), Source.loopMask(ircManager, token.getSource().getRaw()));
 
-        ArrayList<String> args = new ArrayList<>();
+        List<String> args = new ArrayList<>();
         args.add(token.getSource().getNick());
         args.add(token.getParams().get(0));
 

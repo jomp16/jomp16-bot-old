@@ -11,6 +11,7 @@ import tk.jomp16.sqlite.SQLiteManager;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class SQLite_Configurator {
@@ -23,9 +24,9 @@ public class SQLite_Configurator {
     private String botIdentify;
     private String botPrefix;
     private String ircHost;
-    private ArrayList<String> owners = new ArrayList<>();
-    private ArrayList<String> admins = new ArrayList<>();
-    private ArrayList<String> mods = new ArrayList<>();
+    private List<String> owners = new ArrayList<>();
+    private List<String> admins = new ArrayList<>();
+    private List<String> mods = new ArrayList<>();
 
     public SQLite_Configurator() throws Exception {
         sqLiteManager = new SQLiteManager("database");

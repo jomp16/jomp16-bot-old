@@ -9,7 +9,6 @@ package tk.jomp16.irc;
 
 import tk.jomp16.configuration.Configuration;
 import tk.jomp16.irc.event.Event;
-import tk.jomp16.irc.event.events.PingEvent;
 import tk.jomp16.irc.event.events.PrivMsgEvent;
 import tk.jomp16.irc.event.listener.InitEvent;
 import tk.jomp16.irc.output.OutputIRC;
@@ -26,15 +25,16 @@ import tk.jomp16.logger.Logger;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class IRCManager {
-    private ArrayList<Event> events = new ArrayList<>();
-    private ArrayList<Event> bundledEvent = new ArrayList<>();
-    private ArrayList<String> owners = new ArrayList<>();
-    private ArrayList<String> admins = new ArrayList<>();
-    private ArrayList<String> mods = new ArrayList<>();
+    private List<Event> events = new ArrayList<>();
+    private List<Event> bundledEvent = new ArrayList<>();
+    private List<String> owners = new ArrayList<>();
+    private List<String> admins = new ArrayList<>();
+    private List<String> mods = new ArrayList<>();
     private BufferedWriter ircWriter;
     private OutputRaw outputRaw;
     private OutputIRC outputIRC;
@@ -42,7 +42,6 @@ public class IRCManager {
     private IRCManager ircManager;
     private Logger log = LogManager.getLogger(this.getClass().getSimpleName());
     private boolean ready = false;
-    private boolean nickserv = false;
     private boolean mode = false;
     private ExecutorService executor = Executors.newCachedThreadPool();
 
@@ -50,7 +49,6 @@ public class IRCManager {
     public IRCManager(Configuration configuration) {
         this.configuration = configuration;
         ircManager = this;
-        nickserv = isNickServEnabled();
 
         File f = new File("plugins");
 
@@ -124,23 +122,23 @@ public class IRCManager {
         return outputIRC;
     }
 
-    public ArrayList<Event> getEvents() {
+    public List<Event> getEvents() {
         return events;
     }
 
-    public ArrayList<Event> getBundledEvent() {
+    public List<Event> getBundledEvent() {
         return bundledEvent;
     }
 
-    public ArrayList<String> getOwners() {
+    public List<String> getOwners() {
         return owners;
     }
 
-    public ArrayList<String> getAdmins() {
+    public List<String> getAdmins() {
         return admins;
     }
 
-    public ArrayList<String> getMods() {
+    public List<String> getMods() {
         return mods;
     }
 
@@ -160,6 +158,14 @@ public class IRCManager {
         return executor;
     }
 
+    public String getConnectedIRCCHost() {
+        return Parser.getHost().substring(1);
+    }
+
+    private boolean isNickServEnabled() {
+        return configuration.getPassword() != null && !configuration.getPassword().equals("null");
+    }
+
     private class Connect implements Runnable {
         @Override
         public void run() {
@@ -176,20 +182,14 @@ public class IRCManager {
                 while ((tmp = ircReader.readLine()) != null) {
                     if (tmp.contains("You have 30 seconds to identify to your nickname before it is changed.") && isNickServEnabled()) {
                         outputIRC.sendMessage("NickServ", "identify " + configuration.getPassword());
-                    } else if (tmp.contains("You are now identified for ")) {
-                        nickserv = false;
                     } else if (tmp.contains("is not a registered nickname")) {
                         log.info("I couldn't identify for: " + configuration.getNick() + "!");
                         ready = true;
                     } else if (tmp.contains("MODE " + configuration.getNick())) {
                         mode = true;
-                    } else if (tmp.contains("PING: " + Parser.getHost())) { // TODO: see if this is working
-                        new PingEvent(ircManager, Parser.getHost()).respond();
                     }
 
-                    if (mode && isNickServEnabled() && !nickserv) {
-                        ready = true;
-                    } else if (mode && !isNickServEnabled()) {
+                    if (mode) {
                         ready = true;
                     }
 
@@ -203,9 +203,5 @@ public class IRCManager {
                 log.error(e);
             }
         }
-    }
-
-    private boolean isNickServEnabled() {
-        return configuration.getPassword() != null && !configuration.getPassword().equals("null");
     }
 }

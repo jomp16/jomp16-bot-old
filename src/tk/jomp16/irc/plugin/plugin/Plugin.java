@@ -22,10 +22,12 @@ import tk.jomp16.logger.LogManager;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("ConstantConditions")
 public class Plugin extends Event {
-    private static HashMap<String, Event> eventHashMap = new HashMap<>();
+    private static Map<String, Event> eventHashMap = new HashMap<>();
 
     @Command(value = "plugin", level = Level.OWNER)
     public void plugin(CommandEvent commandEvent) throws Exception {
@@ -110,7 +112,7 @@ public class Plugin extends Event {
                     }
                     break;
                 case "showall":
-                    ArrayList<String> pluginNameTmp = new ArrayList<>();
+                    List<String> pluginNameTmp = new ArrayList<>();
 
                     for (String pluginName : eventHashMap.keySet()) {
                         pluginNameTmp.add(pluginName);
@@ -169,7 +171,7 @@ public class Plugin extends Event {
         loadPluginInfo(resetEvent.getIrcManager().getEvents());
     }
 
-    private void loadPluginInfo(ArrayList<Event> events) {
+    private void loadPluginInfo(List<Event> events) {
         for (Event event : events) {
             eventHashMap.put(event.getClass().getSimpleName(), event);
         }

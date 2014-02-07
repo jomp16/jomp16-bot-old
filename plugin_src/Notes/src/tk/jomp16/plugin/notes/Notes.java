@@ -22,12 +22,13 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Notes extends Event {
     private SQLiteDatabase database;
     private SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
     private SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm:ss");
-    private ArrayList<NotesRegister> notes = new ArrayList<>();
+    private List<NotesRegister> notes = new ArrayList<>();
     private int DATABASE_VERSION = 1;
 
     @Override
@@ -100,7 +101,7 @@ public class Notes extends Event {
                         try {
                             Integer tmpInt = Integer.parseInt(commandEvent.getArgs().get(1));
 
-                            ArrayList<NotesRegister> tmpNotes = new ArrayList<>();
+                            List<NotesRegister> tmpNotes = new ArrayList<>();
 
                             for (NotesRegister register : notes) {
                                 if (register.getUser().equals(commandEvent.getUser().getUserName())) {
@@ -124,7 +125,7 @@ public class Notes extends Event {
                 if (commandEvent.getArgs().size() >= 2) {
                     if (commandEvent.getArgs().get(1).equals("all")) {
                         database.executeFastUpdateQuery("DELETE FROM notes WHERE user = ?", commandEvent.getUser().getUserName());
-                        ArrayList<NotesRegister> tmpNotes = new ArrayList<>();
+                        List<NotesRegister> tmpNotes = new ArrayList<>();
 
                         for (NotesRegister register : notes) {
                             if (register.getUser().equals(commandEvent.getUser().getUserName())) {

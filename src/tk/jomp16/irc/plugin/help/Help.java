@@ -16,18 +16,16 @@ import tk.jomp16.irc.event.listener.CommandEvent;
 import tk.jomp16.irc.event.listener.InitEvent;
 import tk.jomp16.irc.event.listener.ResetEvent;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.*;
 
 public class Help extends Event {
-    private static ArrayList<String> helpNormal = new ArrayList<>();
-    private static ArrayList<String> helpMod = new ArrayList<>();
-    private static ArrayList<String> helpAdmin = new ArrayList<>();
-    private static ArrayList<String> helpOwner = new ArrayList<>();
-    private static HashMap<String, HelpRegister> helpRegisters = new HashMap<>();
+    private static List<String> helpNormal = new ArrayList<>();
+    private static List<String> helpMod = new ArrayList<>();
+    private static List<String> helpAdmin = new ArrayList<>();
+    private static List<String> helpOwner = new ArrayList<>();
+    private static Map<String, HelpRegister> helpRegisters = new HashMap<>();
 
-    private static void registerHelp(ArrayList<Event> events) {
+    private static void registerHelp(List<Event> events) {
         for (Event event : events) {
             for (HelpRegister helpRegister : event.getHelpRegister()) {
                 helpRegisters.put(helpRegister.getCommand(), helpRegister);
@@ -137,7 +135,7 @@ public class Help extends Event {
         }
     }
 
-    public static void reloadHelp(ArrayList<Event> events) {
+    public static void reloadHelp(List<Event> events) {
         helpRegisters.clear();
         helpNormal.clear();
         helpMod.clear();
