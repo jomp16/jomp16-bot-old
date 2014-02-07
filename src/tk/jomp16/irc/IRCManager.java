@@ -9,6 +9,7 @@ package tk.jomp16.irc;
 
 import tk.jomp16.configuration.Configuration;
 import tk.jomp16.irc.event.Event;
+import tk.jomp16.irc.event.events.PingEvent;
 import tk.jomp16.irc.event.events.PrivMsgEvent;
 import tk.jomp16.irc.event.listener.InitEvent;
 import tk.jomp16.irc.output.OutputIRC;
@@ -182,6 +183,8 @@ public class IRCManager {
                         ready = true;
                     } else if (tmp.contains("MODE " + configuration.getNick())) {
                         mode = true;
+                    } else if (tmp.contains("PING: " + Parser.getHost())) { // TODO: see if this is working
+                        new PingEvent(ircManager, Parser.getHost()).respond();
                     }
 
                     if (mode && isNickServEnabled() && !nickserv) {

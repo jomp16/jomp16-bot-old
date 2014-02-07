@@ -20,21 +20,19 @@ import java.util.HashMap;
 
 public abstract class Parser {
     private static final HashMap<Tags, Parser> parsers = new HashMap<Tags, Parser>() {{
-        put(Tags.RESPONSE_TOPIC_MESSAGE, new ChannelTopicParser());
         put(Tags.COMMAND_JOIN, new JoinParser());
         put(Tags.COMMAND_KICK, new KickParser());
         put(Tags.COMMAND_MODE, new ModeParser());
-        put(Tags.RESPONSE_NAMES_LIST, new NamesParser());
+        put(Tags.COMMAND_NICK, new NickParser());
+        put(Tags.COMMAND_PART, new PartParser());
+        //put(Tags.COMMAND_PING, new PingParser()); // see if ping in IRCManager.Connect does work and doesn't use much RAM
+        put(Tags.COMMAND_PRIVMSG, new PrivMsgParser());
 
         NickNameInUseParser nickNameInUseParser = new NickNameInUseParser();
         put(Tags.ERROR_NICK_IN_USE, nickNameInUseParser);
         put(Tags.ERROR_NICK_UNAVAILABLE, nickNameInUseParser);
-
-        put(Tags.COMMAND_NICK, new NickParser());
-        put(Tags.COMMAND_PART, new PartParser());
-        put(Tags.COMMAND_PING, new PingParser());
-        put(Tags.COMMAND_PRIVMSG, new PrivMsgParser());
-        put(Tags.COMMAND_QUIT, new QuitParser());
+        put(Tags.RESPONSE_NAMES_LIST, new NamesParser());
+        put(Tags.RESPONSE_TOPIC_MESSAGE, new ChannelTopicParser());
     }};
     private static Logger log = LogManager.getLogger(Parser.class.getSimpleName());
     private static String host = null;
@@ -80,6 +78,10 @@ public abstract class Parser {
         } else {
             log.info("Parser for command " + command + " not found");
         }
+    }
+
+    public static String getHost() {
+        return host;
     }
 
     public abstract Event parse(IRCManager ircManager, ParserToken parserToken);
