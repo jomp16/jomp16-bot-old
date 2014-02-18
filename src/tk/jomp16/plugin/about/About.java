@@ -5,22 +5,27 @@
  * as published by Sam Hocevar. See the COPYING file for more details.
  */
 
-package tk.jomp16.irc.plugin.about;
+package tk.jomp16.plugin.about;
 
 import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.listener.CommandEvent;
 import tk.jomp16.irc.event.listener.InitEvent;
-import tk.jomp16.irc.plugin.help.HelpRegister;
+import tk.jomp16.language.LanguageManager;
+import tk.jomp16.plugin.help.HelpRegister;
 
 public class About extends Event {
+    private LanguageManager languageManager;
+
     @Command("about")
     public void about(CommandEvent commandEvent) {
-        commandEvent.respond("jomp16-bot written by jomp16, licensed under WTFPL, source code at https://github.com/jomp16/jomp16-bot");
+        commandEvent.respond(languageManager.getAsString("about.text.about"));
     }
 
     @Override
     public void onInit(InitEvent initEvent) throws Exception {
-        initEvent.addHelp(this, new HelpRegister("about", "Return the info about this bot", ""));
+        languageManager = new LanguageManager("tk.jomp16.plugin.resource.Strings");
+
+        initEvent.addHelp(this, new HelpRegister("about", languageManager.getAsString("about.help.text")));
     }
 }

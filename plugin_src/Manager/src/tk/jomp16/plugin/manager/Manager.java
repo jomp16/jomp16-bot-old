@@ -12,9 +12,10 @@ import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.Level;
 import tk.jomp16.irc.event.listener.CommandEvent;
 
+@Deprecated
 public class Manager extends Event {
     // TODO: TERMINATE THIS SHIT
-    @Command(value = "manager", level = Level.OWNER)
+    @Command(value = "manager1", level = Level.OWNER)
     public void manager(CommandEvent commandEvent) {
         if (commandEvent.getArgs().size() >= 2) {
             switch (commandEvent.getArgs().remove(0)) {

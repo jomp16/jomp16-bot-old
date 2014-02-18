@@ -7,8 +7,8 @@
 
 package tk.jomp16.plugin.play.database;
 
-import tk.jomp16.sqlite1.SQLiteDatabase;
-import tk.jomp16.sqlite1.SQLiteOpenHelper;
+import tk.jomp16.sqlite.SQLiteDatabase;
+import tk.jomp16.sqlite.SQLiteOpenHelper;
 
 import java.sql.SQLException;
 

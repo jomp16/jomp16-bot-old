@@ -90,7 +90,7 @@ public class Logger {
         if (show.contains("log") || show.contains("all")) {
             String tmp = logProperties.getProperty("format")
                     .replace("%level", "LOG  ")
-                    .replace("%className", aClass != null ? aClass.getSimpleName() : className)
+                    .replace("%className", aClass != null ? aClass.getName() : className)
                     .replace("%message", obj.toString())
                     .replace("%n", "\n");
 
@@ -106,7 +106,7 @@ public class Logger {
         if (show.contains("debug") || show.contains("all")) {
             String tmp = logProperties.getProperty("format")
                     .replace("%level", "DEBUG")
-                    .replace("%className", aClass != null ? aClass.getSimpleName() : className)
+                    .replace("%className", aClass != null ? aClass.getName() : className)
                     .replace("%message", obj.toString())
                     .replace("%n", "\n");
 
@@ -122,7 +122,7 @@ public class Logger {
         if (show.contains("trace") || show.contains("all")) {
             String tmp = logProperties.getProperty("format")
                     .replace("%level", "TRACE")
-                    .replace("%className", aClass != null ? aClass.getSimpleName() : className)
+                    .replace("%className", aClass != null ? aClass.getName() : className)
                     .replace("%message", obj.toString())
                     .replace("%n", "\n");
 
@@ -138,7 +138,7 @@ public class Logger {
         if (show.contains("error") || show.contains("all")) {
             String tmp = logProperties.getProperty("format")
                     .replace("%level", "ERROR")
-                    .replace("%className", aClass != null ? aClass.getSimpleName() : className)
+                    .replace("%className", aClass != null ? aClass.getName() : className)
                     .replace("%message", obj.toString())
                     .replace("%n", "\n");
 
@@ -161,8 +161,8 @@ public class Logger {
 
             String tmp = logProperties.getProperty("format")
                     .replace("%level", "ERROR")
-                    .replace("%className", aClass != null ? aClass.getSimpleName() : className)
-                    .replace("%message", (writer != null) ? "Stack trace:\n" + writer.toString() : "Exception in class: " + throwable.getClass().getSimpleName() + "; Exception: " + throwable.getMessage())
+                    .replace("%className", aClass != null ? aClass.getName() : className)
+                    .replace("%message", (writer != null) ? "Stack trace:\n" + writer.toString() : "Exception in class: " + throwable.getClass() + "; Exception: " + throwable.getMessage())
                     .replace("%n", "\n");
 
             System.err.print(tmp);
@@ -177,7 +177,7 @@ public class Logger {
         if (show.contains("info") || show.contains("all")) {
             String tmp = logProperties.getProperty("format")
                     .replace("%level", "INFO ")
-                    .replace("%className", aClass != null ? aClass.getSimpleName() : className)
+                    .replace("%className", aClass != null ? aClass.getName() : className)
                     .replace("%message", obj.toString())
                     .replace("%n", "\n");
 

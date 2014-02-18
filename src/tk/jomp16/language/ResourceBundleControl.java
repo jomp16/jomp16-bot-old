@@ -21,10 +21,13 @@ public class ResourceBundleControl extends ResourceBundle.Control {
     private final String CHARSET = "UTF-8";
     private final String FORMAT_JSON = "json";
     private String CURRENT_ELEMENT;
-    private final List<String> FORMATS = new ArrayList<>(FORMAT_DEFAULT);
+    private final List<String> FORMATS = new ArrayList<>();
+    private Gson gson;
 
     public ResourceBundleControl() {
+        FORMATS.addAll(FORMAT_DEFAULT);
         FORMATS.add(FORMAT_JSON);
+        gson = new Gson();
     }
 
     @Override
@@ -35,6 +38,10 @@ public class ResourceBundleControl extends ResourceBundle.Control {
     @Override
     public ResourceBundle newBundle(String baseName, Locale locale, String format, ClassLoader loader, boolean reload) throws IllegalAccessException, InstantiationException, IOException {
         this.CURRENT_ELEMENT = format;
+
+        //URLClassLoader urlClassLoader = (URLClassLoader) loader;
+
+        //System.out.println("[WAT] " + Arrays.toString(urlClassLoader.getURLs()));
 
         if (!FORMAT_JSON.equals(format)) {
             return super.newBundle(baseName, locale, format, loader, reload);
@@ -52,7 +59,7 @@ public class ResourceBundleControl extends ResourceBundle.Control {
         JsonObject jsonObject;
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is, CHARSET))) {
-            jsonObject = new Gson().fromJson(br, JsonObject.class);
+            jsonObject = gson.fromJson(br, JsonObject.class);
         }
 
         JSONResourceBundle rb = new JSONResourceBundle();
@@ -65,8 +72,11 @@ public class ResourceBundleControl extends ResourceBundle.Control {
     }
 
     public boolean isJSON() {
-        assert CURRENT_ELEMENT != null;
-        return CURRENT_ELEMENT.equals(FORMAT_JSON);
+        return CURRENT_ELEMENT == null || FORMAT_JSON.equals(CURRENT_ELEMENT);
+    }
+
+    public Gson getGson() {
+        return gson;
     }
 
     private static class JSONResourceBundle extends ResourceBundle {

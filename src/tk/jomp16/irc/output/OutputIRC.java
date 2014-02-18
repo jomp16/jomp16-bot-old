@@ -68,4 +68,12 @@ public class OutputIRC {
         ircManager.setConfiguration(builder.buildConfiguration());
         ircManager.getOutputRaw().writeRaw("NICK " + nick);
     }
+
+    public void quit() {
+        ircManager.getOutputRaw().writeRaw("QUIT");
+    }
+
+    public void quit(String reason) {
+        ircManager.getOutputRaw().writeRaw("QUIT " + reason);
+    }
 }

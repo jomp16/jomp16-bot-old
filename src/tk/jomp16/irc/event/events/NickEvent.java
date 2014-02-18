@@ -29,7 +29,7 @@ public class NickEvent extends Event {
     public void respond() throws Exception {
         ircManager.getEvents().forEach((event) -> {
             try {
-                event.onNick(new tk.jomp16.irc.event.listener.event.NickEvent(ircManager, user, args.get(0), args.get(1), LogManager.getLogger(event.getClass().getSimpleName())));
+                event.onNick(new tk.jomp16.irc.event.listener.event.NickEvent(ircManager, user, args.get(0), args.get(1), LogManager.getLogger(event.getClass())));
             } catch (Exception e) {
                 e.printStackTrace();
             }

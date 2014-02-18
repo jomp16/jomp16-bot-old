@@ -15,8 +15,8 @@ import tk.jomp16.irc.IRCManager;
 import tk.jomp16.language.LanguageManager;
 import tk.jomp16.logger.LogManager;
 import tk.jomp16.logger.Logger;
-import tk.jomp16.sqlite.SQLiteManager;
-import tk.jomp16.sqlite.configurator.SQLite_Configurator;
+import tk.jomp16.sqlite_old.SQLiteManager;
+import tk.jomp16.sqlite_old.configurator.SQLite_Configurator;
 
 import javax.swing.*;
 import java.sql.ResultSet;
@@ -25,6 +25,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class MainUI {
+    // TODO: FUCKING SHIT!
     private JPanel mainUI;
     private JTextArea consoleOutputText;
     private JButton iniciarBotButton;
@@ -88,7 +89,7 @@ public class MainUI {
 
         LanguageManager languageManager = new LanguageManager("tk.jomp16.resource.Strings");
 
-        log.trace(languageManager.getString("Welcome"));
+        log.trace(languageManager.getAsString("Welcome"));
 
         ResultSet ircConf = sqLiteManager.getResultSet("SELECT * FROM bot_config");
 

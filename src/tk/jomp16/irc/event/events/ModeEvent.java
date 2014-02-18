@@ -32,7 +32,7 @@ public class ModeEvent extends Event {
     public void respond() throws Exception {
         ircManager.getEvents().forEach((event) -> {
             try {
-                event.onMode(new tk.jomp16.irc.event.listener.event.ModeEvent(ircManager, user, channel, userModed, mode, LogManager.getLogger(event.getClass().getSimpleName())));
+                event.onMode(new tk.jomp16.irc.event.listener.event.ModeEvent(ircManager, user, channel, userModed, mode, LogManager.getLogger(event.getClass())));
             } catch (Exception e) {
                 e.printStackTrace();
             }

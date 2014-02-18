@@ -14,14 +14,14 @@ import tk.jomp16.irc.IRCManager;
 import tk.jomp16.language.LanguageManager;
 import tk.jomp16.logger.LogManager;
 import tk.jomp16.logger.Logger;
-import tk.jomp16.sqlite.SQLiteManager;
-import tk.jomp16.sqlite.configurator.SQLite_Configurator;
+import tk.jomp16.sqlite_old.SQLiteManager;
+import tk.jomp16.sqlite_old.configurator.SQLite_Configurator;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class BotMain {
-    private static Logger log = LogManager.getLogger(BotMain.class.getSimpleName());
+    private static Logger log = LogManager.getLogger(BotMain.class);
     private static SQLiteManager sqLiteManager;
 
     public static void main(String[] args) throws Exception {
@@ -42,7 +42,7 @@ public class BotMain {
 
         LanguageManager languageManager = new LanguageManager("tk.jomp16.resource.Strings");
 
-        log.trace(languageManager.getString("welcome", System.getProperty("user.name")));
+        log.trace(languageManager.getAsString("welcome", System.getProperty("user.name")));
 
         ResultSet ircConf = sqLiteManager.getResultSet("SELECT * FROM bot_config");
 

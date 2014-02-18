@@ -15,7 +15,7 @@ import tk.jomp16.irc.event.listener.InitEvent;
 import tk.jomp16.irc.event.listener.event.PrivMsgEvent;
 import tk.jomp16.language.LanguageManager;
 import tk.jomp16.plugin.play.database.PlayOpenHelper;
-import tk.jomp16.sqlite1.SQLiteDatabase;
+import tk.jomp16.sqlite.SQLiteDatabase;
 
 import java.sql.ResultSet;
 import java.util.HashMap;
@@ -26,7 +26,7 @@ public class Play extends Event {
     private Map<String, PlayRegister> playRegisterHashMap = new HashMap<>();
     private LanguageManager languageManager;
 
-    @Command("plugin")
+    @Command("play")
     public void play(CommandEvent commandEvent) throws Exception {
         if (commandEvent.getArgs().size() > 0) {
             switch (commandEvent.getArgs().get(0)) {
@@ -47,6 +47,7 @@ public class Play extends Event {
                 case "stop":
                     if (playRegisterHashMap.containsKey(commandEvent.getUser().getUserName())) {
                         playRegisterHashMap.remove(commandEvent.getUser().getUserName());
+
                         commandEvent.respond("Stopped recording!");
                     }
                     break;
@@ -126,6 +127,7 @@ public class Play extends Event {
     @Override
     public void onInit(InitEvent initEvent) throws Exception {
         database = new PlayOpenHelper(initEvent.getPluginPath(this) + "/database.db", 1).getDatabase();
-        languageManager = initEvent.getLanguageManager("tk.jomp16.plugin.play.resource.Strings");
+
+        languageManager = initEvent.getLanguageManager(this, "tk.jomp16.plugin.play.resource.Strings");
     }
 }

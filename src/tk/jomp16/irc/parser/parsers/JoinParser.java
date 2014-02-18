@@ -21,7 +21,7 @@ import tk.jomp16.logger.LogManager;
 import tk.jomp16.logger.Logger;
 
 public class JoinParser extends Parser {
-    private Logger log = LogManager.getLogger(this.getClass().getSimpleName());
+    private Logger log = LogManager.getLogger(this.getClass());
 
     @Override
     public Event parse(IRCManager ircManager, ParserToken token) {

@@ -1,3 +1,7 @@
+Change manual way to handle commands to jopt-simple
+
+ADD OPT COMMANDS INSIDE REAL COMMAND, LIKE on help: money [currency], other command [other opt command], other command
+
 Create an UI =D (plugins can create their own UI too) (nearly done)
 
 Lower the RAM usage...

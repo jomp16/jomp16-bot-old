@@ -7,6 +7,8 @@
 
 package tk.jomp16.irc.event.events;
 
+import joptsimple.OptionParser;
+import joptsimple.OptionSet;
 import tk.jomp16.irc.IRCManager;
 import tk.jomp16.irc.Source;
 import tk.jomp16.irc.channel.Channel;
@@ -35,7 +37,7 @@ public class PrivMsgEvent extends Event {
     private Channel channel;
     private PrivMSGTag tag;
     private List<String> args = new ArrayList<>();
-    private Logger log = LogManager.getLogger(this.getClass().getSimpleName());
+    private Logger log = LogManager.getLogger(this.getClass());
 
     public PrivMsgEvent(IRCManager ircManager, User user, Channel channel, String message, PrivMSGTag tag) {
         this.ircManager = ircManager;
@@ -71,8 +73,9 @@ public class PrivMsgEvent extends Event {
                 Annotation annotation = method.getAnnotation(Command.class);
                 if (annotation != null) {
                     Command command = (Command) annotation;
+
                     for (String s : command.value()) {
-                        EventRegister eventRegister = new EventRegister(s, event, command.level(), method);
+                        EventRegister eventRegister = new EventRegister(s, command.args(), event, command.level(), method);
                         eventRegisters.add(eventRegister);
                     }
                 }
@@ -88,23 +91,15 @@ public class PrivMsgEvent extends Event {
         }
 
         try {
-//            ircManager.getEvents().forEach((event) -> {
-//                try {
-//                    event.onPrivMsg(new tk.jomp16.irc.event.listener.event.PrivMsgEvent(ircManager, user, channel, message, tag, args, LogManager.getLogger(event.getClass().getSimpleName())));
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            });
-
             invoke(eventRegisters, args, ircManager.getConfiguration().getPrefix());
         } catch (Exception e) {
             log.error("An error occurred: " + e.toString());
-//            e.printStackTrace();
         }
     }
 
     public void parseLine(String message) {
         Matcher matcher = Pattern.compile("[^\\s\"']+|\"([^\"]*)\"|'([^']*)'").matcher(message);
+
         while (matcher.find()) {
             if (matcher.group(1) != null) {
                 // Add double-quoted string without the quotes
@@ -131,7 +126,22 @@ public class PrivMsgEvent extends Event {
 
                             String messageWithoutCommand = message.substring(message.substring(1).length() > eventRegister.command.length() ? eventRegister.command.length() + 2 : message.length());
 
-                            CommandEvent commandEvent = new CommandEvent(ircManager, user, channel, messageWithoutCommand, message, eventRegister.command, args, LogManager.getLogger(eventRegister.event.getClass().getSimpleName()));
+                            OptionParser parser = new OptionParser();
+                            parser.allowsUnrecognizedOptions();
+
+                            for (String arg : eventRegister.args) {
+                                if (arg.endsWith(":")) {
+                                    parser.accepts(arg.substring(0, arg.length() - 1)).withRequiredArg();
+                                } else if (arg.endsWith("::")) {
+                                    parser.accepts(arg.substring(0, arg.length() - 2)).withOptionalArg();
+                                } else {
+                                    parser.accepts(arg);
+                                }
+                            }
+
+                            OptionSet optionSet = parser.parse(args);
+
+                            CommandEvent commandEvent = new CommandEvent(ircManager, user, channel, messageWithoutCommand, message, eventRegister.command, args, optionSet, LogManager.getLogger(eventRegister.event.getClass()));
 
                             Level level = Source.loopMask(ircManager, user.getCompleteRawLine());
                             switch (eventRegister.level) {
@@ -170,7 +180,7 @@ public class PrivMsgEvent extends Event {
     private void execPrivAction() throws Exception {
         ircManager.getEvents().forEach((event) -> {
             try {
-                event.onPrivMsg(new tk.jomp16.irc.event.listener.event.PrivMsgEvent(ircManager, user, channel, message, tag, args, LogManager.getLogger(event.getClass().getSimpleName())));
+                event.onPrivMsg(new tk.jomp16.irc.event.listener.event.PrivMsgEvent(ircManager, user, channel, message, tag, args, LogManager.getLogger(event.getClass())));
             } catch (Exception e) {
                 log.error(e);
             }
@@ -189,13 +199,15 @@ public class PrivMsgEvent extends Event {
         return i;
     }
 
+    // TODO: I THINK THIS ISN'T WORKING
     private boolean isLocked() {
         int currentSec = Integer.parseInt(simpleDateFormat.format(new Date(System.currentTimeMillis())));
 
         if (spamLock.containsKey(this.user.getUserName())) {
             int timeLock = spamLock.get(this.user.getUserName());
             int timeOut = ircManager.getConfiguration().getCommandLock();
-            if (timeLock > transform(currentSec + timeOut) || timeLock < transform(currentSec - timeOut)) {
+
+            if (timeLock > transform(currentSec + timeOut) && timeLock < transform(currentSec - timeOut)) {
                 spamLock.replace(this.user.getUserName(), currentSec);
                 return false;
             }
@@ -230,12 +242,14 @@ public class PrivMsgEvent extends Event {
 
     public static class EventRegister {
         public String command;
+        public String[] args;
         public Method method;
         public Event event;
         public Level level;
 
-        public EventRegister(String command, Event event, Level level, Method method) {
+        public EventRegister(String command, String[] args, Event event, Level level, Method method) {
             this.command = command;
+            this.args = args;
             this.method = method;
             this.event = event;
             this.level = level;

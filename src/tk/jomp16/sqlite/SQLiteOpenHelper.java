@@ -5,7 +5,7 @@
  * as published by Sam Hocevar. See the COPYING file for more details.
  */
 
-package tk.jomp16.sqlite1;
+package tk.jomp16.sqlite;
 
 import java.sql.SQLException;
 

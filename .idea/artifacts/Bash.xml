@@ -3,6 +3,7 @@
     <output-path>$PROJECT_DIR$/plugins</output-path>
     <root id="archive" name="Bash.jar">
       <element id="module-output" name="Bash" />
+      <element id="file-copy" path="$PROJECT_DIR$/plugin_src/Bash/plugin.json" />
     </root>
   </artifact>
 </component>

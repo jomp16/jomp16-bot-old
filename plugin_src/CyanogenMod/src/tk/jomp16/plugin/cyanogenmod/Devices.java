@@ -13,7 +13,7 @@ import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.listener.CommandEvent;
 import tk.jomp16.irc.event.listener.InitEvent;
-import tk.jomp16.irc.plugin.help.HelpRegister;
+import tk.jomp16.plugin.help.HelpRegister;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -41,18 +41,18 @@ public class Devices extends Event {
                     DeviceInfo deviceInfo = devices.get(commandEvent.getArgs().get(1));
 
                     if (deviceInfo != null) {
-                        commandEvent.respond("Device: " + deviceInfo.deviceName + " | " +
-                                "CM Version: " + deviceInfo.cmVersion.getName() + " - " +
-                                deviceInfo.cmVersion.getAndroidVersion());
+                        commandEvent.respond("Device: " + deviceInfo.getDeviceName() + " | " +
+                                "CM Version: " + deviceInfo.getCmVersion().getName() + " - " +
+                                deviceInfo.getCmVersion().getAndroidVersion());
                     }
                 }
             } else {
                 DeviceInfo info = devices.get(commandEvent.getArgs().get(0));
 
                 if (info != null) {
-                    commandEvent.respond("Device codename: " + info.codename + " | " +
-                            "Name: " + info.deviceName + " | " +
-                            "CM Wiki: " + info.cmWiki);
+                    commandEvent.respond("Device codename: " + info.getCodename() + " | " +
+                            "Name: " + info.getDeviceName() + " | " +
+                            "CM Wiki: " + info.getCmWiki());
                 } else {
                     commandEvent.respond("No officially supported device found");
                 }
@@ -115,20 +115,6 @@ public class Devices extends Event {
             return deviceNameRaw.substring(0, deviceNameRaw.indexOf(" (\""));
         } catch (Exception e) {
             return null;
-        }
-    }
-
-    private static class DeviceInfo {
-        private String codename;
-        private String deviceName;
-        private Versions cmVersion;
-        private String cmWiki;
-
-        private DeviceInfo(String codename, String deviceName, Versions cmVersion, String cmWiki) {
-            this.codename = codename;
-            this.deviceName = deviceName;
-            this.cmVersion = cmVersion;
-            this.cmWiki = cmWiki;
         }
     }
 }

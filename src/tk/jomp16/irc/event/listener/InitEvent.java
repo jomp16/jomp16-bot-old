@@ -9,10 +9,10 @@ package tk.jomp16.irc.event.listener;
 
 import tk.jomp16.irc.IRCManager;
 import tk.jomp16.irc.event.Event;
-import tk.jomp16.irc.plugin.help.HelpRegister;
 import tk.jomp16.language.LanguageManager;
 import tk.jomp16.logger.Logger;
-import tk.jomp16.sqlite.SQLiteManager;
+import tk.jomp16.plugin.help.HelpRegister;
+import tk.jomp16.sqlite_old.SQLiteManager;
 
 import java.io.File;
 import java.net.URLDecoder;
@@ -84,7 +84,7 @@ public class InitEvent {
         return new SQLiteManager(file.getAbsolutePath() + "/database.db");
     }
 
-    public LanguageManager getLanguageManager(String resourcePath) {
-        return new LanguageManager(resourcePath);
+    public LanguageManager getLanguageManager(Event event, String resourcePath) {
+        return new LanguageManager(resourcePath, event.getClass().getClassLoader());
     }
 }

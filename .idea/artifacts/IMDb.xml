@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="IMDb">
+    <output-path>$PROJECT_DIR$/plugins</output-path>
+    <root id="archive" name="IMDb.jar">
+      <element id="module-output" name="IMDb" />
+    </root>
+  </artifact>
+</component>

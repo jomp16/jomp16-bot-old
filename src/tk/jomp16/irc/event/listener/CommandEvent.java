@@ -7,20 +7,20 @@
 
 package tk.jomp16.irc.event.listener;
 
+import joptsimple.OptionSet;
 import tk.jomp16.irc.IRCManager;
 import tk.jomp16.irc.channel.Channel;
 import tk.jomp16.irc.channel.ChannelDAO;
 import tk.jomp16.irc.event.Event;
-import tk.jomp16.irc.plugin.help.HelpRegister;
 import tk.jomp16.irc.user.User;
 import tk.jomp16.logger.Logger;
+import tk.jomp16.plugin.help.HelpRegister;
 
 import java.util.List;
 
 public class CommandEvent {
     private IRCManager ircManager;
     private User user;
-    //    private UserDAO userDAO;
     private Channel channel;
     private ChannelDAO channelDAO;
     private String message;
@@ -28,8 +28,9 @@ public class CommandEvent {
     private List<String> args;
     private Logger log;
     private String command;
+    private OptionSet optionSet;
 
-    public CommandEvent(IRCManager ircManager, User user, Channel channel, String message, String rawMessage, String command, List<String> args, Logger log) {
+    public CommandEvent(IRCManager ircManager, User user, Channel channel, String message, String rawMessage, String command, List<String> args, OptionSet optionSet, Logger log) {
         this.ircManager = ircManager;
         this.user = user;
         this.channel = channel;
@@ -38,6 +39,7 @@ public class CommandEvent {
         this.rawMessage = rawMessage;
         this.command = command;
         this.args = args;
+        this.optionSet = optionSet;
         this.log = log;
     }
 
@@ -98,12 +100,23 @@ public class CommandEvent {
     public synchronized void showUsage(Event event, String command) {
         for (HelpRegister helpRegister : event.getHelpRegister()) {
             if (helpRegister.getCommand().equals(command)) {
-                respond("Usage: " + ircManager.getConfiguration().getPrefix() + command + " " + helpRegister.getUsage());
+                String usage = helpRegister.getUsage();
+
+                if (usage != null) {
+                    respond("Usage: " + ircManager.getConfiguration().getPrefix() + command + " " + helpRegister.getUsage());
+                } else {
+                    respond("Usage: " + ircManager.getConfiguration().getPrefix());
+                }
             } else {
                 if (helpRegister.getOptCommands() != null && helpRegister.getOptCommands().length != 0) {
                     for (String s : helpRegister.getOptCommands()) {
                         if (s.equals(command)) {
-                            respond("Usage: " + ircManager.getConfiguration().getPrefix() + s + " " + helpRegister.getUsage());
+                            String usage = helpRegister.getUsage();
+                            if (usage != null) {
+                                respond("Usage: " + ircManager.getConfiguration().getPrefix() + s + " " + helpRegister.getUsage());
+                            } else {
+                                respond("Usage: " + ircManager.getConfiguration().getPrefix() + s);
+                            }
                         }
                     }
                 }
@@ -149,9 +162,9 @@ public class CommandEvent {
         return log;
     }
 
-//    public UserDAO getUserDAO() {
-//        return userDAO;
-//    }
+    public OptionSet getOptionSet() {
+        return optionSet;
+    }
 
     public ChannelDAO getChannelDAO() {
         return channelDAO;

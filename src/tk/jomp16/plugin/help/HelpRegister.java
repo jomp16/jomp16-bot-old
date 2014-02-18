@@ -5,7 +5,7 @@
  * as published by Sam Hocevar. See the COPYING file for more details.
  */
 
-package tk.jomp16.irc.plugin.help;
+package tk.jomp16.plugin.help;
 
 import tk.jomp16.irc.event.Level;
 
@@ -38,6 +38,19 @@ public class HelpRegister {
         this.level = Level.NORMAL;
     }
 
+    public HelpRegister(String command, String[] optCommands, String help) {
+        this.command = command;
+        this.optCommands = optCommands;
+        this.help = help;
+        this.level = Level.NORMAL;
+    }
+
+    public HelpRegister(String command, String help) {
+        this.command = command;
+        this.help = help;
+        this.level = Level.NORMAL;
+    }
+
     /**
      * Help class for register a help
      *
@@ -58,6 +71,19 @@ public class HelpRegister {
         this.command = command;
         this.help = help;
         this.usage = usage;
+        this.level = level;
+    }
+
+    public HelpRegister(String command, String[] optCommands, String help, Level level) {
+        this.command = command;
+        this.optCommands = optCommands;
+        this.help = help;
+        this.level = level;
+    }
+
+    public HelpRegister(String command, String help, Level level) {
+        this.command = command;
+        this.help = help;
         this.level = level;
     }
 

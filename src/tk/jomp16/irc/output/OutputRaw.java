@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class OutputRaw {
     private IRCManager ircManager;
-    private Logger log = LogManager.getLogger(this.getClass().getSimpleName());
+    private Logger log = LogManager.getLogger(this.getClass());
 
     public OutputRaw(IRCManager ircManager) {
         this.ircManager = ircManager;

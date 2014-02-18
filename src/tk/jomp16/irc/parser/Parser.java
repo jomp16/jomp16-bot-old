@@ -29,6 +29,7 @@ public abstract class Parser {
         put(Tags.COMMAND_PART, new PartParser());
         put(Tags.COMMAND_PING, new PingParser());
         put(Tags.COMMAND_PRIVMSG, new PrivMsgParser());
+        put(Tags.COMMAND_QUIT, new QuitParser());
 
         NickNameInUseParser nickNameInUseParser = new NickNameInUseParser();
         put(Tags.ERROR_NICK_IN_USE, nickNameInUseParser);
@@ -37,7 +38,7 @@ public abstract class Parser {
         put(Tags.RESPONSE_NAMES_LIST, new NamesParser());
         put(Tags.RESPONSE_TOPIC_MESSAGE, new ChannelTopicParser());
     }};
-    private static Logger log = LogManager.getLogger(Parser.class.getSimpleName());
+    private static Logger log = LogManager.getLogger(Parser.class);
     private static String host = null;
 
     public static void parseLine(IRCManager ircManager, String rawLine) {
@@ -80,7 +81,11 @@ public abstract class Parser {
                     }
                 };
 
-                ircManager.getExecutor().execute(runnable);
+                if (!ircManager.getExecutor().isShutdown()) {
+                    ircManager.getExecutor().execute(runnable);
+                } else {
+                    log.debug("Executor is not available (i.e. it's shutdown)");
+                }
             }
         } else {
             log.debug("Parser for command " + command + " not found");

@@ -5,11 +5,12 @@
  * as published by Sam Hocevar. See the COPYING file for more details.
  */
 
-package tk.jomp16.sqlite;
+package tk.jomp16.sqlite_old;
 
 import java.io.File;
 import java.sql.*;
 
+@Deprecated
 public class SQLiteManager {
     private Connection connection;
     private Statement statement;

@@ -12,8 +12,8 @@ import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.Level;
 import tk.jomp16.irc.event.listener.CommandEvent;
 import tk.jomp16.irc.event.listener.InitEvent;
-import tk.jomp16.irc.plugin.help.HelpRegister;
 import tk.jomp16.language.LanguageManager;
+import tk.jomp16.plugin.help.HelpRegister;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -31,7 +31,7 @@ public class Exec extends Event {
             try {
                 process = Runtime.getRuntime().exec(tmp);
             } catch (Exception e) {
-                commandEvent.respond(languageManager.getString("error"));
+                commandEvent.respond(languageManager.getAsString("error"));
             }
 
             assert process != null;
@@ -53,15 +53,15 @@ public class Exec extends Event {
                     }
                 }
             } catch (Exception e) {
-                commandEvent.respond(languageManager.getString("error"));
+                commandEvent.respond(languageManager.getAsString("error"));
             }
         }
     }
 
     @Override
     public void onInit(InitEvent initEvent) throws Exception {
-        languageManager = Vars.getLanguageManager("tk.jomp16.plugin.bash.resource.Strings");
+        languageManager = initEvent.getLanguageManager(this, "tk.jomp16.plugin.bash.resource.Strings");
 
-        initEvent.addHelp(this, new HelpRegister("exec", languageManager.getString("help.exec"), languageManager.getString("usage.exec"), Level.OWNER));
+        initEvent.addHelp(this, new HelpRegister("exec", languageManager.getAsString("help.exec"), languageManager.getAsString("usage.exec"), Level.OWNER));
     }
 }

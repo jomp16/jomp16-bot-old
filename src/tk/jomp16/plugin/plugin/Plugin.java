@@ -5,7 +5,7 @@
  * as published by Sam Hocevar. See the COPYING file for more details.
  */
 
-package tk.jomp16.irc.plugin.plugin;
+package tk.jomp16.plugin.plugin;
 
 import org.apache.commons.lang3.StringUtils;
 import tk.jomp16.irc.event.Command;
@@ -15,9 +15,9 @@ import tk.jomp16.irc.event.events.PrivMsgEvent;
 import tk.jomp16.irc.event.listener.CommandEvent;
 import tk.jomp16.irc.event.listener.DisableEvent;
 import tk.jomp16.irc.event.listener.ResetEvent;
-import tk.jomp16.irc.plugin.PluginLoader;
-import tk.jomp16.irc.plugin.help.Help;
 import tk.jomp16.logger.LogManager;
+import tk.jomp16.plugin.commands.Commands;
+import tk.jomp16.plugin.help.Help;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -42,8 +42,8 @@ public class Plugin extends Event {
                         if (eventHashMap.containsKey(commandEvent.getArgs().get(1))) {
                             Event eventToDisable = eventHashMap.get(commandEvent.getArgs().get(1));
 
-                            eventToDisable.onDisable(new DisableEvent(commandEvent.getIrcManager(), LogManager.getLogger(eventToDisable.getClass().getSimpleName())));
-                            eventHashMap.remove(eventToDisable.getClass().getSimpleName());
+                            eventToDisable.onDisable(new DisableEvent(commandEvent.getIrcManager(), LogManager.getLogger(eventToDisable.getClass())));
+                            eventHashMap.remove(eventToDisable.getClass());
                             commandEvent.getIrcManager().getEvents().remove(eventToDisable);
 
                             PrivMsgEvent.reloadEvents(commandEvent.getIrcManager().getEvents());
@@ -60,9 +60,10 @@ public class Plugin extends Event {
                             int tmp = 0;
 
                             commandEvent.getIrcManager().getEvents().clear();
+                            commandEvent.getIrcManager().getPluginLoader().closeAll();
                             eventHashMap.clear();
 
-                            for (Event event : new PluginLoader().load()) {
+                            for (Event event : commandEvent.getIrcManager().getPluginLoader().load()) {
                                 tmp++;
 
                                 commandEvent.getIrcManager().registerEvent(event, false);
@@ -71,7 +72,8 @@ public class Plugin extends Event {
                             commandEvent.getIrcManager().getEvents().addAll(commandEvent.getIrcManager().getBundledEvent());
                             loadPluginInfo(commandEvent.getIrcManager().getEvents());
                             PrivMsgEvent.reloadEvents(commandEvent.getIrcManager().getEvents());
-                            Help.reloadHelp(commandEvent.getIrcManager().getEvents());
+                            Help.reloadHelp();
+                            Commands.reload();
 
                             commandEvent.respond("Reloaded " + tmp + " plugin classes");
                         } else {
@@ -79,7 +81,7 @@ public class Plugin extends Event {
                                 if (!commandEvent.getIrcManager().getBundledEvent().contains(eventHashMap.get(commandEvent.getArgs().get(1)))) {
                                     Event eventToDisable = eventHashMap.get(commandEvent.getArgs().get(1));
                                     try {
-                                        eventToDisable.onDisable(new DisableEvent(commandEvent.getIrcManager(), LogManager.getLogger(eventToDisable.getClass().getSimpleName())));
+                                        eventToDisable.onDisable(new DisableEvent(commandEvent.getIrcManager(), LogManager.getLogger(eventToDisable.getClass())));
                                     } catch (Exception e) {
                                         // Ignore it...
                                         commandEvent.getLog().error(e);
@@ -91,7 +93,7 @@ public class Plugin extends Event {
                                     int tmp = 0;
 
                                     if (pluginFile != null) {
-                                        for (Event event : new PluginLoader().load(pluginFile)) {
+                                        for (Event event : commandEvent.getIrcManager().getPluginLoader().load(pluginFile)) {
                                             tmp++;
 
                                             commandEvent.getIrcManager().registerEvent(event, false);
@@ -126,7 +128,7 @@ public class Plugin extends Event {
                         if (pluginFile != null) {
                             int tmp = 0;
 
-                            for (Event event : new PluginLoader().load(pluginFile)) {
+                            for (Event event : commandEvent.getIrcManager().getPluginLoader().load(pluginFile)) {
                                 tmp++;
 
                                 commandEvent.getIrcManager().registerEvent(event, false);

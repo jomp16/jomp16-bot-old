@@ -32,7 +32,7 @@ public class KickEvent extends Event {
     public void respond() throws Exception {
         ircManager.getEvents().forEach((event) -> {
             try {
-                event.onKick(new tk.jomp16.irc.event.listener.event.KickEvent(ircManager, user, channel, userKicked, reason, LogManager.getLogger(event.getClass().getSimpleName())));
+                event.onKick(new tk.jomp16.irc.event.listener.event.KickEvent(ircManager, user, channel, userKicked, reason, LogManager.getLogger(event.getClass())));
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -5,15 +5,16 @@
  * as published by Sam Hocevar. See the COPYING file for more details.
  */
 
-package tk.jomp16.sqlite.configurator;
+package tk.jomp16.sqlite_old.configurator;
 
-import tk.jomp16.sqlite.SQLiteManager;
+import tk.jomp16.sqlite_old.SQLiteManager;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+@Deprecated
 public class SQLite_Configurator {
     // TODO: terminate and improve this shittz!!
 

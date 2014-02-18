@@ -13,8 +13,8 @@ import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.listener.CommandEvent;
 import tk.jomp16.irc.event.listener.InitEvent;
-import tk.jomp16.irc.plugin.help.HelpRegister;
 import tk.jomp16.language.LanguageManager;
+import tk.jomp16.plugin.help.HelpRegister;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -42,7 +42,7 @@ public class Currency extends Event {
             }
 
             //commandEvent.respond("Currency: " + quantity + " " + from + " to " + to + " equals " + currencyJSON.getV() + " || 1 " + from + " to " + to + " equals " + currencyJSON.getRate());
-            commandEvent.respond(languageManager.getString("currency.respond", quantity, from, to, currencyJSON.getV(), currencyJSON.getRate()));
+            commandEvent.respond(languageManager.getAsString("currency.respond", quantity, from, to, currencyJSON.getV(), currencyJSON.getRate()));
         } else {
             commandEvent.showUsage(this, commandEvent.getCommand());
         }
@@ -50,8 +50,8 @@ public class Currency extends Event {
 
     @Override
     public void onInit(InitEvent initEvent) throws Exception {
-        this.languageManager = new LanguageManager("tk.jomp16.plugin.utils.resource.Strings");
+        this.languageManager = initEvent.getLanguageManager(this, "tk.jomp16.plugin.utils.resource.Strings");
 
-        initEvent.addHelp(this, new HelpRegister("currency", new String[]{"money"}, languageManager.getString("currency.help"), languageManager.getString("currency.usage")));
+        initEvent.addHelp(this, new HelpRegister("currency", new String[]{"money"}, languageManager.getAsString("currency.help"), languageManager.getAsString("currency.usage")));
     }
 }

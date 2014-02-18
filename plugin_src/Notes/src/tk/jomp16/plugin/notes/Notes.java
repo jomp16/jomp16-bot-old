@@ -13,9 +13,9 @@ import tk.jomp16.irc.event.listener.CommandEvent;
 import tk.jomp16.irc.event.listener.DisableEvent;
 import tk.jomp16.irc.event.listener.InitEvent;
 import tk.jomp16.irc.event.listener.ResetEvent;
-import tk.jomp16.irc.plugin.help.HelpRegister;
+import tk.jomp16.plugin.help.HelpRegister;
 import tk.jomp16.plugin.notes.database.NotesOpenHelper;
-import tk.jomp16.sqlite1.SQLiteDatabase;
+import tk.jomp16.sqlite.SQLiteDatabase;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

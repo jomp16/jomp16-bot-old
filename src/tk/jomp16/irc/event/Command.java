@@ -17,5 +17,7 @@ import java.lang.annotation.Target;
 public @interface Command {
     String[] value();
 
+    String[] args() default "placeholder";
+
     Level level() default Level.NORMAL;
 }

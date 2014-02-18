@@ -30,7 +30,7 @@ public class PartEvent extends Event {
     public void respond() throws Exception {
         ircManager.getEvents().forEach((event) -> {
             try {
-                event.onPart(new tk.jomp16.irc.event.listener.event.PartEvent(ircManager, user, channel, reason, LogManager.getLogger(event.getClass().getSimpleName())));
+                event.onPart(new tk.jomp16.irc.event.listener.event.PartEvent(ircManager, user, channel, reason, LogManager.getLogger(event.getClass())));
             } catch (Exception e) {
                 e.printStackTrace();
             }

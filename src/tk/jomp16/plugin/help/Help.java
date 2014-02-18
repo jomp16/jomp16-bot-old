@@ -5,16 +5,18 @@
  * as published by Sam Hocevar. See the COPYING file for more details.
  */
 
-package tk.jomp16.irc.plugin.help;
+package tk.jomp16.plugin.help;
 
 import org.apache.commons.lang3.StringUtils;
 import tk.jomp16.irc.IRCManager;
 import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.Level;
+import tk.jomp16.irc.event.events.PrivMsgEvent;
 import tk.jomp16.irc.event.listener.CommandEvent;
 import tk.jomp16.irc.event.listener.InitEvent;
 import tk.jomp16.irc.event.listener.ResetEvent;
+import tk.jomp16.language.LanguageManager;
 
 import java.util.*;
 
@@ -24,16 +26,18 @@ public class Help extends Event {
     private static List<String> helpAdmin = new ArrayList<>();
     private static List<String> helpOwner = new ArrayList<>();
     private static Map<String, HelpRegister> helpRegisters = new HashMap<>();
+    private static LanguageManager languageManager;
 
-    private static void registerHelp(List<Event> events) {
-        for (Event event : events) {
-            for (HelpRegister helpRegister : event.getHelpRegister()) {
+    private static void registerHelp() {
+        for (PrivMsgEvent.EventRegister eventRegister : PrivMsgEvent.getEventRegisters()) {
+            for (HelpRegister helpRegister : eventRegister.event.getHelpRegister()) {
                 helpRegisters.put(helpRegister.getCommand(), helpRegister);
 
                 addToList(helpRegister.getCommand(), helpRegister.getLevel());
 
                 if (helpRegister.getOptCommands() != null && helpRegister.getOptCommands().length != 0) {
                     for (String s : helpRegister.getOptCommands()) {
+                        // TODO: ADD OPT COMMANDS INSIDE REAL COMMAND, LIKE on help: money [currency], other command [other opt command], other command
                         helpRegisters.put(s, helpRegister);
 
                         addToList(s, helpRegister.getLevel());
@@ -74,23 +78,23 @@ public class Help extends Event {
     @Command("help")
     public void help(CommandEvent commandEvent) throws Exception {
         if (helpRegisters.size() == 0) {
-            registerHelp(commandEvent.getIrcManager().getEvents());
+            registerHelp();
         }
 
         if (commandEvent.getArgs().size() > 0) {
             if (commandEvent.getArgs().get(0).equals("all")) {
                 switch (commandEvent.getUser().getLevel()) {
                     case NORMAL:
-                        commandEvent.respond("Available help for that commands: " + StringUtils.join(helpNormal, ", "));
+                        commandEvent.respond(languageManager.getAsString("help.text.available.commands", StringUtils.join(helpNormal, ", ")));
                         break;
                     case MOD:
-                        commandEvent.respond("Available help for that commands: " + StringUtils.join(helpMod, ", "));
+                        commandEvent.respond(languageManager.getAsString("help.text.available.commands", StringUtils.join(helpMod, ", ")));
                         break;
                     case ADMIN:
-                        commandEvent.respond("Available help for that commands: " + StringUtils.join(helpAdmin, ", "));
+                        commandEvent.respond(languageManager.getAsString("help.text.available.commands", StringUtils.join(helpAdmin, ", ")));
                         break;
                     case OWNER:
-                        commandEvent.respond("Available help for that commands: " + StringUtils.join(helpOwner, ", "));
+                        commandEvent.respond(languageManager.getAsString("help.text.available.commands", StringUtils.join(helpOwner, ", ")));
                         break;
                 }
             } else {
@@ -119,7 +123,7 @@ public class Help extends Event {
                             break;
                     }
                 } else {
-                    commandEvent.respond("No help found for that command, maybe the help doesn't exists or you mistyped the command?");
+                    commandEvent.respond(languageManager.getAsString("help.text.not.found"));
                 }
             }
         } else {
@@ -129,24 +133,59 @@ public class Help extends Event {
 
     private String getHelpInfo(IRCManager ircManager, HelpRegister helpRegister) {
         if (helpRegister.getOptCommands() != null && helpRegister.getOptCommands().length != 0) {
-            return "Command: " + ircManager.getConfiguration().getPrefix() + helpRegister.getCommand() + " || " + "Optional commands: " + StringUtils.join(helpRegister.getOptCommands(), ", ") + " || " + "Help: " + helpRegister.getHelp() + " || " + "Usage: " + ircManager.getConfiguration().getPrefix() + helpRegister.getCommand() + " " + helpRegister.getUsage();
+            String usage = helpRegister.getUsage();
+
+            if (usage != null) {
+                return languageManager.getAsString("help.text.with.opt.command",
+                        ircManager.getConfiguration().getPrefix(),
+                        helpRegister.getCommand(),
+                        StringUtils.join(helpRegister.getOptCommands(), ", "),
+                        helpRegister.getHelp(),
+                        helpRegister.getUsage());
+            } else {
+                return languageManager.getAsString("help.text.with.opt.command",
+                        ircManager.getConfiguration().getPrefix(),
+                        helpRegister.getCommand(),
+                        StringUtils.join(helpRegister.getOptCommands(), ", "),
+                        helpRegister.getHelp(),
+                        helpRegister.getUsage());
+            }
         } else {
-            return "Command: " + ircManager.getConfiguration().getPrefix() + helpRegister.getCommand() + " || " + "Help: " + helpRegister.getHelp() + " || " + "Usage: " + ircManager.getConfiguration().getPrefix() + helpRegister.getCommand() + " " + helpRegister.getUsage();
+            String usage = helpRegister.getUsage();
+
+            if (usage != null) {
+                return languageManager.getAsString("help.text.without.opt.command",
+                        ircManager.getConfiguration().getPrefix(),
+                        helpRegister.getCommand(),
+                        helpRegister.getHelp(),
+                        helpRegister.getUsage());
+            } else {
+                return languageManager.getAsString("help.text.without.opt.command",
+                        ircManager.getConfiguration().getPrefix(),
+                        helpRegister.getCommand(),
+                        helpRegister.getHelp(),
+                        "");
+            }
         }
     }
 
-    public static void reloadHelp(List<Event> events) {
+    public static void reloadHelp() {
         helpRegisters.clear();
         helpNormal.clear();
         helpMod.clear();
         helpAdmin.clear();
         helpOwner.clear();
-        registerHelp(events);
+
+        registerHelp();
     }
 
     @Override
     public void onInit(InitEvent initEvent) throws Exception {
-        initEvent.addHelp(this, new HelpRegister("help", "get help of a plugin", "<all||plugin_name>"));
+        languageManager = new LanguageManager("tk.jomp16.plugin.resource.Strings");
+
+        initEvent.addHelp(this, new HelpRegister("help",
+                languageManager.getAsString("help.help.text"),
+                languageManager.getAsString("help.help.usage")));
     }
 
     @Override
@@ -156,6 +195,7 @@ public class Help extends Event {
         helpMod.clear();
         helpAdmin.clear();
         helpOwner.clear();
-        registerHelp(resetEvent.getIrcManager().getEvents());
+
+        registerHelp();
     }
 }
