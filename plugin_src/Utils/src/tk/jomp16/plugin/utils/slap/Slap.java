@@ -9,7 +9,7 @@ package tk.jomp16.plugin.utils.slap;
 
 import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
-import tk.jomp16.irc.event.listener.CommandEvent;
+import tk.jomp16.irc.event.listener.event.CommandEvent;
 
 public class Slap extends Event {
     @Command("slap")

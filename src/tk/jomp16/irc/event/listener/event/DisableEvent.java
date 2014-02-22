@@ -5,12 +5,13 @@
  * as published by Sam Hocevar. See the COPYING file for more details.
  */
 
-package tk.jomp16.irc.event.listener;
+package tk.jomp16.irc.event.listener.event;
 
 import tk.jomp16.irc.IRCManager;
+import tk.jomp16.irc.event.listener.Listener;
 import tk.jomp16.logger.Logger;
 
-public class DisableEvent extends InitEvent {
+public class DisableEvent extends Listener {
     public DisableEvent(IRCManager ircManager, Logger log) {
         super(ircManager, log);
     }

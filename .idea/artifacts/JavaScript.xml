@@ -3,6 +3,7 @@
     <output-path>$PROJECT_DIR$/plugins</output-path>
     <root id="archive" name="JavaScript.jar">
       <element id="module-output" name="JavaScript" />
+      <element id="file-copy" path="$PROJECT_DIR$/plugin_src/JavaScript/plugin.json" />
     </root>
   </artifact>
 </component>

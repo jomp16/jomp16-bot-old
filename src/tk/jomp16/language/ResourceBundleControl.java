@@ -39,10 +39,6 @@ public class ResourceBundleControl extends ResourceBundle.Control {
     public ResourceBundle newBundle(String baseName, Locale locale, String format, ClassLoader loader, boolean reload) throws IllegalAccessException, InstantiationException, IOException {
         this.CURRENT_ELEMENT = format;
 
-        //URLClassLoader urlClassLoader = (URLClassLoader) loader;
-
-        //System.out.println("[WAT] " + Arrays.toString(urlClassLoader.getURLs()));
-
         if (!FORMAT_JSON.equals(format)) {
             return super.newBundle(baseName, locale, format, loader, reload);
         }

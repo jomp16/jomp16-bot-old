@@ -28,7 +28,7 @@ public class JoinEvent extends Event {
     public void respond() throws Exception {
         ircManager.getEvents().forEach((event) -> {
             try {
-                event.onJoin(new tk.jomp16.irc.event.listener.event.JoinEvent(ircManager, user, channel, LogManager.getLogger(event.getClass())));
+                event.onJoin(new tk.jomp16.irc.event.listener.event.JoinEvent(ircManager, user, channel, null, LogManager.getLogger(event.getClass())));
             } catch (Exception e) {
                 e.printStackTrace();
             }

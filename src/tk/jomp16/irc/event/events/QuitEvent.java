@@ -27,7 +27,12 @@ public class QuitEvent extends Event {
     public void respond() throws Exception {
         ircManager.getEvents().forEach((event) -> {
             try {
-                event.onQuit(new tk.jomp16.irc.event.listener.event.QuitEvent(ircManager, user, quitMessage, LogManager.getLogger(event.getClass())));
+                tk.jomp16.irc.event.listener.event.QuitEvent quitEvent =
+                        new tk.jomp16.irc.event.listener.event.QuitEvent(ircManager, user, null,
+                                null, LogManager.getLogger(event.getClass()));
+
+                quitEvent.setReason(quitMessage);
+                event.onQuit(quitEvent);
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -8,28 +8,38 @@
 package tk.jomp16.irc.event.events;
 
 import tk.jomp16.irc.IRCManager;
+import tk.jomp16.irc.channel.Channel;
+import tk.jomp16.irc.channel.ChannelDAO;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.user.User;
 import tk.jomp16.logger.LogManager;
 
-import java.util.List;
-
 public class NickEvent extends Event {
     private IRCManager ircManager;
     private User user;
-    private List<String> args;
+    private Channel channel;
+    private String oldNick;
+    private String newNick;
 
-    public NickEvent(IRCManager ircManager, User user, List<String> args) {
+    public NickEvent(IRCManager ircManager, User user, Channel channel, String oldNick, String newNick) {
         this.ircManager = ircManager;
         this.user = user;
-        this.args = args;
+        this.channel = channel;
+        this.oldNick = oldNick;
+        this.newNick = newNick;
     }
 
     @Override
     public void respond() throws Exception {
         ircManager.getEvents().forEach((event) -> {
             try {
-                event.onNick(new tk.jomp16.irc.event.listener.event.NickEvent(ircManager, user, args.get(0), args.get(1), LogManager.getLogger(event.getClass())));
+                tk.jomp16.irc.event.listener.event.NickEvent nickEvent =
+                        new tk.jomp16.irc.event.listener.event.NickEvent(ircManager, user, channel,
+                                new ChannelDAO(ircManager, channel), LogManager.getLogger(event.getClass()));
+                nickEvent.setOldNick(oldNick);
+                nickEvent.setNewNick(newNick);
+
+                event.onNick(nickEvent);
             } catch (Exception e) {
                 e.printStackTrace();
             }

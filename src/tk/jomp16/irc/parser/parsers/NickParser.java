@@ -9,6 +9,7 @@ package tk.jomp16.irc.parser.parsers;
 
 import tk.jomp16.irc.IRCManager;
 import tk.jomp16.irc.Source;
+import tk.jomp16.irc.channel.Channel;
 import tk.jomp16.irc.channel.ChannelList;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.events.NickEvent;
@@ -29,11 +30,12 @@ public class NickParser extends Parser {
         User user = new User(token.getParams().get(0), token.getSource().getUser(), token.getSource().getHost(), Source.loopMask(ircManager, token.getSource().getRaw()));
 
         List<String> args = new ArrayList<>();
-        args.add(token.getSource().getNick());
-        args.add(token.getParams().get(0));
+        String oldNick = token.getSource().getNick();
+        String newNick = token.getParams().get(0);
+        Channel channel = new Channel(token.getParams().get(0));
 
         ChannelList.changeNick(args.get(0), args.get(1));
 
-        return new NickEvent(ircManager, user, args);
+        return new NickEvent(ircManager, user, channel, oldNick, newNick);
     }
 }

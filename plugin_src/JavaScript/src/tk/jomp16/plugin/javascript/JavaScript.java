@@ -10,9 +10,9 @@ package tk.jomp16.plugin.javascript;
 import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.Level;
-import tk.jomp16.irc.event.listener.CommandEvent;
-import tk.jomp16.irc.event.listener.DisableEvent;
-import tk.jomp16.irc.event.listener.InitEvent;
+import tk.jomp16.irc.event.listener.event.CommandEvent;
+import tk.jomp16.irc.event.listener.event.DisableEvent;
+import tk.jomp16.irc.event.listener.event.InitEvent;
 import tk.jomp16.plugin.help.HelpRegister;
 
 import javax.script.ScriptEngine;

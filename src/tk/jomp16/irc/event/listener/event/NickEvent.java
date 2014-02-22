@@ -8,61 +8,39 @@
 package tk.jomp16.irc.event.listener.event;
 
 import tk.jomp16.irc.IRCManager;
+import tk.jomp16.irc.channel.Channel;
+import tk.jomp16.irc.channel.ChannelDAO;
+import tk.jomp16.irc.event.listener.Listener;
 import tk.jomp16.irc.user.User;
 import tk.jomp16.logger.Logger;
+import tk.jomp16.plugin.PluginInfo;
 
-public class NickEvent {
-    private IRCManager ircManager;
-    private User user;
+public class NickEvent extends Listener {
     private String oldNick;
     private String newNick;
-    private Logger logger;
 
-    public NickEvent(IRCManager ircManager, User user, String oldNick, String newNick, Logger logger) {
-        this.ircManager = ircManager;
-        this.user = user;
-        this.oldNick = oldNick;
-        this.newNick = newNick;
-        this.logger = logger;
+    public NickEvent(IRCManager ircManager, User user, Channel channel, ChannelDAO channelDAO, Logger log, PluginInfo pluginInfo) {
+        super(ircManager, user, channel, channelDAO, log, pluginInfo);
     }
 
-    public IRCManager getIrcManager() {
-        return ircManager;
+    public NickEvent(IRCManager ircManager, User user, Channel channel, ChannelDAO channelDAO, Logger log) {
+        super(ircManager, user, channel, channelDAO, log);
     }
 
-    public User getUser() {
-        return user;
-    }
 
     public String getOldNick() {
         return oldNick;
+    }
+
+    public void setOldNick(String oldNick) {
+        this.oldNick = oldNick;
     }
 
     public String getNewNick() {
         return newNick;
     }
 
-    public Logger getLogger() {
-        return logger;
-    }
-
-    public synchronized void respond(Object target, Object message) {
-        ircManager.getOutputIRC().sendMessage(target, message);
-
-        try {
-            wait(700);
-        } catch (Exception e) {
-            logger.error(e);
-        }
-    }
-
-    public synchronized void respond(Object target, Object user, Object message) {
-        ircManager.getOutputIRC().sendMessage(target, user, message);
-
-        try {
-            wait(700);
-        } catch (Exception e) {
-            logger.error(e);
-        }
+    public void setNewNick(String newNick) {
+        this.newNick = newNick;
     }
 }

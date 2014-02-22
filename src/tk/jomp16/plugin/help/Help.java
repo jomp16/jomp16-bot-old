@@ -13,9 +13,9 @@ import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.Level;
 import tk.jomp16.irc.event.events.PrivMsgEvent;
-import tk.jomp16.irc.event.listener.CommandEvent;
-import tk.jomp16.irc.event.listener.InitEvent;
-import tk.jomp16.irc.event.listener.ResetEvent;
+import tk.jomp16.irc.event.listener.event.CommandEvent;
+import tk.jomp16.irc.event.listener.event.InitEvent;
+import tk.jomp16.irc.event.listener.event.ResetEvent;
 import tk.jomp16.language.LanguageManager;
 
 import java.util.*;

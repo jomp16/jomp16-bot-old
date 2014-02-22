@@ -3,6 +3,7 @@
     <output-path>$PROJECT_DIR$/plugins</output-path>
     <root id="archive" name="Manager.jar">
       <element id="module-output" name="Manager" />
+      <element id="file-copy" path="$PROJECT_DIR$/plugin_src/Manager/plugin.json" />
     </root>
   </artifact>
 </component>

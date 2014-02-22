@@ -7,9 +7,6 @@
 
 package tk.jomp16.irc.event;
 
-import tk.jomp16.irc.event.listener.DisableEvent;
-import tk.jomp16.irc.event.listener.InitEvent;
-import tk.jomp16.irc.event.listener.ResetEvent;
 import tk.jomp16.irc.event.listener.event.*;
 import tk.jomp16.plugin.help.HelpRegister;
 

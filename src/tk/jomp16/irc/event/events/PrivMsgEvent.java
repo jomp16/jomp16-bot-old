@@ -12,13 +12,15 @@ import joptsimple.OptionSet;
 import tk.jomp16.irc.IRCManager;
 import tk.jomp16.irc.Source;
 import tk.jomp16.irc.channel.Channel;
+import tk.jomp16.irc.channel.ChannelDAO;
 import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.Level;
-import tk.jomp16.irc.event.listener.CommandEvent;
+import tk.jomp16.irc.event.listener.event.CommandEvent;
 import tk.jomp16.irc.user.User;
 import tk.jomp16.logger.LogManager;
 import tk.jomp16.logger.Logger;
+import tk.jomp16.plugin.PluginInfo;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -28,10 +30,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PrivMsgEvent extends Event {
+    public static IRCManager ircManager;
     private static List<EventRegister> eventRegisters = new ArrayList<>();
     private static Map<String, Integer> spamLock = new HashMap<>();
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ss");
-    private IRCManager ircManager;
     private User user;
     private String message;
     private Channel channel;
@@ -40,7 +42,7 @@ public class PrivMsgEvent extends Event {
     private Logger log = LogManager.getLogger(this.getClass());
 
     public PrivMsgEvent(IRCManager ircManager, User user, Channel channel, String message, PrivMSGTag tag) {
-        this.ircManager = ircManager;
+        PrivMsgEvent.ircManager = ircManager;
         this.user = user;
         this.message = message;
         this.channel = channel;
@@ -49,7 +51,7 @@ public class PrivMsgEvent extends Event {
         switch (tag) {
             case NORMAL:
             case ACTION:
-                runNormalAndAction(ircManager.getEvents());
+                runNormalAndAction();
                 break;
             case PING:
                 // TODO: see this
@@ -57,37 +59,48 @@ public class PrivMsgEvent extends Event {
         }
     }
 
-    public static void reloadEvents(List<Event> events) {
+    public static void reloadEvents() {
         eventRegisters.clear();
-        registerArrayList(events);
+        registerArrayList();
     }
 
     public static List<EventRegister> getEventRegisters() {
         return eventRegisters;
     }
 
-    private static void registerArrayList(List<Event> events) {
-        for (Event event : events) {
-            Method[] methods = event.getClass().getMethods();
+    private static void registerArrayList() {
+        ircManager.getEventMultimap().entries().forEach(entry -> {
+            Method[] methods = entry.getValue().getClass().getMethods();
+
             for (Method method : methods) {
                 Annotation annotation = method.getAnnotation(Command.class);
                 if (annotation != null) {
                     Command command = (Command) annotation;
 
                     for (String s : command.value()) {
-                        EventRegister eventRegister = new EventRegister(s, command.args(), event, command.level(), method);
+                        EventRegister eventRegister;
+                        PluginInfo pluginInfo = ircManager.getPluginInfoHashMap().get(entry.getKey());
+
+                        if (pluginInfo != null) {
+                            eventRegister =
+                                    new EventRegister(s, command.args(), pluginInfo, entry.getValue(), command.level(), method);
+                        } else {
+                            eventRegister =
+                                    new EventRegister(s, command.args(), entry.getValue(), command.level(), method);
+                        }
+
                         eventRegisters.add(eventRegister);
                     }
                 }
             }
-        }
+        });
     }
 
-    private void runNormalAndAction(List<Event> events) {
+    private void runNormalAndAction() {
         parseLine(message);
 
         if (eventRegisters.size() == 0) {
-            registerArrayList(events);
+            registerArrayList();
         }
 
         try {
@@ -124,24 +137,49 @@ public class PrivMsgEvent extends Event {
                         if (args.get(0).equals(eventRegister.command)) {
                             args.remove(0);
 
-                            String messageWithoutCommand = message.substring(message.substring(1).length() > eventRegister.command.length() ? eventRegister.command.length() + 2 : message.length());
+                            String messageWithoutCommand =
+                                    message.substring(message.substring(1).length() > eventRegister.command.length()
+                                            ? eventRegister.command.length() + 2
+                                            : message.length());
 
                             OptionParser parser = new OptionParser();
                             parser.allowsUnrecognizedOptions();
 
                             for (String arg : eventRegister.args) {
-                                if (arg.endsWith(":")) {
-                                    parser.accepts(arg.substring(0, arg.length() - 1)).withRequiredArg();
-                                } else if (arg.endsWith("::")) {
+                                if (arg.endsWith("::")) {
                                     parser.accepts(arg.substring(0, arg.length() - 2)).withOptionalArg();
+                                } else if (arg.endsWith(":")) {
+                                    parser.accepts(arg.substring(0, arg.length() - 1)).withRequiredArg();
                                 } else {
                                     parser.accepts(arg);
                                 }
                             }
 
                             OptionSet optionSet = parser.parse(args);
+                            CommandEvent commandEvent;
 
-                            CommandEvent commandEvent = new CommandEvent(ircManager, user, channel, messageWithoutCommand, message, eventRegister.command, args, optionSet, LogManager.getLogger(eventRegister.event.getClass()));
+                            if (eventRegister.pluginInfo != null) {
+                                commandEvent = new CommandEvent(ircManager, user, channel,
+                                        new ChannelDAO(ircManager, channel),
+                                        LogManager.getLogger(eventRegister.event.getClass()),
+                                        eventRegister.pluginInfo);
+
+                                commandEvent.setMessage(messageWithoutCommand);
+                                commandEvent.setArgs(args);
+                                commandEvent.setCommand(eventRegister.command);
+                                commandEvent.setOptionSet(optionSet);
+                                commandEvent.setRawMessage(message);
+                            } else {
+                                commandEvent = new CommandEvent(ircManager, user, channel,
+                                        new ChannelDAO(ircManager, channel),
+                                        LogManager.getLogger(eventRegister.event.getClass()));
+
+                                commandEvent.setMessage(messageWithoutCommand);
+                                commandEvent.setArgs(args);
+                                commandEvent.setCommand(eventRegister.command);
+                                commandEvent.setOptionSet(optionSet);
+                                commandEvent.setRawMessage(message);
+                            }
 
                             Level level = Source.loopMask(ircManager, user.getCompleteRawLine());
                             switch (eventRegister.level) {
@@ -149,12 +187,15 @@ public class PrivMsgEvent extends Event {
                                     invoke(eventRegister.method, eventRegister.event, commandEvent);
                                     break;
                                 case MOD:
-                                    if (level.equals(Level.MOD) || level.equals(Level.ADMIN) || level.equals(Level.OWNER)) {
+                                    if (level.equals(Level.MOD)
+                                            || level.equals(Level.ADMIN)
+                                            || level.equals(Level.OWNER)) {
                                         invoke(eventRegister.method, eventRegister.event, commandEvent);
                                     }
                                     break;
                                 case ADMIN:
-                                    if (level.equals(Level.ADMIN) || level.equals(Level.OWNER)) {
+                                    if (level.equals(Level.ADMIN)
+                                            || level.equals(Level.OWNER)) {
                                         invoke(eventRegister.method, eventRegister.event, commandEvent);
                                     }
                                     break;
@@ -180,7 +221,14 @@ public class PrivMsgEvent extends Event {
     private void execPrivAction() throws Exception {
         ircManager.getEvents().forEach((event) -> {
             try {
-                event.onPrivMsg(new tk.jomp16.irc.event.listener.event.PrivMsgEvent(ircManager, user, channel, message, tag, args, LogManager.getLogger(event.getClass())));
+                tk.jomp16.irc.event.listener.event.PrivMsgEvent privMsgEvent =
+                        new tk.jomp16.irc.event.listener.event.PrivMsgEvent(ircManager, user, channel,
+                                new ChannelDAO(ircManager, channel), LogManager.getLogger(event.getClass()));
+                privMsgEvent.setArgs(args);
+                privMsgEvent.setMessage(message);
+                privMsgEvent.setTag(tag);
+
+                event.onPrivMsg(privMsgEvent);
             } catch (Exception e) {
                 log.error(e);
             }
@@ -212,7 +260,9 @@ public class PrivMsgEvent extends Event {
                 return false;
             }
         } else {
-            if (user.getLevel() == Level.OWNER || user.getLevel() == Level.ADMIN || user.getLevel() == Level.MOD) {
+            if (user.getLevel() == Level.OWNER
+                    || user.getLevel() == Level.ADMIN
+                    || user.getLevel() == Level.MOD) {
                 return false;
             } else {
                 spamLock.put(this.user.getUserName(), currentSec);
@@ -246,11 +296,21 @@ public class PrivMsgEvent extends Event {
         public Method method;
         public Event event;
         public Level level;
+        public PluginInfo pluginInfo;
 
         public EventRegister(String command, String[] args, Event event, Level level, Method method) {
             this.command = command;
             this.args = args;
             this.method = method;
+            this.event = event;
+            this.level = level;
+        }
+
+        public EventRegister(String command, String[] args, PluginInfo pluginInfo, Event event, Level level, Method method) {
+            this.command = command;
+            this.args = args;
+            this.method = method;
+            this.pluginInfo = pluginInfo;
             this.event = event;
             this.level = level;
         }

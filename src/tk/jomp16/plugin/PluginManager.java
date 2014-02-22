@@ -7,16 +7,54 @@
 
 package tk.jomp16.plugin;
 
-import tk.jomp16.irc.IRCManager;
+import com.google.gson.Gson;
 import tk.jomp16.logger.LogManager;
 import tk.jomp16.logger.Logger;
 
-public class PluginManager {
-    private IRCManager ircManager;
-    private Logger logger = LogManager.getLogger(this.getClass());
+import java.io.File;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
-    public PluginManager(IRCManager ircManager) {
-        this.ircManager = ircManager;
-        // TODO: USE JSONProperties
+public class PluginManager {
+    private Logger logger = LogManager.getLogger(this.getClass());
+    private List<Plugin> plugins = new ArrayList<>();
+    private PluginLoader pluginLoader = new PluginLoader();
+    private Gson gson;
+
+    public PluginManager() {
+        this.gson = new Gson();
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    public void loadAll() throws Exception {
+        File f = new File(System.getProperty("user.dir").replace("\\", "/") + "/plugins");
+
+        for (File file : f.listFiles()) {
+            if (file.getName().endsWith(".jar")) {
+                JarFile jarFile = new JarFile(file);
+                JarEntry entry = jarFile.getJarEntry("plugin.json");
+
+                if (entry != null) {
+                    PluginInfo pluginInfo = gson.fromJson(getPluginInfoPath(file), PluginInfo.class);
+                    Plugin plugin = new Plugin(pluginInfo, pluginLoader.load(file));
+
+                    plugins.add(plugin);
+                }
+            }
+        }
+    }
+
+    private InputStreamReader getPluginInfoPath(File file) throws Exception {
+        URL url = new URL("jar:file:" + file.getPath() + "!/plugin.json");
+
+        return new InputStreamReader(url.openStream());
+    }
+
+    public List<Plugin> getPlugins() {
+        return plugins;
     }
 }

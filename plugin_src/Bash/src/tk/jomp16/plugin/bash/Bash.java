@@ -10,8 +10,8 @@ package tk.jomp16.plugin.bash;
 import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.Level;
-import tk.jomp16.irc.event.listener.CommandEvent;
-import tk.jomp16.irc.event.listener.InitEvent;
+import tk.jomp16.irc.event.listener.event.CommandEvent;
+import tk.jomp16.irc.event.listener.event.InitEvent;
 import tk.jomp16.language.LanguageManager;
 import tk.jomp16.plugin.help.HelpRegister;
 
@@ -62,6 +62,7 @@ public class Bash extends Event {
 
     @Override
     public void onInit(InitEvent initEvent) throws Exception {
+        System.out.println("WICKED WICKED");
         languageManager = initEvent.getLanguageManager(this, "tk.jomp16.plugin.bash.resource.Strings");
 
         initEvent.addHelp(this, new HelpRegister("bash", languageManager.getAsString("help.bash"), languageManager.getAsString("usage.bash"), Level.OWNER));

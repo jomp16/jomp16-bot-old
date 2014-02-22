@@ -9,10 +9,10 @@ package tk.jomp16.plugin.notes;
 
 import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
-import tk.jomp16.irc.event.listener.CommandEvent;
-import tk.jomp16.irc.event.listener.DisableEvent;
-import tk.jomp16.irc.event.listener.InitEvent;
-import tk.jomp16.irc.event.listener.ResetEvent;
+import tk.jomp16.irc.event.listener.event.CommandEvent;
+import tk.jomp16.irc.event.listener.event.DisableEvent;
+import tk.jomp16.irc.event.listener.event.InitEvent;
+import tk.jomp16.irc.event.listener.event.ResetEvent;
 import tk.jomp16.plugin.help.HelpRegister;
 import tk.jomp16.plugin.notes.database.NotesOpenHelper;
 import tk.jomp16.sqlite.SQLiteDatabase;

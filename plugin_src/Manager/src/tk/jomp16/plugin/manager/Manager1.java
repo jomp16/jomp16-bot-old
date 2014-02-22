@@ -12,7 +12,7 @@ import joptsimple.OptionSet;
 import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.Level;
-import tk.jomp16.irc.event.listener.CommandEvent;
+import tk.jomp16.irc.event.listener.event.CommandEvent;
 
 public class Manager1 extends Event {
     @Command(value = "manager", level = Level.OWNER)

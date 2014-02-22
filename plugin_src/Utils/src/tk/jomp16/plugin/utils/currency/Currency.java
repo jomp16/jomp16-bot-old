@@ -11,8 +11,8 @@ import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
-import tk.jomp16.irc.event.listener.CommandEvent;
-import tk.jomp16.irc.event.listener.InitEvent;
+import tk.jomp16.irc.event.listener.event.CommandEvent;
+import tk.jomp16.irc.event.listener.event.InitEvent;
 import tk.jomp16.language.LanguageManager;
 import tk.jomp16.plugin.help.HelpRegister;
 

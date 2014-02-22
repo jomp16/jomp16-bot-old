@@ -62,25 +62,29 @@ public class PluginLoader {
     }
 
     public List<Event> load(File pluginFile) throws Exception {
-        List<Event> events = new ArrayList<>();
+        if (pluginFile.getName().endsWith(".jar")) {
+            List<Event> events = new ArrayList<>();
 
-        URL[] urls = new URL[]{pluginFile.toURI().toURL()};
-        URLClassLoader urlClassLoader = new URLClassLoader(urls, ClassLoader.getSystemClassLoader());
-        urlClassLoaders.add(urlClassLoader);
+            URL[] urls = new URL[]{pluginFile.toURI().toURL()};
+            URLClassLoader urlClassLoader = new URLClassLoader(urls, ClassLoader.getSystemClassLoader());
+            urlClassLoaders.add(urlClassLoader);
 
-        Reflections reflections = new Reflections(new ConfigurationBuilder().addUrls(new URL("file:" + pluginFile.getPath())));
-        Set<String> classes = reflections.getStore().getSubTypesOf(Event.class.getName());
+            Reflections reflections = new Reflections(new ConfigurationBuilder().addUrls(new URL("file:" + pluginFile.getPath())));
+            Set<String> classes = reflections.getStore().getSubTypesOf(Event.class.getName());
 
-        for (String s : classes) {
-            Class<? extends Event> eventClass = Class.forName(s, true, urlClassLoader).asSubclass(Event.class);
-            Constructor<? extends Event> eventConstructor = eventClass.getConstructor();
+            for (String s : classes) {
+                Class<? extends Event> eventClass = Class.forName(s, true, urlClassLoader).asSubclass(Event.class);
+                Constructor<? extends Event> eventConstructor = eventClass.getConstructor();
 
-            Event event = eventConstructor.newInstance();
+                Event event = eventConstructor.newInstance();
 
-            events.add(event);
+                events.add(event);
+            }
+
+            return events;
+        } else {
+            throw new UnsupportedOperationException("File isn't .jar!");
         }
-
-        return events;
     }
 
     public void closeAll() {

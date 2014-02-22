@@ -4,6 +4,7 @@
     <root id="archive" name="CodecUtils.jar">
       <element id="module-output" name="CodecUtils" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/commons-codec-1.8.jar" path-in-jar="/" />
+      <element id="file-copy" path="$PROJECT_DIR$/plugin_src/CodecUtils/plugin.json" />
     </root>
   </artifact>
 </component>

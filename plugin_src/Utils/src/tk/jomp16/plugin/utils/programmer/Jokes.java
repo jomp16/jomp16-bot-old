@@ -9,8 +9,8 @@ package tk.jomp16.plugin.utils.programmer;
 
 import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
-import tk.jomp16.irc.event.listener.CommandEvent;
-import tk.jomp16.irc.event.listener.InitEvent;
+import tk.jomp16.irc.event.listener.event.CommandEvent;
+import tk.jomp16.irc.event.listener.event.InitEvent;
 
 import java.util.ArrayList;
 import java.util.Collections;

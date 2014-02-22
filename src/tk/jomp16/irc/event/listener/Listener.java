@@ -7,39 +7,46 @@
 
 package tk.jomp16.irc.event.listener;
 
-import joptsimple.OptionSet;
 import tk.jomp16.irc.IRCManager;
 import tk.jomp16.irc.channel.Channel;
 import tk.jomp16.irc.channel.ChannelDAO;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.user.User;
+import tk.jomp16.language.LanguageManager;
 import tk.jomp16.logger.Logger;
+import tk.jomp16.plugin.PluginInfo;
 import tk.jomp16.plugin.help.HelpRegister;
 
-import java.util.List;
+import java.io.File;
+import java.net.URLDecoder;
 
-public class CommandEvent {
-    private IRCManager ircManager;
-    private User user;
-    private Channel channel;
-    private ChannelDAO channelDAO;
-    private String message;
-    private String rawMessage;
-    private List<String> args;
-    private Logger log;
-    private String command;
-    private OptionSet optionSet;
+public abstract class Listener {
+    protected IRCManager ircManager;
+    protected User user;
+    protected Channel channel;
+    protected ChannelDAO channelDAO;
+    protected Logger log;
+    protected PluginInfo pluginInfo;
 
-    public CommandEvent(IRCManager ircManager, User user, Channel channel, String message, String rawMessage, String command, List<String> args, OptionSet optionSet, Logger log) {
+    public Listener(IRCManager ircManager, Logger log) {
+        this.ircManager = ircManager;
+        this.log = log;
+    }
+
+    public Listener(IRCManager ircManager, User user, Channel channel, ChannelDAO channelDAO, Logger log, PluginInfo pluginInfo) {
         this.ircManager = ircManager;
         this.user = user;
         this.channel = channel;
-        this.channelDAO = new ChannelDAO(ircManager, channel);
-        this.message = message;
-        this.rawMessage = rawMessage;
-        this.command = command;
-        this.args = args;
-        this.optionSet = optionSet;
+        this.channelDAO = channelDAO;
+        this.log = log;
+        this.pluginInfo = pluginInfo;
+    }
+
+    public Listener(IRCManager ircManager, User user, Channel channel, ChannelDAO channelDAO, Logger log) {
+        this.ircManager = ircManager;
+        this.user = user;
+        this.channel = channel;
+        this.channelDAO = channelDAO;
         this.log = log;
     }
 
@@ -97,36 +104,43 @@ public class CommandEvent {
         }
     }
 
-    public synchronized void showUsage(Event event, String command) {
-        for (HelpRegister helpRegister : event.getHelpRegister()) {
-            if (helpRegister.getCommand().equals(command)) {
-                String usage = helpRegister.getUsage();
+    public void addHelp(Event event, HelpRegister helpRegister) {
+        event.registerHelp(helpRegister);
+    }
 
-                if (usage != null) {
-                    respond("Usage: " + ircManager.getConfiguration().getPrefix() + command + " " + helpRegister.getUsage());
-                } else {
-                    respond("Usage: " + ircManager.getConfiguration().getPrefix());
-                }
-            } else {
-                if (helpRegister.getOptCommands() != null && helpRegister.getOptCommands().length != 0) {
-                    for (String s : helpRegister.getOptCommands()) {
-                        if (s.equals(command)) {
-                            String usage = helpRegister.getUsage();
-                            if (usage != null) {
-                                respond("Usage: " + ircManager.getConfiguration().getPrefix() + s + " " + helpRegister.getUsage());
-                            } else {
-                                respond("Usage: " + ircManager.getConfiguration().getPrefix() + s);
-                            }
-                        }
-                    }
-                }
-            }
+    public LanguageManager getLanguageManager(Event event, String resourcePath) {
+        return new LanguageManager(resourcePath, event.getClass().getClassLoader());
+    }
+
+    public String getPluginPath(Event event) {
+        File file = new File("plugins/" + event.getClass().getSimpleName());
+
+        if (!file.exists()) {
+            file.mkdir();
         }
 
+        return file.getAbsolutePath();
+    }
+
+    public String getPluginPath() {
+        if (pluginInfo != null) {
+            File f = new File("plugins/" + pluginInfo.getName());
+
+            if (!f.exists()) {
+                f.mkdir();
+            }
+
+            return f.getPath();
+        }
+
+        throw new UnsupportedOperationException("PluginInfo is null!");
+    }
+
+    public String getFullPluginPath(Event event) {
         try {
-            wait(700);
+            return URLDecoder.decode(event.getClass().getProtectionDomain().getCodeSource().getLocation().getPath(), "UTF-8");
         } catch (Exception e) {
-            log.error(e);
+            return null;
         }
     }
 
@@ -142,28 +156,12 @@ public class CommandEvent {
         return channel;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public String getRawMessage() {
-        return rawMessage;
-    }
-
-    public String getCommand() {
-        return command;
-    }
-
-    public List<String> getArgs() {
-        return args;
-    }
-
     public Logger getLog() {
         return log;
     }
 
-    public OptionSet getOptionSet() {
-        return optionSet;
+    public PluginInfo getPluginInfo() {
+        return pluginInfo;
     }
 
     public ChannelDAO getChannelDAO() {

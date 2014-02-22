@@ -11,7 +11,7 @@ import tk.jomp16.irc.channel.ChannelList;
 import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.Level;
-import tk.jomp16.irc.event.listener.CommandEvent;
+import tk.jomp16.irc.event.listener.event.CommandEvent;
 
 public class TestPlugin extends Event {
     public String humanReadableByteCount(long bytes, boolean si) {

@@ -8,13 +8,11 @@
 package tk.jomp16.plugin.plugin;
 
 import org.apache.commons.lang3.StringUtils;
-import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
-import tk.jomp16.irc.event.Level;
 import tk.jomp16.irc.event.events.PrivMsgEvent;
-import tk.jomp16.irc.event.listener.CommandEvent;
-import tk.jomp16.irc.event.listener.DisableEvent;
-import tk.jomp16.irc.event.listener.ResetEvent;
+import tk.jomp16.irc.event.listener.event.CommandEvent;
+import tk.jomp16.irc.event.listener.event.DisableEvent;
+import tk.jomp16.irc.event.listener.event.ResetEvent;
 import tk.jomp16.logger.LogManager;
 import tk.jomp16.plugin.commands.Commands;
 import tk.jomp16.plugin.help.Help;
@@ -26,10 +24,11 @@ import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("ConstantConditions")
+@Deprecated // since I rewrote plugin handling, this class will not work as intended
 public class Plugin extends Event {
     private static Map<String, Event> eventHashMap = new HashMap<>();
 
-    @Command(value = "plugin", level = Level.OWNER)
+    //@Command(value = "plugin", level = Level.OWNER)
     public void plugin(CommandEvent commandEvent) throws Exception {
         if (eventHashMap.size() == 0) {
             loadPluginInfo(commandEvent.getIrcManager().getEvents());
@@ -43,10 +42,10 @@ public class Plugin extends Event {
                             Event eventToDisable = eventHashMap.get(commandEvent.getArgs().get(1));
 
                             eventToDisable.onDisable(new DisableEvent(commandEvent.getIrcManager(), LogManager.getLogger(eventToDisable.getClass())));
-                            eventHashMap.remove(eventToDisable.getClass());
+                            eventHashMap.remove(eventToDisable.getClass().getName());
                             commandEvent.getIrcManager().getEvents().remove(eventToDisable);
 
-                            PrivMsgEvent.reloadEvents(commandEvent.getIrcManager().getEvents());
+                            PrivMsgEvent.reloadEvents();
 
                             commandEvent.respond("Disabled plugin");
                         } else {
@@ -71,7 +70,7 @@ public class Plugin extends Event {
 
                             commandEvent.getIrcManager().getEvents().addAll(commandEvent.getIrcManager().getBundledEvent());
                             loadPluginInfo(commandEvent.getIrcManager().getEvents());
-                            PrivMsgEvent.reloadEvents(commandEvent.getIrcManager().getEvents());
+                            PrivMsgEvent.reloadEvents();
                             Help.reloadHelp();
                             Commands.reload();
 
@@ -100,7 +99,7 @@ public class Plugin extends Event {
                                             eventHashMap.put(event.getClass().getSimpleName(), event);
                                         }
 
-                                        PrivMsgEvent.reloadEvents(commandEvent.getIrcManager().getEvents());
+                                        PrivMsgEvent.reloadEvents();
 
                                         commandEvent.respond("Reloaded " + tmp + " plugin classes");
                                     } else {
@@ -135,7 +134,7 @@ public class Plugin extends Event {
                                 eventHashMap.put(event.getClass().getSimpleName(), event);
                             }
 
-                            PrivMsgEvent.reloadEvents(commandEvent.getIrcManager().getEvents());
+                            PrivMsgEvent.reloadEvents();
 
                             commandEvent.respond("Loaded " + tmp + " plugin classes");
                         } else {
@@ -147,7 +146,7 @@ public class Plugin extends Event {
                     if (commandEvent.getArgs().size() >= 2) {
                         if (eventHashMap.containsKey(commandEvent.getArgs().get(1))) {
                             eventHashMap.get(commandEvent.getArgs().get(1)).onReset(new ResetEvent(commandEvent.getIrcManager(), LogManager.getLogger(commandEvent.getArgs().get(1))));
-                            PrivMsgEvent.reloadEvents(commandEvent.getIrcManager().getEvents());
+                            PrivMsgEvent.reloadEvents();
                         } else {
                             commandEvent.respond("Plugin not found");
                         }

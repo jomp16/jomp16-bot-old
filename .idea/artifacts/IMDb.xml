@@ -3,6 +3,7 @@
     <output-path>$PROJECT_DIR$/plugins</output-path>
     <root id="archive" name="IMDb.jar">
       <element id="module-output" name="IMDb" />
+      <element id="file-copy" path="$PROJECT_DIR$/plugin_src/IMDb/plugin.json" />
     </root>
   </artifact>
 </component>

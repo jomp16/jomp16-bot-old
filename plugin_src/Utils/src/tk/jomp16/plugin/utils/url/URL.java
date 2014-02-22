@@ -10,7 +10,7 @@ package tk.jomp16.plugin.utils.url;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import tk.jomp16.irc.event.Event;
-import tk.jomp16.irc.event.listener.InitEvent;
+import tk.jomp16.irc.event.listener.event.InitEvent;
 import tk.jomp16.irc.event.listener.event.PrivMsgEvent;
 
 import javax.net.ssl.HttpsURLConnection;

@@ -4,9 +4,6 @@
       <root url="jar://$PROJECT_DIR$/lib/jopt-simple-4.7-SNAPSHOT.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="file://$PROJECT_DIR$/../jopt-simple/src/main/java" />
-      <root url="file://$PROJECT_DIR$/../jopt-simple/src/test/java" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>

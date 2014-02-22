@@ -9,6 +9,7 @@ package tk.jomp16.irc.event.events;
 
 import tk.jomp16.irc.IRCManager;
 import tk.jomp16.irc.channel.Channel;
+import tk.jomp16.irc.channel.ChannelDAO;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.user.User;
 import tk.jomp16.logger.LogManager;
@@ -30,7 +31,12 @@ public class PartEvent extends Event {
     public void respond() throws Exception {
         ircManager.getEvents().forEach((event) -> {
             try {
-                event.onPart(new tk.jomp16.irc.event.listener.event.PartEvent(ircManager, user, channel, reason, LogManager.getLogger(event.getClass())));
+                tk.jomp16.irc.event.listener.event.PartEvent partEvent =
+                        new tk.jomp16.irc.event.listener.event.PartEvent(ircManager, user, channel,
+                                new ChannelDAO(ircManager, channel), LogManager.getLogger(event.getClass()));
+                partEvent.setReason(reason);
+
+                event.onPart(partEvent);
             } catch (Exception e) {
                 e.printStackTrace();
             }

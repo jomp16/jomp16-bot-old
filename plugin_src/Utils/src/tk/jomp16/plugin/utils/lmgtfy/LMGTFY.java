@@ -9,8 +9,8 @@ package tk.jomp16.plugin.utils.lmgtfy;
 
 import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
-import tk.jomp16.irc.event.listener.CommandEvent;
-import tk.jomp16.irc.event.listener.InitEvent;
+import tk.jomp16.irc.event.listener.event.CommandEvent;
+import tk.jomp16.irc.event.listener.event.InitEvent;
 import tk.jomp16.plugin.help.HelpRegister;
 
 import java.io.UnsupportedEncodingException;

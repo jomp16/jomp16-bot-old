@@ -11,8 +11,8 @@ import com.google.gson.Gson;
 import org.apache.commons.lang3.StringEscapeUtils;
 import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
-import tk.jomp16.irc.event.listener.CommandEvent;
-import tk.jomp16.irc.event.listener.InitEvent;
+import tk.jomp16.irc.event.listener.event.CommandEvent;
+import tk.jomp16.irc.event.listener.event.InitEvent;
 import tk.jomp16.plugin.help.HelpRegister;
 
 import java.io.BufferedReader;
@@ -25,10 +25,11 @@ import java.util.List;
 public class Google extends Event {
     private static String GOOGLE = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=%s";
 
-    @Command("google")
+    @Command(value = "google", args = {"term:", "num::"})
     public void googleSearch(CommandEvent commandEvent) throws Exception {
-        if (commandEvent.getArgs().size() >= 1) {
-            String url = String.format(GOOGLE, URLEncoder.encode(commandEvent.getArgs().get(0), "UTF-8"));
+        if (commandEvent.getOptionSet().has("term")) {
+            String url = String.format(GOOGLE, URLEncoder.encode((String) commandEvent.getOptionSet().valueOf("term"),
+                    "UTF-8"));
 
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(new URL(url).openStream()))) {
                 GoogleSearch search = new Gson().fromJson(reader, GoogleSearch.class);
@@ -45,8 +46,8 @@ public class Google extends Event {
 
                 String tmp = "\u0002Link #%s: %s\u000F (at %s)";
 
-                if (commandEvent.getArgs().size() >= 2) {
-                    for (int i = 0; i < Integer.parseInt(commandEvent.getArgs().get(1)); i++) {
+                if (commandEvent.getOptionSet().has("num")) {
+                    for (int i = 0; i < Integer.parseInt((String) commandEvent.getOptionSet().valueOf("num")); i++) {
                         String title = StringEscapeUtils.unescapeHtml4(search.responseData.results.get(i).titleNoFormatting);
                         String url2 = URLDecoder.decode(search.responseData.results.get(i).unescapedUrl, "UTF-8");
                         commandEvent.respond(String.format(tmp, (i + 1), title, url2));
@@ -64,7 +65,10 @@ public class Google extends Event {
 
     @Override
     public void onInit(InitEvent initEvent) throws Exception {
-        initEvent.addHelp(this, new HelpRegister("google", "Search on google using the term given", "'<the term to search>' N (where N is the number of links to give, current maximum is 4, optional)"));
+        initEvent.addHelp(this, new HelpRegister("google", "Search on google using the term given",
+                "-term <the term to search> (required) " +
+                        "-num N (where N is the number of links to give, current maximum is 4, optional)"
+        ));
     }
 
     private class GoogleSearch {

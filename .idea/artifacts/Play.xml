@@ -3,6 +3,7 @@
     <output-path>$PROJECT_DIR$/plugins</output-path>
     <root id="archive" name="Play.jar">
       <element id="module-output" name="Play" />
+      <element id="file-copy" path="$PROJECT_DIR$/plugin_src/Play/plugin.json" />
     </root>
   </artifact>
 </component>
