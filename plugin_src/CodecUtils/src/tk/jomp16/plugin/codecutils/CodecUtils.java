@@ -25,13 +25,13 @@ public class CodecUtils extends Event {
         if (commandEvent.getArgs().size() >= 2) {
             switch (commandEvent.getArgs().get(0).toLowerCase()) {
                 case "base64":
-                    commandEvent.respond(new String(Base64.getEncoder().encode(commandEvent.getArgs().get(0).getBytes())));
+                    commandEvent.respond(new String(Base64.getEncoder().encode(commandEvent.getArgs().get(1).getBytes())));
                     break;
                 case "hex":
-                    commandEvent.respond(String.valueOf(Hex.encodeHex(commandEvent.getArgs().get(0).getBytes())));
+                    commandEvent.respond(String.valueOf(Hex.encodeHex(commandEvent.getArgs().get(1).getBytes())));
                     break;
                 case "binary":
-                    commandEvent.respond(getBinary(commandEvent.getArgs().get(0)));
+                    commandEvent.respond(getBinary(commandEvent.getArgs().get(1)));
                     break;
                 default:
                     commandEvent.showUsage(this, "encode");
@@ -47,13 +47,13 @@ public class CodecUtils extends Event {
         if (commandEvent.getArgs().size() >= 2) {
             switch (commandEvent.getArgs().get(0).toLowerCase()) {
                 case "base64":
-                    commandEvent.respond(new String(Base64.getDecoder().decode(commandEvent.getArgs().get(0))));
+                    commandEvent.respond(new String(Base64.getDecoder().decode(commandEvent.getArgs().get(1))));
                     break;
                 case "hex":
-                    commandEvent.respond(new String(Hex.decodeHex(commandEvent.getArgs().get(0).toCharArray())));
+                    commandEvent.respond(new String(Hex.decodeHex(commandEvent.getArgs().get(1).toCharArray())));
                     break;
                 case "binary":
-                    commandEvent.respond(new String(BinaryCodec.fromAscii(commandEvent.getArgs().get(0).replace(" ", "").getBytes())));
+                    commandEvent.respond(new String(BinaryCodec.fromAscii(commandEvent.getArgs().get(1).replace(" ", "").getBytes())));
                     break;
                 default:
                     commandEvent.showUsage(this, "decode");
@@ -69,22 +69,22 @@ public class CodecUtils extends Event {
         if (commandEvent.getArgs().size() >= 2) {
             switch (commandEvent.getArgs().get(0).toLowerCase()) {
                 case "md2":
-                    commandEvent.respond(DigestUtils.md2Hex(commandEvent.getArgs().get(0)));
+                    commandEvent.respond(DigestUtils.md2Hex(commandEvent.getArgs().get(1)));
                     break;
                 case "md5":
-                    commandEvent.respond(DigestUtils.md5Hex(commandEvent.getArgs().get(0)));
+                    commandEvent.respond(DigestUtils.md5Hex(commandEvent.getArgs().get(1)));
                     break;
                 case "sha1":
-                    commandEvent.respond(DigestUtils.sha1Hex(commandEvent.getArgs().get(0)));
+                    commandEvent.respond(DigestUtils.sha1Hex(commandEvent.getArgs().get(1)));
                     break;
                 case "sha256":
-                    commandEvent.respond(DigestUtils.sha256Hex(commandEvent.getArgs().get(0)));
+                    commandEvent.respond(DigestUtils.sha256Hex(commandEvent.getArgs().get(1)));
                     break;
                 case "sha384":
-                    commandEvent.respond(DigestUtils.sha384Hex(commandEvent.getArgs().get(0)));
+                    commandEvent.respond(DigestUtils.sha384Hex(commandEvent.getArgs().get(1)));
                     break;
                 case "sha512":
-                    commandEvent.respond(DigestUtils.sha512Hex(commandEvent.getArgs().get(0)));
+                    commandEvent.respond(DigestUtils.sha512Hex(commandEvent.getArgs().get(1)));
                     break;
                 default:
                     commandEvent.showUsage(this, "hash");
