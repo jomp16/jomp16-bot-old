@@ -7,13 +7,13 @@
 
 package tk.jomp16.irc.parser;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import tk.jomp16.irc.IRCManager;
 import tk.jomp16.irc.Source;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.parser.parsers.*;
-import tk.jomp16.irc.utils.Utils;
-import tk.jomp16.logger.LogManager;
-import tk.jomp16.logger.Logger;
+import tk.jomp16.utils.Utils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,13 +30,20 @@ public abstract class Parser {
         put(Tags.COMMAND_PING, new PingParser());
         put(Tags.COMMAND_PRIVMSG, new PrivMsgParser());
         put(Tags.COMMAND_QUIT, new QuitParser());
+        put(Tags.COMMAND_TOPIC, new ChannelTopicParser(true));
 
         NickNameInUseParser nickNameInUseParser = new NickNameInUseParser();
         put(Tags.ERROR_NICK_IN_USE, nickNameInUseParser);
         put(Tags.ERROR_NICK_UNAVAILABLE, nickNameInUseParser);
 
+        MotdParser motdParser = new MotdParser();
+        put(Tags.RESPONSE_MOTD_CONTENT, motdParser);
+        put(Tags.RESPONSE_MOTD_END, motdParser);
+        put(Tags.RESPONSE_MOTD_START, motdParser);
+
         put(Tags.RESPONSE_NAMES_LIST, new NamesParser());
-        put(Tags.RESPONSE_TOPIC_MESSAGE, new ChannelTopicParser());
+
+        put(Tags.RESPONSE_TOPIC_MESSAGE, new ChannelTopicParser(false));
     }};
     private static Logger log = LogManager.getLogger(Parser.class);
     private static String host = null;
@@ -46,7 +53,7 @@ public abstract class Parser {
             throw new IllegalArgumentException("Can't process null lines");
         }
 
-        List<String> parsedLine = Utils.tokenizeLine(rawLine);
+        List<String> parsedLine = Utils.tokenizeIRCLine(rawLine);
 
         log.debug(parsedLine);
 
@@ -76,7 +83,7 @@ public abstract class Parser {
                         try {
                             event.respond();
                         } catch (Exception e) {
-                            log.error(e);
+                            log.error(e, e);
                         }
                     }
                 };

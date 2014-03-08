@@ -7,6 +7,8 @@
 
 package tk.jomp16.irc.parser.parsers;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import tk.jomp16.irc.IRCManager;
 import tk.jomp16.irc.Source;
 import tk.jomp16.irc.channel.Channel;
@@ -17,8 +19,6 @@ import tk.jomp16.irc.event.events.JoinEvent;
 import tk.jomp16.irc.parser.Parser;
 import tk.jomp16.irc.parser.ParserToken;
 import tk.jomp16.irc.user.User;
-import tk.jomp16.logger.LogManager;
-import tk.jomp16.logger.Logger;
 
 public class JoinParser extends Parser {
     private Logger log = LogManager.getLogger(this.getClass());

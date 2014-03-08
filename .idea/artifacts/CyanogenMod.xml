@@ -1,10 +1,14 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="CyanogenMod">
+  <artifact type="jar" build-on-make="true" name="CyanogenMod">
     <output-path>$PROJECT_DIR$/plugins</output-path>
     <root id="archive" name="CyanogenMod.jar">
       <element id="module-output" name="CyanogenMod" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/jsoup-1.7.2.jar" path-in-jar="/" />
       <element id="file-copy" path="$PROJECT_DIR$/plugin_src/CyanogenMod/plugin.json" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/fluent-hc-4.3.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/httpclient-4.3.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/httpcore-4.3.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/commons-logging-1.1.3.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

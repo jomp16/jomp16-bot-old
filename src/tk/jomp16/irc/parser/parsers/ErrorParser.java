@@ -15,7 +15,8 @@ import tk.jomp16.irc.parser.ParserToken;
 public class ErrorParser extends Parser {
     @Override
     public Event parse(IRCManager ircManager, ParserToken parserToken) {
-        // todo: [ERROR, Closing Link: unaffiliated/jomp16 (Ping timeout: 246 seconds)]
+        ircManager.shutdownWithoutQuit();
+
         return null;
     }
 }

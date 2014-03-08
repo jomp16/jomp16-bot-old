@@ -14,10 +14,24 @@ import tk.jomp16.irc.parser.Parser;
 import tk.jomp16.irc.parser.ParserToken;
 
 public class ChannelTopicParser extends Parser {
+    boolean topicCommand = false;
+
+    public ChannelTopicParser(boolean topicCommand) {
+        this.topicCommand = topicCommand;
+    }
+
     @Override
     public Event parse(IRCManager ircManager, ParserToken token) {
-        String channel = token.getParams().get(1);
-        String topic = token.getParams().get(2);
+        String channel;
+        String topic;
+
+        if (topicCommand) {
+            channel = token.getParams().get(0);
+            topic = token.getParams().get(1);
+        } else {
+            channel = token.getParams().get(1);
+            topic = token.getParams().get(2);
+        }
 
         ChannelList.setTopic(channel, topic);
 

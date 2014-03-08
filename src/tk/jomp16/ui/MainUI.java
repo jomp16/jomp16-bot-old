@@ -7,75 +7,84 @@
 
 package tk.jomp16.ui;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import tk.jomp16.bot.BotMain;
 import tk.jomp16.bot.plugin.FunCommandsPlugin;
 import tk.jomp16.bot.plugin.TestPlugin;
 import tk.jomp16.configuration.Configuration;
 import tk.jomp16.irc.IRCManager;
 import tk.jomp16.language.LanguageManager;
-import tk.jomp16.logger.LogManager;
-import tk.jomp16.logger.Logger;
+import tk.jomp16.logger.TextAreaAppender;
 import tk.jomp16.sqlite_old.SQLiteManager;
 import tk.jomp16.sqlite_old.configurator.SQLite_Configurator;
+import tk.jomp16.ui.plugin.PluginList1;
+import tk.jomp16.ui.plugin.PluginUI;
+import tk.jomp16.ui.uis.JoinChannel;
+import tk.jomp16.utils.Utils;
 
 import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
-public class MainUI {
-    // TODO: FUCKING SHIT!
+public class MainUI implements PluginUI {
+    private static Logger log = LogManager.getLogger(BotMain.class);
+    private static IRCManager ircManager;
     private JPanel mainUI;
-    private JTextArea consoleOutputText;
-    private JButton iniciarBotButton;
-    private JTable tableChannel;
-    private Executor executor = Executors.newCachedThreadPool();
-    public Logger log;
-    public SQLiteManager sqLiteManager;
+    private JTextArea consoleOutput;
+    private JScrollPane consoleScrollPane;
+    private JTextField commandTextField;
+    private JTabbedPane tabbedPane1;
+    private JTable channelsTable;
+    private JButton showRAMUsageButton;
+    private JButton joinChannelButton;
 
-    public MainUI() {
-        iniciarBotButton.addActionListener((e) -> {
-            iniciarBotButton.setVisible(false);
+    public MainUI() throws Exception {
+        TextAreaAppender.jTextArea = consoleOutput;
+        TextAreaAppender.jScrollPane = consoleScrollPane;
 
-            executor.execute(() -> {
-                try {
-                    startIRCBot();
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-            });
-        });
+        // Menu Start
+        JMenuBar jMenuBar = new JMenuBar();
+        JMenu jMenu = new JMenu("Arquivos");
+        JMenuItem jMenuItem = new JMenuItem("Sobre");
+        jMenuItem.addActionListener(e -> JOptionPane.showMessageDialog(null, "Hello World!"));
+
+        jMenu.add(jMenuItem);
+        jMenuBar.add(jMenu);
+        // Menu End
+
+        initIRCBot();
+
+        tabbedPane1.setComponentAt(1, new PluginList1(ircManager).getJPanel());
+
+        JFrame frame = new JFrame("MainUI");
+        frame.setContentPane(mainUI);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setJMenuBar(jMenuBar);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+
+        showRAMUsageButton.addActionListener(e -> JOptionPane.showMessageDialog(null, Utils.getRamUsage()));
+        joinChannelButton.addActionListener(e -> createJFrame(new JoinChannel(ircManager).getJPanel(), "Join channel"));
     }
 
     public static void main(String[] args) throws Exception {
-        if (args.length > 0) {
-            if (args[0].equals("nogui")) {
-                BotMain.startIRCBot();
-            } else {
-                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-
-                JFrame frame = new JFrame("jomp16-bot");
-                frame.setContentPane(new MainUI().mainUI);
-                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                frame.pack();
-                frame.setVisible(true);
-            }
-        } else {
+        if (args.length == 0 || args.length >= 1 && !args[0].equals("nogui")) {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-
-            JFrame frame = new JFrame("jomp16-bot");
-            frame.setContentPane(new MainUI().mainUI);
-            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            frame.pack();
-            frame.setVisible(true);
+            new MainUI();
+        } else {
+            initIRCBot();
         }
+
+        ircManager.connect();
+        ircManager.getOutputIRC().joinChannel("#jomp16-bot");
     }
 
-    public void startIRCBot() throws Exception {
-        log = LogManager.getLogger(this.getClass(), consoleOutputText);
+    public static void initIRCBot() throws Exception {
+        // TODO: CHANGE TO SQLITEOPENHELPER
 
-        sqLiteManager = new SQLiteManager("database");
+        SQLiteManager sqLiteManager = new SQLiteManager("database");
 
         try {
             sqLiteManager.getPreparedStatement("SELECT * FROM bot_config").close();
@@ -84,16 +93,13 @@ public class MainUI {
             new SQLite_Configurator();
         }
 
-        String languageName = String.format("/lang/%s_%s.lang", System.getProperty("user.language"), System.getProperty("user.country"));
-        boolean jar = BotMain.class.getResource("BotMain.class").toString().startsWith("jar:");
-
         LanguageManager languageManager = new LanguageManager("tk.jomp16.resource.Strings");
 
-        log.trace(languageManager.getAsString("Welcome"));
+        log.trace(languageManager.getAsString("welcome", System.getProperty("user.name")));
 
         ResultSet ircConf = sqLiteManager.getResultSet("SELECT * FROM bot_config");
 
-        IRCManager ircManager = new IRCManager(new Configuration.Builder()
+        ircManager = new IRCManager(new Configuration.Builder()
                 .setNick(ircConf.getString("nick"))
                 .setRealName(ircConf.getString("realName"))
                 .setPassword(ircConf.getString("password"))
@@ -110,8 +116,10 @@ public class MainUI {
         while (resultSet.next()) {
             ircManager.addOwner(resultSet.getString("mask"));
         }
+    }
 
-        ircManager.connect();
-        ircManager.getOutputIRC().joinChannel("#jomp16-bot");
+    @Override
+    public JPanel getJPanel() {
+        return null;
     }
 }

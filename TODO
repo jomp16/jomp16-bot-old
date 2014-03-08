@@ -1,10 +1,14 @@
+Add an UI for configure bot on start (start, new database, new UI(), click on create database button, write to db, start bot)
+
+Complete working on UI
+
+Work in @ConsoleCommand (like my old project had, this should be similar in @Command)
+
 Change manual way to handle commands to jopt-simple
 
 ADD OPT COMMANDS INSIDE REAL COMMAND, LIKE on help: money [currency], other command [other opt command], other command
 
-Create an UI =D (plugins can create their own UI too) (nearly done)
-
-Lower the RAM usage...
+Lower the RAM usage... (nevermind about it)
 
 Add whatever to store the users of a channel on a array (normal, voice, op and all) on Channel class
 Change hardcoded string value to the language manager (multi language system) (in progress)

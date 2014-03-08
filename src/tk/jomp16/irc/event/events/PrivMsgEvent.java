@@ -9,6 +9,8 @@ package tk.jomp16.irc.event.events;
 
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import tk.jomp16.irc.IRCManager;
 import tk.jomp16.irc.Source;
 import tk.jomp16.irc.channel.Channel;
@@ -18,8 +20,6 @@ import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.Level;
 import tk.jomp16.irc.event.listener.event.CommandEvent;
 import tk.jomp16.irc.user.User;
-import tk.jomp16.logger.LogManager;
-import tk.jomp16.logger.Logger;
 import tk.jomp16.plugin.PluginInfo;
 
 import java.lang.annotation.Annotation;
@@ -70,11 +70,13 @@ public class PrivMsgEvent extends Event {
 
     private static void registerArrayList() {
         ircManager.getEventMultimap().entries().forEach(entry -> {
-            Method[] methods = entry.getValue().getClass().getMethods();
+            Method[] methods = entry.getValue().getClass().getDeclaredMethods();
 
             for (Method method : methods) {
                 Annotation annotation = method.getAnnotation(Command.class);
                 if (annotation != null) {
+                    method.setAccessible(true);
+
                     Command command = (Command) annotation;
 
                     for (String s : command.value()) {
@@ -106,7 +108,7 @@ public class PrivMsgEvent extends Event {
         try {
             invoke(eventRegisters, args, ircManager.getConfiguration().getPrefix());
         } catch (Exception e) {
-            log.error("An error occurred: " + e.toString());
+            log.error("An error occurred", e);
         }
     }
 
@@ -230,7 +232,7 @@ public class PrivMsgEvent extends Event {
 
                 event.onPrivMsg(privMsgEvent);
             } catch (Exception e) {
-                log.error(e);
+                log.error(e, e);
             }
         });
     }
@@ -276,7 +278,7 @@ public class PrivMsgEvent extends Event {
         try {
             method.invoke(event, commandEvent);
         } catch (Exception e) {
-            log.error(e);
+            log.error(e, e);
         }
     }
 

@@ -10,6 +10,7 @@
     <orderEntry type="module" module-name="jomp16-bot" />
     <orderEntry type="library" name="jsoup-1.7.2" level="project" />
     <orderEntry type="library" name="gson-2.2.4" level="project" />
+    <orderEntry type="library" name="log4j-2.0-rc1" level="project" />
   </component>
 </module>
 

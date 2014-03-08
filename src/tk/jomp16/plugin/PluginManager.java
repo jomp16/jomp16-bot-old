@@ -8,9 +8,8 @@
 package tk.jomp16.plugin;
 
 import com.google.gson.Gson;
-import tk.jomp16.logger.LogManager;
-import tk.jomp16.logger.Logger;
 
+import java.io.Closeable;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -19,8 +18,7 @@ import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-public class PluginManager {
-    private Logger logger = LogManager.getLogger(this.getClass());
+public class PluginManager implements Closeable {
     private List<Plugin> plugins = new ArrayList<>();
     private PluginLoader pluginLoader = new PluginLoader();
     private Gson gson;
@@ -39,8 +37,9 @@ public class PluginManager {
                 JarEntry entry = jarFile.getJarEntry("plugin.json");
 
                 if (entry != null) {
-                    PluginInfo pluginInfo = gson.fromJson(getPluginInfoPath(file), PluginInfo.class);
-                    Plugin plugin = new Plugin(pluginInfo, pluginLoader.load(file));
+                    PluginInfo pluginInfo = gson.fromJson(getPluginInfoInputStream(file), PluginInfo.class);
+                    Plugin plugin =
+                            new Plugin(pluginInfo, pluginLoader.loadPluginEvent(file), pluginLoader.loadPluginUI(file));
 
                     plugins.add(plugin);
                 }
@@ -48,7 +47,7 @@ public class PluginManager {
         }
     }
 
-    private InputStreamReader getPluginInfoPath(File file) throws Exception {
+    private InputStreamReader getPluginInfoInputStream(File file) throws Exception {
         URL url = new URL("jar:file:" + file.getPath() + "!/plugin.json");
 
         return new InputStreamReader(url.openStream());
@@ -56,5 +55,10 @@ public class PluginManager {
 
     public List<Plugin> getPlugins() {
         return plugins;
+    }
+
+    @Override
+    public void close() {
+        pluginLoader.close();
     }
 }

@@ -7,15 +7,16 @@
 
 package tk.jomp16.irc.event.listener;
 
+import org.apache.logging.log4j.Logger;
 import tk.jomp16.irc.IRCManager;
 import tk.jomp16.irc.channel.Channel;
 import tk.jomp16.irc.channel.ChannelDAO;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.user.User;
 import tk.jomp16.language.LanguageManager;
-import tk.jomp16.logger.Logger;
 import tk.jomp16.plugin.PluginInfo;
 import tk.jomp16.plugin.help.HelpRegister;
+import tk.jomp16.properties.JSONProperties;
 
 import java.io.File;
 import java.net.URLDecoder;
@@ -56,7 +57,7 @@ public abstract class Listener {
         try {
             wait(700);
         } catch (Exception e) {
-            log.error(e);
+            log.error(e, e);
         }
     }
 
@@ -70,7 +71,7 @@ public abstract class Listener {
         try {
             wait(700);
         } catch (Exception e) {
-            log.error(e);
+            log.error(e, e);
         }
     }
 
@@ -80,7 +81,7 @@ public abstract class Listener {
         try {
             wait(700);
         } catch (Exception e) {
-            log.error(e);
+            log.error(e, e);
         }
     }
 
@@ -90,7 +91,7 @@ public abstract class Listener {
         try {
             wait(700);
         } catch (Exception e) {
-            log.error(e);
+            log.error(e, e);
         }
     }
 
@@ -100,7 +101,7 @@ public abstract class Listener {
         try {
             wait(700);
         } catch (Exception e) {
-            log.error(e);
+            log.error(e, e);
         }
     }
 
@@ -136,12 +137,16 @@ public abstract class Listener {
         throw new UnsupportedOperationException("PluginInfo is null!");
     }
 
-    public String getFullPluginPath(Event event) {
+    public String getPluginJarPath(Event event) {
         try {
             return URLDecoder.decode(event.getClass().getProtectionDomain().getCodeSource().getLocation().getPath(), "UTF-8");
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public JSONProperties getJsonProperties(Event event, String baseResource) {
+        return new JSONProperties(event.getClass().getClassLoader()).load(baseResource);
     }
 
     public IRCManager getIrcManager() {

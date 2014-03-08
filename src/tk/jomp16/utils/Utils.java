@@ -5,7 +5,7 @@
  * as published by Sam Hocevar. See the COPYING file for more details.
  */
 
-package tk.jomp16.irc.utils;
+package tk.jomp16.utils;
 
 import com.google.common.base.CharMatcher;
 
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Utils {
     // I took it from PircBotX =P
-    public static List<String> tokenizeLine(String input) {
+    public static List<String> tokenizeIRCLine(String input) {
         List<String> stringParts = new ArrayList<>();
         if (input == null || input.length() == 0) {
             return stringParts;
@@ -36,5 +36,17 @@ public class Utils {
         // No more spaces, add last part of line
         stringParts.add(trimmedInput.substring(pos));
         return stringParts;
+    }
+
+    public static String getRamUsage() {
+        return humanReadableByteCount(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory(), true);
+    }
+
+    public static String humanReadableByteCount(long bytes, boolean si) {
+        int unit = si ? 1000 : 1024;
+        if (bytes < unit) return bytes + " B";
+        int exp = (int) (Math.log(bytes) / Math.log(unit));
+        String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp - 1) + (si ? "" : "i");
+        return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
     }
 }

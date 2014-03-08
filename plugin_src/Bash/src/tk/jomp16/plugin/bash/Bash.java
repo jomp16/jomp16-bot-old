@@ -23,7 +23,7 @@ public class Bash extends Event {
 
     @Command(value = "bash", level = Level.OWNER)
     public void bash(CommandEvent commandEvent) {
-        Process process = null;
+        Process process;
 
         if (commandEvent.getMessage().length() > 0) {
             String tmp = commandEvent.getMessage();
@@ -34,9 +34,9 @@ public class Bash extends Event {
                 process.getOutputStream().flush();
             } catch (Exception e) {
                 commandEvent.respond(languageManager.getAsString("error"));
+                return;
             }
 
-            assert process != null;
             try (BufferedReader commandReader = new BufferedReader(new InputStreamReader(process.getInputStream())); BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
                 String tmp1;
                 while ((tmp1 = commandReader.readLine()) != null) {
@@ -62,7 +62,6 @@ public class Bash extends Event {
 
     @Override
     public void onInit(InitEvent initEvent) throws Exception {
-        System.out.println("WICKED WICKED");
         languageManager = initEvent.getLanguageManager(this, "tk.jomp16.plugin.bash.resource.Strings");
 
         initEvent.addHelp(this, new HelpRegister("bash", languageManager.getAsString("help.bash"), languageManager.getAsString("usage.bash"), Level.OWNER));

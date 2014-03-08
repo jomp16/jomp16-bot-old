@@ -8,16 +8,19 @@
 package tk.jomp16.plugin;
 
 import tk.jomp16.irc.event.Event;
+import tk.jomp16.ui.plugin.PluginUI;
 
 import java.util.List;
 
 public class Plugin {
     private PluginInfo pluginInfo;
     private List<Event> events;
+    private List<PluginUI> pluginUIs;
 
-    public Plugin(PluginInfo pluginInfo, List<Event> events) {
+    public Plugin(PluginInfo pluginInfo, List<Event> events, List<PluginUI> pluginUIs) {
         this.pluginInfo = pluginInfo;
         this.events = events;
+        this.pluginUIs = pluginUIs;
     }
 
     public PluginInfo getPluginInfo() {
@@ -26,5 +29,9 @@ public class Plugin {
 
     public List<Event> getEvents() {
         return events;
+    }
+
+    public List<PluginUI> getPluginUIs() {
+        return pluginUIs;
     }
 }

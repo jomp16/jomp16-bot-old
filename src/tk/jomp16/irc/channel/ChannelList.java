@@ -118,12 +118,10 @@ public class ChannelList {
     public static Map<String, ChannelLevel> getListUsers(String channel) {
         Map<String, ChannelLevel> tmp = new HashMap<>();
 
-        for (Map.Entry<String, ChannelUser> entry : hashMapChannelUsers.entries()) {
-            if (entry.getKey().equals(channel)) {
-                ChannelUser channelUser = entry.getValue();
-                tmp.put(channelUser.getUser(), channelUser.getChannelLevel());
-            }
-        }
+        hashMapChannelUsers.entries().stream().filter(entry -> entry.getKey().equals(channel)).forEach(entry -> {
+            ChannelUser channelUser = entry.getValue();
+            tmp.put(channelUser.getUser(), channelUser.getChannelLevel());
+        });
 
         return tmp;
     }

@@ -5,4 +5,4 @@ jomp16-bot.jar
 *.js
 *.db
 *.zip
-Packager.jar
+*-sources.jar

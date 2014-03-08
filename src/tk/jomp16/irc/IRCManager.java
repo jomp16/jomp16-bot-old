@@ -9,6 +9,8 @@ package tk.jomp16.irc;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import tk.jomp16.configuration.Configuration;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.events.PrivMsgEvent;
@@ -16,15 +18,13 @@ import tk.jomp16.irc.event.listener.event.InitEvent;
 import tk.jomp16.irc.output.OutputIRC;
 import tk.jomp16.irc.output.OutputRaw;
 import tk.jomp16.irc.parser.Parser;
-import tk.jomp16.logger.LogManager;
-import tk.jomp16.logger.Logger;
+import tk.jomp16.plugin.Plugin;
 import tk.jomp16.plugin.PluginInfo;
-import tk.jomp16.plugin.PluginLoader;
 import tk.jomp16.plugin.PluginManager;
 import tk.jomp16.plugin.about.About;
 import tk.jomp16.plugin.commands.Commands;
 import tk.jomp16.plugin.help.Help;
-import tk.jomp16.plugin.plugin.Plugin;
+import tk.jomp16.ui.plugin.PluginUI;
 
 import java.io.*;
 import java.net.Socket;
@@ -37,10 +37,16 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class IRCManager {
+    private List<Plugin> plugins = new ArrayList<>();
     private List<Event> events = new ArrayList<>();
+    private List<PluginUI> pluginUIs = new ArrayList<>();
     private Multimap<String, Event> eventMultimap = HashMultimap.create();
+    private Multimap<String, PluginUI> pluginUIMultimap = HashMultimap.create();
+    private Map<String, Event> eventMap = new HashMap<>();
+    private Map<String, PluginUI> pluginUIMap = new HashMap<>();
     private Map<String, PluginInfo> pluginInfoHashMap = new HashMap<>();
-    private List<Event> bundledEvent = new ArrayList<>();
+    private List<Event> bundledEvents = new ArrayList<>();
+    private List<PluginUI> bundledPluginUIs = new ArrayList<>();
     private List<String> owners = new ArrayList<>();
     private List<String> admins = new ArrayList<>();
     private List<String> mods = new ArrayList<>();
@@ -55,32 +61,29 @@ public class IRCManager {
     private boolean ready = false;
     private boolean mode = false;
     private ExecutorService executor = Executors.newCachedThreadPool();
-    private PluginLoader pluginLoader;
     private PluginManager pluginManager;
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     public IRCManager(Configuration configuration) {
         this.configuration = configuration;
         ircManager = this;
 
         Runtime.getRuntime().addShutdownHook(new Thread(ircManager::shutdown));
 
-        pluginLoader = new PluginLoader();
         pluginManager = new PluginManager();
 
         File f = new File("plugins");
 
         if (!f.exists()) {
-            f.mkdir();
+            if (!f.mkdir()) {
+                log.error("Couldn't possible to create plugin directory");
+            }
         }
 
-        //loadPlugin();
-        loadPlugin1();
+        loadPlugin();
 
         registerEvent(new About(), true);
         registerEvent(new Help(), true);
         registerEvent(new Commands(), true);
-        registerEvent(new Plugin(), true);
     }
 
     public void shutdown() {
@@ -90,11 +93,26 @@ public class IRCManager {
             executor.shutdown();
             executor.awaitTermination(2, TimeUnit.SECONDS);
 
+            pluginManager.close();
             ircWriter.close();
             ircReader.close();
             ircSocket.close();
         } catch (Exception e) {
-            log.error(e);
+            log.error(e, e);
+        }
+    }
+
+    public void shutdownWithoutQuit() {
+        try {
+            executor.shutdown();
+            executor.awaitTermination(2, TimeUnit.SECONDS);
+
+            pluginManager.close();
+            ircWriter.close();
+            ircReader.close();
+            ircSocket.close();
+        } catch (Exception e) {
+            log.error(e, e);
         }
     }
 
@@ -111,46 +129,62 @@ public class IRCManager {
 
     private void loadPlugin() {
         try {
-            for (Event event : pluginLoader.load()) {
-                registerEvent(event, false);
-            }
-        } catch (Exception e) {
-            log.error(e);
-        }
-    }
-
-    private void loadPlugin1() {
-        try {
             pluginManager.loadAll();
+            plugins.addAll(pluginManager.getPlugins());
             pluginManager.getPlugins().forEach(this::registerPluginEvent);
         } catch (Exception e) {
-            log.error(e);
+            log.error(e, e);
         }
     }
 
-    public void registerEvent(Event event, boolean bundledEvent) {
+    public void registerEvent(Event event, boolean bundled) {
         events.add(event);
         eventMultimap.put(event.getClass().getSimpleName(), event);
+        eventMap.put(event.getClass().getSimpleName(), event);
 
-        if (bundledEvent) {
-            this.bundledEvent.add(event);
+        if (bundled) {
+            bundledEvents.add(event);
         }
 
         Runnable runnable = () -> {
             try {
                 event.onInit(new InitEvent(this, LogManager.getLogger(event.getClass())));
             } catch (Exception e) {
-                log.error(e);
+                log.error(e, e);
             }
         };
 
         executor.execute(runnable);
     }
 
-    public void registerPluginEvent(tk.jomp16.plugin.Plugin plugin) {
+    public void registerPluginUI(PluginUI pluginUI, boolean bundled) {
+        pluginUIs.add(pluginUI);
+        pluginUIMultimap.put(pluginUI.getClass().getSimpleName(), pluginUI);
+        pluginUIMap.put(pluginUI.getClass().getSimpleName(), pluginUI);
+
+        if (bundled) {
+            bundledPluginUIs.add(pluginUI);
+        }
+    }
+
+    public void registerPluginEvent(Plugin plugin) {
+        pluginInfoHashMap.put(plugin.getPluginInfo().getName(), plugin.getPluginInfo());
+
+        // PluginUI start
+        pluginUIs.addAll(plugin.getPluginUIs());
+        pluginUIMultimap.putAll(plugin.getPluginInfo().getName(), plugin.getPluginUIs());
+
+        plugin.getPluginUIs()
+                .parallelStream()
+                .forEach(pluginUI -> pluginUIMap.put(pluginUI.getClass().getSimpleName(), pluginUI));
+
+        // PluginUI end
+
+        // Event start
         events.addAll(plugin.getEvents());
         eventMultimap.putAll(plugin.getPluginInfo().getName(), plugin.getEvents());
-        pluginInfoHashMap.put(plugin.getPluginInfo().getName(), plugin.getPluginInfo());
+        plugin.getEvents().parallelStream().forEach(event -> eventMap.put(event.getClass().getSimpleName(), event));
+
 
         Runnable runnable = () -> plugin.getEvents().forEach(event -> {
             try {
@@ -161,6 +195,7 @@ public class IRCManager {
         });
 
         executor.execute(runnable);
+        // Event end
     }
 
     public void addOwner(String owner) {
@@ -183,20 +218,48 @@ public class IRCManager {
         return outputIRC;
     }
 
+    public PluginManager getPluginManager() {
+        return pluginManager;
+    }
+
+    public List<Plugin> getPlugins() {
+        return plugins;
+    }
+
     public List<Event> getEvents() {
         return events;
+    }
+
+    public List<PluginUI> getPluginUIs() {
+        return pluginUIs;
     }
 
     public Multimap<String, Event> getEventMultimap() {
         return eventMultimap;
     }
 
+    public Multimap<String, PluginUI> getPluginUIMultimap() {
+        return pluginUIMultimap;
+    }
+
     public Map<String, PluginInfo> getPluginInfoHashMap() {
         return pluginInfoHashMap;
     }
 
-    public List<Event> getBundledEvent() {
-        return bundledEvent;
+    public List<Event> getBundledEvents() {
+        return bundledEvents;
+    }
+
+    public List<PluginUI> getBundledPluginUIs() {
+        return bundledPluginUIs;
+    }
+
+    public Map<String, Event> getEventMap() {
+        return eventMap;
+    }
+
+    public Map<String, PluginUI> getPluginUIMap() {
+        return pluginUIMap;
     }
 
     public List<String> getOwners() {
@@ -227,16 +290,8 @@ public class IRCManager {
         return executor;
     }
 
-    public String getConnectedIRCCHost() {
+    public String getConnectedIRCHost() {
         return Parser.getHost().substring(1);
-    }
-
-    public PluginLoader getPluginLoader() {
-        return pluginLoader;
-    }
-
-    public PluginManager getPluginManager() {
-        return pluginManager;
     }
 
     private boolean isNickServEnabled() {
@@ -273,11 +328,11 @@ public class IRCManager {
                 try {
                     Parser.parseLine(ircManager, tmp);
                 } catch (Exception e) {
-                    log.error(e);
+                    log.error(e, e);
                 }
             }
         } catch (Exception e) {
-            log.error(e);
+            log.error(e, e);
         }
     }
 }

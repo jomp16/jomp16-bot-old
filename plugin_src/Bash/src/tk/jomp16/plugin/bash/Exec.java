@@ -23,7 +23,7 @@ public class Exec extends Event {
 
     @Command(value = "exec", level = Level.OWNER)
     public void exec(CommandEvent commandEvent) {
-        Process process = null;
+        Process process;
 
         if (commandEvent.getMessage().length() > 0) {
             String tmp = commandEvent.getMessage();
@@ -32,9 +32,9 @@ public class Exec extends Event {
                 process = Runtime.getRuntime().exec(tmp);
             } catch (Exception e) {
                 commandEvent.respond(languageManager.getAsString("error"));
+                return;
             }
 
-            assert process != null;
             try (BufferedReader commandReader = new BufferedReader(new InputStreamReader(process.getInputStream())); BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
                 String tmp1;
                 while ((tmp1 = commandReader.readLine()) != null) {

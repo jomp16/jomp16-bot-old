@@ -7,13 +7,13 @@
 
 package tk.jomp16.bot;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import tk.jomp16.bot.plugin.FunCommandsPlugin;
 import tk.jomp16.bot.plugin.TestPlugin;
 import tk.jomp16.configuration.Configuration;
 import tk.jomp16.irc.IRCManager;
 import tk.jomp16.language.LanguageManager;
-import tk.jomp16.logger.LogManager;
-import tk.jomp16.logger.Logger;
 import tk.jomp16.sqlite_old.SQLiteManager;
 import tk.jomp16.sqlite_old.configurator.SQLite_Configurator;
 

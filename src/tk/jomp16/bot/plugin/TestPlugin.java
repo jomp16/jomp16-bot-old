@@ -12,19 +12,12 @@ import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.Level;
 import tk.jomp16.irc.event.listener.event.CommandEvent;
+import tk.jomp16.utils.Utils;
 
 public class TestPlugin extends Event {
-    public String humanReadableByteCount(long bytes, boolean si) {
-        int unit = si ? 1000 : 1024;
-        if (bytes < unit) return bytes + " B";
-        int exp = (int) (Math.log(bytes) / Math.log(unit));
-        String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp - 1) + (si ? "" : "i");
-        return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
-    }
-
     @Command("ram")
     public void doSomething3(CommandEvent commandEvent) {
-        commandEvent.respond(humanReadableByteCount(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory(), true));
+        commandEvent.respond(Utils.getRamUsage());
     }
 
     @Command(value = "join", level = Level.ADMIN)

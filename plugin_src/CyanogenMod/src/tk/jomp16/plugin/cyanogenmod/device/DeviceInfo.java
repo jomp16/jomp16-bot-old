@@ -5,19 +5,21 @@
  * as published by Sam Hocevar. See the COPYING file for more details.
  */
 
-package tk.jomp16.plugin.cyanogenmod;
+package tk.jomp16.plugin.cyanogenmod.device;
 
 public class DeviceInfo {
     private String codename;
     private String deviceName;
     private Versions cmVersion;
     private String cmWiki;
+    private OEM oem;
 
-    public DeviceInfo(String codename, String deviceName, Versions cmVersion, String cmWiki) {
+    public DeviceInfo(String codename, String deviceName, Versions cmVersion, String cmWiki, OEM oem) {
         this.codename = codename;
         this.deviceName = deviceName;
         this.cmVersion = cmVersion;
         this.cmWiki = cmWiki;
+        this.oem = oem;
     }
 
     public String getCodename() {
@@ -34,5 +36,9 @@ public class DeviceInfo {
 
     public String getCmWiki() {
         return cmWiki;
+    }
+
+    public OEM getOem() {
+        return oem;
     }
 }

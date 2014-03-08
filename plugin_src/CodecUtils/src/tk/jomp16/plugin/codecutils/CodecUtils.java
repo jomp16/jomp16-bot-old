@@ -15,11 +15,24 @@ import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.listener.event.CommandEvent;
 import tk.jomp16.irc.event.listener.event.InitEvent;
 import tk.jomp16.plugin.codecutils.rot13.Rot13;
+import tk.jomp16.plugin.codecutils.ui.EncodeDecodePanel;
 import tk.jomp16.plugin.help.HelpRegister;
+import tk.jomp16.ui.plugin.PluginUI;
 
+import javax.swing.*;
 import java.util.Base64;
 
-public class CodecUtils extends Event {
+public class CodecUtils extends Event implements PluginUI {
+    private JPanel codecUtilsPanel;
+    private JButton encodeButton;
+    private JButton decodeButton;
+
+    public CodecUtils() {
+        encodeButton.addActionListener(e -> createJFrame(new EncodeDecodePanel(true).encodeDecodePanel, "Encode"));
+
+        decodeButton.addActionListener(e -> createJFrame(new EncodeDecodePanel(false).encodeDecodePanel, "Decode"));
+    }
+
     @Command("encode")
     public void encode(CommandEvent commandEvent) throws Exception {
         if (commandEvent.getArgs().size() >= 2) {
@@ -104,7 +117,7 @@ public class CodecUtils extends Event {
         }
     }
 
-    private String getBinary(String text) {
+    public static String getBinary(String text) {
         StringBuilder builder = new StringBuilder();
         String tmp = new String(BinaryCodec.toAsciiChars(text.getBytes()));
 
@@ -127,5 +140,10 @@ public class CodecUtils extends Event {
         initEvent.addHelp(this, new HelpRegister("encode", "Encode a string", "<binary, hex, base64> 'string to encode'"));
         initEvent.addHelp(this, new HelpRegister("decode", "Decode a string", "<binary, hex, base64> 'string encoded to decode'"));
         initEvent.addHelp(this, new HelpRegister("rot13", "Rotate a string by 13 times", "'string to rotate'"));
+    }
+
+    @Override
+    public JPanel getJPanel() {
+        return codecUtilsPanel;
     }
 }

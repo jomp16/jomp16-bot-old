@@ -23,22 +23,18 @@ import java.net.URL;
 public class JavaScript extends Event {
     private static ScriptEngine scriptEngine = null;
 
-    @Command(value = {"js", "javascript"}, level = Level.OWNER)
+    @Command(value = {"js", "javascript"}, level = Level.OWNER, args = {"url:"})
     public void js(CommandEvent commandEvent) throws Exception {
         if (commandEvent.getMessage().length() > 0 || commandEvent.getArgs().size() >= 1) {
             scriptEngine.put("commandEvent", commandEvent);
 
-            if (commandEvent.getArgs().get(0).equals("load")) {
-                if (commandEvent.getArgs().size() >= 2) {
-                    if (commandEvent.getArgs().get(1).equals("url")) {
-                        if (commandEvent.getArgs().size() >= 3) {
-                            Object object = scriptEngine.eval(new InputStreamReader(new URL(commandEvent.getArgs().get(2)).openStream()));
-                            if (object != null) {
-                                if (!object.equals("null")) {
-                                    commandEvent.respond(object, false);
-                                }
-                            }
-                        }
+            if (commandEvent.getOptionSet().has("url")) {
+                Object object = scriptEngine.eval(new InputStreamReader(
+                        new URL((String) commandEvent.getOptionSet().valueOf("url")).openStream()));
+
+                if (object != null) {
+                    if (!object.equals("null")) {
+                        commandEvent.respond(object, false);
                     }
                 }
             } else {
@@ -57,7 +53,7 @@ public class JavaScript extends Event {
 
     @Override
     public void onInit(InitEvent initEvent) throws Exception {
-        initEvent.addHelp(this, new HelpRegister("js", new String[]{"javascript"}, "Run a java/javascript command", "(load url the_url) or (java/javascript command)", Level.OWNER));
+        initEvent.addHelp(this, new HelpRegister("js", new String[]{"javascript"}, "Run a java/javascript command", "-url the url or java/javascript command", Level.OWNER));
 
         if (scriptEngine == null) {
             scriptEngine = new ScriptEngineManager().getEngineByName("JavaScript");

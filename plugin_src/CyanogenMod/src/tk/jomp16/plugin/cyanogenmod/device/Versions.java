@@ -5,7 +5,7 @@
  * as published by Sam Hocevar. See the COPYING file for more details.
  */
 
-package tk.jomp16.plugin.cyanogenmod;
+package tk.jomp16.plugin.cyanogenmod.device;
 
 public enum Versions {
     CM_11("cm-11.0", "CyanogenMod 11", "Android 4.4.2"),

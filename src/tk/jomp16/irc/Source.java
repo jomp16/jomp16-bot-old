@@ -17,6 +17,7 @@ public class Source {
 
     public Source(String raw) {
         this.raw = raw;
+
         if (!raw.contains("@")) {
             this.host = raw;
         } else {
@@ -40,13 +41,17 @@ public class Source {
 
     public static boolean match(String host, String mask) {
         String[] sections = mask.split("\\*");
+
         for (String section : sections) {
             int index = host.indexOf(section);
+
             if (index == -1) {
                 return false;
             }
+
             host = host.substring(index + section.length());
         }
+
         return true;
     }
 

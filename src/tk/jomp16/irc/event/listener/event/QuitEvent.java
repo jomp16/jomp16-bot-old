@@ -7,12 +7,12 @@
 
 package tk.jomp16.irc.event.listener.event;
 
+import org.apache.logging.log4j.Logger;
 import tk.jomp16.irc.IRCManager;
 import tk.jomp16.irc.channel.Channel;
 import tk.jomp16.irc.channel.ChannelDAO;
 import tk.jomp16.irc.event.listener.Listener;
 import tk.jomp16.irc.user.User;
-import tk.jomp16.logger.Logger;
 import tk.jomp16.plugin.PluginInfo;
 
 public class QuitEvent extends Listener {

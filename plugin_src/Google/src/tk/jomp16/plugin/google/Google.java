@@ -26,7 +26,7 @@ public class Google extends Event {
     private static String GOOGLE = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=%s";
 
     @Command(value = "google", args = {"term:", "num::"})
-    public void googleSearch(CommandEvent commandEvent) throws Exception {
+    public void google(CommandEvent commandEvent) throws Exception {
         if (commandEvent.getOptionSet().has("term")) {
             String url = String.format(GOOGLE, URLEncoder.encode((String) commandEvent.getOptionSet().valueOf("term"),
                     "UTF-8"));

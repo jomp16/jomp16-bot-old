@@ -9,9 +9,7 @@ package tk.jomp16.properties;
 
 import com.google.gson.*;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +17,7 @@ import java.util.Map;
 
 public class JSONProperties {
     private Gson gson;
+    private ClassLoader classLoader;
     private Map<String, String> propertiesString;
     private Map<String, JsonPrimitive> propertiesPrimitiveMap;
     private Map<String, JsonArray> propertiesArrayMap;
@@ -32,27 +31,78 @@ public class JSONProperties {
         this.propertiesJsonElement = new HashMap<>();
     }
 
-    public void load(InputStream inputStream) {
-        this.load0(new InputStreamReader(inputStream));
+    public JSONProperties(ClassLoader classLoader) {
+        this();
+
+        this.classLoader = classLoader;
     }
 
-    public void load(Reader reader) {
+    public JSONProperties load(InputStream inputStream) {
+        this.load0(new InputStreamReader(inputStream));
+
+        return this;
+    }
+
+    public JSONProperties load(Reader reader) {
         this.load0(reader);
+
+        return this;
+    }
+
+    public JSONProperties load(String basePath) {
+        if (classLoader != null) {
+            InputStream in = classLoader.getResourceAsStream(basePath);
+
+            if (in != null) {
+                load0(new InputStreamReader(in));
+            } else {
+                throw new NullPointerException("classLoader.getResourceAsStream() is null!");
+            }
+
+            return this;
+        } else {
+            try {
+                load0(new FileReader(basePath));
+
+                return this;
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+    }
+
+    public JSONProperties load(ClassLoader classLoader, String baseResource) {
+        if (classLoader != null) {
+            InputStream in = classLoader.getResourceAsStream(baseResource);
+
+            if (in != null) {
+                load0(new InputStreamReader(in));
+            } else {
+                throw new NullPointerException("classLoader.getResourceAsStream() is null!");
+            }
+        }
+
+        return this;
     }
 
     private void load0(Reader reader) {
-        JsonObject jsonObject = this.gson.fromJson(reader, JsonObject.class);
+        if (reader != null) {
+            JsonObject jsonObject = this.gson.fromJson(reader, JsonObject.class);
 
-        jsonObject.entrySet().forEach(jsonElementEntry -> {
-            propertiesJsonElement.put(jsonElementEntry.getKey(), jsonElementEntry.getValue());
+            jsonObject.entrySet().forEach(jsonElementEntry -> {
+                propertiesJsonElement.put(jsonElementEntry.getKey(), jsonElementEntry.getValue());
 
-            if (jsonElementEntry.getValue() instanceof JsonArray) {
-                propertiesArrayMap.put(jsonElementEntry.getKey(), jsonElementEntry.getValue().getAsJsonArray());
-            } else {
-                propertiesString.put(jsonElementEntry.getKey(), jsonElementEntry.getValue().getAsString());
-                propertiesPrimitiveMap.put(jsonElementEntry.getKey(), (JsonPrimitive) jsonElementEntry.getValue());
-            }
-        });
+                if (jsonElementEntry.getValue() instanceof JsonArray) {
+                    propertiesArrayMap.put(jsonElementEntry.getKey(), jsonElementEntry.getValue().getAsJsonArray());
+                } else {
+                    propertiesString.put(jsonElementEntry.getKey(), jsonElementEntry.getValue().getAsString());
+                    propertiesPrimitiveMap.put(jsonElementEntry.getKey(), (JsonPrimitive) jsonElementEntry.getValue());
+                }
+            });
+        } else {
+            throw new NullPointerException("Reader is null!");
+        }
     }
 
     public JsonElement getJsonElement(String key) {

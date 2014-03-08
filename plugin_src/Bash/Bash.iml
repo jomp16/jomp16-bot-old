@@ -8,6 +8,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="jomp16-bot" />
+    <orderEntry type="library" name="log4j-2.0-rc1" level="project" />
   </component>
 </module>
 

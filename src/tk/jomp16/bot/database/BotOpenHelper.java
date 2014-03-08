@@ -19,6 +19,16 @@ public class BotOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database) throws SQLException {
+        database.executeFastUpdateQuery("CREATE TABLE bot_config (" +
+                "nick string NOT NULL, " +
+                "realName string NOT NULL, " +
+                "identify string NOT NULL, " +
+                "prefix string NOT NULL, " +
+                "server string NOT NULL)");
 
+        database.executeFastUpdateQuery("CREATE TABLE owners (mask string NOT NULL)");
+        database.executeFastUpdateQuery("CREATE TABLE admins (mask string NOT NULL)");
+        database.executeFastUpdateQuery("CREATE TABLE mods (mask string NOT NULL)");
+        database.executeFastUpdateQuery("CREATE TABLE joinChannel (channel string NOT NULL)");
     }
 }

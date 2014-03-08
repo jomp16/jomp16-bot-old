@@ -7,10 +7,10 @@
 
 package tk.jomp16.irc.event.events;
 
+import org.apache.logging.log4j.LogManager;
 import tk.jomp16.irc.IRCManager;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.user.User;
-import tk.jomp16.logger.LogManager;
 
 public class QuitEvent extends Event {
     private IRCManager ircManager;

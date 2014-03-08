@@ -7,9 +7,9 @@
 
 package tk.jomp16.irc.output;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import tk.jomp16.irc.IRCManager;
-import tk.jomp16.logger.LogManager;
-import tk.jomp16.logger.Logger;
 
 import java.io.IOException;
 
@@ -30,7 +30,7 @@ public class OutputRaw {
                 ircManager.getIrcWriter().newLine();
                 ircManager.getIrcWriter().flush();
             } catch (IOException e) {
-                log.error(e);
+                log.error(e, e);
             }
         };
 
