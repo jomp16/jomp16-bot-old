@@ -12,11 +12,30 @@ import javax.swing.*;
 public interface PluginUI {
     public JPanel getJPanel();
 
-    public default void createJFrame(JPanel jPanel, String title) {
+    public default void showJFrame(JPanel jPanel, String title) {
         JFrame jFrame = new JFrame(title);
         jFrame.setContentPane(jPanel);
         jFrame.pack();
         jFrame.setLocationRelativeTo(null);
         jFrame.setVisible(true);
+    }
+
+    public default JFrame createJFrame(JPanel jPanel, String title) {
+        JFrame jFrame = new JFrame(title);
+        jFrame.setContentPane(jPanel);
+        jFrame.pack();
+        jFrame.setLocationRelativeTo(null);
+
+        return jFrame;
+    }
+
+    public default JFrame createAndShowJFrame(JPanel jPanel, String title) {
+        JFrame jFrame = new JFrame(title);
+        jFrame.setContentPane(jPanel);
+        jFrame.pack();
+        jFrame.setLocationRelativeTo(null);
+        jFrame.setVisible(true);
+
+        return jFrame;
     }
 }

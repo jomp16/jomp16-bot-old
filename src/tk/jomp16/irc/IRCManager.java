@@ -50,6 +50,7 @@ public class IRCManager {
     private List<String> owners = new ArrayList<>();
     private List<String> admins = new ArrayList<>();
     private List<String> mods = new ArrayList<>();
+    private List<String> joinChannel = new ArrayList<>();
     private Socket ircSocket;
     private BufferedWriter ircWriter;
     private BufferedReader ircReader;
@@ -125,6 +126,10 @@ public class IRCManager {
         do {
             wait(500);
         } while (!ready);
+
+        joinChannel.forEach(channel -> getOutputIRC().joinChannel(channel));
+
+        joinChannel.clear();
     }
 
     private void loadPlugin() {
@@ -208,6 +213,10 @@ public class IRCManager {
 
     public void addMod(String mod) {
         mods.add(mod);
+    }
+
+    public void addJoinChannel(String channel) {
+        joinChannel.add(channel);
     }
 
     public OutputRaw getOutputRaw() {

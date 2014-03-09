@@ -131,89 +131,87 @@ public class PrivMsgEvent extends Event {
 
     public void invoke(List<EventRegister> eventRegisters, List<String> args, String prefix) throws Exception {
         if (args.size() >= 1) {
-            if (!isLocked()) {
-                if (args.get(0).startsWith(prefix)) {
-                    args.set(0, args.get(0).substring(1));
+            if (args.get(0).startsWith(prefix)) {
+                args.set(0, args.get(0).substring(1));
 
-                    for (EventRegister eventRegister : eventRegisters) {
-                        if (args.get(0).equals(eventRegister.command)) {
-                            args.remove(0);
+                for (EventRegister eventRegister : eventRegisters) {
+                    if (args.get(0).equals(eventRegister.command)) {
+                        args.remove(0);
 
-                            String messageWithoutCommand =
-                                    message.substring(message.substring(1).length() > eventRegister.command.length()
-                                            ? eventRegister.command.length() + 2
-                                            : message.length());
+                        String messageWithoutCommand =
+                                message.substring(message.substring(1).length() > eventRegister.command.length()
+                                        ? eventRegister.command.length() + 2
+                                        : message.length());
 
-                            OptionParser parser = new OptionParser();
-                            parser.allowsUnrecognizedOptions();
+                        OptionParser parser = new OptionParser();
+                        parser.allowsUnrecognizedOptions();
 
-                            for (String arg : eventRegister.args) {
-                                if (arg.endsWith("::")) {
-                                    parser.accepts(arg.substring(0, arg.length() - 2)).withOptionalArg();
-                                } else if (arg.endsWith(":")) {
-                                    parser.accepts(arg.substring(0, arg.length() - 1)).withRequiredArg();
-                                } else {
-                                    parser.accepts(arg);
-                                }
-                            }
-
-                            OptionSet optionSet = parser.parse(args);
-                            CommandEvent commandEvent;
-
-                            if (eventRegister.pluginInfo != null) {
-                                commandEvent = new CommandEvent(ircManager, user, channel,
-                                        new ChannelDAO(ircManager, channel),
-                                        LogManager.getLogger(eventRegister.event.getClass()),
-                                        eventRegister.pluginInfo);
-
-                                commandEvent.setMessage(messageWithoutCommand);
-                                commandEvent.setArgs(args);
-                                commandEvent.setCommand(eventRegister.command);
-                                commandEvent.setOptionSet(optionSet);
-                                commandEvent.setRawMessage(message);
+                        for (String arg : eventRegister.args) {
+                            if (arg.endsWith("::")) {
+                                parser.accepts(arg.substring(0, arg.length() - 2)).withOptionalArg();
+                            } else if (arg.endsWith(":")) {
+                                parser.accepts(arg.substring(0, arg.length() - 1)).withRequiredArg();
                             } else {
-                                commandEvent = new CommandEvent(ircManager, user, channel,
-                                        new ChannelDAO(ircManager, channel),
-                                        LogManager.getLogger(eventRegister.event.getClass()));
-
-                                commandEvent.setMessage(messageWithoutCommand);
-                                commandEvent.setArgs(args);
-                                commandEvent.setCommand(eventRegister.command);
-                                commandEvent.setOptionSet(optionSet);
-                                commandEvent.setRawMessage(message);
+                                parser.accepts(arg);
                             }
-
-                            Level level = Source.loopMask(ircManager, user.getCompleteRawLine());
-                            switch (eventRegister.level) {
-                                case NORMAL:
-                                    invoke(eventRegister.method, eventRegister.event, commandEvent);
-                                    break;
-                                case MOD:
-                                    if (level.equals(Level.MOD)
-                                            || level.equals(Level.ADMIN)
-                                            || level.equals(Level.OWNER)) {
-                                        invoke(eventRegister.method, eventRegister.event, commandEvent);
-                                    }
-                                    break;
-                                case ADMIN:
-                                    if (level.equals(Level.ADMIN)
-                                            || level.equals(Level.OWNER)) {
-                                        invoke(eventRegister.method, eventRegister.event, commandEvent);
-                                    }
-                                    break;
-                                case OWNER:
-                                    if (level.equals(Level.OWNER)) {
-                                        invoke(eventRegister.method, eventRegister.event, commandEvent);
-                                    }
-                                    break;
-                            }
-
-                            break;
                         }
+
+                        OptionSet optionSet = parser.parse(args);
+                        CommandEvent commandEvent;
+
+                        if (eventRegister.pluginInfo != null) {
+                            commandEvent = new CommandEvent(ircManager, user, channel,
+                                    new ChannelDAO(ircManager, channel),
+                                    LogManager.getLogger(eventRegister.event.getClass()),
+                                    eventRegister.pluginInfo);
+
+                            commandEvent.setMessage(messageWithoutCommand);
+                            commandEvent.setArgs(args);
+                            commandEvent.setCommand(eventRegister.command);
+                            commandEvent.setOptionSet(optionSet);
+                            commandEvent.setRawMessage(message);
+                        } else {
+                            commandEvent = new CommandEvent(ircManager, user, channel,
+                                    new ChannelDAO(ircManager, channel),
+                                    LogManager.getLogger(eventRegister.event.getClass()));
+
+                            commandEvent.setMessage(messageWithoutCommand);
+                            commandEvent.setArgs(args);
+                            commandEvent.setCommand(eventRegister.command);
+                            commandEvent.setOptionSet(optionSet);
+                            commandEvent.setRawMessage(message);
+                        }
+
+                        Level level = Source.loopMask(ircManager, user.getCompleteRawLine());
+                        switch (eventRegister.level) {
+                            case NORMAL:
+                                invoke(eventRegister.method, eventRegister.event, commandEvent);
+                                break;
+                            case MOD:
+                                if (level.equals(Level.MOD)
+                                        || level.equals(Level.ADMIN)
+                                        || level.equals(Level.OWNER)) {
+                                    invoke(eventRegister.method, eventRegister.event, commandEvent);
+                                }
+                                break;
+                            case ADMIN:
+                                if (level.equals(Level.ADMIN)
+                                        || level.equals(Level.OWNER)) {
+                                    invoke(eventRegister.method, eventRegister.event, commandEvent);
+                                }
+                                break;
+                            case OWNER:
+                                if (level.equals(Level.OWNER)) {
+                                    invoke(eventRegister.method, eventRegister.event, commandEvent);
+                                }
+                                break;
+                        }
+
+                        break;
                     }
-                } else {
-                    execPrivAction();
                 }
+            } else {
+                execPrivAction();
             }
         } else {
             execPrivAction();

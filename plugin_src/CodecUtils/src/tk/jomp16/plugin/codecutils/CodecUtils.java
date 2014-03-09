@@ -28,9 +28,9 @@ public class CodecUtils extends Event implements PluginUI {
     private JButton decodeButton;
 
     public CodecUtils() {
-        encodeButton.addActionListener(e -> createJFrame(new EncodeDecodePanel(true).encodeDecodePanel, "Encode"));
+        encodeButton.addActionListener(e -> showJFrame(new EncodeDecodePanel(true).encodeDecodePanel, "Encode"));
 
-        decodeButton.addActionListener(e -> createJFrame(new EncodeDecodePanel(false).encodeDecodePanel, "Decode"));
+        decodeButton.addActionListener(e -> showJFrame(new EncodeDecodePanel(false).encodeDecodePanel, "Decode"));
     }
 
     @Command("encode")

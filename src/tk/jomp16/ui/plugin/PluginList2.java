@@ -36,13 +36,13 @@ public class PluginList2 implements PluginUI {
             pluginUIs.parallelStream().filter(pluginUI -> pluginUI.getJPanel() != null)
                     .forEach(pluginUI -> {
                         JButton jButton = new JButton(pluginUI.getClass().getSimpleName());
-                        jButton.addActionListener(e -> createJFrame(pluginUI.getJPanel(), pluginUI.getClass().getSimpleName()));
+                        jButton.addActionListener(e -> showJFrame(pluginUI.getJPanel(), pluginUI.getClass().getSimpleName()));
 
                         pluginsListPanel1.add(jButton);
                     });
         } else if (pluginUI != null) {
             JButton jButton = new JButton(pluginUI.getClass().getSimpleName());
-            jButton.addActionListener(e -> createJFrame(pluginUI.getJPanel(), pluginUI.getClass().getSimpleName()));
+            jButton.addActionListener(e -> showJFrame(pluginUI.getJPanel(), pluginUI.getClass().getSimpleName()));
 
             pluginsListPanel1.add(jButton);
         }

@@ -31,7 +31,7 @@ public class PluginList1 implements PluginUI {
                         .forEach(stub -> {
                             JButton jButton = new JButton(pluginList.getPluginInfo().getName());
                             jButton.addActionListener(e ->
-                                    createJFrame(new PluginList2(pluginList.getPluginUIs()).getJPanel(),
+                                    showJFrame(new PluginList2(pluginList.getPluginUIs()).getJPanel(),
                                             pluginList.getPluginInfo().getName()));
 
                             pluginsListPanel1.add(jButton);
@@ -41,7 +41,7 @@ public class PluginList1 implements PluginUI {
                 .filter(pluginUI -> pluginUI.getJPanel() != null)
                 .forEach(pluginUI -> {
                     JButton jButton = new JButton(pluginUI.getClass().getSimpleName());
-                    jButton.addActionListener(e -> createJFrame(pluginUI.getJPanel(), pluginUI.getClass().getSimpleName()));
+                    jButton.addActionListener(e -> showJFrame(pluginUI.getJPanel(), pluginUI.getClass().getSimpleName()));
 
                     pluginsListPanel1.add(jButton);
                 });

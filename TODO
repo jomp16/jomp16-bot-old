@@ -10,7 +10,6 @@ ADD OPT COMMANDS INSIDE REAL COMMAND, LIKE on help: money [currency], other comm
 
 Lower the RAM usage... (nevermind about it)
 
-Add whatever to store the users of a channel on a array (normal, voice, op and all) on Channel class
 Change hardcoded string value to the language manager (multi language system) (in progress)
 Add more classes to handle the rest of the IRC commands
 

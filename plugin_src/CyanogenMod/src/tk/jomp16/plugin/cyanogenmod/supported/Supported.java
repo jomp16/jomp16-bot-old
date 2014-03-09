@@ -10,7 +10,6 @@ package tk.jomp16.plugin.cyanogenmod.supported;
 import org.apache.commons.lang3.StringUtils;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.listener.event.CommandEvent;
-import tk.jomp16.irc.event.listener.event.InitEvent;
 import tk.jomp16.plugin.cyanogenmod.device.Device;
 import tk.jomp16.plugin.cyanogenmod.device.OEM;
 
@@ -22,8 +21,7 @@ import java.util.stream.Collectors;
 public class Supported extends Event {
     private String oemString;
 
-    @Override
-    public void onInit(InitEvent initEvent) throws Exception {
+    public Supported() {
         List<String> oemList = new ArrayList<>();
 
         for (OEM oem : OEM.values()) {

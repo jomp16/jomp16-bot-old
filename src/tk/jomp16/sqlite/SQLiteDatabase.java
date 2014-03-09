@@ -13,7 +13,7 @@ import java.sql.*;
 public class SQLiteDatabase {
     private Connection connection;
     private PreparedStatement preparedStatement;
-    private boolean newDatabase = true;
+    private boolean newDatabase;
     private int databaseVersion = 1;
 
     public SQLiteDatabase(SQLiteOpenHelper openHelper) throws Exception {
@@ -34,13 +34,13 @@ public class SQLiteDatabase {
     private void createDatabase(String databasePath) throws Exception {
         Class.forName("org.sqlite.JDBC");
 
-        File f = new File(databasePath);
+        String tmp = databasePath.endsWith(".db") ? databasePath : databasePath + ".db";
 
-        if (f.exists()) {
-            newDatabase = false;
-        }
+        File f = new File(tmp);
 
-        connection = DriverManager.getConnection(databasePath.endsWith(".db") ? "jdbc:sqlite:" + databasePath : "jdbc:sqlite:" + databasePath + ".db");
+        newDatabase = !f.exists();
+
+        connection = DriverManager.getConnection("jdbc:sqlite:" + tmp);
 
         if (newDatabase) {
             executeFastUpdateQuery("CREATE TABLE private_info (databaseVersion INTEGER NOT NULL)");
