@@ -15,7 +15,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Command {
-    String[] value();
+    String value();
+
+    String[] optCommands() default "";
 
     String[] args() default "placeholder";
 

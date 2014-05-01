@@ -22,18 +22,14 @@ public class OutputRaw {
     }
 
     public void writeRaw(String line) {
-        Runnable runnable = () -> {
-            log.debug(line);
+        log.debug(line);
 
-            try {
-                ircManager.getIrcWriter().write(line);
-                ircManager.getIrcWriter().newLine();
-                ircManager.getIrcWriter().flush();
-            } catch (IOException e) {
-                log.error(e, e);
-            }
-        };
-
-        ircManager.getExecutor().execute(runnable);
+        try {
+            ircManager.getIrcWriter().write(line);
+            ircManager.getIrcWriter().newLine();
+            ircManager.getIrcWriter().flush();
+        } catch (IOException e) {
+            log.error(e, e);
+        }
     }
 }

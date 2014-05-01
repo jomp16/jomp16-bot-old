@@ -71,7 +71,7 @@ public class MainUI implements PluginUI {
     }
 
     public static void main(String[] args) throws Exception {
-        if (args.length == 0 || args.length >= 1 && !args[0].equals("nogui")) {
+        if (args.length != 0 && args[0].equals("forcegui")) {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             new MainUI();
         } else {
@@ -79,7 +79,6 @@ public class MainUI implements PluginUI {
         }
 
         ircManager.connect();
-        //ircManager.getOutputIRC().joinChannel("#jomp16-bot");
     }
 
     public static void initIRCBot() throws Exception {
@@ -123,47 +122,14 @@ public class MainUI implements PluginUI {
         while (resultSet.next()) {
             ircManager.addJoinChannel(resultSet.getString("channel"));
         }
+    }
 
-        /*SQLiteManager sqLiteManager = new SQLiteManager("database");
-
-        try {
-            sqLiteManager.getPreparedStatement("SELECT * FROM bot_config").close();
-        } catch (SQLException e) {
-            // If the sql fails, it is because the database is new
-            new SQLite_Configurator();
-        }
-
-        LanguageManager languageManager = new LanguageManager("tk.jomp16.resource.Strings");
-
-        log.trace(languageManager.getAsString("welcome", System.getProperty("user.name")));
-
-        ResultSet ircConf = sqLiteManager.getResultSet("SELECT * FROM bot_config");
-
-        ircManager = new IRCManager(new Configuration.Builder()
-                .setNick(ircConf.getString("nick"))
-                .setRealName(ircConf.getString("realName"))
-                .setPassword(ircConf.getString("password"))
-                .setPrefix(ircConf.getString("prefix"))
-                .setIdentify(ircConf.getString("identify"))
-                .setServer(ircConf.getString("server"))
-                .setVerbose(true)
-                .buildConfiguration());
-
-        ircManager.registerEvent(new TestPlugin(), true);
-        ircManager.registerEvent(new FunCommandsPlugin(), true);
-
-        ResultSet resultSet = sqLiteManager.getResultSet("SELECT * FROM owners");
-        while (resultSet.next()) {
-            ircManager.addOwner(resultSet.getString("mask"));
-        }*/
+    public static boolean isGui() {
+        return gui;
     }
 
     @Override
     public JPanel getJPanel() {
         return null;
-    }
-
-    public static boolean isGui() {
-        return gui;
     }
 }

@@ -18,61 +18,94 @@ import tk.jomp16.irc.event.listener.event.InitEvent;
 import tk.jomp16.irc.event.listener.event.ResetEvent;
 import tk.jomp16.language.LanguageManager;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Help extends Event {
-    private static List<String> helpNormal = new ArrayList<>();
-    private static List<String> helpMod = new ArrayList<>();
-    private static List<String> helpAdmin = new ArrayList<>();
-    private static List<String> helpOwner = new ArrayList<>();
+    private static Map<String, String[]> helpNormal = new HashMap<>();
+    private static Map<String, String[]> helpMod = new HashMap<>();
+    private static Map<String, String[]> helpAdmin = new HashMap<>();
+    private static Map<String, String[]> helpOwner = new HashMap<>();
     private static Map<String, HelpRegister> helpRegisters = new HashMap<>();
     private static LanguageManager languageManager;
 
     private static void registerHelp() {
-        for (PrivMsgEvent.EventRegister eventRegister : PrivMsgEvent.getEventRegisters()) {
-            for (HelpRegister helpRegister : eventRegister.event.getHelpRegister()) {
-                helpRegisters.put(helpRegister.getCommand(), helpRegister);
+        PrivMsgEvent.getEventRegisters().parallelStream().forEach(eventRegister -> eventRegister.event.getHelpRegister().parallelStream()
+                .filter(helpRegister -> !helpRegisters.containsKey(helpRegister.getCommand()))
+                .forEach(helpRegister -> {
+                    helpRegisters.put(helpRegister.getCommand(), helpRegister);
 
-                addToList(helpRegister.getCommand(), helpRegister.getLevel());
+                    addToList(helpRegister.getCommand(), helpRegister.getOptCommands(), helpRegister.getLevel());
 
-                if (helpRegister.getOptCommands() != null && helpRegister.getOptCommands().length != 0) {
-                    for (String s : helpRegister.getOptCommands()) {
-                        // TODO: ADD OPT COMMANDS INSIDE REAL COMMAND, LIKE on help: money [currency], other command [other opt command], other command
-                        helpRegisters.put(s, helpRegister);
+                    /*if (helpRegister.getOptCommands() != null && helpRegister.getOptCommands().length != 0) {
+                        for (String s : helpRegister.getOptCommands()) {
+                            if (!helpRegisters.containsKey(s)) {
+                                // TODO: ADD OPT COMMANDS INSIDE REAL COMMAND, LIKE on help: money [currency], other command [other opt command], other command
+                                helpRegisters.put(s, helpRegister);
 
-                        addToList(s, helpRegister.getLevel());
-                    }
-                }
-            }
+                                addToList(helpRegister.getCommand(), s, helpRegister.getLevel());
+                            }
+                        }
+                    }*/
+                }));
+
+        /*Collections.sort(helpNormal, String::compareTo);
+        Collections.sort(helpMod, String::compareTo);
+        Collections.sort(helpAdmin, String::compareTo);
+        Collections.sort(helpOwner, String::compareTo);*/
+    }
+
+    private static void addToList(String command, String[] command1, Level level) {
+        switch (level) {
+            case NORMAL:
+                helpNormal.put(command, command1);
+                helpMod.put(command, command1);
+                helpAdmin.put(command, command1);
+                helpOwner.put(command, command1);
+                break;
+            case MOD:
+                helpMod.put(command, command1);
+                helpAdmin.put(command, command1);
+                helpOwner.put(command, command1);
+                break;
+            case ADMIN:
+                helpAdmin.put(command, command1);
+                helpOwner.put(command, command1);
+                break;
+            case OWNER:
+                helpOwner.put(command, command1);
+                break;
         }
     }
 
-    private static void addToList(String command, Level level) {
-        switch (level) {
-            case NORMAL:
-                helpNormal.add(command);
-                helpMod.add(command);
-                helpAdmin.add(command);
-                helpOwner.add(command);
-                break;
-            case MOD:
-                helpMod.add(command);
-                helpAdmin.add(command);
-                helpOwner.add(command);
-                break;
-            case ADMIN:
-                helpAdmin.add(command);
-                helpOwner.add(command);
-                break;
-            case OWNER:
-                helpOwner.add(command);
-                break;
-        }
+    public static void reloadHelp() {
+        helpRegisters.clear();
+        helpNormal.clear();
+        helpMod.clear();
+        helpAdmin.clear();
+        helpOwner.clear();
 
-        Collections.sort(helpNormal, String::compareTo);
-        Collections.sort(helpMod, String::compareTo);
-        Collections.sort(helpAdmin, String::compareTo);
-        Collections.sort(helpOwner, String::compareTo);
+        registerHelp();
+    }
+
+    public static Map<String, String[]> getHelpNormal() {
+        return helpNormal;
+    }
+
+    public static Map<String, String[]> getHelpMod() {
+        return helpMod;
+    }
+
+    public static Map<String, String[]> getHelpAdmin() {
+        return helpAdmin;
+    }
+
+    public static Map<String, String[]> getHelpOwner() {
+        return helpOwner;
+    }
+
+    public static Map<String, HelpRegister> getHelpRegisters() {
+        return helpRegisters;
     }
 
     @Command("help")
@@ -83,20 +116,7 @@ public class Help extends Event {
 
         if (commandEvent.getArgs().size() > 0) {
             if (commandEvent.getArgs().get(0).equals("all")) {
-                switch (commandEvent.getUser().getLevel()) {
-                    case NORMAL:
-                        commandEvent.respond(languageManager.getAsString("help.text.available.commands", StringUtils.join(helpNormal, ", ")));
-                        break;
-                    case MOD:
-                        commandEvent.respond(languageManager.getAsString("help.text.available.commands", StringUtils.join(helpMod, ", ")));
-                        break;
-                    case ADMIN:
-                        commandEvent.respond(languageManager.getAsString("help.text.available.commands", StringUtils.join(helpAdmin, ", ")));
-                        break;
-                    case OWNER:
-                        commandEvent.respond(languageManager.getAsString("help.text.available.commands", StringUtils.join(helpOwner, ", ")));
-                        break;
-                }
+                commandEvent.respond(languageManager.getAsString("help.text.available.commands", getAllHelp(commandEvent.getUser().getLevel())));
             } else {
                 if (helpRegisters.containsKey(commandEvent.getArgs().get(0))) {
                     HelpRegister helpRegister = helpRegisters.get(commandEvent.getArgs().get(0));
@@ -131,6 +151,73 @@ public class Help extends Event {
         }
     }
 
+    private String getAllHelp(Level level) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        switch (level) {
+            case NORMAL:
+                helpNormal.forEach((key, value) -> {
+                    stringBuilder.append(key);
+
+                    if (value != null) {
+                        stringBuilder.append(" [")
+                                .append(StringUtils.join(value, ", "))
+                                .append("]");
+                    }
+
+                    stringBuilder.append(", ");
+                });
+
+                break;
+            case MOD:
+                helpMod.forEach((key, value) -> {
+                    stringBuilder.append(key);
+
+                    if (value != null) {
+                        stringBuilder.append(" [")
+                                .append(StringUtils.join(value, ", "))
+                                .append("]");
+                    }
+
+                    stringBuilder.append(", ");
+                });
+
+                break;
+            case ADMIN:
+                helpAdmin.forEach((key, value) -> {
+                    stringBuilder.append(key);
+
+                    if (value != null) {
+                        stringBuilder.append(" [")
+                                .append(StringUtils.join(value, ", "))
+                                .append("]");
+                    }
+
+                    stringBuilder.append(", ");
+                });
+
+                break;
+            case OWNER:
+                helpOwner.forEach((key, value) -> {
+                    stringBuilder.append(key);
+
+                    if (value != null) {
+                        stringBuilder.append(" [")
+                                .append(StringUtils.join(value, ", "))
+                                .append("]");
+                    }
+
+                    stringBuilder.append(", ");
+                });
+
+                break;
+        }
+
+        String tmp = stringBuilder.toString();
+
+        return tmp.substring(0, tmp.length() - 2);
+    }
+
     private String getHelpInfo(IRCManager ircManager, HelpRegister helpRegister) {
         if (helpRegister.getOptCommands() != null && helpRegister.getOptCommands().length != 0) {
             String usage = helpRegister.getUsage();
@@ -148,7 +235,7 @@ public class Help extends Event {
                         helpRegister.getCommand(),
                         StringUtils.join(helpRegister.getOptCommands(), ", "),
                         helpRegister.getHelp(),
-                        helpRegister.getUsage());
+                        "");
             }
         } else {
             String usage = helpRegister.getUsage();
@@ -167,16 +254,6 @@ public class Help extends Event {
                         "");
             }
         }
-    }
-
-    public static void reloadHelp() {
-        helpRegisters.clear();
-        helpNormal.clear();
-        helpMod.clear();
-        helpAdmin.clear();
-        helpOwner.clear();
-
-        registerHelp();
     }
 
     @Override

@@ -26,7 +26,9 @@ public class URL extends Event {
     @Override
     public void onPrivMsg(PrivMsgEvent privMsgEvent) throws Exception {
         // TODO: remove hardcoded channel
-        if (!privMsgEvent.getChannel().getTargetName().equals("#teamhacksung-support") && !privMsgEvent.getChannel().getTargetName().equals("#zlotycrew")) {
+        if (!privMsgEvent.getChannel().getTargetName().equals("#teamhacksung-support")
+                && !privMsgEvent.getChannel().getTargetName().equals("#zlotycrew")
+                && !privMsgEvent.getChannel().getTargetName().equals("##waratte")) {
             if (privMsgEvent.getMessage().contains("http://") || privMsgEvent.getMessage().contains("https://") || privMsgEvent.getMessage().contains("www.")) {
                 Matcher matcher = urlPattern.matcher(privMsgEvent.getMessage());
 
@@ -37,8 +39,8 @@ public class URL extends Event {
                         url = "http://" + url;
                     }
 
-                    Document document = Jsoup.connect(url).userAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.10 Safari/537.36").referrer("http://www.google.com").followRedirects(true).get().normalise();
-                    privMsgEvent.respond("URL: " + url + " | Title: " + document.title(), false);
+                    Document document = Jsoup.connect(url).userAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.116 Safari/537.36").referrer("http://www.google.com").followRedirects(true).get().normalise();
+                    privMsgEvent.respond("Title: " + document.title() + " (at " + url + ")", false);
                 }
             }
         }

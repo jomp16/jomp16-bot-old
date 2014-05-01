@@ -13,7 +13,6 @@ import tk.jomp16.irc.event.Level;
 import tk.jomp16.irc.event.listener.event.CommandEvent;
 import tk.jomp16.irc.event.listener.event.InitEvent;
 import tk.jomp16.irc.event.listener.event.PrivMsgEvent;
-import tk.jomp16.language.LanguageManager;
 import tk.jomp16.plugin.play.database.PlayOpenHelper;
 import tk.jomp16.sqlite.SQLiteDatabase;
 
@@ -24,7 +23,7 @@ import java.util.Map;
 public class Play extends Event {
     private SQLiteDatabase database;
     private Map<String, PlayRegister> playRegisterHashMap = new HashMap<>();
-    private LanguageManager languageManager;
+//    private LanguageManager languageManager;
 
     @Command("play")
     public void play(CommandEvent commandEvent) throws Exception {
@@ -126,8 +125,8 @@ public class Play extends Event {
 
     @Override
     public void onInit(InitEvent initEvent) throws Exception {
-        database = new PlayOpenHelper(initEvent.getPluginPath(this) + "/database.db", 1).getDatabase();
+        database = new PlayOpenHelper(initEvent.getStringPluginPath(this, "database.db"), 1).getDatabase();
 
-        languageManager = initEvent.getLanguageManager(this, "tk.jomp16.plugin.play.resource.Strings");
+//        languageManager = initEvent.getLanguageManager(this, "tk.jomp16.plugin.play.resource.Strings");
     }
 }

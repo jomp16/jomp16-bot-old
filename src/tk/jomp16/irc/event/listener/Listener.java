@@ -113,19 +113,31 @@ public abstract class Listener {
         return new LanguageManager(resourcePath, event.getClass().getClassLoader());
     }
 
-    public String getPluginPath(Event event) {
-        File file = new File("plugins/" + event.getClass().getSimpleName());
+    public String getStringPluginPath(Event event) {
+        return getFilePluginPath(event).getPath();
+    }
+
+    public String getStringPluginPath(Event event, String addPath) {
+        return getFilePluginPath(event, addPath).getPath();
+    }
+
+    public File getFilePluginPath(Event event) {
+        File file = new File("plugins/data/" + event.getClass().getSimpleName());
 
         if (!file.exists()) {
             file.mkdir();
         }
 
-        return file.getAbsolutePath();
+        return file;
+    }
+
+    public File getFilePluginPath(Event event, String addPath) {
+        return new File(getFilePluginPath(event), addPath);
     }
 
     public String getPluginPath() {
         if (pluginInfo != null) {
-            File f = new File("plugins/" + pluginInfo.getName());
+            File f = new File("plugins/data/" + pluginInfo.getName());
 
             if (!f.exists()) {
                 f.mkdir();

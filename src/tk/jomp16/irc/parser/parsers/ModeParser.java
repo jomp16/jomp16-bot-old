@@ -34,6 +34,19 @@ public class ModeParser extends Parser {
         // [DEBUG #MODE]: [#jomp16-bot, +v, jomp16_]
         // [DEBUG #MODE]: Source{raw='jomp16!~jomp16@unaffiliated/jomp16', nick='jomp16', user='~jomp16', host='unaffiliated/jomp16'}
 
+
+        /*java.lang.IndexOutOfBoundsException: Index: 2, Size: 2
+        at java.util.ArrayList.rangeCheck(ArrayList.java:638) ~[?:1.8.0_05]
+        at java.util.ArrayList.get(ArrayList.java:414) ~[?:1.8.0_05]
+        at tk.jomp16.irc.parser.parsers.ModeParser.parse(ModeParser.java:41) ~[jomp16-bot/:?]
+        at tk.jomp16.irc.parser.Parser.parseLine(Parser.java:77) ~[jomp16-bot/:?]
+        at tk.jomp16.irc.IRCManager.connect1(IRCManager.java:341) [jomp16-bot/:?]
+        at tk.jomp16.irc.IRCManager$$Lambda$13/1578732608.run(Unknown Source) [jomp16-bot/:?]
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [?:1.8.0_05]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [?:1.8.0_05]
+        at java.lang.Thread.run(Thread.java:745) [?:1.8.0_05]*/
+
+        // todo
         User user = new User(token.getSource().getNick(), token.getSource().getUser(), token.getSource().getHost(), Source.loopMask(ircManager, token.getSource().getRaw()));
 
         Channel channel = new Channel(token.getParams().get(0));

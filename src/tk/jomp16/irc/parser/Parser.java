@@ -74,24 +74,13 @@ public abstract class Parser {
             log.debug("Found parser for command: " + command);
 
             Parser parser = parsers.get(Tags.getTag(command));
+            Event event = parser.parse(ircManager, token);
 
-            if (parser != null) {
-                Runnable runnable = () -> {
-                    Event event = parser.parse(ircManager, token);
-
-                    if (event != null) {
-                        try {
-                            event.respond();
-                        } catch (Exception e) {
-                            log.error(e, e);
-                        }
-                    }
-                };
-
-                if (!ircManager.getExecutor().isShutdown()) {
-                    ircManager.getExecutor().execute(runnable);
-                } else {
-                    log.debug("Executor is not available (i.e. it's shutdown)");
+            if (event != null) {
+                try {
+                    event.respond();
+                } catch (Exception e) {
+                    log.error(e, e);
                 }
             }
         } else {

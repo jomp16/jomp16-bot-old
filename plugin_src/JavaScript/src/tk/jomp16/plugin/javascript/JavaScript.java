@@ -23,7 +23,7 @@ import java.net.URL;
 public class JavaScript extends Event {
     private static ScriptEngine scriptEngine = null;
 
-    @Command(value = {"js", "javascript"}, level = Level.OWNER, args = {"url:"})
+    @Command(value = "js", optCommands = "javascript", level = Level.OWNER, args = {"url:"})
     public void js(CommandEvent commandEvent) throws Exception {
         if (commandEvent.getMessage().length() > 0 || commandEvent.getArgs().size() >= 1) {
             scriptEngine.put("commandEvent", commandEvent);

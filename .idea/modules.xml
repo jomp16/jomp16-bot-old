@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/plugin_src/Bash/Bash.iml" filepath="$PROJECT_DIR$/plugin_src/Bash/Bash.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugin_src/ChannelLogger/ChannelLogger.iml" filepath="$PROJECT_DIR$/plugin_src/ChannelLogger/ChannelLogger.iml" />
       <module fileurl="file://$PROJECT_DIR$/plugin_src/CodecUtils/CodecUtils.iml" filepath="$PROJECT_DIR$/plugin_src/CodecUtils/CodecUtils.iml" />
       <module fileurl="file://$PROJECT_DIR$/plugin_src/CyanogenMod/CyanogenMod.iml" filepath="$PROJECT_DIR$/plugin_src/CyanogenMod/CyanogenMod.iml" />
       <module fileurl="file://$PROJECT_DIR$/plugin_src/Google/Google.iml" filepath="$PROJECT_DIR$/plugin_src/Google/Google.iml" />
@@ -12,6 +13,7 @@
       <module fileurl="file://$PROJECT_DIR$/plugin_src/Notes/Notes.iml" filepath="$PROJECT_DIR$/plugin_src/Notes/Notes.iml" />
       <module fileurl="file://$PROJECT_DIR$/plugin_src/Play/Play.iml" filepath="$PROJECT_DIR$/plugin_src/Play/Play.iml" />
       <module fileurl="file://$PROJECT_DIR$/plugin_src/Reputation/Reputation.iml" filepath="$PROJECT_DIR$/plugin_src/Reputation/Reputation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugin_src/Ruby/Ruby.iml" filepath="$PROJECT_DIR$/plugin_src/Ruby/Ruby.iml" />
       <module fileurl="file://$PROJECT_DIR$/plugin_src/Utils/Utils.iml" filepath="$PROJECT_DIR$/plugin_src/Utils/Utils.iml" />
       <module fileurl="file://$PROJECT_DIR$/jomp16-bot.iml" filepath="$PROJECT_DIR$/jomp16-bot.iml" />
     </modules>

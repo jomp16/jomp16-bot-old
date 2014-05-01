@@ -72,10 +72,10 @@ public class IRCManager {
 
         pluginManager = new PluginManager();
 
-        File f = new File("plugins");
+        File f = new File("plugins/data/");
 
         if (!f.exists()) {
-            if (!f.mkdir()) {
+            if (!f.mkdirs()) {
                 log.error("Couldn't possible to create plugin directory");
             }
         }
@@ -176,30 +176,33 @@ public class IRCManager {
         pluginInfoHashMap.put(plugin.getPluginInfo().getName(), plugin.getPluginInfo());
 
         // PluginUI start
-        pluginUIs.addAll(plugin.getPluginUIs());
-        pluginUIMultimap.putAll(plugin.getPluginInfo().getName(), plugin.getPluginUIs());
+        if (plugin.getPluginUIs() != null) {
+            pluginUIs.addAll(plugin.getPluginUIs());
+            pluginUIMultimap.putAll(plugin.getPluginInfo().getName(), plugin.getPluginUIs());
 
-        plugin.getPluginUIs()
-                .parallelStream()
-                .forEach(pluginUI -> pluginUIMap.put(pluginUI.getClass().getSimpleName(), pluginUI));
-
+            plugin.getPluginUIs()
+                    .parallelStream()
+                    .forEach(pluginUI -> pluginUIMap.put(pluginUI.getClass().getSimpleName(), pluginUI));
+        }
         // PluginUI end
 
         // Event start
-        events.addAll(plugin.getEvents());
-        eventMultimap.putAll(plugin.getPluginInfo().getName(), plugin.getEvents());
-        plugin.getEvents().parallelStream().forEach(event -> eventMap.put(event.getClass().getSimpleName(), event));
+        if (plugin.getEvents() != null) {
+            events.addAll(plugin.getEvents());
+            eventMultimap.putAll(plugin.getPluginInfo().getName(), plugin.getEvents());
+            plugin.getEvents().parallelStream().forEach(event -> eventMap.put(event.getClass().getSimpleName(), event));
 
 
-        Runnable runnable = () -> plugin.getEvents().forEach(event -> {
-            try {
-                event.onInit(new InitEvent(this, LogManager.getLogger(event.getClass())));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+            Runnable runnable = () -> plugin.getEvents().forEach(event -> {
+                try {
+                    event.onInit(new InitEvent(this, LogManager.getLogger(event.getClass())));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
 
-        executor.execute(runnable);
+            executor.execute(runnable);
+        }
         // Event end
     }
 

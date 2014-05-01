@@ -10,6 +10,7 @@ package tk.jomp16.plugin.commands;
 import org.apache.commons.lang3.StringUtils;
 import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
+import tk.jomp16.irc.event.Level;
 import tk.jomp16.irc.event.events.PrivMsgEvent;
 import tk.jomp16.irc.event.listener.event.CommandEvent;
 import tk.jomp16.irc.event.listener.event.InitEvent;
@@ -17,15 +18,14 @@ import tk.jomp16.irc.event.listener.event.ResetEvent;
 import tk.jomp16.language.LanguageManager;
 import tk.jomp16.plugin.help.HelpRegister;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Commands extends Event {
-    private static List<String> commandsNormal = new ArrayList<>();
-    private static List<String> commandsMod = new ArrayList<>();
-    private static List<String> commandsAdmin = new ArrayList<>();
-    private static List<String> commandsOwner = new ArrayList<>();
+    private static Map<String, String[]> commandsNormal = new HashMap<>();
+    private static Map<String, String[]> commandsMod = new HashMap<>();
+    private static Map<String, String[]> commandsAdmin = new HashMap<>();
+    private static Map<String, String[]> commandsOwner = new HashMap<>();
     private static boolean flag = false;
     private LanguageManager languageManager;
 
@@ -33,32 +33,32 @@ public class Commands extends Event {
         for (PrivMsgEvent.EventRegister register : PrivMsgEvent.getEventRegisters()) {
             switch (register.level) {
                 case NORMAL:
-                    commandsNormal.add(register.command);
-                    commandsMod.add(register.command);
-                    commandsAdmin.add(register.command);
-                    commandsOwner.add(register.command);
+                    commandsNormal.put(register.command, register.optCommands);
+                    commandsMod.put(register.command, register.optCommands);
+                    commandsAdmin.put(register.command, register.optCommands);
+                    commandsOwner.put(register.command, register.optCommands);
                     break;
                 case MOD:
-                    commandsMod.add(register.command);
-                    commandsAdmin.add(register.command);
-                    commandsOwner.add(register.command);
+                    commandsMod.put(register.command, register.optCommands);
+                    commandsAdmin.put(register.command, register.optCommands);
+                    commandsOwner.put(register.command, register.optCommands);
                     break;
                 case ADMIN:
-                    commandsAdmin.add(register.command);
-                    commandsOwner.add(register.command);
+                    commandsAdmin.put(register.command, register.optCommands);
+                    commandsOwner.put(register.command, register.optCommands);
                     break;
                 case OWNER:
-                    commandsOwner.add(register.command);
+                    commandsOwner.put(register.command, register.optCommands);
                     break;
             }
 
             flag = true;
         }
 
-        Collections.sort(commandsNormal, String::compareTo);
+        /*Collections.sort(commandsNormal, String::compareTo);
         Collections.sort(commandsMod, String::compareTo);
         Collections.sort(commandsAdmin, String::compareTo);
-        Collections.sort(commandsOwner, String::compareTo);
+        Collections.sort(commandsOwner, String::compareTo);*/
     }
 
     public static void reload() {
@@ -75,7 +75,7 @@ public class Commands extends Event {
             registerCommands();
         }
 
-        switch (commandEvent.getUser().getLevel()) {
+        /*switch (commandEvent.getUser().getLevel()) {
             case NORMAL:
                 commandEvent.respond(languageManager.getAsString("commands.text.available.commands", StringUtils.join(commandsNormal, ", ")));
                 break;
@@ -88,7 +88,76 @@ public class Commands extends Event {
             case OWNER:
                 commandEvent.respond(languageManager.getAsString("commands.text.available.commands", StringUtils.join(commandsOwner, ", ")));
                 break;
+        }*/
+
+        commandEvent.respond(languageManager.getAsString("commands.text.available.commands", getAvailableCommands(commandEvent.getUser().getLevel())));
+    }
+
+    private String getAvailableCommands(Level level) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        switch (level) {
+            case NORMAL:
+                commandsNormal.forEach((key, value) -> {
+                    stringBuilder.append(key);
+
+                    if (value != null && !value[0].equals("")) {
+                        stringBuilder.append(" [")
+                                .append(StringUtils.join(value, ", "))
+                                .append("]");
+                    }
+
+                    stringBuilder.append(", ");
+                });
+
+                break;
+            case MOD:
+                commandsMod.forEach((key, value) -> {
+                    stringBuilder.append(key);
+
+                    if (value != null && !value[0].equals("")) {
+                        stringBuilder.append(" [")
+                                .append(StringUtils.join(value, ", "))
+                                .append("]");
+                    }
+
+                    stringBuilder.append(", ");
+                });
+
+                break;
+            case ADMIN:
+                commandsAdmin.forEach((key, value) -> {
+                    stringBuilder.append(key);
+
+                    if (value != null && !value[0].equals("")) {
+                        stringBuilder.append(" [")
+                                .append(StringUtils.join(value, ", "))
+                                .append("]");
+                    }
+
+                    stringBuilder.append(", ");
+                });
+
+                break;
+            case OWNER:
+                commandsOwner.forEach((key, value) -> {
+                    stringBuilder.append(key);
+
+                    if (value != null && !value[0].equals("")) {
+                        stringBuilder.append(" [")
+                                .append(StringUtils.join(value, ", "))
+                                .append("]");
+                    }
+
+                    stringBuilder.append(", ");
+                });
+
+                break;
         }
+
+        String tmp = stringBuilder.toString();
+
+        return tmp.substring(0, tmp.length() - 2);
     }
 
     @Override

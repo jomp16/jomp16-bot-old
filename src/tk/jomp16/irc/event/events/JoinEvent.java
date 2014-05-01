@@ -26,12 +26,14 @@ public class JoinEvent extends Event {
 
     @Override
     public void respond() throws Exception {
-        ircManager.getEvents().forEach((event) -> {
+        Runnable runnable = () -> ircManager.getEvents().forEach((event) -> {
             try {
                 event.onJoin(new tk.jomp16.irc.event.listener.event.JoinEvent(ircManager, user, channel, null, LogManager.getLogger(event.getClass())));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
+
+        ircManager.getExecutor().execute(runnable);
     }
 }

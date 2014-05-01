@@ -1,3 +1,9 @@
 {
-
+    "OMDb_API_TITLE_WITHOUT_YEAR": "http://www.omdbapi.com/?t={0}",
+    "OMDb_API_TITLE_WITH_YEAR": "http://www.omdbapi.com/?t={0}&y={1}",
+    "OMDb_API_TITLE_WITH_TOMATOES_WITHOUT_YEAR": "http://www.omdbapi.com/?t={0}&tomatoes=true",
+    "OMDb_API_TITLE_WITH_TOMATOES_WITH_YEAR": "http://www.omdbapi.com/?t={0}&y={1}&tomatoes=true",
+    "IMDb_URL_TITLE": "http://www.imdb.com/title/{0}",
+    "RESPOND_WITHOUT_TOMATOES": "Title: {0}, year: {1}, rating: {2}, votes: {3}, IMDb URL: {4}",
+    "RESPOND_WITH_TOMATOES": "Title: {0}, year: {1}, rating: {2}, votes: {3}, tomato meter: {4}, tomato rating: {5}, tomato reviews: {6}, IMDb URL: {7}"
 }

@@ -23,8 +23,9 @@ import java.net.URL;
 public class Currency extends Event {
     private String URL_CURRENCY = "http://rate-exchange.appspot.com/currency?from=%s&to=%s&q=%s";
     private LanguageManager languageManager;
+    private Gson gson = new Gson();
 
-    @Command({"currency", "money"})
+    @Command(value = "currency", optCommands = "money")
     public void currency(CommandEvent commandEvent) throws Exception {
         if (commandEvent.getArgs().size() >= 3) {
             String quantity = commandEvent.getArgs().get(0).toUpperCase();
@@ -38,10 +39,9 @@ public class Currency extends Event {
             try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(url.openStream()))) {
                 JsonReader reader = new JsonReader(bufferedReader);
 
-                currencyJSON = new Gson().fromJson(reader, CurrencyJSON.class);
+                currencyJSON = gson.fromJson(reader, CurrencyJSON.class);
             }
 
-            //commandEvent.respond("Currency: " + quantity + " " + from + " to " + to + " equals " + currencyJSON.getV() + " || 1 " + from + " to " + to + " equals " + currencyJSON.getRate());
             commandEvent.respond(languageManager.getAsString("currency.respond", quantity, from, to, currencyJSON.getV(), currencyJSON.getRate()));
         } else {
             commandEvent.showUsage(this, commandEvent.getCommand());

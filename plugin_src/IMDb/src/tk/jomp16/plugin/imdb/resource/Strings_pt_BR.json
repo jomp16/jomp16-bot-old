@@ -1,3 +1,4 @@
 {
-
+    "RESPOND_WITHOUT_TOMATOES": "Título: {0}, ano: {1}, avaliação: {2}, votos: {3}, URL do IMDb: {4}",
+    "RESPOND_WITH_TOMATOES": "Título: {0}, ano: {1}, avaliação: {2}, votos: {3}, medidor tomato: {4}, avaliação tomato: {5}, resenhas tomato: {6}, URL do IMDb: {7}"
 }

@@ -50,7 +50,6 @@ public class PrivMsgParser extends Parser {
             message = message.substring(message.indexOf(' ') + 1);
         }
 
-        new PrivMsgEvent(ircManager, user, channel, message, tag);
-        return null;
+        return new PrivMsgEvent(ircManager, user, channel, message, tag);
     }
 }

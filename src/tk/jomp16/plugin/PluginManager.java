@@ -8,6 +8,7 @@
 package tk.jomp16.plugin;
 
 import com.google.gson.Gson;
+import tk.jomp16.ui.MainUI;
 
 import java.io.Closeable;
 import java.io.File;
@@ -39,7 +40,8 @@ public class PluginManager implements Closeable {
                 if (entry != null) {
                     PluginInfo pluginInfo = gson.fromJson(getPluginInfoInputStream(file), PluginInfo.class);
                     Plugin plugin =
-                            new Plugin(pluginInfo, pluginLoader.loadPluginEvent(file), pluginLoader.loadPluginUI(file));
+                            new Plugin(pluginInfo, pluginLoader.loadPluginEvent(file),
+                                    MainUI.isGui() ? pluginLoader.loadPluginUI(file) : null);
 
                     plugins.add(plugin);
                 }

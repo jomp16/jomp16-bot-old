@@ -31,7 +31,7 @@ public class KickEvent extends Event {
 
     @Override
     public void respond() throws Exception {
-        ircManager.getEvents().forEach((event) -> {
+        Runnable runnable = () -> ircManager.getEvents().forEach((event) -> {
             try {
                 tk.jomp16.irc.event.listener.event.KickEvent kickEvent =
                         new tk.jomp16.irc.event.listener.event.KickEvent(ircManager, user, channel,
@@ -45,5 +45,7 @@ public class KickEvent extends Event {
                 e.printStackTrace();
             }
         });
+
+        ircManager.getExecutor().execute(runnable);
     }
 }

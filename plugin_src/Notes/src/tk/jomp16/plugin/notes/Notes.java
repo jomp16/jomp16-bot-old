@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Notes extends Event {
     private SQLiteDatabase database;
@@ -35,7 +36,7 @@ public class Notes extends Event {
     public void onInit(InitEvent initEvent) throws Exception {
         initEvent.addHelp(this, new HelpRegister("notes", "Save/see a note for you or for a user", "add/see (when is add, usage is add (user for give a message to a user) or 'title' 'message' (to register and you will see it)"));
 
-        database = new NotesOpenHelper(initEvent.getPluginPath(this) + "/database.db", DATABASE_VERSION).getDatabase();
+        database = new NotesOpenHelper(initEvent.getStringPluginPath(this, "database.db"), DATABASE_VERSION).getDatabase();
 
         ResultSet resultSet = database.getResultSet("SELECT * FROM notes");
 
@@ -101,13 +102,7 @@ public class Notes extends Event {
                         try {
                             Integer tmpInt = Integer.parseInt(commandEvent.getArgs().get(1));
 
-                            List<NotesRegister> tmpNotes = new ArrayList<>();
-
-                            for (NotesRegister register : notes) {
-                                if (register.getUser().equals(commandEvent.getUser().getUserName())) {
-                                    tmpNotes.add(register);
-                                }
-                            }
+                            List<NotesRegister> tmpNotes = notes.stream().filter(register -> register.getUser().equals(commandEvent.getUser().getUserName())).collect(Collectors.toList());
 
                             if (tmpInt - 1 >= tmpNotes.size()) {
                                 commandEvent.respond("Integer great than note size!");
@@ -125,13 +120,7 @@ public class Notes extends Event {
                 if (commandEvent.getArgs().size() >= 2) {
                     if (commandEvent.getArgs().get(1).equals("all")) {
                         database.executeFastUpdateQuery("DELETE FROM notes WHERE user = ?", commandEvent.getUser().getUserName());
-                        List<NotesRegister> tmpNotes = new ArrayList<>();
-
-                        for (NotesRegister register : notes) {
-                            if (register.getUser().equals(commandEvent.getUser().getUserName())) {
-                                tmpNotes.add(register);
-                            }
-                        }
+                        List<NotesRegister> tmpNotes = notes.stream().filter(register -> register.getUser().equals(commandEvent.getUser().getUserName())).collect(Collectors.toList());
 
                         notes.removeAll(tmpNotes);
                     } else {

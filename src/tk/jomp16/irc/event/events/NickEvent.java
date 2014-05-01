@@ -31,7 +31,7 @@ public class NickEvent extends Event {
 
     @Override
     public void respond() throws Exception {
-        ircManager.getEvents().forEach((event) -> {
+        Runnable runnable = () -> ircManager.getEvents().forEach((event) -> {
             try {
                 tk.jomp16.irc.event.listener.event.NickEvent nickEvent =
                         new tk.jomp16.irc.event.listener.event.NickEvent(ircManager, user, channel,
@@ -44,5 +44,7 @@ public class NickEvent extends Event {
                 e.printStackTrace();
             }
         });
+
+        ircManager.getExecutor().execute(runnable);
     }
 }
