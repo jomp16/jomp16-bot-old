@@ -21,6 +21,8 @@ import tk.jomp16.irc.event.Level;
 import tk.jomp16.irc.event.listener.event.CommandEvent;
 import tk.jomp16.irc.user.User;
 import tk.jomp16.plugin.PluginInfo;
+import tk.jomp16.plugin.commands.Commands;
+import tk.jomp16.plugin.help.Help;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -28,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class PrivMsgEvent extends Event {
     public static IRCManager ircManager;
@@ -49,56 +52,44 @@ public class PrivMsgEvent extends Event {
         this.tag = tag;
     }
 
-    public static void reloadEvents() {
-        eventRegisters.clear();
-        registerArrayList();
-    }
-
     public static List<EventRegister> getEventRegisters() {
         return eventRegisters;
     }
 
-    private static void registerArrayList() {
-        ircManager.getEventMultimap().entries().forEach(entry -> {
-            Method[] methods = entry.getValue().getClass().getDeclaredMethods();
+    public static void addCommandsFromEvent(Event event) {
+        Method[] methods = event.getClass().getDeclaredMethods();
 
-            for (Method method : methods) {
-                Annotation annotation = method.getAnnotation(Command.class);
-                if (annotation != null) {
-                    method.setAccessible(true);
+        for (Method method : methods) {
+            Annotation annotation = method.getAnnotation(Command.class);
+            if (annotation != null) {
+                method.setAccessible(true);
 
-                    Command command = (Command) annotation;
+                Command command = (Command) annotation;
 
-                    /*for (String s : command.value()) {
-                        EventRegister eventRegister;
-                        PluginInfo pluginInfo = ircManager.getPluginInfoHashMap().get(entry.getKey());
+                EventRegister eventRegister;
+                PluginInfo pluginInfo = ircManager.getPluginInfoHashMap().get(event.getClass().getSimpleName());
 
-                        if (pluginInfo != null) {
-                            eventRegister =
-                                    new EventRegister(s, command.args(), pluginInfo, entry.getValue(), command.level(), method);
-                        } else {
-                            eventRegister =
-                                    new EventRegister(s, command.args(), entry.getValue(), command.level(), method);
-                        }
-
-                        eventRegisters.add(eventRegister);
-                    }*/
-
-                    EventRegister eventRegister;
-                    PluginInfo pluginInfo = ircManager.getPluginInfoHashMap().get(entry.getKey());
-
-                    if (pluginInfo != null) {
-                        eventRegister =
-                                new EventRegister(command.value(), command.optCommands(), command.args(), pluginInfo, entry.getValue(), command.level(), method);
-                    } else {
-                        eventRegister =
-                                new EventRegister(command.value(), command.optCommands(), command.args(), entry.getValue(), command.level(), method);
-                    }
-
-                    eventRegisters.add(eventRegister);
+                if (pluginInfo != null) {
+                    eventRegister =
+                            new EventRegister(command.value(), command.optCommands(), command.args(), pluginInfo, event, command.level(), method);
+                } else {
+                    eventRegister =
+                            new EventRegister(command.value(), command.optCommands(), command.args(), event, command.level(), method);
                 }
+
+                eventRegisters.add(eventRegister);
+                Commands.addCommand(eventRegister);
             }
+        }
+    }
+
+    public static void removeCommandsFromEventName(Event event) {
+        eventRegisters.parallelStream().filter(eventRegister -> eventRegister.event.equals(event)).collect(Collectors.toList()).forEach(eventRegister -> {
+            eventRegisters.remove(eventRegister);
+            Commands.removeCommand(eventRegister);
         });
+
+        Help.removeHelp(event);
     }
 
     @Override
@@ -120,10 +111,6 @@ public class PrivMsgEvent extends Event {
 
     private void runNormalAndAction() {
         parseLine(message);
-
-        if (eventRegisters.size() == 0) {
-            registerArrayList();
-        }
 
         try {
             invoke(eventRegisters, args, ircManager.getConfiguration().getPrefix());

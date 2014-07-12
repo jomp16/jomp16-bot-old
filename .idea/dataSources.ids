@@ -1,64 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source source="LOCAL" name="SQLite - jomp16-bot" uuid="83ae737b-c2bb-498a-a64a-c3216db8e216">
+  <data-source name="SQLite - jomp16-bot" uuid="83ae737b-c2bb-498a-a64a-c3216db8e216">
     <database-info product="SQLite" version="3.7.6.3" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native"/>
     <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed"/>
     <schema name="" catalog=""/>
     <table name="admins" schema="" catalog="" type="TABLE">
-      <column name="mask" sqlType="STRING" length="2000000000" precision="10" nullable="false" jdbcType="12"/>
+      <column name="mask" sqlType="STRING" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
     </table>
     <table name="bot_config" schema="" catalog="" type="TABLE">
-      <column name="nick" sqlType="STRING" length="2000000000" precision="10" nullable="false" jdbcType="12"/>
-      <column name="realName" sqlType="STRING" length="2000000000" precision="10" nullable="false" jdbcType="12"/>
-      <column name="identify" sqlType="STRING" length="2000000000" precision="10" nullable="false" jdbcType="12"/>
-      <column name="prefix" sqlType="STRING" length="2000000000" precision="10" nullable="false" jdbcType="12"/>
-      <column name="server" sqlType="STRING" length="2000000000" precision="10" nullable="false" jdbcType="12"/>
-      <column name="password" sqlType="STRING" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="nick" sqlType="STRING" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
+      <column name="realName" sqlType="STRING" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
+      <column name="password" sqlType="STRING" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
+      <column name="identify" sqlType="STRING" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
+      <column name="server" sqlType="STRING" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
+      <column name="prefix" sqlType="STRING" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
     </table>
-    <table name="joinChannel" schema="" catalog="" type="TABLE">
-      <column name="channel" sqlType="STRING" length="2000000000" precision="10" nullable="false" jdbcType="12"/>
+    <table name="joinChannels" schema="" catalog="" type="TABLE">
+      <column name="channel" sqlType="STRING" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
     </table>
     <table name="mods" schema="" catalog="" type="TABLE">
-      <column name="mask" sqlType="STRING" length="2000000000" precision="10" nullable="false" jdbcType="12"/>
+      <column name="mask" sqlType="STRING" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
     </table>
     <table name="owners" schema="" catalog="" type="TABLE">
-      <column name="mask" sqlType="STRING" length="2000000000" precision="10" nullable="false" jdbcType="12"/>
+      <column name="mask" sqlType="STRING" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
     </table>
     <table name="private_info" schema="" catalog="" type="TABLE">
-      <column name="databaseVersion" sqlType="INTEGER" length="2000000000" precision="10" nullable="false" jdbcType="4"/>
-    </table>
-  </data-source>
-  <data-source source="LOCAL" name="SQLite - Notes" uuid="721ee08f-0822-4780-bcc7-997128e4bae0">
-    <database-info product="SQLite" version="3.7.6.3" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native"/>
-    <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed"/>
-    <schema name="" catalog=""/>
-    <table name="notes" schema="" catalog="" type="TABLE">
-      <column name="user" sqlType="STRING" length="2000000000" precision="10" nullable="false" jdbcType="12"/>
-      <column name="title" sqlType="STRING" length="2000000000" precision="10" nullable="false" jdbcType="12"/>
-      <column name="message" sqlType="STRING" length="2000000000" precision="10" nullable="false" jdbcType="12"/>
-      <column name="date" sqlType="STRING" length="2000000000" precision="10" nullable="false" jdbcType="12"/>
-      <column name="time" sqlType="STRING" length="2000000000" precision="10" nullable="false" jdbcType="12"/>
-    </table>
-    <table name="private_info" schema="" catalog="" type="TABLE">
-      <column name="databaseVersion" sqlType="INTEGER" length="2000000000" precision="10" nullable="false" jdbcType="4"/>
-    </table>
-  </data-source>
-  <data-source source="LOCAL" name="SQLite - Play" uuid="b29ebe16-981b-4567-a519-bd50ca702cdd">
-    <database-info product="SQLite" version="3.7.6.3" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native"/>
-    <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed"/>
-    <schema name="" catalog=""/>
-    <table name="musics" schema="" catalog="" type="TABLE">
-      <column name="musicID" sqlType="INTEGER" length="2000000000" precision="10" nullable="true" jdbcType="4"/>
-      <column name="musicName" sqlType="STRING" length="2000000000" precision="10" nullable="false" jdbcType="12"/>
-      <column name="author" sqlType="STRING" length="2000000000" precision="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="musicID"/>
-    </table>
-    <table name="private_info" schema="" catalog="" type="TABLE">
-      <column name="databaseVersion" sqlType="INTEGER" length="2000000000" precision="10" nullable="false" jdbcType="4"/>
-    </table>
-    <table name="records" schema="" catalog="" type="TABLE">
-      <column name="musicID" sqlType="INTEGER" length="2000000000" precision="10" nullable="false" jdbcType="4"/>
-      <column name="content" sqlType="STRING" length="2000000000" precision="10" nullable="false" jdbcType="12"/>
+      <column name="databaseVersion" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
     </table>
   </data-source>
 </component>

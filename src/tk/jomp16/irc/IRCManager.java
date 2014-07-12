@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import tk.jomp16.configuration.Configuration;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.events.PrivMsgEvent;
+import tk.jomp16.irc.event.listener.event.DisableEvent;
 import tk.jomp16.irc.event.listener.event.InitEvent;
 import tk.jomp16.irc.output.OutputIRC;
 import tk.jomp16.irc.output.OutputRaw;
@@ -68,9 +69,11 @@ public class IRCManager {
         this.configuration = configuration;
         ircManager = this;
 
+        PrivMsgEvent.ircManager = this;
+
         Runtime.getRuntime().addShutdownHook(new Thread(ircManager::shutdown));
 
-        pluginManager = new PluginManager();
+        pluginManager = new PluginManager(this);
 
         File f = new File("plugins/data/");
 
@@ -82,6 +85,7 @@ public class IRCManager {
 
         loadPlugin();
 
+        registerEvent(new tk.jomp16.plugin.plugin.Plugin(), true);
         registerEvent(new About(), true);
         registerEvent(new Help(), true);
         registerEvent(new Commands(), true);
@@ -118,9 +122,6 @@ public class IRCManager {
     }
 
     public synchronized void connect() throws Exception {
-        PrivMsgEvent.ircManager = this;
-        PrivMsgEvent.reloadEvents();
-
         executor.execute(this::connect1);
 
         do {
@@ -135,31 +136,32 @@ public class IRCManager {
     private void loadPlugin() {
         try {
             pluginManager.loadAll();
-            plugins.addAll(pluginManager.getPlugins());
-            pluginManager.getPlugins().forEach(this::registerPluginEvent);
         } catch (Exception e) {
             log.error(e, e);
         }
     }
 
     public void registerEvent(Event event, boolean bundled) {
-        events.add(event);
-        eventMultimap.put(event.getClass().getSimpleName(), event);
-        eventMap.put(event.getClass().getSimpleName(), event);
-
-        if (bundled) {
-            bundledEvents.add(event);
-        }
-
         Runnable runnable = () -> {
             try {
                 event.onInit(new InitEvent(this, LogManager.getLogger(event.getClass())));
             } catch (Exception e) {
                 log.error(e, e);
             }
+
+            Help.addHelp(event);
         };
 
         executor.execute(runnable);
+
+        events.add(event);
+        eventMultimap.put(event.getClass().getSimpleName(), event);
+        eventMap.put(event.getClass().getSimpleName(), event);
+        PrivMsgEvent.addCommandsFromEvent(event);
+
+        if (bundled) {
+            bundledEvents.add(event);
+        }
     }
 
     public void registerPluginUI(PluginUI pluginUI, boolean bundled) {
@@ -172,7 +174,55 @@ public class IRCManager {
         }
     }
 
+    public void unregisterPluginEvent(Plugin plugin) {
+        if (pluginInfoHashMap.containsKey(plugin.getPluginInfo().getName())) {
+            Runnable runnable = () -> plugin.getEvents().forEach(event -> {
+                try {
+                    event.onDisable(new DisableEvent(this, LogManager.getLogger(event.getClass())));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                Help.addHelp(event);
+            });
+
+            executor.execute(runnable);
+
+            pluginInfoHashMap.remove(plugin.getPluginInfo().getName());
+
+            if (plugin.getPluginUIs() != null) {
+                plugin.getPluginUIs().parallelStream().forEach(pluginUI -> {
+                    pluginUIs.remove(pluginUI);
+                    pluginUIMap.remove(pluginUI.getClass().getSimpleName());
+                    pluginUIMultimap.removeAll(plugin.getPluginInfo().getName());
+                });
+            }
+
+            if (plugin.getEvents() != null) {
+                plugin.getEvents().parallelStream().forEach(event -> {
+                    PrivMsgEvent.removeCommandsFromEventName(event);
+
+                    events.remove(event);
+                    eventMap.remove(event.getClass().getSimpleName());
+                    eventMultimap.removeAll(plugin.getPluginInfo().getName());
+                });
+            }
+        }
+    }
+
     public void registerPluginEvent(Plugin plugin) {
+        Runnable runnable = () -> plugin.getEvents().forEach(event -> {
+            try {
+                event.onInit(new InitEvent(this, LogManager.getLogger(event.getClass())));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            Help.addHelp(event);
+        });
+
+        executor.execute(runnable);
+
         pluginInfoHashMap.put(plugin.getPluginInfo().getName(), plugin.getPluginInfo());
 
         // PluginUI start
@@ -190,18 +240,10 @@ public class IRCManager {
         if (plugin.getEvents() != null) {
             events.addAll(plugin.getEvents());
             eventMultimap.putAll(plugin.getPluginInfo().getName(), plugin.getEvents());
-            plugin.getEvents().parallelStream().forEach(event -> eventMap.put(event.getClass().getSimpleName(), event));
-
-
-            Runnable runnable = () -> plugin.getEvents().forEach(event -> {
-                try {
-                    event.onInit(new InitEvent(this, LogManager.getLogger(event.getClass())));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            plugin.getEvents().parallelStream().forEach(event -> {
+                eventMap.put(event.getClass().getSimpleName(), event);
+                PrivMsgEvent.addCommandsFromEvent(event);
             });
-
-            executor.execute(runnable);
         }
         // Event end
     }

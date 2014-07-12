@@ -8,29 +8,35 @@
 package tk.jomp16.plugin;
 
 import com.google.gson.Gson;
+import org.apache.commons.codec.digest.DigestUtils;
+import tk.jomp16.irc.IRCManager;
 import tk.jomp16.ui.MainUI;
 
 import java.io.Closeable;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import java.util.stream.Collectors;
 
 public class PluginManager implements Closeable {
     private List<Plugin> plugins = new ArrayList<>();
     private PluginLoader pluginLoader = new PluginLoader();
     private Gson gson;
+    private IRCManager ircManager;
 
-    public PluginManager() {
+    public PluginManager(IRCManager ircManager) {
+        this.ircManager = ircManager;
         this.gson = new Gson();
     }
 
     @SuppressWarnings("ConstantConditions")
     public void loadAll() throws Exception {
-        File f = new File(System.getProperty("user.dir").replace("\\", "/") + "/plugins");
+        File f = new File("plugins");
 
         for (File file : f.listFiles()) {
             if (file.getName().endsWith(".jar")) {
@@ -40,13 +46,91 @@ public class PluginManager implements Closeable {
                 if (entry != null) {
                     PluginInfo pluginInfo = gson.fromJson(getPluginInfoInputStream(file), PluginInfo.class);
                     Plugin plugin =
-                            new Plugin(pluginInfo, pluginLoader.loadPluginEvent(file),
+                            new Plugin(pluginInfo, DigestUtils.md5Hex(new FileInputStream(file)),
+                                    pluginLoader.loadPluginEvent(file),
                                     MainUI.isGui() ? pluginLoader.loadPluginUI(file) : null);
 
                     plugins.add(plugin);
+
+                    ircManager.registerPluginEvent(plugin);
                 }
             }
         }
+    }
+
+    public boolean loadPlugin(String pluginName) throws Exception {
+        File f = new File("plugins/" + pluginName + ".jar");
+
+        if (f.exists()) {
+            JarFile jarFile = new JarFile(f);
+            JarEntry entry = jarFile.getJarEntry("plugin.json");
+
+            if (entry != null) {
+                PluginInfo pluginInfo = gson.fromJson(getPluginInfoInputStream(f), PluginInfo.class);
+                Plugin plugin =
+                        new Plugin(pluginInfo, DigestUtils.md5Hex(new FileInputStream(f)),
+                                pluginLoader.loadPluginEvent(f),
+                                MainUI.isGui() ? pluginLoader.loadPluginUI(f) : null);
+
+                if (plugins.parallelStream().filter(plugin1 -> plugin1.getPluginInfo().getName().equals(plugin.getPluginInfo().getName())).count() != 0 &&
+                        plugins.parallelStream().filter(plugin1 -> plugin1.getMd5sums().equals(plugin.getMd5sums())).count() != 0) {
+                    return false;
+                }
+
+                plugins.add(plugin);
+
+                ircManager.registerPluginEvent(plugin);
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean reloadPlugin(String pluginName) throws Exception {
+        File f = new File("plugins/" + pluginName + ".jar");
+
+        if (f.exists()) {
+            JarFile jarFile = new JarFile(f);
+            JarEntry entry = jarFile.getJarEntry("plugin.json");
+
+            if (entry != null) {
+                PluginInfo pluginInfo = gson.fromJson(getPluginInfoInputStream(f), PluginInfo.class);
+                Plugin plugin =
+                        new Plugin(pluginInfo, DigestUtils.md5Hex(new FileInputStream(f)),
+                                pluginLoader.loadPluginEvent(f),
+                                MainUI.isGui() ? pluginLoader.loadPluginUI(f) : null);
+
+                if (plugins.parallelStream().filter(plugin1 -> plugin1.getPluginInfo().getName().equals(plugin.getPluginInfo().getName())).count() != 0 &&
+                        plugins.parallelStream().filter(plugin1 -> plugin1.getMd5sums().equals(plugin.getMd5sums())).count() == 0) {
+                    for (Plugin plugin1 : plugins.parallelStream().filter(plugin2 -> plugin2.getPluginInfo().getName().equals(plugin.getPluginInfo().getName())).collect(Collectors.toList())) {
+                        plugins.remove(plugin1);
+                        plugins.add(plugin);
+
+                        ircManager.unregisterPluginEvent(plugin1);
+                        ircManager.registerPluginEvent(plugin);
+                    }
+
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public boolean unloadPlugin(String unload) {
+        if (plugins.parallelStream().filter(plugin -> plugin.getPluginInfo().getName().equals(unload)).count() != 0) {
+            for (Plugin plugin1 : plugins.parallelStream().filter(plugin -> plugin.getPluginInfo().getName().equals(unload)).collect(Collectors.toList())) {
+                plugins.remove(plugin1);
+                ircManager.unregisterPluginEvent(plugin1);
+            }
+
+            return true;
+        }
+
+        return false;
     }
 
     private InputStreamReader getPluginInfoInputStream(File file) throws Exception {
@@ -57,6 +141,10 @@ public class PluginManager implements Closeable {
 
     public List<Plugin> getPlugins() {
         return plugins;
+    }
+
+    public PluginLoader getPluginLoader() {
+        return pluginLoader;
     }
 
     @Override

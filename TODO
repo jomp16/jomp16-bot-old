@@ -6,16 +6,14 @@ Work in @ConsoleCommand (like my old project had, this should be similar in @Com
 
 Change manual way to handle commands to jopt-simple
 
-ADD OPT COMMANDS INSIDE REAL COMMAND, LIKE on help: money [currency], other command [other opt command], other command
-
-Lower the RAM usage... (nevermind about it)
+Lower the RAM usage... (nevermind about it?)
 
 Change hardcoded string value to the language manager (multi language system) (in progress)
 Add more classes to handle the rest of the IRC commands
 
 Create a Manager plugin for manage the teh shit of bot, I dunno if I create this as internal or external plugin =( (Currently external plugin)
 
-Move Plugin manager to Manager plugin AND REWRITE all the teh plugin manager
+Move Plugin manager to Manager plugin
 
 See what I can do with [:moorcock.freenode.net, 333, jomp16-bot, #jomp16-bot, jomp16!~jomp16@unaffiliated/jomp16, 1376763658]
 

@@ -12,6 +12,7 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/jopt-simple-4.7-SNAPSHOT.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/log4j-api-2.0-rc1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/log4j-core-2.0-rc1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/commons-codec-1.8.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

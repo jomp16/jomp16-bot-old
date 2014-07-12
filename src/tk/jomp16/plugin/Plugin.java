@@ -16,9 +16,11 @@ public class Plugin {
     private PluginInfo pluginInfo;
     private List<Event> events;
     private List<PluginUI> pluginUIs;
+    private String md5sums;
 
-    public Plugin(PluginInfo pluginInfo, List<Event> events, List<PluginUI> pluginUIs) {
+    public Plugin(PluginInfo pluginInfo, String md5sums, List<Event> events, List<PluginUI> pluginUIs) {
         this.pluginInfo = pluginInfo;
+        this.md5sums = md5sums;
         this.events = events;
         this.pluginUIs = pluginUIs;
     }
@@ -33,5 +35,9 @@ public class Plugin {
 
     public List<PluginUI> getPluginUIs() {
         return pluginUIs;
+    }
+
+    public String getMd5sums() {
+        return md5sums;
     }
 }

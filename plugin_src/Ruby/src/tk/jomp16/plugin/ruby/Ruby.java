@@ -29,21 +29,29 @@ public class Ruby extends Event {
             scriptEngine.put("commandEvent", commandEvent);
 
             if (commandEvent.getOptionSet().has("url")) {
-                Object object = scriptEngine.eval(new InputStreamReader(
-                        new URL((String) commandEvent.getOptionSet().valueOf("url")).openStream()));
+                try {
+                    Object object = scriptEngine.eval(new InputStreamReader(
+                            new URL((String) commandEvent.getOptionSet().valueOf("url")).openStream()));
 
-                if (object != null) {
-                    if (!object.equals("null")) {
-                        commandEvent.respond(object, false);
+                    if (object != null) {
+                        if (!object.equals("null")) {
+                            commandEvent.respond(object, false);
+                        }
                     }
+                } catch (Exception e) {
+                    commandEvent.respond(e.getMessage());
                 }
             } else {
-                Object object = scriptEngine.eval(commandEvent.getMessage());
+                try {
+                    Object object = scriptEngine.eval(commandEvent.getMessage());
 
-                if (object != null) {
-                    if (!object.equals("null")) {
-                        commandEvent.respond(object, false);
+                    if (object != null) {
+                        if (!object.equals("null")) {
+                            commandEvent.respond(object, false);
+                        }
                     }
+                } catch (Exception e) {
+                    commandEvent.respond(e.getMessage());
                 }
             }
         } else {

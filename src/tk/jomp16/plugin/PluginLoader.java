@@ -35,7 +35,7 @@ public class PluginLoader implements Closeable {
         List<Event> events = new ArrayList<>();
 
         try {
-            File f = new File(System.getProperty("user.dir").replace("\\", "/") + "/plugins");
+            File f = new File("plugins");
 
             for (File file : f.listFiles()) {
                 if (file.getName().endsWith(".jar")) {

@@ -12,10 +12,8 @@ import tk.jomp16.irc.IRCManager;
 import tk.jomp16.irc.event.Command;
 import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.Level;
-import tk.jomp16.irc.event.events.PrivMsgEvent;
 import tk.jomp16.irc.event.listener.event.CommandEvent;
 import tk.jomp16.irc.event.listener.event.InitEvent;
-import tk.jomp16.irc.event.listener.event.ResetEvent;
 import tk.jomp16.language.LanguageManager;
 
 import java.util.HashMap;
@@ -29,63 +27,62 @@ public class Help extends Event {
     private static Map<String, HelpRegister> helpRegisters = new HashMap<>();
     private static LanguageManager languageManager;
 
-    private static void registerHelp() {
-        PrivMsgEvent.getEventRegisters().parallelStream().forEach(eventRegister -> eventRegister.event.getHelpRegister().parallelStream()
+    public static void addHelp(Event event) {
+        event.getHelpRegister().parallelStream()
                 .filter(helpRegister -> !helpRegisters.containsKey(helpRegister.getCommand()))
                 .forEach(helpRegister -> {
                     helpRegisters.put(helpRegister.getCommand(), helpRegister);
 
-                    addToList(helpRegister.getCommand(), helpRegister.getOptCommands(), helpRegister.getLevel());
-
-                    /*if (helpRegister.getOptCommands() != null && helpRegister.getOptCommands().length != 0) {
-                        for (String s : helpRegister.getOptCommands()) {
-                            if (!helpRegisters.containsKey(s)) {
-                                // TODO: ADD OPT COMMANDS INSIDE REAL COMMAND, LIKE on help: money [currency], other command [other opt command], other command
-                                helpRegisters.put(s, helpRegister);
-
-                                addToList(helpRegister.getCommand(), s, helpRegister.getLevel());
-                            }
-                        }
-                    }*/
-                }));
-
-        /*Collections.sort(helpNormal, String::compareTo);
-        Collections.sort(helpMod, String::compareTo);
-        Collections.sort(helpAdmin, String::compareTo);
-        Collections.sort(helpOwner, String::compareTo);*/
+                    switch (helpRegister.getLevel()) {
+                        case NORMAL:
+                            helpNormal.put(helpRegister.getCommand(), helpRegister.getOptCommands());
+                            helpMod.put(helpRegister.getCommand(), helpRegister.getOptCommands());
+                            helpAdmin.put(helpRegister.getCommand(), helpRegister.getOptCommands());
+                            helpOwner.put(helpRegister.getCommand(), helpRegister.getOptCommands());
+                            break;
+                        case MOD:
+                            helpMod.put(helpRegister.getCommand(), helpRegister.getOptCommands());
+                            helpAdmin.put(helpRegister.getCommand(), helpRegister.getOptCommands());
+                            helpOwner.put(helpRegister.getCommand(), helpRegister.getOptCommands());
+                            break;
+                        case ADMIN:
+                            helpAdmin.put(helpRegister.getCommand(), helpRegister.getOptCommands());
+                            helpOwner.put(helpRegister.getCommand(), helpRegister.getOptCommands());
+                            break;
+                        case OWNER:
+                            helpOwner.put(helpRegister.getCommand(), helpRegister.getOptCommands());
+                            break;
+                    }
+                });
     }
 
-    private static void addToList(String command, String[] command1, Level level) {
-        switch (level) {
-            case NORMAL:
-                helpNormal.put(command, command1);
-                helpMod.put(command, command1);
-                helpAdmin.put(command, command1);
-                helpOwner.put(command, command1);
-                break;
-            case MOD:
-                helpMod.put(command, command1);
-                helpAdmin.put(command, command1);
-                helpOwner.put(command, command1);
-                break;
-            case ADMIN:
-                helpAdmin.put(command, command1);
-                helpOwner.put(command, command1);
-                break;
-            case OWNER:
-                helpOwner.put(command, command1);
-                break;
-        }
-    }
+    public static void removeHelp(Event event) {
+        event.getHelpRegister().parallelStream()
+                .filter(helpRegister -> helpRegisters.containsKey(helpRegister.getCommand()))
+                .forEach(helpRegister -> {
+                    helpRegisters.remove(helpRegister.getCommand());
 
-    public static void reloadHelp() {
-        helpRegisters.clear();
-        helpNormal.clear();
-        helpMod.clear();
-        helpAdmin.clear();
-        helpOwner.clear();
-
-        registerHelp();
+                    switch (helpRegister.getLevel()) {
+                        case NORMAL:
+                            helpNormal.remove(helpRegister.getCommand());
+                            helpMod.remove(helpRegister.getCommand());
+                            helpAdmin.remove(helpRegister.getCommand());
+                            helpOwner.remove(helpRegister.getCommand());
+                            break;
+                        case MOD:
+                            helpMod.remove(helpRegister.getCommand());
+                            helpAdmin.remove(helpRegister.getCommand());
+                            helpOwner.remove(helpRegister.getCommand());
+                            break;
+                        case ADMIN:
+                            helpAdmin.remove(helpRegister.getCommand());
+                            helpOwner.remove(helpRegister.getCommand());
+                            break;
+                        case OWNER:
+                            helpOwner.remove(helpRegister.getCommand());
+                            break;
+                    }
+                });
     }
 
     public static Map<String, String[]> getHelpNormal() {
@@ -110,16 +107,26 @@ public class Help extends Event {
 
     @Command("help")
     public void help(CommandEvent commandEvent) throws Exception {
-        if (helpRegisters.size() == 0) {
-            registerHelp();
-        }
-
         if (commandEvent.getArgs().size() > 0) {
             if (commandEvent.getArgs().get(0).equals("all")) {
                 commandEvent.respond(languageManager.getAsString("help.text.available.commands", getAllHelp(commandEvent.getUser().getLevel())));
             } else {
-                if (helpRegisters.containsKey(commandEvent.getArgs().get(0))) {
-                    HelpRegister helpRegister = helpRegisters.get(commandEvent.getArgs().get(0));
+                final String[] tmp = {commandEvent.getArgs().get(0)};
+
+                if (helpRegisters.containsKey(tmp[0]) || helpRegisters.values().parallelStream().filter(register -> {
+                    if (register.getOptCommands() != null) {
+                        for (String command : register.getOptCommands()) {
+                            if (command.equals(tmp[0])) {
+                                tmp[0] = register.getCommand();
+
+                                return true;
+                            }
+                        }
+                    }
+
+                    return false;
+                }).count() != 0) {
+                    HelpRegister helpRegister = helpRegisters.get(tmp[0]);
                     Level level = commandEvent.getUser().getLevel();
 
                     switch (helpRegister.getLevel()) {
@@ -263,16 +270,5 @@ public class Help extends Event {
         initEvent.addHelp(this, new HelpRegister("help",
                 languageManager.getAsString("help.help.text"),
                 languageManager.getAsString("help.help.usage")));
-    }
-
-    @Override
-    public void onReset(ResetEvent resetEvent) throws Exception {
-        helpRegisters.clear();
-        helpNormal.clear();
-        helpMod.clear();
-        helpAdmin.clear();
-        helpOwner.clear();
-
-        registerHelp();
     }
 }

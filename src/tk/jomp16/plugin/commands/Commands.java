@@ -14,7 +14,6 @@ import tk.jomp16.irc.event.Level;
 import tk.jomp16.irc.event.events.PrivMsgEvent;
 import tk.jomp16.irc.event.listener.event.CommandEvent;
 import tk.jomp16.irc.event.listener.event.InitEvent;
-import tk.jomp16.irc.event.listener.event.ResetEvent;
 import tk.jomp16.language.LanguageManager;
 import tk.jomp16.plugin.help.HelpRegister;
 
@@ -26,70 +25,56 @@ public class Commands extends Event {
     private static Map<String, String[]> commandsMod = new HashMap<>();
     private static Map<String, String[]> commandsAdmin = new HashMap<>();
     private static Map<String, String[]> commandsOwner = new HashMap<>();
-    private static boolean flag = false;
     private LanguageManager languageManager;
 
-    private static void registerCommands() {
-        for (PrivMsgEvent.EventRegister register : PrivMsgEvent.getEventRegisters()) {
-            switch (register.level) {
-                case NORMAL:
-                    commandsNormal.put(register.command, register.optCommands);
-                    commandsMod.put(register.command, register.optCommands);
-                    commandsAdmin.put(register.command, register.optCommands);
-                    commandsOwner.put(register.command, register.optCommands);
-                    break;
-                case MOD:
-                    commandsMod.put(register.command, register.optCommands);
-                    commandsAdmin.put(register.command, register.optCommands);
-                    commandsOwner.put(register.command, register.optCommands);
-                    break;
-                case ADMIN:
-                    commandsAdmin.put(register.command, register.optCommands);
-                    commandsOwner.put(register.command, register.optCommands);
-                    break;
-                case OWNER:
-                    commandsOwner.put(register.command, register.optCommands);
-                    break;
-            }
-
-            flag = true;
+    public static void removeCommand(PrivMsgEvent.EventRegister register) {
+        switch (register.level) {
+            case NORMAL:
+                commandsNormal.remove(register.command);
+                commandsMod.remove(register.command);
+                commandsAdmin.remove(register.command);
+                commandsOwner.remove(register.command);
+                break;
+            case MOD:
+                commandsMod.remove(register.command);
+                commandsAdmin.remove(register.command);
+                commandsOwner.remove(register.command);
+                break;
+            case ADMIN:
+                commandsAdmin.remove(register.command);
+                commandsOwner.remove(register.command);
+                break;
+            case OWNER:
+                commandsOwner.remove(register.command);
+                break;
         }
-
-        /*Collections.sort(commandsNormal, String::compareTo);
-        Collections.sort(commandsMod, String::compareTo);
-        Collections.sort(commandsAdmin, String::compareTo);
-        Collections.sort(commandsOwner, String::compareTo);*/
     }
 
-    public static void reload() {
-        commandsNormal.clear();
-        commandsMod.clear();
-        commandsAdmin.clear();
-        commandsOwner.clear();
-        registerCommands();
+    public static void addCommand(PrivMsgEvent.EventRegister register) {
+        switch (register.level) {
+            case NORMAL:
+                commandsNormal.put(register.command, register.optCommands);
+                commandsMod.put(register.command, register.optCommands);
+                commandsAdmin.put(register.command, register.optCommands);
+                commandsOwner.put(register.command, register.optCommands);
+                break;
+            case MOD:
+                commandsMod.put(register.command, register.optCommands);
+                commandsAdmin.put(register.command, register.optCommands);
+                commandsOwner.put(register.command, register.optCommands);
+                break;
+            case ADMIN:
+                commandsAdmin.put(register.command, register.optCommands);
+                commandsOwner.put(register.command, register.optCommands);
+                break;
+            case OWNER:
+                commandsOwner.put(register.command, register.optCommands);
+                break;
+        }
     }
 
     @Command("commands")
     public void commands(CommandEvent commandEvent) {
-        if (!flag) {
-            registerCommands();
-        }
-
-        /*switch (commandEvent.getUser().getLevel()) {
-            case NORMAL:
-                commandEvent.respond(languageManager.getAsString("commands.text.available.commands", StringUtils.join(commandsNormal, ", ")));
-                break;
-            case MOD:
-                commandEvent.respond(languageManager.getAsString("commands.text.available.commands", StringUtils.join(commandsMod, ", ")));
-                break;
-            case ADMIN:
-                commandEvent.respond(languageManager.getAsString("commands.text.available.commands", StringUtils.join(commandsAdmin, ", ")));
-                break;
-            case OWNER:
-                commandEvent.respond(languageManager.getAsString("commands.text.available.commands", StringUtils.join(commandsOwner, ", ")));
-                break;
-        }*/
-
         commandEvent.respond(languageManager.getAsString("commands.text.available.commands", getAvailableCommands(commandEvent.getUser().getLevel())));
     }
 
@@ -165,10 +150,5 @@ public class Commands extends Event {
         languageManager = new LanguageManager("tk.jomp16.plugin.resource.Strings");
 
         initEvent.addHelp(this, new HelpRegister("commands", languageManager.getAsString("commands.help.text")));
-    }
-
-    @Override
-    public void onReset(ResetEvent resetEvent) throws Exception {
-        reload();
     }
 }
