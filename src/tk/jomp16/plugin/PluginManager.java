@@ -105,6 +105,8 @@ public class PluginManager implements Closeable {
                 if (plugins.parallelStream().filter(plugin1 -> plugin1.getPluginInfo().getName().equals(plugin.getPluginInfo().getName())).count() != 0 &&
                         plugins.parallelStream().filter(plugin1 -> plugin1.getMd5sums().equals(plugin.getMd5sums())).count() == 0) {
                     for (Plugin plugin1 : plugins.parallelStream().filter(plugin2 -> plugin2.getPluginInfo().getName().equals(plugin.getPluginInfo().getName())).collect(Collectors.toList())) {
+                        pluginLoader.closePluginClassLoader(pluginName);
+
                         plugins.remove(plugin1);
                         plugins.add(plugin);
 
@@ -120,9 +122,10 @@ public class PluginManager implements Closeable {
         return false;
     }
 
-    public boolean unloadPlugin(String unload) {
-        if (plugins.parallelStream().filter(plugin -> plugin.getPluginInfo().getName().equals(unload)).count() != 0) {
-            for (Plugin plugin1 : plugins.parallelStream().filter(plugin -> plugin.getPluginInfo().getName().equals(unload)).collect(Collectors.toList())) {
+    public boolean unloadPlugin(String pluginName) throws Exception {
+        if (plugins.parallelStream().filter(plugin -> plugin.getPluginInfo().getName().equals(pluginName)).count() != 0) {
+            for (Plugin plugin1 : plugins.parallelStream().filter(plugin -> plugin.getPluginInfo().getName().equals(pluginName)).collect(Collectors.toList())) {
+                pluginLoader.closePluginClassLoader(pluginName);
                 plugins.remove(plugin1);
                 ircManager.unregisterPluginEvent(plugin1);
             }

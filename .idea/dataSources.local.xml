@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="SQLite - jomp16-bot" uuid="83ae737b-c2bb-498a-a64a-c3216db8e216">
+      <secret-storage>memory</secret-storage>
+    </data-source>
+  </component>
+</project>
+

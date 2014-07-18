@@ -21,7 +21,7 @@ public class CyanogenMod extends Event {
     private Changelog changelog = new Changelog();
     private Supported supported = new Supported();
 
-    @Command(value = {"cyanogenmod", "cm"}, args = {"device::", "changelog:", "download:", "supported::", "all", "version:"})
+    @Command(value = "cyanogenmod", optCommands = "cm", args = {"device::", "changelog:", "download:", "supported::", "all", "version:"})
     public void cyanogenmod(CommandEvent commandEvent) throws Exception {
         commandEvent.getArgs().remove(0);
 

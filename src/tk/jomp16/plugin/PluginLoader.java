@@ -20,48 +20,12 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @SuppressWarnings("ConstantConditions")
 public class PluginLoader implements Closeable {
     private Logger log = LogManager.getLogger(this.getClass());
-    private List<URLClassLoader> urlClassLoaders = new ArrayList<>();
-
-    public List<Event> load() throws Exception {
-        urlClassLoaders.clear();
-
-        List<Event> events = new ArrayList<>();
-
-        try {
-            File f = new File("plugins");
-
-            for (File file : f.listFiles()) {
-                if (file.getName().endsWith(".jar")) {
-                    URL[] urls = new URL[]{file.toURI().toURL()};
-                    URLClassLoader urlClassLoader = new URLClassLoader(urls, ClassLoader.getSystemClassLoader());
-                    urlClassLoaders.add(urlClassLoader);
-
-                    Reflections reflections = new Reflections(new ConfigurationBuilder().addUrls(new URL("file:" + file.getPath())));
-                    Set<String> classes = reflections.getStore().getSubTypesOf(Event.class.getName());
-
-                    for (String s : classes) {
-                        Class<? extends Event> eventClass = Class.forName(s, true, urlClassLoader).asSubclass(Event.class);
-                        Constructor<? extends Event> eventConstructor = eventClass.getConstructor();
-
-                        Event event = eventConstructor.newInstance();
-
-                        events.add(event);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            log.error(e, e);
-        }
-
-        return events;
-    }
+    private Map<String, URLClassLoader> urlClassLoaders = new HashMap<>();
 
     public List<Event> loadPluginEvent(File pluginFile) throws Exception {
         if (pluginFile.getName().endsWith(".jar")) {
@@ -69,7 +33,7 @@ public class PluginLoader implements Closeable {
 
             URL[] urls = new URL[]{pluginFile.toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, ClassLoader.getSystemClassLoader());
-            urlClassLoaders.add(urlClassLoader);
+            urlClassLoaders.put(pluginFile.getName().replace(".jar", ""), urlClassLoader);
 
             Reflections reflections = new Reflections(new ConfigurationBuilder().addUrls(new URL("file:" + pluginFile.getPath())));
             Set<String> classes = reflections.getStore().getSubTypesOf(Event.class.getName());
@@ -95,7 +59,7 @@ public class PluginLoader implements Closeable {
 
             URL[] urls = new URL[]{pluginFile.toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, ClassLoader.getSystemClassLoader());
-            urlClassLoaders.add(urlClassLoader);
+            urlClassLoaders.put(pluginFile.getName().replace(".jar", ""), urlClassLoader);
 
             Reflections reflections = new Reflections(new ConfigurationBuilder().addUrls(new URL("file:" + pluginFile.getPath())));
             Set<String> classes = reflections.getStore().getSubTypesOf(PluginUI.class.getName());
@@ -115,9 +79,16 @@ public class PluginLoader implements Closeable {
         }
     }
 
+    public void closePluginClassLoader(String pluginName) throws Exception {
+        if (urlClassLoaders.containsKey(pluginName)) {
+            urlClassLoaders.get(pluginName).close();
+            urlClassLoaders.remove(pluginName);
+        }
+    }
+
     @Override
     public void close() {
-        for (URLClassLoader urlClassLoader : urlClassLoaders) {
+        for (URLClassLoader urlClassLoader : urlClassLoaders.values()) {
             try {
                 urlClassLoader.close();
             } catch (IOException e) {
