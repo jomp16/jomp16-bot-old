@@ -17,6 +17,8 @@ import tk.jomp16.irc.parser.ParserToken;
 import tk.jomp16.irc.user.User;
 
 public class PrivMsgParser extends Parser {
+    private CtcpParser ctcpParser = new CtcpParser();
+
     @Override
     public Event parse(IRCManager ircManager, ParserToken token) {
         if (token.getSource().getNick().equals(ircManager.getConfiguration().getNick())) {
@@ -39,7 +41,9 @@ public class PrivMsgParser extends Parser {
         PrivMsgEvent.PrivMSGTag tag = PrivMsgEvent.PrivMSGTag.NORMAL;
 
         if (message.startsWith("\u0001")) {
-            message = message.replace("\u0001", "");
+            return ctcpParser.parse(ircManager, token);
+
+            /*message = message.replace("\u0001", "");
 
             if (message.startsWith("PING ")) {
                 tag = PrivMsgEvent.PrivMSGTag.PING;
@@ -47,7 +51,7 @@ public class PrivMsgParser extends Parser {
                 tag = PrivMsgEvent.PrivMSGTag.ACTION;
             }
 
-            message = message.substring(message.indexOf(' ') + 1);
+            message = message.substring(message.indexOf(' ') + 1);*/
         }
 
         return new PrivMsgEvent(ircManager, user, channel, message, tag);

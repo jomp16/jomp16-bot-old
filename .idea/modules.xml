@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/plugin_src/Bash/Bash.iml" filepath="$PROJECT_DIR$/plugin_src/Bash/Bash.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugin_src/BasicFileServer/BasicFileServer.iml" filepath="$PROJECT_DIR$/plugin_src/BasicFileServer/BasicFileServer.iml" />
       <module fileurl="file://$PROJECT_DIR$/plugin_src/ChannelLogger/ChannelLogger.iml" filepath="$PROJECT_DIR$/plugin_src/ChannelLogger/ChannelLogger.iml" />
       <module fileurl="file://$PROJECT_DIR$/plugin_src/CodecUtils/CodecUtils.iml" filepath="$PROJECT_DIR$/plugin_src/CodecUtils/CodecUtils.iml" />
       <module fileurl="file://$PROJECT_DIR$/plugin_src/CyanogenMod/CyanogenMod.iml" filepath="$PROJECT_DIR$/plugin_src/CyanogenMod/CyanogenMod.iml" />

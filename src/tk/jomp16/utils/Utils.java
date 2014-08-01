@@ -9,6 +9,8 @@ package tk.jomp16.utils;
 
 import com.google.common.base.CharMatcher;
 
+import java.io.*;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,5 +50,55 @@ public class Utils {
         int exp = (int) (Math.log(bytes) / Math.log(unit));
         String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp - 1) + (si ? "" : "i");
         return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
+    }
+
+    public static void receiveDCCFile(Socket socket, File f, long startPosition) throws Exception {
+        try (BufferedInputStream socketInput = new BufferedInputStream(socket.getInputStream());
+             OutputStream socketOutput = socket.getOutputStream();
+             RandomAccessFile fileOutput = new RandomAccessFile(f.getCanonicalPath(), "rw")) {
+
+            fileOutput.seek(startPosition);
+
+            long bytesTransfered = 0;
+            byte[] inBuffer = new byte[1024];
+            byte[] outBuffer = new byte[4];
+            int bytesRead;
+            while ((bytesRead = socketInput.read(inBuffer, 0, inBuffer.length)) != -1) {
+                fileOutput.write(inBuffer, 0, bytesRead);
+                bytesTransfered += bytesRead;
+                // Send back an acknowledgement of how many bytes we have got so far.
+                // Convert bytesTransfered to an "unsigned, 4 byte integer in network byte order", per DCC specification
+                outBuffer[0] = (byte) ((bytesTransfered >> 24) & 0xff);
+                outBuffer[1] = (byte) ((bytesTransfered >> 16) & 0xff);
+                outBuffer[2] = (byte) ((bytesTransfered >> 8) & 0xff);
+                outBuffer[3] = (byte) (bytesTransfered & 0xff);
+                socketOutput.write(outBuffer);
+            }
+        }
+    }
+
+    public static void sendDCCFile(Socket socket, File f, long startPosition) throws Exception {
+        try (BufferedOutputStream socketOutput = new BufferedOutputStream(socket.getOutputStream());
+             BufferedInputStream socketInput = new BufferedInputStream(socket.getInputStream());
+             BufferedInputStream fileInput = new BufferedInputStream(new FileInputStream(f))) {
+
+            // Check for resuming.
+            if (startPosition > 0) {
+                long bytesSkipped = 0;
+                while (bytesSkipped < startPosition)
+                    bytesSkipped += fileInput.skip(startPosition - bytesSkipped);
+            }
+
+            byte[] outBuffer = new byte[1024];
+            byte[] inBuffer = new byte[4];
+            int bytesRead;
+            while ((bytesRead = fileInput.read(outBuffer, 0, outBuffer.length)) != -1) {
+                socketOutput.write(outBuffer, 0, bytesRead);
+                socketOutput.flush();
+                socketInput.read(inBuffer, 0, inBuffer.length);
+            }
+        }
+
+        socket.close();
     }
 }

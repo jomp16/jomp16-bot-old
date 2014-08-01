@@ -81,4 +81,11 @@ public class TestPlugin extends Event {
         commandEvent.respond(commandEvent.getMessage());
         commandEvent.respond(commandEvent.getRawMessage());
     }
+
+    @Command("ctcp")
+    public void ctcp(CommandEvent commandEvent) {
+        if (commandEvent.getArgs().size() >= 2) {
+            commandEvent.getIrcManager().getOutputCTCP().sendResponseNotice(commandEvent.getArgs().get(0), commandEvent.getArgs().get(1));
+        }
+    }
 }

@@ -16,6 +16,7 @@ import tk.jomp16.irc.event.Event;
 import tk.jomp16.irc.event.events.PrivMsgEvent;
 import tk.jomp16.irc.event.listener.event.DisableEvent;
 import tk.jomp16.irc.event.listener.event.InitEvent;
+import tk.jomp16.irc.output.OutputCTCP;
 import tk.jomp16.irc.output.OutputIRC;
 import tk.jomp16.irc.output.OutputRaw;
 import tk.jomp16.irc.parser.Parser;
@@ -57,6 +58,7 @@ public class IRCManager {
     private BufferedReader ircReader;
     private OutputRaw outputRaw;
     private OutputIRC outputIRC;
+    private OutputCTCP outputCTCP;
     private Configuration configuration;
     private IRCManager ircManager;
     private Logger log = LogManager.getLogger(this.getClass());
@@ -211,6 +213,8 @@ public class IRCManager {
     }
 
     public void registerPluginEvent(Plugin plugin) {
+        log.debug("registerPluginEvent()!");
+
         Runnable runnable = () -> plugin.getEvents().forEach(event -> {
             try {
                 event.onInit(new InitEvent(this, LogManager.getLogger(event.getClass())));
@@ -270,6 +274,10 @@ public class IRCManager {
 
     public OutputIRC getOutputIRC() {
         return outputIRC;
+    }
+
+    public OutputCTCP getOutputCTCP() {
+        return outputCTCP;
     }
 
     public PluginManager getPluginManager() {
@@ -359,6 +367,7 @@ public class IRCManager {
             ircReader = new BufferedReader(new InputStreamReader(ircSocket.getInputStream()));
             outputRaw = new OutputRaw(ircManager);
             outputIRC = new OutputIRC(ircManager);
+            outputCTCP = new OutputCTCP(ircManager);
 
             outputRaw.writeRaw("NICK " + configuration.getNick());
             outputRaw.writeRaw("USER " + configuration.getIdentify() + " 8 * :" + configuration.getRealName());

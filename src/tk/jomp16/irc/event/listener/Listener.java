@@ -125,25 +125,45 @@ public abstract class Listener {
         File file = new File("plugins/data/" + event.getClass().getSimpleName());
 
         if (!file.exists()) {
-            file.mkdir();
+            file.mkdirs();
         }
 
         return file;
     }
 
     public File getFilePluginPath(Event event, String addPath) {
-        return new File(getFilePluginPath(event), addPath);
+        File f = new File(getFilePluginPath(event), addPath);
+
+        if (!f.exists()) {
+            f.mkdirs();
+        }
+
+        return f;
     }
 
-    public String getPluginPath() {
+    public File getPluginPath(String addPath) {
+        if (pluginInfo != null) {
+            File f = new File(getPluginPath(), addPath);
+
+            if (!f.exists()) {
+                f.mkdirs();
+            }
+
+            return f;
+        }
+
+        throw new UnsupportedOperationException("PluginInfo is null!");
+    }
+
+    public File getPluginPath() {
         if (pluginInfo != null) {
             File f = new File("plugins/data/" + pluginInfo.getName());
 
             if (!f.exists()) {
-                f.mkdir();
+                f.mkdirs();
             }
 
-            return f.getPath();
+            return f;
         }
 
         throw new UnsupportedOperationException("PluginInfo is null!");

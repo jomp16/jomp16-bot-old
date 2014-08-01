@@ -57,10 +57,6 @@ public class OutputIRC {
         ircManager.getOutputRaw().writeRaw("PRIVMSG " + target + " :" + username + ": " + message);
     }
 
-    public void sendAction(Object target, Object action) {
-        ircManager.getOutputRaw().writeRaw("PRIVMSG " + target + " :\001ACTION " + action + "\001");
-    }
-
     public void changeNick(String nick) {
         Configuration.Builder builder = ircManager.getConfiguration().getBuilder();
         builder.setNick(nick);

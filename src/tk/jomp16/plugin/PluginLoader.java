@@ -79,6 +79,7 @@ public class PluginLoader implements Closeable {
         }
     }
 
+
     public void closePluginClassLoader(String pluginName) throws Exception {
         if (urlClassLoaders.containsKey(pluginName)) {
             urlClassLoaders.get(pluginName).close();

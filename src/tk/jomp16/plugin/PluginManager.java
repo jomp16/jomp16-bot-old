@@ -40,6 +40,8 @@ public class PluginManager implements Closeable {
 
         for (File file : f.listFiles()) {
             if (file.getName().endsWith(".jar")) {
+                System.out.println(file.getName());
+
                 JarFile jarFile = new JarFile(file);
                 JarEntry entry = jarFile.getJarEntry("plugin.json");
 

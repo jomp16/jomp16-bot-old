@@ -67,4 +67,12 @@ public abstract class Event {
     public void respond() throws Exception {
 
     }
+
+    public void onCtcp(CtcpEvent ctcpEvent) throws Exception {
+
+    }
+
+    public void onDccFileSendReceived(DccFileSendReceivedEvent dccFileSendReceivedEvent) throws Exception {
+
+    }
 }
